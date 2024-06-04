@@ -1,0 +1,39 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -2,11 +2,7 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit">
+-      <change afterPath="$PROJECT_DIR$/resources/views/admin/setting/system_setting/modals/time_attendance_devices.blade.php" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SystemSettingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SystemSettingController.php" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/resources/views/admin/setting/system_setting/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/setting/system_setting/index.blade.php" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -281,7 +277,8 @@
+       <workItem from="1707733970649" duration="966000" />
+       <workItem from="1707750706588" duration="1946000" />
+       <workItem from="1707915771594" duration="15577000" />
+-      <workItem from="1708011567673" duration="2087000" />
++      <workItem from="1708011567673" duration="2645000" />
++      <workItem from="1708241253366" duration="378000" />
+     </task>
+     <task id="LOCAL-00001" summary="edit">
+       <created>1692272515017</created>
+@@ -412,7 +409,7 @@
+                   <entry key="branch">
+                     <value>
+                       <list>
+-                        <option value="main" />
++                        <option value="workinh_houre" />
+                       </list>
+                     </value>
+                   </entry>
