@@ -161,7 +161,7 @@
                 <td>{{ $key->reference_number }}</td>
                 <td>{{ \Carbon\Carbon::parse($key->created_at)->format('Y-m-d') }}</td>
                 <td>
-                    @if($key->type == 'purchase' || $key->type == 'payment_bond' || $key->type == 'return_sales')
+                    @if($key->type == 'purchase' || $key->type == 'payment_bond' || $key->type == 'return_sales' || $key->type == 'registration_bond_credit')
                         {{ $key->amount }}
                         @php
                             $sumCreditor += $key->amount;
@@ -172,7 +172,7 @@
                     @endif
                 </td>
                 <td>
-                    @if($key->type == 'sales' || $key->type == 'performance_bond' || $key->type == 'return_purchase')
+                    @if($key->type == 'sales' || $key->type == 'performance_bond' || $key->type == 'return_purchase' || $key->type == 'registration_bond_debt')
                         {{ $key->amount }}
                         @php
                             $sumDebtor += $key->amount;
@@ -194,6 +194,10 @@
                         فاتورة مشتريات
                     @elseif($key->type == 'performance_bond')
                         سند صرف
+                    @elseif($key->type == 'registration_bond_debt')
+                        سند قيد
+                    @elseif($key->type == 'registration_bond_credit')
+                        سند قيد
                     @elseif($key->type == 'return_purchase')
                         مردود مشتريات
                     @endif
