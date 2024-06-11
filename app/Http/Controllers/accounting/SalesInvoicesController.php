@@ -9,6 +9,7 @@ use App\Models\DocAmountModel;
 use App\Models\InvoiceItemsModel;
 use App\Models\OrderItemsModel;
 use App\Models\OrderModel;
+use App\Models\OrdersSalesModel;
 use App\Models\PriceOfferItemsModel;
 use App\Models\PriceOfferSalesItemsModel;
 use App\Models\PriceOfferSalesModel;
@@ -27,7 +28,7 @@ class SalesInvoicesController extends Controller
 {
     public function index(){
         $data = PurchaseInvoicesModel::where('invoice_type','sales')->get();
-        $users = User::whereJsonContains('user_role',['4'])->get();
+        $users = User::whereJsonContains('user_role',['10'])->orWhereJsonContains('user_role',['4'])->get();
         return view('admin.accounting.sales_invoices.index',['data'=>$data,'users'=>$users]);
     }
 
@@ -210,6 +211,7 @@ class SalesInvoicesController extends Controller
         }
     }
 
+    // انشاء فاتورة من عرض سعر
     public function create_purchase_invoices_from_order(Request $request){
         $data = new PurchaseInvoicesModel();
 //        $order = OrderModel::where('id',$request->order_id)->first();
@@ -281,16 +283,26 @@ class SalesInvoicesController extends Controller
     }
 
     public function search_order_ajax(Request $request){
-        $data = PriceOfferSalesModel::where('customer_id','like','%'.$request->supplier_id.'%')->get();
+        $data = OrdersSalesModel::where('user_id','like','%'.$request->supplier_id.'%')->get();
         foreach ($data as $key){
-            $key->client = User::where('id',$key->customer_id)->first();
-            $key->currency = CurrencyModel::where('id',$key->currency_id)->first();
+            $key->client = User::where('id',$key->user_id)->first();
+            $key->currency = CurrencyModel::where('id',$key->currency)->first();
             $key->price_offers = PurchaseInvoicesModel::where('price_offer_sales_id',$key->id)->get();
         }
         return response()->json([
             'success'=>'true',
             'view'=>view('admin.accounting.sales_invoices.ajax.search_order',['data'=>$data])->render(),
         ]);
+//        $data = PriceOfferSalesModel::where('customer_id','like','%'.$request->supplier_id.'%')->get();
+//        foreach ($data as $key){
+//            $key->client = User::where('id',$key->customer_id)->first();
+//            $key->currency = CurrencyModel::where('id',$key->currency_id)->first();
+//            $key->price_offers = PurchaseInvoicesModel::where('price_offer_sales_id',$key->id)->get();
+//        }
+//        return response()->json([
+//            'success'=>'true',
+//            'view'=>view('admin.accounting.sales_invoices.ajax.search_order',['data'=>$data])->render(),
+//        ]);
     }
 
     public function update_invoice_reference_number_ajax(Request $request){
@@ -370,4 +382,5 @@ class SalesInvoicesController extends Controller
         $pdf = PDF::loadView('admin.accounting.sales_invoices.invoices.pdf.sales_invoice',['data'=>$data,'invoice'=>$invoice,'total'=>$total,'final_total'=>$final_total,'system_setting'=>$system_setting]);
         return $pdf->stream('sales_invoice.pdf');
     }
+
 }

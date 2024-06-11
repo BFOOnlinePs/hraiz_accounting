@@ -65,6 +65,7 @@
                         <li><a href="{{ route('accounting.sales_invoices.index') }}" class="dropdown-item">فواتير مبيعات</a></li>
                         <li><a href="{{ route('price_offer_sales.index') }}" class="dropdown-item">عروض اسعار البيع</a></li>
                         <li><a href="{{ route('accounting.returns.index') }}" class="dropdown-item">مردود مبيعات</a></li>
+                        <li><a href="{{ route('accounting.orders_sales.index') }}" class="dropdown-item">طلبيات البيع</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -82,6 +83,7 @@
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li><a href="{{ route('accounting.bonds.performance_bond.performance_bond_index') }}" class="dropdown-item">سندات صرف</a></li>
                         <li><a href="{{ route('accounting.bonds.payment_bond.index') }}" class="dropdown-item">سندات قبض</a></li>
+                        <li><a href="{{ route('accounting.bonds.registration_bonds.registration_bonds_index') }}" class="dropdown-item">سندات قيد</a></li>
                         <li><a href="{{ route('accounting.bonds.check.index') }}" class="dropdown-item">محفظة الشيكات</a></li>
                     </ul>
                 </li>

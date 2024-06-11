@@ -23,7 +23,7 @@
         فاتورة جديدة
     </a>
     <button type="button" class="btn btn-dark mb-2" data-toggle="modal" data-target="#modal-lg">
-        فاتورة من عرض سعر
+        فاتورة من طلبيات بيع
     </button>
     <div class="card p-3">
         <div class="row">
@@ -144,7 +144,7 @@
                 <input type="hidden" name="invoice_type" value="sales">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">فاتورة من عرض سعر</h4>
+                        <h4 class="modal-title">فاتورة من طلبية سعر</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -165,11 +165,18 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="">المورد</label>
+                                    <label for="">مورد او زبون</label>
                                     <select class="form-control select2bs4" name="supplier_id" onchange="search_order_ajax()" id="supplier_id">
-                                        <option value="">اختر المورد</option>
+                                        <option value="">جميع الموردين والزبائن</option>
                                         @foreach ($users as $key)
-                                            <option value="{{ $key->id }}">{{ $key->name }}</option>
+                                            <option value="{{ $key->id }}">{{ $key->name }}
+{{--                                                لمعرفة صلاحية المستخدم --}}
+                                                <span>(</span>
+                                                @foreach(json_decode($key->user_role) as $key)
+                                                     {{ \App\Models\UserRole::where('id',$key)->first()->name }} ,
+                                                @endforeach
+                                                <span>)</span>
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>

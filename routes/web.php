@@ -656,6 +656,11 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
             Route::post('update_check_type_ajax',[App\Http\Controllers\accounting\CheckController::class , 'update_check_type_ajax'])->name('accounting.bonds.check.update_check_type_ajax');
             Route::post('update_check_amount_ajax',[App\Http\Controllers\accounting\CheckController::class , 'update_check_amount_ajax'])->name('accounting.bonds.check.update_check_amount_ajax');
         });
+        Route::group(['prefix'=>'registration_bonds'],function (){
+            Route::get('registration_bonds_index',[App\Http\Controllers\accounting\BondsController::class , 'registration_bonds_index'])->name('accounting.bonds.registration_bonds.registration_bonds_index');
+            Route::post('registration_bonds_list_ajax',[App\Http\Controllers\accounting\BondsController::class , 'registration_bonds_list_ajax'])->name('accounting.bonds.registration_bonds.registration_bonds_list_ajax');
+            Route::post('create_registration_bonds',[App\Http\Controllers\accounting\BondsController::class , 'create_registration_bonds'])->name('accounting.bonds.registration_bonds.create_registration_bonds');
+        });
     });
     Route::group(['prefix'=>'account_statement'],function (){
         Route::get('customer_account_statement_index',[\App\Http\Controllers\accounting\AccountStatementController::class,'customer_account_statement_index'])->name('accounting.customer_account_statement_index');
@@ -680,6 +685,17 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('returns_table_ajax',[\App\Http\Controllers\accounting\ReturnsController::class,'returns_table_ajax'])->name('accounting.returns.returns_table_ajax');
         Route::get('returns_pdf/{id}',[\App\Http\Controllers\accounting\ReturnsController::class,'returns_pdf'])->name('accounting.returns.returns_pdf');
         Route::post('update_wherehouse',[\App\Http\Controllers\accounting\ReturnsController::class,'update_wherehouse'])->name('accounting.returns.update_wherehouse');
+    });
+    Route::group(['prefix'=>'orders_sales'],function (){
+        Route::get('index',[\App\Http\Controllers\accounting\OrdersSalesController::class,'index'])->name('accounting.orders_sales.index');
+        Route::post('list_orders_sales_ajax',[\App\Http\Controllers\accounting\OrdersSalesController::class,'list_orders_sales_ajax'])->name('accounting.orders_sales.list_orders_sales_ajax');
+        Route::post('product_list_ajax',[\App\Http\Controllers\accounting\OrdersSalesController::class,'product_list_ajax'])->name('accounting.orders_sales.product_list_ajax');
+        Route::post('create',[\App\Http\Controllers\accounting\OrdersSalesController::class,'create'])->name('accounting.orders_sales.create');
+        Route::get('orders_sales_details/{order_id}',[\App\Http\Controllers\accounting\OrdersSalesController::class,'orders_sales_details'])->name('accounting.orders_sales.orders_sales_details');
+        Route::post('orders_sales_items_list_ajax',[\App\Http\Controllers\accounting\OrdersSalesController::class,'orders_sales_items_list_ajax'])->name('accounting.orders_sales.orders_sales_items_list_ajax');
+        Route::post('create_orders_sales_items',[\App\Http\Controllers\accounting\OrdersSalesController::class,'create_orders_sales_items'])->name('accounting.orders_sales.create_orders_sales_items');
+        Route::post('update_orders_sales_items',[\App\Http\Controllers\accounting\OrdersSalesController::class,'update_orders_sales_items'])->name('accounting.orders_sales.update_orders_sales_items');
+        Route::post('delete_orders_sales_items',[\App\Http\Controllers\accounting\OrdersSalesController::class,'delete_orders_sales_items'])->name('accounting.orders_sales.delete_orders_sales_items');
     });
 });
 

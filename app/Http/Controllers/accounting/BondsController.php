@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 class BondsController extends Controller
 {
     public function index(){
-        $data = BondsModel::orderBy(',id','desc')->get();
+        $data = BondsModel::orderBy('id','desc')->get();
         $invoices = PurchaseInvoicesModel::where('invoice_type','sales')->get();
         $currencies = Currency::get();
         $users = User::whereJsonContains('user_role',['2'])->get();
@@ -125,7 +125,7 @@ class BondsController extends Controller
         $invoices = PurchaseInvoicesModel::where('invoice_type','purchases')->get();
         $currencies = Currency::get();
         $users = User::whereJsonContains('user_role',['2'])->get();
-        $clients = User::whereJsonContains('user_role',['10'])->get();
+        $clients = User::whereJsonContains('user_role',['4'])->get();
         return view('admin.accounting.bonds.performance_bond.index',['data'=>$data,'invoices'=>$invoices,'currencies'=>$currencies,'users'=>$users,'clients'=>$clients]);
     }
 
@@ -187,7 +187,7 @@ class BondsController extends Controller
             $data->check_status = $request->check_status;
         }
 
-        $doc_amount->type = 'payment_bond';
+        $doc_amount->type = 'performance_bond';
         $doc_amount->invoice_id = $request->invoice_id;
         $doc_amount->amount = $request->amount;
         $doc_amount->reference_number = $request->reference_number;
@@ -313,6 +313,73 @@ class BondsController extends Controller
                 'success' => 'true',
                 'message' => 'تم تعديل معلومات البنك بنجاح'
             ]);
+        }
+    }
+
+    public function registration_bonds_index()
+    {
+        $client = User::whereJsonContains('user_role','4')->orWhereJsonContains('user_role','10')->get();
+        $currency = Currency::get();
+        return view('admin.accounting.bonds.registration_bonds.index',['client'=>$client,'currency'=>$currency]);
+    }
+
+    public function registration_bonds_list_ajax(Request $request)
+    {
+        $data = BondsModel::where('invoice_type','registration_bonds')->get();
+        foreach ($data as $key){
+            $key->client = User::where('id',$key->client_id)->first();
+            $key->currency = Currency::where('id',$key->currency_id)->first();
+        }
+        return response()->json([
+            'success' => 'true',
+            'view' => view('admin.accounting.bonds.registration_bonds.ajax.registration_bonds_list',['data'=>$data])->render()
+        ]);
+    }
+
+    public function create_registration_bonds(Request $request)
+    {
+        $data = new BondsModel();
+//        $data->invoice_id = $request->invoice_id;
+        $data->invoice_id = -1;
+        $data->client_id = $request->client_id;
+        $data->amount = $request->amount;
+        $data->notes = $request->notes;
+        $data->currency_id = $request->currency_id;
+        $data->payment_type = $request->payment_type;
+        $data->insert_by = auth()->user()->id;
+        $data->check_number = $request->check_number;
+        $data->due_date = $request->due_date;
+        $data->bank_name = $request->bank_name;
+        $data->invoice_type = 'registration_bonds';
+        $data->bank_name = $request->bank_name;
+        $data->check_status = $request->check_status;
+        $data->check_status = $request->check_status;
+        $data->debt_credit = $request->debt_credit;
+
+        $doc_amount = new DocAmountModel();
+        if ($request->cash_for_client == 'cash'){
+            $data->payment_type = 'cash';
+        }
+        else{
+            $data->payment_type = 'cash';
+        }
+        if($request->debt_credit == 'debt'){
+            $data->check_type = 'incoming';
+            $data->debt_credit = 'debt';
+            $doc_amount->type = 'registration_bond_debt';
+        }
+        else{
+            $data->debt_credit = 'credit';
+            $data->check_type = 'outgoing';
+            $doc_amount->type = 'registration_bond_credit';
+        }
+        $doc_amount->invoice_id = -1;
+        $doc_amount->amount = $request->amount;
+        $doc_amount->currency = $request->curreny_id;
+        $doc_amount->client_id = $request->client_id;
+        $doc_amount->save();
+        if ($data->save()){
+            return redirect()->route('accounting.bonds.registration_bonds.registration_bonds_index')->with('تم اضافة سند القيد بنجاح');
         }
     }
 }

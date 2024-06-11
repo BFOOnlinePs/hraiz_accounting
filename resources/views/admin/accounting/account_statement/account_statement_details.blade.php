@@ -70,7 +70,6 @@
 @section('script')
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
-
         $(document).ready(function () {
             account_statement_details_table_ajax();
         });
@@ -85,11 +84,11 @@
                 method:'POST',
                 header:headers,
                 data:{
+                    '_token': csrfToken,
                     'user_id':{{ $user->id }},
                     'reference_number' : $('#reference_number').val(),
                     'from':$('#from').val(),
                     'to':$('#to').val(),
-                    '_token': csrfToken
                 },
                 success:function (data) {
                     console.log(data);

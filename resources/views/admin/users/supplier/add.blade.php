@@ -50,7 +50,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="">الايميل</label>
-                                                        <input required value="{{ old('email') }}" name="email" placeholder="الايميل" class="form-control"
+                                                        <input value="{{ old('email') }}" name="email" placeholder="الايميل" class="form-control"
                                                                type="text">
                                                         @error('email')
                                                         <span class="text-danger">{{ $message }}</span>

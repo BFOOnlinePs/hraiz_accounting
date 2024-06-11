@@ -198,7 +198,9 @@
                         مردود مشتريات
                     @endif
                 </td>
-                <td><a href="{{ route('accounting.purchase_invoices.invoice_view',['id'=>$key->invoice_id]) }}" class="btn btn-warning btn-sm"><span class="fa fa-search"></span></a></td>
+                <td>
+{{--                    <a href="{{ route('accounting.purchase_invoices.invoice_view',['id'=>$key->invoice_id]) }}" class="btn btn-warning btn-sm"><span class="fa fa-search"></span></a>--}}
+                </td>
             </tr>
         @endforeach
         <tr class="bg-dark">

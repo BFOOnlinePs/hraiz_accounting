@@ -47,7 +47,7 @@ class PurchaseInvoicesController extends Controller
     }
 
     public function new_invoices_index(){
-        $client = User::whereJsonContains('user_role',['10'])->get();
+        $client = User::whereJsonContains('user_role',['4'])->get();
         $taxes = TaxesModel::get();
         $wherehouses = WhereHouseModel::get();
         return view('admin.accounting.purchase_invoices.new_invoice.index',['client'=>$client,'taxes'=>$taxes,'wherehouses'=>$wherehouses]);

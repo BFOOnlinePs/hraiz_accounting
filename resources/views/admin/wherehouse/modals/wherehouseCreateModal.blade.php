@@ -42,7 +42,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">المسؤول عن المخزن</label>
-                                <select class="form-control select2bs4" name="wherehouse_store_manager">
+                                <select required class="form-control select2bs4" name="wherehouse_store_manager">
                                     <option value="">اختر مسؤول ...</option>
                                     @foreach($employee as $key)
                                         <option value="{{ $key->id }}">{{ $key->name }}</option>

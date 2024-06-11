@@ -19,14 +19,14 @@
                     <td>{{ \Carbon\Carbon::parse($key->insert_at)->toDateString() }}</td>
 
                     <td>{{ $key->notes }}</td>
-                    <td>{{ $key->currency->currency_name }}</td>
+                    <td>{{ $key->currency->currency_name ?? '' }}</td>
                     <td>
                         @foreach($key->price_offers as $price_offer)
                             <a style="display: inline" href="{{ route('accounting.sales_invoices.invoice_view',['id'=>$price_offer->id]) }}">{{ $price_offer->created_at }}</a>
                         @endforeach
                     </td>
                     <td>
-                        <button onclick="get_order_id({{ $key->id }},{{ $key->client->id }})" type="submit" class="btn btn-success btn-sm"><span class="fa fa-check"></span>&nbsp; انشاء فاتورة من عرض السعر</button>
+                        <button onclick="get_order_id({{ $key->id }},{{ $key->client->id }})" type="submit" class="btn btn-success btn-sm"><span class="fa fa-check"></span>&nbsp; انشاء فاتورة من طلبية بيع</button>
                     </td>
                 </tr>
             @endforeach

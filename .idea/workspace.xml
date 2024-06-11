@@ -5,9 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/bonds/registration_bonds/ajax/registration_bonds_list.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/bonds/registration_bonds/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/bonds/registration_bonds/modals/add_registration_modal.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/list_product_details.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/orders_sales_ajax.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/product_list_ajax.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/modals/add_orders_sales.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/modals/add_product_modal.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/orders_sales_details.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/accounting/BondsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/accounting/BondsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2024_06_04_092429_test_test.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/accounting/PurchaseInvoicesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/accounting/PurchaseInvoicesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/accounting/SalesInvoicesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/accounting/SalesInvoicesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/account_statement/account_statement_details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/account_statement/account_statement_details.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/account_statement/ajax/account_statement_details_table.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/account_statement/ajax/account_statement_details_table.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/account_statement/pdf/account_statement_details_pdf.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/account_statement/pdf/account_statement_details_pdf.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/sales_invoices/ajax/search_order.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/sales_invoices/ajax/search_order.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/sales_invoices/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/sales_invoices/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/product/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/product/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/clients/add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/clients/add.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/supplier/add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/supplier/add.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/wherehouse/modals/wherehouseCreateModal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/wherehouse/modals/wherehouseCreateModal.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +53,12 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AbuMaraqa&quot;
+  }
+}</component>
   <component name="GithubProjectSettings">
     <option name="branchProtectionPatterns">
       <list>
@@ -38,6 +66,12 @@
       </list>
     </option>
   </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/BFOOnlinePs/hraiz_accounting.git&quot;,
+    &quot;accountId&quot;: &quot;b5d94f18-873b-47f1-995b-a6ef3f6070d1&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -340,7 +374,7 @@
       <recent name="$PROJECT_DIR$/resources/views/admin/orders" />
     </key>
   </component>
-  <component name="RunManager" selected="PHPUnit.e">
+  <component name="RunManager" selected="JavaScript Debug.price_offer_sales_items.blade.php">
     <configuration name="price_offer_sales_items.blade.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://ftp.talabati.ps/resources/views/admin/sales/price_offer_sales/price_offer_sales_items/pdf/price_offer_sales_items.blade.php">
       <method v="2" />
     </configuration>
@@ -496,7 +530,15 @@
       <workItem from="1717411123068" duration="3182000" />
       <workItem from="1717488510406" duration="641000" />
       <workItem from="1717489164206" duration="8973000" />
-      <workItem from="1717832618374" duration="71000" />
+      <workItem from="1717832618374" duration="1751000" />
+      <workItem from="1717914632407" duration="16347000" />
+      <workItem from="1717936552715" duration="581000" />
+      <workItem from="1718036388921" duration="2372000" />
+      <workItem from="1718085556875" duration="6589000" />
+      <workItem from="1718096370641" duration="602000" />
+      <workItem from="1718103923673" duration="118000" />
+      <workItem from="1718104801540" duration="5103000" />
+      <workItem from="1718111684684" duration="735000" />
     </task>
     <task id="LOCAL-00001" summary="edit">
       <created>1692272515017</created>
