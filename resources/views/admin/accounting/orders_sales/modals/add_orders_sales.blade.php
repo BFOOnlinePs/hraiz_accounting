@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">الرقم المرجعي</label>
-                            <input type="text" class="form-control" name="reference_number" placeholder="الرقم المرجعي">
+                            <input required type="text" class="form-control" name="reference_number" placeholder="الرقم المرجعي">
                         </div>
                     </div>
                 </div>
