@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/orders_sales_ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/orders_sales_ajax.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/modals/add_orders_sales.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/modals/add_orders_sales.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -524,7 +524,7 @@
       <workItem from="1719214769755" duration="828000" />
       <workItem from="1719216262009" duration="2512000" />
       <workItem from="1721036199980" duration="19000" />
-      <workItem from="1721800111461" duration="510000" />
+      <workItem from="1721800111461" duration="1783000" />
     </task>
     <task id="LOCAL-00001" summary="edit">
       <created>1692272515017</created>
