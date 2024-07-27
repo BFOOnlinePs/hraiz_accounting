@@ -163,6 +163,7 @@
             $.ajax({
                 url: '{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_table_ajax') }}',
                 method: 'post',
+                method: 'post',
                 headers: headers,
                 data: {
                     'price_offer_sales_id':{{ $price_offer_sales->id }},

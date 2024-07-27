@@ -20,23 +20,23 @@
     @include('admin.messge_alert.fail')
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-dark" onclick="open_add_product_modal()">اضافة اصناف</button>
+            <button class="btn btn-dark" @if($data->order_status == 'invoice_has_been_posted') disabled @endif onclick="open_add_product_modal()">اضافة اصناف</button>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    @if($data->status == 'stage')
+                    @if($data->order_status == 'invoice_has_been_posted')
                         <div class="alert alert-success text-center">
-                            تم ترحيل هذه الفاتورة بنجاح
+                            تم ترحيل طلبية البيع بنجاح
                         </div>
                     @endif
 {{--                    <a href="" class="btn btn-warning"><span class="fa fa-print"></span></a>--}}
                     @if($data->price_offer_sales_id != null)
                         <div class="row text-center">
                             <div class="col-md-12 alert alert-info">
-                                تم انشاء هذه الفاتورة استناداً لعرض سعر رقم <a href="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_index',['id' => $data->price_offer_sales_id]) }}" target="_blank" class="btn btn-dark btn-sm">{{ $data->price_offer_sales_id }}</a> وتم اضافة التاريخ بشكل تلقائي
+                                تم انشاء طلبية البيع استناداً لعرض سعر رقم <a href="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_index',['id' => $data->price_offer_sales_id]) }}" target="_blank" class="btn btn-dark btn-sm">{{ $data->price_offer_sales_id }}</a> وتم اضافة التاريخ بشكل تلقائي
                             </div>
                         </div>
                     @endif
@@ -45,8 +45,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="from-group">
-                                        <label for="">الرقم المرجعي للفاتورة</label>
-                                        <input @if($data->status == 'stage') disabled @endif type="text" onchange="update_invoice_reference_number_ajax(this.value)" readonly class="form-control" value="{{ $data->reference_number }}">
+                                        <label for="">الرقم المرجعي لطلبية البيع</label>
+                                        <input @if($data->order_status == 'invoice_has_been_posted') disabled @endif type="text" onchange="update_orders_sales({{ $data->id }},'reference_number',this.value)" class="form-control" value="{{ $data->reference_number }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -62,51 +62,23 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">تاريخ اصدار الفاتورة</label>
-                                        <input type="text" readonly class="form-control" value="{{ $data->inserted_at }}">
+                                        <label for="">تاريخ اصدار طلبية البيع</label>
+                                        <input type="date" @if($data->order_status == 'invoice_has_been_posted') disabled @endif class="form-control" onchange="update_orders_sales({{ $data->id }},'inserted_at',this.value)" value="{{ $data->inserted_at }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            {{--                    <button @if($data->status == 'stage') disabled @endif onclick="window.location.href='{{ route('accounting.sales_invoices.invoice_posting',['id'=>$data->id]) }}'" class="btn btn-info form-control" style="height: 100%">ترحيل</button>--}}
-                            <button @if($data->status == 'stage') disabled @endif onclick="post_invoice()" class="btn btn-info form-control" style="height: 100%">
-                                <span class="text-success">@if($data->status == 'stage') <span class="fa fa-check-circle"></span> @endif</span>
-                                <p>ترحيل</p>
-                            </button>
+                            <form action="{{ route('accounting.orders_sales.update_order_sales_status') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $data->id }}">
+                                {{--                    <button @if($data->status == 'stage') disabled @endif onclick="window.location.href='{{ route('accounting.sales_invoices.invoice_posting',['id'=>$data->id]) }}'" class="btn btn-info form-control" style="height: 100%">ترحيل</button>--}}
+                                <button @if($data->order_status == 'invoice_has_been_posted') disabled @endif class="btn btn-info form-control" style="height: 100%">
+                                    <span class="text-success">@if($data->order_status == 'invoice_has_been_posted') <span class="fa fa-check-circle"></span> @endif</span>
+                                    <p>ترحيل</p>
+                                </button>
+                            </form>
                         </div>
-                        {{--                <div class="col-md-4 p-3 card bg-warning">--}}
-                        {{--                        <div class="row">--}}
-                        {{--                            <div class="col-md-12">--}}
-                        {{--                                <div class="from-group">--}}
-                        {{--                                    <label for="">الرقم المرجعي للفاتورة</label>--}}
-                        {{--                                    <input type="text" onchange="update_invoice_reference_number_ajax(this.value)" class="form-control" value="{{ $data->invoice_reference_number }}">--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                            <div class="col-md-12">--}}
-                        {{--                                <div class="form-group">--}}
-                        {{--                                    <label for="">العميل</label>--}}
-                        {{--                                    <select disabled name="client_id" id="" class="form-control select2bs4">--}}
-                        {{--                                        <option value="">اختر عميل ...</option>--}}
-                        {{--                                        @foreach ($users as $key)--}}
-                        {{--                                            <option @if($key->id == $data->client_id) selected @endif value="{{ $key->id }}">{{ $key->name }}</option>--}}
-                        {{--                                        @endforeach--}}
-                        {{--                                    </select>--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                            <div class="col-md-12">--}}
-                        {{--                                <div class="form-group">--}}
-                        {{--                                    <label for="">حالة الفاتورة</label>--}}
-                        {{--                                    <select name="" class="form-control" id="">--}}
-                        {{--                                        <option value="">اختر حالة الفاتورة ...</option>--}}
-                        {{--                                        <option value="">فاتورة جديدة غير مرحلة</option>--}}
-                        {{--                                        <option value="">فاتورة مرحلة</option>--}}
-                        {{--                                    </select>--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
-
-                        {{--                </div>--}}
                     </div>
                 </div>
             </div>
@@ -232,6 +204,33 @@
             });
         }
 
+        function update_orders_sales(id,key,value) {
+            if (!id || !key || value === undefined || value === null || value === '') {
+                alert('يجب إدخال مدخل صحيح');
+                return;
+            }
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.update_orders_sales') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    'id' : id,
+                    'key' : key,
+                    'value' : value,
+                },
+                success: function (data) {
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('حدث خطا اثناء المعالجة');
+                }
+            });
+        }
+
         function delete_orders_sales_items(id) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
@@ -256,6 +255,10 @@
         function open_add_product_modal() {
             $('#add_product_modal').modal('show');
             product_list_ajax();
+        }
+
+        function post_the_invoice() {
+            window.location.href='<?php echo (route('accounting.orders_sales.orders_sales_details',['order_id'=>$data->id])); ?>'
         }
     </script>
 

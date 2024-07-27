@@ -108,6 +108,18 @@ class OrdersSalesController extends Controller
         }
     }
 
+    public function update_orders_sales(Request $request)
+    {
+        $data = OrdersSalesModel::where('id',$request->id)->first();
+        $data->{$request->key} = $request->value;
+        if ($data->save()){
+            return response()->json([
+                'success' => true,
+                'message' => 'تم تعديل البيانات بنجاح'
+            ]);
+        }
+    }
+
     public function delete_orders_sales_items(Request $request)
     {
         $data = OrdersSalesItemsModel::where('id',$request->id)->first();
@@ -157,6 +169,15 @@ class OrdersSalesController extends Controller
                 'message' => 'تم انشاء طلبية البيع بنجاح',
                 'redirect' => $redirectUrl
             ]);
+        }
+    }
+
+    public function update_order_sales_status(Request $request)
+    {
+        $data = OrdersSalesModel::where('id',$request->id)->first();
+        $data->order_status = 'invoice_has_been_posted';
+        if ($data->save()){
+            return redirect()->route('accounting.orders_sales.orders_sales_details',['order_id'=>$request->id])->with('تم ترحيل طلبية البيع بنجاح');
         }
     }
 }
