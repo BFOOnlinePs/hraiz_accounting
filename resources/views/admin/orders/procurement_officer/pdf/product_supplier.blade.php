@@ -99,6 +99,5 @@
     <hr>
     <div style="display: block;text-align:center">Page {PAGENO} of {nbpg}</div>
 </htmlpagefooter>
-
 </body>
 </html>

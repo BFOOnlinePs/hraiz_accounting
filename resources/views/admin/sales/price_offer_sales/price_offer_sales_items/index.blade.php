@@ -20,7 +20,6 @@
 @section('content')
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
-
 {{--    <button type="button" class="btn btn-dark mb-2" data-toggle="modal" data-target="#product_search_modal">اضافة صنف--}}
 {{--    </button>--}}
     <button type="button" class="btn btn-dark mb-2" onclick="show_form_product()">اضافة صنف
@@ -47,6 +46,7 @@
                 </div>
                 <div class="col-md-4">
                     <button class="btn btn-dark" style="float: left" data-toggle="modal" data-target="#language_print_pdf"><span class="fa fa-print"></span></button>
+                    <button class="btn btn-warning mr-2" onclick="add_price_offer_sales_to_order_sales({{ $price_offer_sales->id }})" style="float: left">اضافة طلبية بيع من عرض السعر هذا</button>
                 </div>
 {{--                <div class="col-md-4">--}}
 {{--                    <a target="_blank" style="float: left" href="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_pdf',['id'=>$price_offer_sales]) }}" class="btn btn-dark"><span class="fa fa-print"></span></a>--}}
@@ -231,6 +231,30 @@
                         product_list_search(page);
                         price_offer_sales_items_table_ajax(page)
                     }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
+        function add_price_offer_sales_to_order_sales(id) {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.add_price_offer_sales_to_order_sales') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    'id':id,
+                    'customer_id' : {{ $price_offer_sales->customer_id }},
+                    'price_offer_sales_id' : id
+                },
+                success: function(data) {
+                    // console.log(data.redirect);
+                    window.location.href = data.redirect;
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');

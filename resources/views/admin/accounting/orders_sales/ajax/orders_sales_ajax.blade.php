@@ -23,7 +23,7 @@
                     <td>{{ $key->currency }}</td>
                     <td>{{ $key->inserted_at }}</td>
                     <td>
-                        <a href="{{ route('accounting.orders_sales.orders_sales_details',['order_id'=>$key->id]) }}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
+                        <a href="{{ route('accounting.orders_sales.orders_sales_details',['order_id'=>$key->id]) }}" class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>
                         <a href="" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></a>
                     </td>
                 </tr>

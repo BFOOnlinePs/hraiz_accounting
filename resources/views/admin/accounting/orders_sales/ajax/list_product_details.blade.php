@@ -16,7 +16,7 @@
             @foreach($data as $key)
                 <tr>
                     <td>{{ $key->product->product_name_ar }}</td>
-                    <td><input type="number" onchange="update_orders_sales_items({{ $key->id }} ,'qty',this.value)" class="form-control" value="{{ $key->qty }}"></td>
+                    <td><input type="number" onchange="update_orders_sales_items({{ $key->id }} ,'qty',this.value)" class="form-control" value="{{ $key->qty ?? 0 }}"></td>
                     <td><input type="number" onchange="update_orders_sales_items({{ $key->id }},'price',this.value)" class="form-control" value="{{ $key->price }}"></td>
                     <td>
                         <button class="btn btn-danger btn-sm" onclick="delete_orders_sales_items({{ $key->id }})"><span class="fa fa-close"></span></button>

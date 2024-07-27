@@ -5,6 +5,8 @@ namespace App\Http\Controllers\accounting;
 use App\Http\Controllers\Controller;
 use App\Models\OrdersSalesItemsModel;
 use App\Models\OrdersSalesModel;
+use App\Models\PriceOfferSalesItemsModel;
+use App\Models\PriceOfferSalesModel;
 use App\Models\ProductModel;
 use App\Models\User;
 use Carbon\Carbon;
@@ -52,7 +54,8 @@ class OrdersSalesController extends Controller
     public function orders_sales_details($order_id)
     {
         $data = OrdersSalesModel::where('id',$order_id)->first();
-        return view('admin.accounting.orders_sales.orders_sales_details',['data'=>$data]);
+        $clients = User::whereJsonContains('user_role','10')->orWhereJsonContains('user_role','4')->get();
+        return view('admin.accounting.orders_sales.orders_sales_details',['data'=>$data , 'clients'=>$clients]);
     }
 
     public function orders_sales_items_list_ajax(Request $request)
@@ -112,6 +115,47 @@ class OrdersSalesController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'تم حذف البيانات بنجاح'
+            ]);
+        }
+    }
+
+    public function price_offer_sales_ajax(Request $request)
+    {
+        $data = PriceOfferSalesModel::query();
+        if ($request->filled('client_id')){
+            $data->where('customer_id',$request->client_id);
+        }
+        $data = $data->with('user')->get();
+        return response()->json([
+            'success'=>'true',
+            'view' => view('admin.accounting.orders_sales.ajax.sales_price_offer',['data'=>$data])->render()
+        ]);
+    }
+
+    public function add_price_offer_sales_to_order_sales(Request $request)
+    {
+        $get_last_id = OrdersSalesModel::latest('id')->first()->id;
+        $data = new OrdersSalesModel();
+        $data->user_id = $request->customer_id;
+        $data->order_status = 1;
+        $data->price_offer_sales_id = $request->price_offer_sales_id;
+        $data->reference_number = 'عرض سعر رقم ' . $data->id;
+        $data->inserted_at = Carbon::now();
+        if ($data->save()){
+            $get_price_offer_sales_items = PriceOfferSalesItemsModel::where('price_offer_sales_id',$request->price_offer_sales_id)->get();
+            foreach ($get_price_offer_sales_items as $key){
+                $order_sales_items = new OrdersSalesItemsModel();
+                $order_sales_items->order_id = $data->id;
+                $order_sales_items->product_id = $key->product_id;
+                $order_sales_items->qty = $key->qty;
+                $order_sales_items->price = $key->price;
+                $order_sales_items->notes = $key->notes;
+                $order_sales_items->save();
+            }
+            $redirectUrl = route('accounting.orders_sales.orders_sales_details', ['order_id' => $data->id]);            return response()->json([
+                'success' => true,
+                'message' => 'تم انشاء طلبية البيع بنجاح',
+                'redirect' => $redirectUrl
             ]);
         }
     }

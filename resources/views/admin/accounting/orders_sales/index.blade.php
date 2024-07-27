@@ -22,6 +22,7 @@
         <div class="col-md-12">
 {{--            <button class="btn btn-dark" onclick="open_add_product_modal()">اضافة اصناف</button>--}}
             <button class="btn btn-dark" data-toggle="modal" data-target="#add_orders_sales_modal">اضافة طلبية</button>
+            <button class="btn btn-dark" onclick="open_add_sales_price_offer_modal()">اضافة طلبية من عرض سعر بيع</button>
         </div>
     </div>
     <div class="row mt-2">
@@ -37,6 +38,7 @@
     </div>
     @include('admin.accounting.orders_sales.modals.add_product_modal')
     @include('admin.accounting.orders_sales.modals.add_orders_sales')
+    @include('admin.accounting.orders_sales.modals.add_sales_price_offer_modal')
 @endsection
 
 @section('script')
@@ -46,6 +48,7 @@
 
         $(document).ready(function () {
             list_orders_sales_ajax();
+            list_price_offer_sales_ajax();
         });
 
         $(document).on('click', '.pagination a', function(event) {
@@ -73,6 +76,31 @@
             });
         }
 
+        function open_add_sales_price_offer_modal() {
+            $('#add_sales_price_offer_modal').modal('show');
+        }
+
+        function list_price_offer_sales_ajax() {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.price_offer_sales_ajax') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    'client_id' : $('#select_client').val()
+                },
+                success: function (data) {
+                    $('#sales_price_offer_table').html(data.view)
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
         function product_list_ajax(page) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
@@ -88,6 +116,29 @@
                 },
                 success: function (data) {
                     $('#product_list_table').html(data.view)
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
+        function add_price_offer_sales_to_order_sales(data) {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.add_price_offer_sales_to_order_sales') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    price_offer_sales_id : data.id,
+                    customer_id : data.user.id,
+                },
+                success: function (response) {
+                    console.log(data);
+                    $('#add_sales_price_offer_modal').modal('hide');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert('error');

@@ -48,22 +48,6 @@
                 </div>
             @endif
             <a href="{{ route('accounting.sales_invoices.sales_invoice_pdf',['invoice_id'=>$purchase_invoice->id]) }}" class="btn btn-warning"><span class="fa fa-print"></span></a>
-            {{-- <div class="row">
-                <div class="col-md-6">
-                    <div class="p-1">
-                        <span style="font-size: 25px" class="bg-dark p-1">فاتورة رقم #{{ $data->id }}</span>
-                    </div>
-                    <div class="p-1">
-                        <span>تاريخ الفاتورة : {{ $data->bill_date }}</span>
-                    </div>
-                    <div class="p-1">
-                        <span>تاريخ التسليم : {{ $data->due_date }}</span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-
-                </div>
-            </div> --}}
             @if($purchase_invoice->price_offer_sales_id != null)
                 <div class="row text-center">
                     <div class="col-md-12 alert alert-info">
