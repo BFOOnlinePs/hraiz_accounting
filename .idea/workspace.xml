@@ -5,21 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit">
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/sales_price_offer.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/modals/add_sales_price_offer_modal.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jolanko.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jolanko.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/accounting/OrdersSalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/accounting/OrdersSalesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PriceOfferSalesModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PriceOfferSalesModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/list_product_details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/list_product_details.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/orders_sales_ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/orders_sales_ajax.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/orders_sales_details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/orders_sales_details.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/sales_invoices/invoices/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/sales_invoices/invoices/view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/orders/procurement_officer/pdf/product_supplier.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/orders/procurement_officer/pdf/product_supplier.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/sales/price_offer_sales/price_offer_sales_items/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/sales/price_offer_sales/price_offer_sales_items/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_reset_tokens_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_19_000000_create_failed_jobs_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_14_000001_create_personal_access_tokens_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_08_23_185057_create_zkteco_devices_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_08_23_185624_create_in_out_logs_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2024_06_04_062649_add_column_check_type_and_check_status.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2024_06_04_110512_add_column_in_database.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2024_06_09_063213_order_sales.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -538,7 +534,7 @@
       <workItem from="1721036199980" duration="19000" />
       <workItem from="1721800111461" duration="2824000" />
       <workItem from="1721889935779" duration="11255000" />
-      <workItem from="1721902564876" duration="6250000" />
+      <workItem from="1721902564876" duration="7233000" />
     </task>
     <task id="LOCAL-00001" summary="edit">
       <created>1692272515017</created>
