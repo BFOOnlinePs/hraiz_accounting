@@ -696,8 +696,10 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('create_orders_sales_items',[\App\Http\Controllers\accounting\OrdersSalesController::class,'create_orders_sales_items'])->name('accounting.orders_sales.create_orders_sales_items');
         Route::post('update_orders_sales_items',[\App\Http\Controllers\accounting\OrdersSalesController::class,'update_orders_sales_items'])->name('accounting.orders_sales.update_orders_sales_items');
         Route::post('delete_orders_sales_items',[\App\Http\Controllers\accounting\OrdersSalesController::class,'delete_orders_sales_items'])->name('accounting.orders_sales.delete_orders_sales_items');
+        Route::post('update_orders_sales',[\App\Http\Controllers\accounting\OrdersSalesController::class,'update_orders_sales'])->name('accounting.orders_sales.update_orders_sales');
         Route::post('price_offer_sales_ajax',[\App\Http\Controllers\accounting\OrdersSalesController::class,'price_offer_sales_ajax'])->name('accounting.orders_sales.price_offer_sales_ajax');
         Route::post('add_price_offer_sales_to_order_sales',[\App\Http\Controllers\accounting\OrdersSalesController::class,'add_price_offer_sales_to_order_sales'])->name('accounting.orders_sales.add_price_offer_sales_to_order_sales');
+        Route::post('update_order_sales_status',[\App\Http\Controllers\accounting\OrdersSalesController::class,'update_order_sales_status'])->name('accounting.orders_sales.update_order_sales_status');
     });
 });
 
