@@ -700,6 +700,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('price_offer_sales_ajax',[\App\Http\Controllers\accounting\OrdersSalesController::class,'price_offer_sales_ajax'])->name('accounting.orders_sales.price_offer_sales_ajax');
         Route::post('add_price_offer_sales_to_order_sales',[\App\Http\Controllers\accounting\OrdersSalesController::class,'add_price_offer_sales_to_order_sales'])->name('accounting.orders_sales.add_price_offer_sales_to_order_sales');
         Route::post('update_order_sales_status',[\App\Http\Controllers\accounting\OrdersSalesController::class,'update_order_sales_status'])->name('accounting.orders_sales.update_order_sales_status');
+        Route::post('check_if_price_offer_if_found',[\App\Http\Controllers\accounting\OrdersSalesController::class,'check_if_price_offer_if_found'])->name('accounting.orders_sales.check_if_price_offer_if_found');
     });
 });
 
@@ -758,6 +759,7 @@ Route::group(['prefix'=>'price_offer_sales'],function (){
     Route::get('edit/{id}',[App\Http\Controllers\sales\PriceOfferSalesController::class,'edit'])->name('price_offer_sales.edit');
     Route::post('update',[App\Http\Controllers\sales\PriceOfferSalesController::class,'update'])->name('price_offer_sales.update');
     Route::post('price_offer_sales_table_ajax',[App\Http\Controllers\sales\PriceOfferSalesController::class,'price_offer_sales_table_ajax'])->name('price_offer_sales.price_offer_sales_table_ajax');
+    Route::post('price_offer_sales_items_table_display_for_order_sales',[App\Http\Controllers\sales\PriceOfferSalesController::class,'price_offer_sales_items_table_display_for_order_sales'])->name('price_offer_sales.price_offer_sales_items_table_display_for_order_sales');
     Route::group(['prefix'=>'price_offer_sales_items'],function (){
         Route::get('price_offer_sales_items_index/{id}',[App\Http\Controllers\sales\PriceOfferSalesController::class,'price_offer_sales_items_index'])->name('price_offer_sales.price_offer_sales_items.price_offer_sales_items_index');
         Route::post('price_offer_sales_items_table_ajax',[App\Http\Controllers\sales\PriceOfferSalesController::class,'price_offer_sales_items_table_ajax'])->name('price_offer_sales.price_offer_sales_items.price_offer_sales_items_table_ajax');

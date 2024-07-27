@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-md-4">
                     <button class="btn btn-dark" style="float: left" data-toggle="modal" data-target="#language_print_pdf"><span class="fa fa-print"></span></button>
-                    <button class="btn btn-warning mr-2" onclick="add_price_offer_sales_to_order_sales({{ $price_offer_sales->id }})" style="float: left">اضافة طلبية بيع من عرض السعر هذا</button>
+                    <button class="btn btn-warning mr-2" id="add_price_offer_sales_button" style="float: left">اضافة طلبية بيع من عرض السعر هذا</button>
                 </div>
 {{--                <div class="col-md-4">--}}
 {{--                    <a target="_blank" style="float: left" href="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_pdf',['id'=>$price_offer_sales]) }}" class="btn btn-dark"><span class="fa fa-print"></span></a>--}}
@@ -108,6 +108,7 @@
     </div>
 
     @include('admin.sales.price_offer_sales.price_offer_sales_items.modals.product_search')
+    @include('admin.sales.price_offer_sales.price_offer_sales_items.modals.price_offer_found')
 @endsection
 
 @section('script')
@@ -239,6 +240,60 @@
             });
         }
 
+        $('#add_price_offer_sales_button').click(function () {
+            check_price_offer_sales_if_found(function (response) {
+                if (response.status === 'not_empty'){
+                    get_price_offer_sales_table_for_order_items();
+                }
+                else{
+                    add_price_offer_sales_to_order_sales({{ $price_offer_sales->id }})
+                }
+            });
+        })
+
+        function get_price_offer_sales_table_for_order_items() {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('price_offer_sales.price_offer_sales_items_table_display_for_order_sales') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    'price_offer_sales_id' : {{ $price_offer_sales->id }}
+                },
+                success: function(data) {
+                    $('#price_offer_found_modal').modal('show');
+                    $('#price_offer_sales_product_table').html(data.view);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
+        function check_price_offer_sales_if_found(callback) {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.check_if_price_offer_if_found') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    'price_offer_sales_id' : {{ $price_offer_sales->id }}
+                },
+                success: function(data) {
+                    callback(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
         function add_price_offer_sales_to_order_sales(id) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
@@ -355,6 +410,28 @@
             price_offer_sales_items_table_ajax(page);
         });
 
+        $('#price_offer_found_form').submit(function (e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: $(this).attr('action'),
+                method: 'post',
+                headers: headers,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(data) {
+                    window.location.href = data.redirect;
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        })
     </script>
 
     <script>

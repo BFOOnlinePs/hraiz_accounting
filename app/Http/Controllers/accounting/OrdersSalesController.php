@@ -61,12 +61,13 @@ class OrdersSalesController extends Controller
     public function orders_sales_items_list_ajax(Request $request)
     {
         $data = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
+        $order_items = OrdersSalesModel::where('id',$request->order_id)->first();
         foreach ($data as $key){
             $key->product = ProductModel::where('id',$key->product_id)->first();
         }
         return response()->json([
             'success' => true,
-            'view' => view('admin.accounting.orders_sales.ajax.list_product_details',['data'=>$data])->render()
+            'view' => view('admin.accounting.orders_sales.ajax.list_product_details',['data'=>$data , 'order_items'=>$order_items])->render()
         ]);
     }
 
@@ -149,7 +150,7 @@ class OrdersSalesController extends Controller
         $get_last_id = OrdersSalesModel::latest('id')->first()->id;
         $data = new OrdersSalesModel();
         $data->user_id = $request->customer_id;
-        $data->order_status = 1;
+        $data->order_status = 'invoice_has_not_been_posted';
         $data->price_offer_sales_id = $request->price_offer_sales_id;
         $data->reference_number = 'عرض سعر رقم ' . $data->id;
         $data->inserted_at = Carbon::now();
@@ -178,6 +179,25 @@ class OrdersSalesController extends Controller
         $data->order_status = 'invoice_has_been_posted';
         if ($data->save()){
             return redirect()->route('accounting.orders_sales.orders_sales_details',['order_id'=>$request->id])->with('تم ترحيل طلبية البيع بنجاح');
+        }
+    }
+
+    public function check_if_price_offer_if_found(Request $request)
+    {
+        $data = OrdersSalesModel::query();
+        $data->where('price_offer_sales_id',$request->price_offer_sales_id);
+        $data = $data->first();
+        if (!empty($data)){
+            return response()->json([
+                'success' => true,
+                'status' => 'not_empty'
+            ]);
+        }
+        else{
+            return response()->json([
+                'success' => true,
+                'status' => 'empty'
+            ]);
         }
     }
 }

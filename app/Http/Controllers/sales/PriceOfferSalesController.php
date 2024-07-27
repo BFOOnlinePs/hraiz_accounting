@@ -246,4 +246,13 @@ class PriceOfferSalesController extends Controller
             'view'=>view('admin.sales.price_offer_sales.ajax.price_offer_sales_table',['data'=>$data,'clients'=>$clients,'currency'=>$currency])->render()
         ]);
     }
+
+    public function price_offer_sales_items_table_display_for_order_sales(Request $request)
+    {
+        $data = PriceOfferSalesItemsModel::where('price_offer_sales_id',$request->price_offer_sales_id)->with('product')->get();
+        return response()->json([
+            'success'=>'true',
+            'view' => view('admin.sales.price_offer_sales.price_offer_sales_items.ajax.price_offer_sales_product_table_found',['data'=>$data])->render()
+        ]);
+    }
 }
