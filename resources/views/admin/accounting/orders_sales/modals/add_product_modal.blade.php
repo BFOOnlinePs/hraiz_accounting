@@ -1,5 +1,5 @@
 <div class="modal fade" id="add_product_modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">اضافة منتجات</h4>
