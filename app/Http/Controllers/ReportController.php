@@ -283,4 +283,11 @@ class ReportController extends Controller
     public function order_by(Request $request){
 
     }
+
+    public function product_pdf($product_id){
+        $data = ProductModel::with('unit','category','orderItems','invoiceItems','orderSalesItems','returnsItems')->where('id',$product_id)->first();
+        $pdf = PDF::loadView('admin.reports.product_report.products_report', ['data' => $data]);
+        return $pdf->stream('product.pdf');
+    }
+
 }

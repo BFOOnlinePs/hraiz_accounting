@@ -21,6 +21,7 @@
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-dark" @if($data->order_status == 'invoice_has_been_posted') disabled @endif onclick="open_add_product_modal()">اضافة اصناف</button>
+            <a href="{{  route('accounting.orders_sales.order_sales_pdf',['price_offer_id'=>$data->id]) }}" class="btn btn-warning float-right" @if($data->order_status == 'invoice_has_been_posted') onclick="return false;" style="pointer-events: none; opacity: 0.6;" @endif><span class="fa fa-print"></span></a>
         </div>
     </div>
     <div class="row mt-3">

@@ -403,6 +403,4 @@ class ProductController extends Controller
             return redirect()->route('product.details',['id'=>$request->product_id])->with(['fail'=>'هناك خلل ما لم يتم اضافة البيانات','tab_id'=>5]);
         }
     }
-
-
 }
