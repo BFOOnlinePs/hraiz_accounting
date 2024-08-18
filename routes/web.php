@@ -485,6 +485,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix'=>'products'],function (){
             Route::get('products_report',[App\Http\Controllers\ReportController::class, 'products_report'])->name('reports.products.products_report');
             Route::post('products_to_the_company_report',[App\Http\Controllers\ReportController::class, 'products_to_the_company_report'])->name('reports.products.products_to_the_company_report');
+            Route::get('product_pdf/{product_id}',[App\Http\Controllers\ReportController::class, 'product_pdf'])->name('reports.products.product_pdf');
         });
         Route::group(['prefix'=>'orders'],function (){
             Route::get('order_index',[App\Http\Controllers\ReportController::class, 'order_index'])->name('reports.orders.order_index');
@@ -701,6 +702,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('add_price_offer_sales_to_order_sales',[\App\Http\Controllers\accounting\OrdersSalesController::class,'add_price_offer_sales_to_order_sales'])->name('accounting.orders_sales.add_price_offer_sales_to_order_sales');
         Route::post('update_order_sales_status',[\App\Http\Controllers\accounting\OrdersSalesController::class,'update_order_sales_status'])->name('accounting.orders_sales.update_order_sales_status');
         Route::post('check_if_price_offer_if_found',[\App\Http\Controllers\accounting\OrdersSalesController::class,'check_if_price_offer_if_found'])->name('accounting.orders_sales.check_if_price_offer_if_found');
+        Route::get('order_sales_pdf/{price_offer_id}',[\App\Http\Controllers\accounting\OrdersSalesController::class,'order_sales_pdf'])->name('accounting.orders_sales.order_sales_pdf');
     });
 });
 

@@ -10,4 +10,8 @@ class OrdersSalesItemsModel extends Model
     use HasFactory;
 
     protected $table = 'orders_sales_items';
+
+    public function product(){
+        return $this->belongsTo(ProductModel::class,'product_id','id');
+    }
 }
