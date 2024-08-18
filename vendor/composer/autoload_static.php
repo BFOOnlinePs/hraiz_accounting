@@ -416,8 +416,8 @@ class ComposerStaticInitbe70886e0ec90691cef709a06e16cfaf
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -731,6 +731,7 @@ class ComposerStaticInitbe70886e0ec90691cef709a06e16cfaf
         'App\\Http\\Controllers\\accounting\\CheckController' => __DIR__ . '/../..' . '/app/Http/Controllers/accounting/CheckController.php',
         'App\\Http\\Controllers\\accounting\\ExpensesCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/accounting/ExpensesCategoryController.php',
         'App\\Http\\Controllers\\accounting\\ExpensesController' => __DIR__ . '/../..' . '/app/Http/Controllers/accounting/ExpensesController.php',
+        'App\\Http\\Controllers\\accounting\\OrdersSalesController' => __DIR__ . '/../..' . '/app/Http/Controllers/accounting/OrdersSalesController.php',
         'App\\Http\\Controllers\\accounting\\PurchaseInvoicesController' => __DIR__ . '/../..' . '/app/Http/Controllers/accounting/PurchaseInvoicesController.php',
         'App\\Http\\Controllers\\accounting\\ReturnsController' => __DIR__ . '/../..' . '/app/Http/Controllers/accounting/ReturnsController.php',
         'App\\Http\\Controllers\\accounting\\SalesInvoicesController' => __DIR__ . '/../..' . '/app/Http/Controllers/accounting/SalesInvoicesController.php',
@@ -820,6 +821,8 @@ class ComposerStaticInitbe70886e0ec90691cef709a06e16cfaf
         'App\\Models\\OrderModel' => __DIR__ . '/../..' . '/app/Models/OrderModel.php',
         'App\\Models\\OrderNotesModel' => __DIR__ . '/../..' . '/app/Models/OrderNotesModel.php',
         'App\\Models\\OrderStatusModel' => __DIR__ . '/../..' . '/app/Models/OrderStatusModel.php',
+        'App\\Models\\OrdersSalesItemsModel' => __DIR__ . '/../..' . '/app/Models/OrdersSalesItemsModel.php',
+        'App\\Models\\OrdersSalesModel' => __DIR__ . '/../..' . '/app/Models/OrdersSalesModel.php',
         'App\\Models\\PriceOfferItemsModel' => __DIR__ . '/../..' . '/app/Models/PriceOfferItemsModel.php',
         'App\\Models\\PriceOfferSalesItemsModel' => __DIR__ . '/../..' . '/app/Models/PriceOfferSalesItemsModel.php',
         'App\\Models\\PriceOfferSalesModel' => __DIR__ . '/../..' . '/app/Models/PriceOfferSalesModel.php',

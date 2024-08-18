@@ -8,9 +8,11 @@ use App\Models\OrdersSalesModel;
 use App\Models\PriceOfferSalesItemsModel;
 use App\Models\PriceOfferSalesModel;
 use App\Models\ProductModel;
+use App\Models\SystemSettingModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PDF;
 
 class OrdersSalesController extends Controller
 {
@@ -199,5 +201,12 @@ class OrdersSalesController extends Controller
                 'status' => 'empty'
             ]);
         }
+    }
+
+    public function order_sales_pdf($order_id){
+        $data = OrdersSalesModel::with('user','order_sales_items','order_sales_items.product')->where('id',$order_id)->first();
+        $system_setting = SystemSettingModel::first();
+        $pdf = PDF::loadView('admin.accounting.orders_sales.pdf.order_sales_details',['data'=>$data , 'system_setting'=>$system_setting]);
+        return $pdf->stream('order_sales.pdf');
     }
 }
