@@ -71,6 +71,7 @@
                     <a href="{{ route('product.details', ['id' => $key->id]) }}"
                        class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>
                     {{--                        <a target="_blank" href="{{ route('product.qrCode_product',['id' => $key->id]) }}" class="btn btn-warning btn-sm"><span class="fa fa-print"></span></a>--}}
+                    <a href="{{  route('reports.products.product_pdf',['product_id'=>$key->id]) }}" class="btn btn-sm btn-info"><span class="fa fa-print"></span></a>
                 </td>
             </tr>
         @endforeach
