@@ -34,11 +34,12 @@
     </style>
 </head>
 <body>
-    <h4 style="text-align: center">طلبية بيع</h4>
-    <h5>اسم الزبون : <span>{{ $data->user->name }}</span></h5>
-    <h5>الرقم المرجعي : <span>{{ $data->reference_number }}</span></h5>
-    <table>
-        <thead>
+    @if($request->language == 'ar')
+        <h4 style="text-align: center">طلبية بيع</h4>
+        <h5>اسم الزبون : <span>{{ $data->user->name }}</span></h5>
+        <h5>الرقم المرجعي : <span>{{ $data->reference_number }}</span></h5>
+        <table>
+            <thead>
             <tr>
                 <th>الباركود</th>
                 <th>الصنف</th>
@@ -46,8 +47,8 @@
                 <th>السعر</th>
                 <th>المجموع</th>
             </tr>
-        </thead>  
-        <tbody>
+            </thead>
+            <tbody>
             @foreach ($data->order_sales_items as $key)
                 <tr>
                     <td>{{ $key->product->barcode }}</td>
@@ -61,7 +62,38 @@
                 <td colspan="4" style="font-weight: bold">المجموع الكلي</td>
                 <td>{{  $data->total_sum }}</td>
             </tr>
-        </tbody>      
-    </table>
+            </tbody>
+        </table>
+    @else
+        <h4 style="text-align: center">Order Sales</h4>
+        <h5 dir="ltr">Customer Name : <span>{{ $data->user->name }}</span></h5>
+        <h5 dir="ltr">Reference Number : <span>{{ $data->reference_number }}</span></h5>
+        <table dir="ltr">
+            <thead>
+            <tr>
+                <th>Barcode</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($data->order_sales_items as $key)
+                <tr>
+                    <td>{{ $key->product->barcode }}</td>
+                    <td>{{ $key->product->product_name_ar }}</td>
+                    <td>{{ $key->qty ?? 0 }}</td>
+                    <td>{{ $key->price ?? 0 }}</td>
+                    <td>{{ ($key->price ?? 0) * ($key->qty ?? 0) }}</td>
+                </tr>
+            @endforeach
+            <tr>
+                <td colspan="4" style="font-weight: bold">Total Amount</td>
+                <td>{{  $data->total_sum }}</td>
+            </tr>
+            </tbody>
+        </table>
+    @endif
 </body>
 </html>
