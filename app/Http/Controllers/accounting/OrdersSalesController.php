@@ -203,10 +203,10 @@ class OrdersSalesController extends Controller
         }
     }
 
-    public function order_sales_pdf($order_id){
+    public function order_sales_pdf($order_id,Request $request){
         $data = OrdersSalesModel::with('user','order_sales_items','order_sales_items.product')->where('id',$order_id)->first();
         $system_setting = SystemSettingModel::first();
-        $pdf = PDF::loadView('admin.accounting.orders_sales.pdf.order_sales_details',['data'=>$data , 'system_setting'=>$system_setting]);
+        $pdf = PDF::loadView('admin.accounting.orders_sales.pdf.order_sales_details',['data'=>$data , 'system_setting'=>$system_setting ,'request'=>$request]);
         return $pdf->stream('order_sales.pdf');
     }
 }
