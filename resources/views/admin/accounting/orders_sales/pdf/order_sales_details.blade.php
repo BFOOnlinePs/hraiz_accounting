@@ -95,5 +95,21 @@
             </tbody>
         </table>
     @endif
+
+    @if ($request->language == 'ar')
+            <h6>التوقيع : </h6>
+        @else
+            <h6 dir="ltr">The Signature : </h6>
+        @endif
+    {{-- Set the title in last Page --}}
+
+    {{-- <htmlpagefooter style="margin-bottom: 200px" name="LastPageFooter">
+        @if ($request->language == 'ar')
+            <h6>التوقيع : </h6>
+        @else
+            <h6 dir="ltr">The Signature : </h6>
+        @endif
+    </htmlpagefooter>
+    <sethtmlpagefooter name="LastPageFooter" value="1" /> --}}
 </body>
 </html>
