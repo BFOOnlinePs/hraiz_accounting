@@ -24,7 +24,7 @@ class OrdersSalesController extends Controller
 
     public function list_orders_sales_ajax(Request $request)
     {
-        $data = OrdersSalesModel::get();
+        $data = OrdersSalesModel::orderBy('id','desc')->get();
         foreach ($data as $key){
             $key->client = User::where('id',$key->user_id)->first();
         }
