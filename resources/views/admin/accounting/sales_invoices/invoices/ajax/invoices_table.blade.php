@@ -34,7 +34,7 @@
                 <input @if($invoice->status == 'stage') disabled @endif class="input" id="rate_input_{{ $key->id }}" onchange="edit_inputs_from_invoice({{ $key->id }},this.value,'rate')" type="text" value="{{ $key->rate ?? 1 }}">
             </td>
             <td>
-                <input @if($invoice->status == 'stage') disabled @endif class="input" style="width: 40px" onchange="edit_inputs_from_invoice({{ $key->id }}, this.value, 'discount')" type="text" value="{{ $key->discount ?? '' }}"> %
+                <input @if($invoice->status == 'stage') disabled @endif class="input" id="discount_input_{{ $key->id }}" style="width: 40px" onchange="edit_inputs_from_invoice({{ $key->id }}, this.value, 'discount')" type="text" value="{{ $key->discount ?? '' }}"> %
             </td>
             <td>
                 <input @if($invoice->status == 'stage') disabled @endif class="input" onchange="edit_inputs_from_invoice({{ $key->id }}, this.value, 'bonus')" type="text" value="{{ $key->bonus ?? '' }}">
@@ -63,7 +63,7 @@
             </tr>
             <tr>
                 <td class="" colspan="1">الخصم:</td>
-                <td class="text-center">0</td>
+                <td class="text-center" id="sub_discount">0</td>
                 <td></td>
             </tr>
             <tr>
@@ -85,68 +85,72 @@
         </table>
     </div>
 </div>
-        <script>
-            var sub_total = 0;
-            var tax = 0;
-            var sub_total_after_tax = 0;
-            @foreach($data as $key)
-                sub_total += updateTotal({{ $key->id }});
-            @endforeach
-            tax = ((sub_total * {{ $invoice->tax->tax_ratio??0 }}) / 100);
-            if(document.getElementById('tax_type').value == 'before'){
-                sub_total_after_tax = sub_total ;
-            }
-            else if(document.getElementById('tax_type').value == 'after'){
-                sub_total_after_tax = sub_total + ((sub_total * {{ $invoice->tax->tax_ratio??0 }}) / 100);
-            }
-            document.getElementById('sub_total').innerText = sub_total;
-            document.getElementById('tax_id').innerText = tax;
-            document.getElementById('sub_total_after_tax').innerText = sub_total_after_tax.toFixed(2);
+<script>
+    var sub_total = 0;
+    var tax = 0;
+    var sub_total_after_tax = 0;
+    var totalDiscount = 0; // For total discount calculation
 
+    @foreach($data as $key)
+        var itemData = updateTotal({{ $key->id }}); // Get total and discount for each item
+        sub_total += itemData.total; // Add item total to subtotal
+        totalDiscount += itemData.discountAmount; // Add item discount to total discount
+    @endforeach
 
-            function updateSubTotal() {
-                var sub_total = 0;
-                var tax = 0;
-                var sub_total_after_tax = 0;
-                @foreach($data as $key)
-                    sub_total += updateTotal({{ $key->id }});
-                @endforeach
-                tax = ((sub_total * {{ $invoice->tax->tax_ratio??0 }}) / 100);
-                if(document.getElementById('tax_type').value == 'before'){
-                    sub_total_after_tax = sub_total ;
-                }
-                else if(document.getElementById('tax_type').value == 'after'){
-                    sub_total_after_tax = sub_total + ((sub_total * {{ $invoice->tax->tax_ratio??0 }}) / 100);
-                }
-                document.getElementById('sub_total').innerText = sub_total;
-                document.getElementById('tax_id').innerText = tax;
-                document.getElementById('sub_total_after_tax').innerText = sub_total_after_tax;
-                return sub_total;
-            }
-            function updateTotal(itemId) {
-            var qty = parseFloat(document.getElementById('qty_input_' + itemId).value) || 0;
-            var rate = parseFloat(document.getElementById('rate_input_' + itemId).value) || 0;
-            var total = qty * rate;
-            document.getElementById('total_td_' + itemId).innerText = total;
-            return total;
+    tax = ((sub_total * {{ $invoice->tax->tax_ratio??0 }}) / 100);
+    if (document.getElementById('tax_type').value == 'before') {
+        sub_total_after_tax = sub_total;
+    } else if (document.getElementById('tax_type').value == 'after') {
+        sub_total_after_tax = sub_total + ((sub_total * {{ $invoice->tax->tax_ratio??0 }}) / 100);
+    }
+
+    document.getElementById('sub_total').innerText = sub_total.toFixed(2);
+    document.getElementById('tax_id').innerText = tax.toFixed(2);
+    document.getElementById('sub_total_after_tax').innerText = sub_total_after_tax.toFixed(2);
+    document.getElementById('sub_discount').innerText = totalDiscount.toFixed(2); // Display total discount
+
+    function updateSubTotal() {
+        var sub_total = 0;
+        var totalDiscount = 0; // For total discount calculation
+        var tax = 0;
+        var sub_total_after_tax = 0;
+
+        @foreach($data as $key)
+            var itemData = updateTotal({{ $key->id }}); // Get total and discount for each item
+            sub_total += itemData.total; // Add item total to subtotal
+            totalDiscount += itemData.discountAmount; // Add item discount to total discount
+        @endforeach
+
+        tax = ((sub_total * {{ $invoice->tax->tax_ratio??0 }}) / 100);
+
+        if (document.getElementById('tax_type').value == 'before') {
+            sub_total_after_tax = sub_total;
+        } else if (document.getElementById('tax_type').value == 'after') {
+            sub_total_after_tax = sub_total + ((sub_total * {{ $invoice->tax->tax_ratio??0 }}) / 100);
         }
 
-        $(".input").keypress(function(event) {
-            var regex = /^[0-9\s]+$/;
-            var inputChar = String.fromCharCode(event.which);
+        document.getElementById('sub_total').innerText = sub_total.toFixed(2);
+        document.getElementById('tax_id').innerText = tax.toFixed(2);
+        document.getElementById('sub_total_after_tax').innerText = sub_total_after_tax.toFixed(2);
+        document.getElementById('sub_discount').innerText = totalDiscount.toFixed(2); // Display total discount
+        return sub_total;
+    }
 
-            if (regex.test(inputChar)) {
-                return true;
-            }
+    function updateTotal(itemId) {
+        var qty = parseFloat(document.getElementById('qty_input_' + itemId).value) || 0;
+        var rate = parseFloat(document.getElementById('rate_input_' + itemId).value) || 0;
+        var discount = parseFloat(document.getElementById('discount_input_' + itemId).value) || 0;
 
-            return false;
-        });
+        var total = qty * rate;
+        var discountAmount = 0;
 
-            function update_tax_type(){
-                update_tax_id_ratio();
-                document.getElementById('tax_type').value;
-                updateSubTotal();
-                $('#discount-modal').modal('hide');
-                invoices_table();
-            }
-        </script>
+        if (discount > 0) {
+            discountAmount = (total * (discount / 100));
+            total = total - discountAmount;
+        }
+
+        document.getElementById('total_td_' + itemId).innerText = total.toFixed(2); // Display total
+        return { total, discountAmount }; // Return total and discount amount
+    }
+</script>
+
