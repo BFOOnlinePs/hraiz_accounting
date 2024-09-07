@@ -23,7 +23,8 @@
             <button class="btn btn-dark" @if($data->order_status == 'invoice_has_been_posted') disabled @endif onclick="open_add_product_modal()">اضافة اصناف</button>
 {{--            <a href="{{  route('accounting.orders_sales.order_sales_pdf',['price_offer_id'=>$data->id]) }}" class="btn btn-warning float-right" @if($data->order_status == 'invoice_has_been_posted') onclick="return false;" style="pointer-events: none; opacity: 0.6;" @endif><span class="fa fa-print"></span></a>--}}
 {{--            <a href="{{  route('accounting.orders_sales.order_sales_pdf',['price_offer_id'=>$data->id]) }}" class="btn btn-warning float-right"><span class="fa fa-print"></span></a>--}}
-            <button class="btn btn-warning float-right" data-toggle="modal" data-target="#order_sales_print_modal"><span class="fa fa-print"></span></button>
+            <button class="btn btn-warning float-right mr-2" data-toggle="modal" data-target="#order_sales_print_modal"><span class="fa fa-print"></span></button>
+            <button onclick="add_price_offer_sales_to_order_sales()" class="btn btn-dark float-right">اضافة الطلبية من عرض سعر بيع</button>
         </div>
     </div>
     <div class="row mt-3">
@@ -249,6 +250,28 @@
                 },
                 success: function (data) {
                     orders_sales_items_list_ajax();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
+        function add_price_offer_sales_to_order_sales() {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.add_price_offer_sales_to_order_sales') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    price_offer_sales_id : {{ $data->id }},
+                    customer_id : {{ $data->user_id }},
+                },
+                success: function (response) {
+                    window.location.href
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert('error');
