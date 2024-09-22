@@ -16,7 +16,7 @@
             @endif
             background-image-resize:6;
             margin-bottom:50px;
-            margin-top:150px;
+            margin-top:500px;
         }
 
         @page :first{
