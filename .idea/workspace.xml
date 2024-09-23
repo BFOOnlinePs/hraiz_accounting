@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit">
+      <change beforePath="$PROJECT_DIR$/.idea/jolanko.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jolanko.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -413,6 +415,9 @@
       <workItem from="1721902564876" duration="17751000" />
       <workItem from="1723875180175" duration="5097000" />
       <workItem from="1724267973184" duration="2197000" />
+      <workItem from="1725260875008" duration="5041000" />
+      <workItem from="1725515832570" duration="1278000" />
+      <workItem from="1726467436928" duration="10000" />
     </task>
     <task id="LOCAL-00001" summary="edit">
       <created>1692272515017</created>
