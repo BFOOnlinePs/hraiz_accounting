@@ -704,6 +704,9 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('check_if_price_offer_if_found',[\App\Http\Controllers\accounting\OrdersSalesController::class,'check_if_price_offer_if_found'])->name('accounting.orders_sales.check_if_price_offer_if_found');
         Route::get('order_sales_pdf/{price_offer_id}',[\App\Http\Controllers\accounting\OrdersSalesController::class,'order_sales_pdf'])->name('accounting.orders_sales.order_sales_pdf');
     });
+    Route::group(['prefix'=>'preparing_order'],function (){
+        Route::get('index',[\App\Http\Controllers\PreparingOrderController::class,'index'])->name('accounting.preparing_order.index');
+    });
 });
 
 Route::group(['prefix'=>'production'],function (){
