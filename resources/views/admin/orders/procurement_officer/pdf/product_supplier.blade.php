@@ -8,18 +8,21 @@
     <style>
 
         @page {
-            background-image: url("{{ asset('img/background/jelanco-background.jpg') }}");
-            background-image-resize: 6;
-            margin-top: 220px;
+            @if(!empty(\App\Models\SystemSettingModel::first()->letter_head_image))
+                background-image: url("{{ asset('storage/setting/'.\App\Models\SystemSettingModel::first()->letter_head_image) }}");
+            @endif
+                        background-image-resize: 6;
+            margin-top: 150px;
             margin-bottom: 50px;
             footer: page-footer;
         }
 
         @page :first {
-            background-image: url("{{ asset('img/background/jelanco-background.jpg') }}");
+            @if(!empty(\App\Models\SystemSettingModel::first()->letter_head_image))
+                background-image: url("{{ asset('storage/setting/'.\App\Models\SystemSettingModel::first()->letter_head_image) }}");
+            @endif
             background-image-resize: 6;
             margin-bottom: 50px;
-            margin-top: 220px;
         }
 
         /*.title {*/
