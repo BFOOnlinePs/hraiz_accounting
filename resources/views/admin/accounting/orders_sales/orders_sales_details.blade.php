@@ -21,9 +21,11 @@
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-dark" @if($data->order_status == 'invoice_has_been_posted') disabled @endif onclick="open_add_product_modal()">اضافة اصناف</button>
+            <button class="btn btn-secondary" @if($data->order_status == 'invoice_has_been_posted') disabled @endif onclick="open_add_product_modal()">انشاء فاتورة من طلبية البيع</button>
 {{--            <a href="{{  route('accounting.orders_sales.order_sales_pdf',['price_offer_id'=>$data->id]) }}" class="btn btn-warning float-right" @if($data->order_status == 'invoice_has_been_posted') onclick="return false;" style="pointer-events: none; opacity: 0.6;" @endif><span class="fa fa-print"></span></a>--}}
 {{--            <a href="{{  route('accounting.orders_sales.order_sales_pdf',['price_offer_id'=>$data->id]) }}" class="btn btn-warning float-right"><span class="fa fa-print"></span></a>--}}
             <button class="btn btn-warning float-right" data-toggle="modal" data-target="#order_sales_print_modal"><span class="fa fa-print"></span></button>
+            <button class="btn btn-dark mr-1 float-right" data-toggle="modal" data-target="#add_preparation_modal">ارسال الى التحضير</button>
         </div>
     </div>
     <div class="row mt-3">
@@ -44,7 +46,7 @@
                         </div>
                     @endif
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="from-group">
@@ -71,17 +73,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        {{-- <div class="col-md-2">
                             <form action="{{ route('accounting.orders_sales.update_order_sales_status') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $data->id }}">
-                                {{--                    <button @if($data->status == 'stage') disabled @endif onclick="window.location.href='{{ route('accounting.sales_invoices.invoice_posting',['id'=>$data->id]) }}'" class="btn btn-info form-control" style="height: 100%">ترحيل</button>--}}
                                 <button @if($data->order_status == 'invoice_has_been_posted') disabled @endif class="btn btn-info form-control" style="height: 100%">
                                     <span class="text-success">@if($data->order_status == 'invoice_has_been_posted') <span class="fa fa-check-circle"></span> @endif</span>
                                     <p>ترحيل</p>
                                 </button>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -100,6 +101,7 @@
     </div>
     @include('admin.accounting.orders_sales.modals.add_product_modal')
     @include('admin.accounting.orders_sales.modals.order_sales_print_modal')
+    @include('admin.accounting.orders_sales.modals.add_preparation_modal')
 @endsection
 
 @section('script')

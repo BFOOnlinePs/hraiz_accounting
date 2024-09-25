@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\accounting;
 
 use App\Http\Controllers\Controller;
+use App\Models\DocAmountModel;
+use App\Models\InvoiceItemsModel;
 use App\Models\OrdersSalesItemsModel;
 use App\Models\OrdersSalesModel;
+use App\Models\PreparationModel;
 use App\Models\PriceOfferSalesItemsModel;
 use App\Models\PriceOfferSalesModel;
 use App\Models\ProductModel;
@@ -12,6 +15,7 @@ use App\Models\SystemSettingModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PDF;
 
 class OrdersSalesController extends Controller
@@ -57,7 +61,8 @@ class OrdersSalesController extends Controller
     {
         $data = OrdersSalesModel::where('id',$order_id)->first();
         $clients = User::whereJsonContains('user_role','10')->orWhereJsonContains('user_role','4')->get();
-        return view('admin.accounting.orders_sales.orders_sales_details',['data'=>$data , 'clients'=>$clients]);
+        $employees = User::whereJsonContains('user_role','11')->get();
+        return view('admin.accounting.orders_sales.orders_sales_details',['data'=>$data , 'clients'=>$clients , 'employees'=>$employees]);
     }
 
     public function orders_sales_items_list_ajax(Request $request)
@@ -179,6 +184,13 @@ class OrdersSalesController extends Controller
     {
         $data = OrdersSalesModel::where('id',$request->id)->first();
         $data->order_status = 'invoice_has_been_posted';
+            $doc_amount = new DocAmountModel();
+            $doc_amount->type = 'order_sales';
+            $doc_amount->invoice_id = $request->id;
+            $doc_amount->amount = OrdersSalesItemsModel::where('order_id',$request->id)->sum(DB::raw('price * qty'));
+            $doc_amount->client_id = $data->user_id;
+            $doc_amount->save();    
+        
         if ($data->save()){
             return redirect()->route('accounting.orders_sales.orders_sales_details',['order_id'=>$request->id])->with('تم ترحيل طلبية البيع بنجاح');
         }
@@ -208,5 +220,18 @@ class OrdersSalesController extends Controller
         $system_setting = SystemSettingModel::first();
         $pdf = PDF::loadView('admin.accounting.orders_sales.pdf.order_sales_details',['data'=>$data , 'system_setting'=>$system_setting ,'request'=>$request]);
         return $pdf->stream('order_sales.pdf');
+    }
+
+    public function create_preparation(Request $request){
+        $data = new PreparationModel();
+        $data->order_id = $request->order_id;
+        $data->from_user = auth()->user()->id;
+        $data->to_user = $request->employee_id;
+        $data->status = 'waiting_prepared';
+        $data->notes = $request->notes;
+        $data->insert_at = Carbon::now();
+        if($data->save()){
+            return redirect()->back();
+        }
     }
 }

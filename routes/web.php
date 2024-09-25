@@ -703,9 +703,15 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('update_order_sales_status',[\App\Http\Controllers\accounting\OrdersSalesController::class,'update_order_sales_status'])->name('accounting.orders_sales.update_order_sales_status');
         Route::post('check_if_price_offer_if_found',[\App\Http\Controllers\accounting\OrdersSalesController::class,'check_if_price_offer_if_found'])->name('accounting.orders_sales.check_if_price_offer_if_found');
         Route::get('order_sales_pdf/{price_offer_id}',[\App\Http\Controllers\accounting\OrdersSalesController::class,'order_sales_pdf'])->name('accounting.orders_sales.order_sales_pdf');
+        Route::post('create_preparation',[\App\Http\Controllers\accounting\OrdersSalesController::class,'create_preparation'])->name('accounting.orders_sales.create_preparation');
     });
     Route::group(['prefix'=>'preparing_order'],function (){
         Route::get('index',[\App\Http\Controllers\PreparingOrderController::class,'index'])->name('accounting.preparing_order.index');
+    });
+    Route::group(['prefix'=>'preparation'],function (){
+        Route::get('index',[\App\Http\Controllers\accounting\PreparationController::class,'index'])->name('accounting.preparation.index');
+        Route::get('details/{preparation_id}',[\App\Http\Controllers\accounting\PreparationController::class,'details'])->name('accounting.preparation.details');
+        Route::post('update_data',[\App\Http\Controllers\accounting\PreparationController::class,'update_data'])->name('accounting.preparation.update_data');
     });
 });
 

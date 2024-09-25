@@ -249,6 +249,10 @@
                 عدد مردودات المشتريات
                 {{ $key->type_count }}
             @endif
+            @if($key->type == 'order_sales')
+                عدد مردودات المشتريات
+                {{ $key->type_count }}
+            @endif
             &nbsp;
 
         </span>
