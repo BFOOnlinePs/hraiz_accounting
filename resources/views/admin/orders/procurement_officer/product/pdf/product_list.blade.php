@@ -11,6 +11,24 @@
             position: relative;
         }
 
+        @page {
+            @if(!empty(\App\Models\SystemSettingModel::first()->letter_head_image))
+                background-image: url("{{ asset('storage/setting/'.\App\Models\SystemSettingModel::first()->letter_head_image) }}");
+            @endif
+                        background-image-resize: 6;
+            margin-top: 150px;
+            margin-bottom: 50px;
+            footer: page-footer;
+        }
+
+        @page :first {
+            @if(!empty(\App\Models\SystemSettingModel::first()->letter_head_image))
+                background-image: url("{{ asset('storage/setting/'.\App\Models\SystemSettingModel::first()->letter_head_image) }}");
+            @endif
+            background-image-resize: 6;
+            margin-bottom: 50px;
+        }
+
         body {
             background-color: rgb(255, 255, 255);
             position: relative;
@@ -69,10 +87,10 @@
 </head>
 
 <body>
-    <div style="z-index: 11; position: absolute;top: 0;left: 0;width: 100%;right: 0;align-items: center">
+    {{-- <div style="z-index: 11; position: absolute;top: 0;left: 0;width: 100%;right: 0;align-items: center">
         <img src="{{ asset('img/background/jelanco-background.png') }}" style="width: 100%"
             data-new_src="labels/80/images/image1.jpg">
-    </div>
+    </div> --}}
     <p class="title">Order : {{ $order->reference_number }}</p>
 
     <table style="width: 100%;border: none;text-align: center">
