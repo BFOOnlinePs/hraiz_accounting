@@ -131,6 +131,13 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
+                                                    <label for="">كلمة المرور :</label>
+                                                    <input onchange="update_user_ajax('password',this.value)"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
                                                     <div
                                                         class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                                                         <input

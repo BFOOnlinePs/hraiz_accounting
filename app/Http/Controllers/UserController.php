@@ -146,6 +146,9 @@ class UserController extends Controller
             }
         }
 
+        if($request->filled('password')){
+            $data->{$request->data_type} = bcrypt($request->input('value'));
+        }
         $data->{$request->data_type} = $request->input('value');
 
         if ($data->save()){
