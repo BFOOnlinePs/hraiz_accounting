@@ -42,6 +42,7 @@
                                             <option @if($preparation->status == 'ready_prepared') selected @endif value="ready_prepared">تم التجهيز</option>
                                             <option @if($preparation->status == 'delivered') selected @endif value="delivered">تم التسليم</option>
                                         </select>
+                                        {{-- Mohamad Maraqa --}}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
