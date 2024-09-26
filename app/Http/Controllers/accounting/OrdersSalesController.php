@@ -28,7 +28,7 @@ class OrdersSalesController extends Controller
 
     public function list_orders_sales_ajax(Request $request)
     {
-        $data = OrdersSalesModel::get();
+        $data = OrdersSalesModel::orderBy('id','desc')->get();
         foreach ($data as $key){
             $key->client = User::where('id',$key->user_id)->first();
         }
@@ -219,6 +219,8 @@ class OrdersSalesController extends Controller
         $data = OrdersSalesModel::with('user','order_sales_items','order_sales_items.product')->where('id',$order_id)->first();
         $system_setting = SystemSettingModel::first();
         $pdf = PDF::loadView('admin.accounting.orders_sales.pdf.order_sales_details',['data'=>$data , 'system_setting'=>$system_setting ,'request'=>$request]);
+        // $pdf->SetHTMLFooterByName('last-footer', '<div style="text-align: center;">Footer content for the last page</div>');
+        // $pdf->SetHTMLFooter('last-footer', 'O');
         return $pdf->stream('order_sales.pdf');
     }
 
