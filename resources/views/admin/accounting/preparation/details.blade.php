@@ -41,7 +41,7 @@
                                             <option @if($preparation->status == 'waiting_prepared') selected @endif value="waiting_prepared">بانتظار التجهيز</option>
                                             <option @if($preparation->status == 'ready_prepared') selected @endif value="ready_prepared">تم التجهيز</option>
                                             <option @if($preparation->status == 'delivered') selected @endif value="delivered">تم التسليم</option>
-                                        </selehamad
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
