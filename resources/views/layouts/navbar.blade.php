@@ -46,6 +46,7 @@
                 <li class="nav-item">
                     <a href="{{ route('home') }}" class="nav-link text-white">الرئيسية</a>
                 </li>
+                @if (in_array('1',json_decode(auth()->user()->user_role)))
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false" class="nav-link text-white dropdown-toggle">الحسابات</a>
@@ -81,7 +82,7 @@
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false" class="nav-link text-white dropdown-toggle">الطلبيات</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li><a href="{{ route('accounting.preparing_order.index') }}" class="dropdown-item">التحضير</a></li>
+                        <li><a href="{{ route('accounting.preparation.index') }}" class="dropdown-item">التحضير</a></li>
                     </ul>
                 </li>
 
@@ -156,7 +157,6 @@
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li><a href="{{ route('currency.index') }}" class="dropdown-item">العملات</a></li>
                         <li><a href="{{ route('bank.index') }}" class="dropdown-item">البنوك</a></li>
-{{--                        <li><a href="{{ route('tasks_type.index') }}" class="dropdown-item">أنواع المهام</a></li>--}}
                         <li><a href="{{ route('shipping_methods.index') }}" class="dropdown-item">طرق الشحن</a></li>
                         <li><a href="{{ route('clearance_attachment.index') }}" class="dropdown-item">مرفقات التخليص</a></li>
                         <li><a href="{{ route('estimation_cost_element.index') }}" class="dropdown-item">عناصر تقدير التكلفة</a></li>
@@ -175,6 +175,15 @@
                         <li><a href="{{ route('wherehouse.index') }}" class="dropdown-item">المخازن</a></li>
                     </ul>
                 </li>
+                @elseif (in_array('11',json_decode(auth()->user()->user_role)))
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" class="nav-link text-white dropdown-toggle">الطلبيات</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li><a href="{{ route('accounting.preparation.index') }}" class="dropdown-item">التحضير</a></li>
+                    </ul>
+                </li>
+                @endif
             </ul>
 
             {{-- <form class="form-inline ml-0 ml-md-3">
