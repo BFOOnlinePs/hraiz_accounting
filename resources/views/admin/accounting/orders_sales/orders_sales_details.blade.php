@@ -26,8 +26,6 @@
 {{--            <a href="{{  route('accounting.orders_sales.order_sales_pdf',['price_offer_id'=>$data->id]) }}" class="btn btn-warning float-right"><span class="fa fa-print"></span></a>--}}
             <button class="btn btn-warning float-right" data-toggle="modal" data-target="#order_sales_print_modal"><span class="fa fa-print"></span></button>
             <button class="btn btn-dark mr-1 float-right" data-toggle="modal" data-target="#add_preparation_modal">ارسال الى التحضير</button>
-            <button class="btn btn-warning float-right mr-2" data-toggle="modal" data-target="#order_sales_print_modal"><span class="fa fa-print"></span></button>
-            <button onclick="add_price_offer_sales_to_order_sales()" class="btn btn-dark float-right">اضافة الطلبية من عرض سعر بيع</button>
         </div>
     </div>
     <div class="row mt-3">
