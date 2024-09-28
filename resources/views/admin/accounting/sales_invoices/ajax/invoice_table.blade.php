@@ -9,7 +9,7 @@
         <th>المجموع</th>
         <th>حالة الفاتورة</th>
         <th>الملاحظات</th>
-        <th>العمليات</th>
+        <th style="width: 130px">العمليات</th>
     </tr>
     </thead>
     <tbody>
@@ -26,6 +26,7 @@
                 <td>{{ $key->due_date }}</td>
                 <td>{{ App\Models\User::where('id',$key->client_id)->value('name') }}</td>
                 <td>{{ $key->totalAmount }}</td>
+                <td>{{ $key->note }}</td>
                 <td class="text-center">
                     @if($key->status == 'stage')
                         <span class="badge bg-success">مرحل</span>
@@ -33,7 +34,6 @@
                         <span class="badge bg-warning">غير مرحل</span>
                     @endif
                 </td>
-                <td>{{ $key->note }}</td>
                 <td>
                     <a href="{{ route('accounting.sales_invoices.invoice_view',['id'=>$key->id]) }}" class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>
                     <a href="{{ route('accounting.sales_invoices.edit_invoices',['id'=>$key->id]) }}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
