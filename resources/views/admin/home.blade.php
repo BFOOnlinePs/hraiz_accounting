@@ -17,66 +17,115 @@
     @endphp
     @if(in_array("1", $userRoles))
         <div class="row">
-            <div class="col-lg-3 col-6">
 
-                <div class="small-box bg-info">
+            <div class="col-lg-6 col-3">
+                <div class="small-box bg-info pr-3 pt-4 pb-2">
                     <div class="inner">
-                        <h3>{{ $order_count }}</h3>
-                        <p>الطلبيات</p>
+                        {{-- <h3>{{ $order_count }}</h3> --}}
+                        <h3>مشتريات</h3>
+                        <div class="row">
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">فواتير مشتريات</a>
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">طلبيات شراء</a>
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">مردودات مشتريات</a>    
+                        </div>
                     </div>
                     <div class="icon">
                         <i class="fa fa-bag-shopping"></i>
                     </div>
-                    <a href="{{ route('orders.procurement_officer.order_index') }}" class="small-box-footer">المزيد <i
-                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-6">
-
-                <div class="small-box bg-success">
+            <div class="col-lg-6 col-3">
+                <div class="small-box bg-success pr-3 pt-4 pb-2">
                     <div class="inner">
-                        <h3>{{ $product_count }}</h3>
-                        <p>الاصناف</p>
+                        {{-- <h3>{{ $order_count }}</h3> --}}
+                        <h3>مبيعات</h3>
+                        <div class="row">
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">فواتير مبيعات</a>
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">عروض اسعار بيع</a>
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">مردود مبيعات</a>    
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">طلبيات بيع</a>    
+                        </div>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-list"></i>
+                        <i class="fa fa-bag-shopping"></i>
                     </div>
-                    <a href="{{ route('product.home') }}" class="small-box-footer">المزيد <i
-                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-6">
-
-                <div class="small-box bg-warning">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-lg-4 col-4">
+                        <div class="small-box bg-warning pr-3 pt-4 pb-2">
+                            <div class="inner">
+                                {{-- <h3>{{ $order_count }}</h3> --}}
+                                <h3>موردين</h3>
+                                <div class="row">
+                                </div>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-bag-shopping"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-3">
+                        <div class="small-box bg-danger pr-3 pt-4 pb-2">
+                            <div class="inner">
+                                {{-- <h3>{{ $order_count }}</h3> --}}
+                                <h3>زبائن</h3>
+                                <div class="row">
+                                </div>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-bag-shopping"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-3">
+                        <div class="small-box bg-warning pr-3 pt-4 pb-2">
+                            <div class="inner">
+                                {{-- <h3>{{ $order_count }}</h3> --}}
+                                <h3>موظفين</h3>
+                                <div class="row">
+                                </div>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-bag-shopping"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-3">
+                <div class="small-box bg-warning pr-3 pt-4 pb-2">
                     <div class="inner">
-                        <h3>{{ $supplier_count }}</h3>
-                        <p>الموردين</p>
+                        {{-- <h3>{{ $order_count }}</h3> --}}
+                        <h3>الأصناف</h3>
+                        <div class="row">
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">فواتير مشتريات</a>
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">طلبيات شراء</a>
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">مردودات مشتريات</a>    
+                        </div>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-bag-shopping"></i>
                     </div>
-                    <a href="{{ route('users.supplier.index') }}" class="small-box-footer">المزيد <i
-                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-6">
-
-                <div class="small-box bg-danger">
+            <div class="col-lg-3 col-3">
+                <div class="small-box bg-danger pr-3 pt-4 pb-2">
                     <div class="inner">
-                        <h3>{{ $task_count }}</h3>
-                        <p>مهمة</p>
+                        {{-- <h3>{{ $order_count }}</h3> --}}
+                        <h3>مشتريات</h3>
+                        <div class="row">
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">فواتير مشتريات</a>
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">طلبيات شراء</a>
+                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">مردودات مشتريات</a>    
+                        </div>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-tasks"></i>
+                        <i class="fa fa-bag-shopping"></i>
                     </div>
-                    <a href="{{ route('tasks.index') }}" class="small-box-footer">المزيد <i
-                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-
         </div>
         <div class="row">
             <div class="col-md-6">
