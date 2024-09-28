@@ -25,11 +25,6 @@
         فاتورة من طلبية
     </button> --}}
     <div class="card">
-
-        {{-- <div class="card-header">
-            <h3 class="text-center">قائمة البنوك</h3>
-        </div> --}}
-
         <div class="card-body">
             <form action="{{ route('accounting.purchase_invoices.create_new_invoices') }}" method="post">
                 @csrf
@@ -86,7 +81,17 @@
                                     </select>
                                 </div>
                             </div>
-
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">العملة</label>
+                                    <select name="currency_id" id="currency_id" class="form-control select2bs4">
+                                        <option value="">اختر العملة ...</option>
+                                        @foreach ($currency as $key)
+                                            <option value="{{ $key->id }}">{{ $key->currency_name }} {{ $key->currency_symbol }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="">ملاحظات</label>
@@ -97,43 +102,6 @@
                     </div>
                     <div class="col-md-8">
                         <div class="row">
-                            
-                            {{-- <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">تاريخ التسليم</label>
-                                    <input required type="date" value="{{ date('Y-m-d') }}" name="due_date" class="form-control text-center">
-                                </div>
-                            </div> --}}
-                            
-                            {{-- <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">المخزن</label>
-                                    <select required class="form-control" name="wherehouse_id" id="wherehouse_id">
-                                        <option value="">اختر مخزن</option>
-                                        @foreach($wherehouses as $key)
-                                            <option value="{{ $key->id }}">{{ $key->wherehouse_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> --}}
-{{--                            <div hidden class="col-md-3">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="">الضريبة الثانية</label>--}}
-{{--                                    <select required name="tax_id2" id="tax_id2" class="form-control select2bs4">--}}
-{{--                                        <option value="">اختر قيمة الضريبة ...</option>--}}
-{{--                                        @foreach ($taxes as $key)--}}
-{{--                                            <option value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>--}}
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-                            {{-- <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="checkbox">التكرار</label>
-                                    <input type="checkbox" id="checkbox" onchange="if_checked(this.value)">
-                                </div>
-                            </div> --}}
-
                             <div style="display: none" id="recurring_form" class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -167,7 +135,6 @@
                 <button type="submit" class="btn btn-dark">انشاء فاتورة مشتريات</button>
             </form>
         </div>
-
     </div>
     <div class="modal fade" id="modal-lg">
         <div class="modal-dialog modal-lg">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\accounting;
 
 use App\Http\Controllers\Controller;
+use App\Models\Currency;
 use App\Models\DocAmountModel;
 use App\Models\InvoiceItemsModel;
 use App\Models\OrderItemsModel;
@@ -50,8 +51,9 @@ class PurchaseInvoicesController extends Controller
     public function new_invoices_index(){
         $client = User::whereJsonContains('user_role',['4'])->get();
         $taxes = TaxesModel::get();
+        $currency = Currency::get();
         $wherehouses = WhereHouseModel::get();
-        return view('admin.accounting.purchase_invoices.new_invoice.index',['client'=>$client,'taxes'=>$taxes,'wherehouses'=>$wherehouses]);
+        return view('admin.accounting.purchase_invoices.new_invoice.index',['client'=>$client,'taxes'=>$taxes,'wherehouses'=>$wherehouses , 'currency'=>$currency]);
     }
 
     public function create_new_invoices(Request $request){
@@ -64,6 +66,7 @@ class PurchaseInvoicesController extends Controller
         $data->note = $request->note;
         $data->tax_id = $request->tax_id;
         $data->tax_id2 = $request->tax_id2;
+        $data->currency_id = $request->currency_id;
         $data->repeat_every = $request->repeat_every;
         $data->repeat_type = $request->repeat_type;
         $data->no_of_cycles	= $request->no_of_cycles;
