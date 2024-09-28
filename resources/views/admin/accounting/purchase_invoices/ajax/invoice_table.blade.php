@@ -1,15 +1,16 @@
-<table class="table table-bordered">
-    <thead>
+<table class="table table-bordered text-center">
+    <thead class="bg-dark">
     <tr>
         <td>#</td>
         <td>الرقم المرجعي</td>
         <th>تاريخ الفاتورة</th>
         <th>تاريخ التسليم</th>
         <th>العميل</th>
-        <th>الضريبة الاولى</th>
-        <th>الضريبة الثانية</th>
+        {{-- <th>الضريبة الاولى</th> --}}
+        {{-- <th>الضريبة الثانية</th> --}}
         <th>الملاحظات</th>
-        <th>العمليات</th>
+        <th>الحالة</th>
+        <th style="width: 130px">العمليات</th>
     </tr>
     </thead>
     <tbody>
@@ -25,10 +26,17 @@
                 <td>{{ $key->bill_date }}</td>
                 <td>{{ $key->due_date }}</td>
                 <td>{{ App\Models\User::where('id',$key->client_id)->value('name') }}</td>
-                <td>{{ $key->tax_id }}</td>
-                <td>{{ $key->tax_id2 }}</td>
+                {{-- <td>{{ $key->tax_id }}</td> --}}
+                {{-- <td>{{ $key->tax_id2 }}</td> --}}
                 <td>{{ $key->note }}</td>
-                <td>
+                <td class="text-center">
+                    @if ($key->status == 'stage')
+                        <span class="badge badge-success">مرحل</span>
+                    @else
+                        <span class="badge badge-danger">غير مرحل</span>
+                    @endif
+                </td>
+                <td class=''>
                     <a href="{{ route('accounting.purchase_invoices.invoice_view',['id'=>$key->id]) }}" class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>
                     <a href="{{ route('accounting.purchase_invoices.edit_invoices',['id'=>$key->id]) }}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
                     <a href="{{ route('accounting.purchase_invoices.delete_invoices',['id'=>$key->id]) }}" onclick="return confirm('هل تريد حذف البيانات ؟')" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></a>
