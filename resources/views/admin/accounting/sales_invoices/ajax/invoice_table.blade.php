@@ -1,5 +1,5 @@
-<table class="table table-bordered">
-    <thead>
+<table class="table table-bordered text-center">
+    <thead class="bg-dark">
     <tr>
 {{--        <td>#</td>--}}
         <td>الرقم المرجعي</td>
