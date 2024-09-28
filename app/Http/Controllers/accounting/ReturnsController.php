@@ -49,7 +49,7 @@ class ReturnsController extends Controller
 
         foreach ($data as $key){
             $key->product = ProductModel::where('id',$key->item_id)->first();
-            $key->wherehouse = WhereHouseModel::where('id',$key->wherehouse_id)->first();
+            // $key->wherehouse = WhereHouseModel::where('id',$key->wherehouse_id)->first();
         }
 
         $wherehouses = WhereHouseModel::get();
@@ -82,12 +82,12 @@ class ReturnsController extends Controller
             foreach ($selectedProducts as $index => $productId){
                 $quantity = $quantities[$index];
                 $rate = $rates[$index];
-                $wherehouse = $wherehouses[$index];
+                // $wherehouse = $wherehouses[$index];
                 $return_items = new ReturnItemsModel();
                 $return_items->invoice_id = $returns->id;
                 $return_items->product_id = $productId;
                 $return_items->qty = $quantity;
-                $return_items->wherehouse_id = $wherehouse;
+                // $return_items->wherehouse_id = $wherehouse;
                 if (!$return_items->save()){
                     return redirect()->route('accounting.returns.index')->with(['fail' => 'هناك خلل ما']);
                 }
