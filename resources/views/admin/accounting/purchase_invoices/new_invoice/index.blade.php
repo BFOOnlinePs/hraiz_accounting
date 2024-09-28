@@ -24,7 +24,7 @@
     <button type="button" class="btn btn-dark mb-2" data-toggle="modal" data-target="#modal-lg">
         فاتورة من طلبية
     </button> --}}
-    <div class="card">
+    <div class="card card-warning card-outline">
         <div class="card-body">
             <form action="{{ route('accounting.purchase_invoices.create_new_invoices') }}" method="post">
                 @csrf
@@ -72,7 +72,7 @@
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">الضريبة الاولى</label>
+                                    <label for="">الضريبة</label>
                                     <select required name="tax_id" id="tax_id" class="form-control select2bs4">
                                         <option value="">اختر قيمة الضريبة ...</option>
                                         @foreach ($taxes as $key)
