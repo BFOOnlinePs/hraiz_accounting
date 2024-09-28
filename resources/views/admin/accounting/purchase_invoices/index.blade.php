@@ -19,13 +19,29 @@
 @section('content')
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
-    <a href="{{ route('accounting.purchase_invoices.new_invoices_index') }}" class="btn btn-dark text-white mb-2">
-        فاتورة جديدة
-    </a>
-    <button type="button" class="btn btn-dark mb-2" data-toggle="modal" data-target="#modal-lg">
-        فاتورة من طلبية
-    </button>
-    <div class="card p-3">
+    <div class="row">
+        <div class="col-lg-12 col-12">
+            <div class="small-box bg-warning text-white border border-warning">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="text-bold text-dark m-1">فواتير مشتريات</h4>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row ml-2 w-100">
+                                <a class="btn btn-sm btn-light col-md-3 col-12 m-1 p-2" href="{{ route('accounting.purchase_invoices.new_invoices_index') }}"><span class="fa fa-plus"></span>&nbsp&nbsp<span>فاتورة جديدة</span></a>
+                                <button type="button" class="btn btn-light btn-sm col-md-3 col-12 m-1 p-2" data-toggle="modal" data-target="#modal-lg">
+                                    <span class="fa fa-file-text"></span>&nbsp&nbsp<span>فاتورة من طلبية شراء</span>
+                                </button>                
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <h3>{{ $order_count }}</h3> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card p-3 border border-warning">
         <div class="row">
             <div class="col">
                 <div class="form-group">
@@ -58,15 +74,29 @@
 {{--            </div>--}}
             <div class="col">
                 <div class="form-group">
-                    <label for="">حالة الطلبية</label>
+                    <label for="">حالة الفاتورة</label>
                     <select onchange="getOrderTable()" class="form-control" name="order_status" id="order_status">
-                        <option value="">جميع الحالات</option>
+                        <option value="">جميع الحالات ...</option>
+                        <option value="">مرحل</option>
+                        <option value="">غير مرحل</option>
                         {{--                    @foreach($order_status as $key)--}}
                         {{--                        @if($key->id != 10)--}}
                         {{--                            <option value="{{ $key->id }}">{{ $key->name }}</option>--}}
                         {{--                        @endif--}}
                         {{--                    @endforeach--}}
                     </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="">من تاريخ</label>
+                    <input type='date' class="form-control">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="">الى تاريخ</label>
+                    <input type='date' class="form-control">
                 </div>
             </div>
 {{--            <div class="col">--}}
