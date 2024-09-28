@@ -17,16 +17,15 @@
     @endphp
     @if(in_array("1", $userRoles))
         <div class="row">
-
-            <div class="col-lg-6 col-3">
-                <div class="small-box bg-info pr-3 pt-4 pb-2">
+            <div class="col-lg-6 col-12">
+                <div class="small-box bg-dots-darker border border-warning pr-3 pt-4 pb-2">
                     <div class="inner">
                         {{-- <h3>{{ $order_count }}</h3> --}}
                         <h3>مشتريات</h3>
-                        <div class="row">
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">فواتير مشتريات</a>
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">طلبيات شراء</a>
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">مردودات مشتريات</a>    
+                        <div class="row mt-4">
+                            <a class="btn btn-sm btn-warning col-lg col-12 m-1 p-2" href="{{ route('accounting.purchase_invoices.index') }}">فواتير مشتريات</a>
+                            <a class="btn btn-sm btn-warning col-lg col-12 m-1 p-2" href="{{ route('orders.procurement_officer.order_index') }}">طلبيات شراء</a>
+                            <a class="btn btn-sm btn-warning col-lg col-12 m-1 p-2" href="{{ route('accounting.returns.index') }}">مردودات مشتريات</a>    
                         </div>
                     </div>
                     <div class="icon">
@@ -34,188 +33,94 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-3">
-                <div class="small-box bg-success pr-3 pt-4 pb-2">
+            <div class="col-lg-6 col-12">
+                <div class="small-box bg-dots-darker border border-success pr-3 pt-4 pb-2">
                     <div class="inner">
                         {{-- <h3>{{ $order_count }}</h3> --}}
                         <h3>مبيعات</h3>
-                        <div class="row">
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">فواتير مبيعات</a>
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">عروض اسعار بيع</a>
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">مردود مبيعات</a>    
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">طلبيات بيع</a>    
+                        <div class="row mt-4">
+                            <a class="btn btn-sm btn-success col-lg col-12 m-1 p-2" href="{{ route('accounting.sales_invoices.index') }}">فواتير مبيعات</a>
+                            <a class="btn btn-sm btn-success col-lg col-12 m-1 p-2" href="{{ route('price_offer_sales.index') }}">عروض اسعار بيع</a>
+                            <a class="btn btn-sm btn-success col-lg col-12 m-1 p-2" href="{{ route('accounting.returns.index') }}">مردود مبيعات</a>    
+                            <a class="btn btn-sm btn-success col-lg col-12 m-1 p-2" href="{{ route('accounting.orders_sales.index') }}">طلبيات بيع</a>    
                         </div>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-bag-shopping"></i>
+                        <i class="fa fa-cart-shopping"></i>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-lg-4 col-4">
-                        <div class="small-box bg-warning pr-3 pt-4 pb-2">
-                            <div class="inner">
-                                {{-- <h3>{{ $order_count }}</h3> --}}
-                                <h3>موردين</h3>
-                                <div class="row">
-                                </div>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-bag-shopping"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-3">
-                        <div class="small-box bg-danger pr-3 pt-4 pb-2">
-                            <div class="inner">
-                                {{-- <h3>{{ $order_count }}</h3> --}}
-                                <h3>زبائن</h3>
-                                <div class="row">
-                                </div>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-bag-shopping"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-3">
-                        <div class="small-box bg-warning pr-3 pt-4 pb-2">
-                            <div class="inner">
-                                {{-- <h3>{{ $order_count }}</h3> --}}
-                                <h3>موظفين</h3>
-                                <div class="row">
-                                </div>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-bag-shopping"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-3">
-                <div class="small-box bg-warning pr-3 pt-4 pb-2">
+            
+            <div class="col-lg-6 col-12">
+                <div class="small-box bg-dots-darker border border-danger pr-3 pt-4 pb-2">
                     <div class="inner">
                         {{-- <h3>{{ $order_count }}</h3> --}}
                         <h3>الأصناف</h3>
-                        <div class="row">
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">فواتير مشتريات</a>
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">طلبيات شراء</a>
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">مردودات مشتريات</a>    
+                        <div class="row mt-4">
+                            <a class="btn btn-sm btn-danger col-lg col-12 m-1 p-2" href="{{ route('product.index') }}">قائمة الأصناف</a>
+                            <a class="btn btn-sm btn-danger col-lg col-12 m-1 p-2" href="{{ route('units.index') }}">الوحدات</a>
+                            <a class="btn btn-sm btn-danger col-lg col-12 m-1 p-2" href="{{ route('category.index') }}">مجموعات الأصناف</a>    
                         </div>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-bag-shopping"></i>
+                        <i class="fa fa-list"></i>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-3">
-                <div class="small-box bg-danger pr-3 pt-4 pb-2">
+            <div class="col-lg-6 col-12">
+                <div class="small-box bg-dots-darker border border-info pr-3 pt-4 pb-2">
                     <div class="inner">
                         {{-- <h3>{{ $order_count }}</h3> --}}
-                        <h3>مشتريات</h3>
-                        <div class="row">
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">فواتير مشتريات</a>
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">طلبيات شراء</a>
-                            <a class="btn btn-sm btn-default bg-white col m-2 p-2" href="#">مردودات مشتريات</a>    
+                        <h3>المستخدمين</h3>
+                        <div class="row mt-4">
+                            <a class="btn btn-sm btn-info col-lg col-12 m-1 p-2" href="{{ route('users.employees.index') }}">موظفين</a>
+                            <a class="btn btn-sm btn-info col-lg col-12 m-1 p-2" href="{{ route('users.supplier.index') }}">موردين</a>
+                            <a class="btn btn-sm btn-info col-lg col-12 m-1 p-2" href="{{ route('users.clients.index') }}">زبائن</a>    
                         </div>
                     </div>
                     <div class="icon">
-                        <i class="fa fa-bag-shopping"></i>
+                        <i class="fa fa-users"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <span class="">اخر الطلبيات</span>
-                        <a href="{{ route('orders.procurement_officer.order_index') }}" class="btn btn-dark btn-sm" style="float: left">عرض الطلبيات</a>
+            <a class="col-md-2 col-12" href="{{ route('accounting.preparation.index') }}">
+                    <div class="bg-success text-center col-md-12 m-1 p-3">
+                        <h2 class="fa fa-check"></h1>
+                        <h5>تحضير طلبيات</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="table-responsive">
-                                <table id="example1"  class="table table-bordered table-hover text-center dataTable dtr-inline"
-                                       aria-describedby="example1_info">
-                                    <thead class="bg-dark">
-                                    <tr>
-                                        {{--                <th>رقم طلبية الشراء</th>--}}
-                                        <th>ر.مرجعي</th>
-                                        <th width="150">الترسية</th>
-                                        <th>بواسطة</th>
-                                        <th></th>
-                                        @if(!in_array('3',json_decode(auth()->user()->user_role)))
-                                            <th>العمليات</th>
-                                        @endif
-                                        {{--                    <th>العمليات</th>--}}
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($data as $key)
-                                        <tr class="">
-                                            {{--                    <td>{{ $key->id }}</td>--}}
-                                            {{--                    <td>{{ $key->order_id }}</td>--}}
-                                            <td>{{ $key->reference_number }}
-                                            {{--                            <span onclick="getReferenceNumber({{ $key->order_id }})" class="fa fa-edit text-success" style="float: left" data-toggle="modal" data-target="#modal-reference_number"></span></td>--}}
-                                            <td>
-                                                @foreach($key->supplier as $child)
-                                                    {{ $child['name']->name }},
-                                                @endforeach
-                                            </td>
-                                            <td>{{ $key['user']->name }}</td>
-                                            <td>{{ $key->created_at }}</td>
-                                            @if(!in_array('3',json_decode(auth()->user()->user_role)))
-                                                <td>
-                                                    <a href="{{ route('procurement_officer.orders.product.index',['order_id'=>$key->order_id]) }}" class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>
-                                                </td>
-                                            @endif
-                                            {{--                        <td>--}}
-                                            {{--                                                        <a href="{{ route('procurement_officer.orders.product.index',['order_id'=>$key->order_id]) }}"--}}
-                                            {{--                                                           class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>--}}
-                                            {{--                                                    <button type="button" onclick="getReferenceNumber({{ $key->order_id }})" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-reference_number">--}}
-                                            {{--                                                        تعديل الرقم المرجعي--}}
-                                            {{--                                                    </button>--}}
-                                            {{--                                                        <a href="{{ route('orders.procurement_officer.delete_order',['id'=>$key->order_id]) }}" onclick="return confirm('هل انت متاكد من عملية الحذف علما انه بعد الحذف سوف يتم نقله لسلة المحذوفات')" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></a>--}}
-                                            {{--                        </td>--}}
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        {{--    <div class="col-lg-3 col-6">--}}
-
-                        {{--        <div class="small-box bg-danger">--}}
-                        {{--            <div class="inner">--}}
-                        {{--                <h3>65</h3>--}}
-                        {{--                <p>Unique Visitors</p>--}}
-                        {{--            </div>--}}
-                        {{--            <div class="icon">--}}
-                        {{--                <i class="ion ion-pie-graph"></i>--}}
-                        {{--            </div>--}}
-                        {{--            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
-                        {{--        </div>--}}
-                        {{--    </div>--}}
-
+            </a>
+            <a class="col-md-2 col-12" href="{{ route('production.index') }}">
+                    <div class="btn btn-danger text-center col-md-12 m-1 p-3">
+                        <h2 class="fa fa-bars"></h1>
+                        <h5>خطوط الانتاج</h4>
                     </div>
+        </a>
+        <a class="col-md-2 col-12" href="{{ route('accounting.customer_account_statement_index') }}">
+                <div class="btn btn-warning text-white text-center col-md-12 m-1 p-3">
+                    <h2 class="fa fa-table"></h1>
+                    <h5 class="text-dark">كشف حساب</h4>
                 </div>
+    </a>
+    <a class="col-md-2 col-12" href="{{ route('accounting.sales_invoices.index') }}">
+            <div class="btn btn-info text-center col-md-12 m-1 p-3">
+                <h2 class="fa fa-ils"></h1>
+                <h5>مصروفات</h4>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <span class="text-center">التقويم</span>
-                        <a href="{{ route('calendar.index') }}" class="btn btn-dark btn-sm" style="float: left">عرض التقويم</a>
-                    </div>
-
-                    <div class="card-body">
-                        <div id="calendar-ajax">
-                            <div id="calendar"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+</a>
+<a class="col-md-2 col-12" href="{{ route('accounting.preparation.index') }}">
+        <div class="btn btn-secondary text-center col-md-12 m-1 p-3">
+            <h2 class="fa fa-file"></h1>
+            <h5>سندات صرف</h4>
+        </div>
+</a>
+<a class="col-md-2 col-12" href="{{ route('accounting.preparation.index') }}">
+        <div class="btn btn-dark text-center col-md-12 m-1 p-3">
+            <h2 class="fa fa-file-text"></h1>
+            <h5>سندات قبض</h4>
+        </div>
+</a>
         </div>
     @elseif(in_array("11", \GuzzleHttp\json_decode(auth()->user()->user_role)))
         <div class="card">

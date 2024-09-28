@@ -33,10 +33,35 @@
         <div class="card-body">
             <form action="{{ route('accounting.purchase_invoices.create_new_invoices') }}" method="post">
                 @csrf
-                <div class="row">
-                    <div class="col-md-8">
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <h1>فاتورة مشتريات جديدة</h1>
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">العميل</label>
+                                    <select required class="form-control select2bs4" name="client_id" id="">
+                                        <option value="">اختر عميل</option>
+                                        @foreach ($client as $key)
+                                            <option value="{{ $key->id }}">{{ $key->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="">الرقم المرجعي للفاتورة</label>
+                                    <input required name="invoice_reference_number" placeholder="ادخل الرقم المرجعي" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col">
                                 <div class="form-group">
                                     <?php
                                     $month = date('m');
@@ -49,16 +74,11 @@
                                            value="{{ $today }}">
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">تاريخ التسليم</label>
-                                    <input required type="date" value="{{ date('Y-m-d') }}" name="due_date" class="form-control text-center">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
+
+                            <div class="col">
                                 <div class="form-group">
                                     <label for="">الضريبة الاولى</label>
-                                    <select name="tax_id" id="tax_id" class="form-control select2bs4">
+                                    <select required name="tax_id" id="tax_id" class="form-control select2bs4">
                                         <option value="">اختر قيمة الضريبة ...</option>
                                         @foreach ($taxes as $key)
                                             <option value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>
@@ -66,7 +86,26 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">ملاحظات</label>
+                                    <textarea style="background-color: #ffbc0773" class="form-control" placeholder="يرجى ادخال الملاحظات" name="note" id="" cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            
+                            {{-- <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">تاريخ التسليم</label>
+                                    <input required type="date" value="{{ date('Y-m-d') }}" name="due_date" class="form-control text-center">
+                                </div>
+                            </div> --}}
+                            
+                            {{-- <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">المخزن</label>
                                     <select required class="form-control" name="wherehouse_id" id="wherehouse_id">
@@ -76,7 +115,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 {{--                            <div hidden class="col-md-3">--}}
 {{--                                <div class="form-group">--}}
 {{--                                    <label for="">الضريبة الثانية</label>--}}
@@ -88,12 +127,13 @@
 {{--                                    </select>--}}
 {{--                                </div>--}}
 {{--                            </div>--}}
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="checkbox">التكرار</label>
                                     <input type="checkbox" id="checkbox" onchange="if_checked(this.value)">
                                 </div>
-                            </div>
+                            </div> --}}
+
                             <div style="display: none" id="recurring_form" class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -123,35 +163,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 card bg-warning p-3">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="">الرقم المرجعي للفاتورة</label>
-                                    <input required name="invoice_reference_number" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="">العميل</label>
-                                    <select required class="form-control select2bs4" name="client_id" id="">
-                                        <option value="">اختر عميل</option>
-                                        @foreach ($client as $key)
-                                            <option value="{{ $key->id }}">{{ $key->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="">ملاحظات</label>
-                                    <textarea class="form-control" name="note" id="" cols="30" rows="3"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <button type="submit" class="btn btn-success">حفظ البيانات</button>
+                <button type="submit" class="btn btn-dark">انشاء فاتورة مشتريات</button>
             </form>
         </div>
 

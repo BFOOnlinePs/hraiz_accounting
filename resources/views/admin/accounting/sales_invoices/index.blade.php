@@ -19,12 +19,35 @@
 @section('content')
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
-    <a href="{{ route('accounting.sales_invoices.new_invoices_index') }}" class="btn btn-dark text-white mb-2">
-        فاتورة جديدة
-    </a>
-    <button type="button" class="btn btn-dark mb-2" data-toggle="modal" data-target="#modal-lg">
-        فاتورة من طلبيات بيع
-    </button>
+    <div class="row">
+        <div class="col-lg-12 col-12">
+            <div class="small-box bg-success text-white border border-success">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="text-bold m-1">فواتير مبيعات</h4>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row ml-2">
+                                <a class="btn btn-sm btn-light col-md-3 col-12 m-1 p-2" href="{{ route('accounting.sales_invoices.new_invoices_index') }}"><span class="fa fa-plus"></span>&nbsp&nbsp
+                                    <span>
+                                        فاتورة جديدة
+                                    </span>
+                                </a>
+                                <button type="button" class="btn btn-light btn-sm col-md-3 col-12 m-1 p-2" data-toggle="modal" data-target="#modal-lg">
+                                    <span class="fa fa-file-text"></span>&nbsp&nbsp
+                                    <span>
+                                        فاتورة من طلبيات بيع
+                                    </span>
+                                </button>                
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <h3>{{ $order_count }}</h3> --}}
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card p-3">
         <div class="row">
             <div class="col">
