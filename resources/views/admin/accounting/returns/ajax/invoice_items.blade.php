@@ -21,11 +21,11 @@
                     <input name="rates[]" class="form-control" value="{{ $key->rate }}" type="text">
                 </td>
                 <td>
-                    <select class="form-control select2bs4" name="wherehouses[]" id="">
+                    {{-- <select class="form-control select2bs4" name="wherehouses[]" id="">
                         @foreach($wherehouses as $item)
                             <option @if($item->id == $key->wherehouse->id) selected @endif value="{{ $item->id }}">{{ $item->wherehouse_name }}</option>
                         @endforeach
-                    </select>
+                    </select> --}}
                 </td>
             </tr>
         @endforeach
