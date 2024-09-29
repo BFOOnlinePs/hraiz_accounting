@@ -35,16 +35,36 @@ class PurchaseInvoicesController extends Controller
     }
 
     public function invoice_table_index_ajax(Request $request){
-        $data = PurchaseInvoicesModel::when(!empty($request->supplier_user_id),function ($query) use ($request){
+        $from = Carbon::parse($request->from_date)->startOfDay();
+        $to = Carbon::parse($request->to_date)->endOfDay();
+        $data = PurchaseInvoicesModel::where('invoice_type','purchases')->when(!empty($request->supplier_user_id),function ($query) use ($request){
             $query->where('client_id','like','%'.$request->supplier_user_id.'%');
+        })->when(!empty($request->from_date) && !empty($request->to_date) , function($query) use ($from,$to){
+            $query->whereBetween('bill_date',[$from,$to]);
+        })->when(!empty($request->invoice_status),function($query) use ($request){
+            $query->where('status',$request->invoice_status);
         })->when(!empty($request->invoice_reference_number),function ($query) use ($request){
             $query->where('invoice_reference_number','like','%'.$request->invoice_reference_number.'%');
         })->orderBy('id','desc')->paginate(10);
-        $order = OrderModel::get();
+        foreach ($data as $key){
+            $key->totalAmount =InvoiceItemsModel::where('invoice_id',$key->id)
+                ->sum('rate');
+        }
+        $order = OrderModel::orderBy('id','desc')->get();
         return response()->json([
             'success'=>'true',
             'view'=>view('admin.accounting.purchase_invoices.ajax.invoice_table',['data'=>$data,'order'=>$order])->render(),
         ]);
+        // $data = PurchaseInvoicesModel::when(!empty($request->supplier_user_id),function ($query) use ($request){
+        //     $query->where('client_id','like','%'.$request->supplier_user_id.'%');
+        // })->when(!empty($request->invoice_reference_number),function ($query) use ($request){
+        //     $query->where('invoice_reference_number','like','%'.$request->invoice_reference_number.'%');
+        // })->orderBy('id','desc')->paginate(10);
+        // $order = OrderModel::get();
+        // return response()->json([
+        //     'success'=>'true',
+        //     'view'=>view('admin.accounting.purchase_invoices.ajax.invoice_table',['data'=>$data,'order'=>$order])->render(),
+        // ]);
     }
 
     public function new_invoices_index(){

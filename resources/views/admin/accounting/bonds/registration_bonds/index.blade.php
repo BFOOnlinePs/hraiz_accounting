@@ -19,8 +19,26 @@
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
     <div class="row">
-        <div class="col-md-12">
-            <button class="btn btn-dark" data-toggle="modal" data-target="#add_registration_modal">اضافة سند قيد</button>
+        <div class="col-lg-12 col-12">
+            <div class="small-box bg-dark text-white border border-dark">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="text-bold m-1">سندات الصرف</h4>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row ml-2 w-100">
+                                <button class="btn btn-sm btn-light col-md-3 col-12 m-1 p-2" data-toggle="modal" data-target="#add_registration_modal">
+                                    <span class="fa fa-plus"></span>
+                                    &nbsp;
+                                    <span>اضافة سند قيد</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <h3>{{ $order_count }}</h3> --}}
+                </div>
+            </div>
         </div>
     </div>
     <div class="card mt-3">

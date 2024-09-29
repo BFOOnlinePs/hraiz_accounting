@@ -1,15 +1,15 @@
 @extends('home')
 @section('title')
-    فواتير المبيعات
+    مردودات الفواتير
 @endsection
 @section('header_title')
-    فواتير المبيعات
+    مردودات الفواتير
 @endsection
 @section('header_link')
     الرئيسية
 @endsection
 @section('header_title_link')
-    فواتير المبيعات
+مردودات الفواتير
 @endsection
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
@@ -20,39 +20,68 @@
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
     <div class="row">
-        <div class="col-md-12">
-            <button class="btn btn-dark" onclick="return_modal('sales')">اضافة مردود مبيعات</button>
-            <button class="btn btn-dark" onclick="return_modal('purchases')">اضافة مردود مشتريات</button>
+        <div class="col-lg-12 col-12">
+            <div class="small-box bg-light text-white border border-dark">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="text-bold text-dark m-1">مردودات المبيعات والمشتريات</h4>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row ml-2 w-100">
+                                <button class="btn btn-sm btn-dark col-md-3 col-12 m-1 p-2" onclick="return_modal('sales')"><span class="fa fa-file"></span>&nbsp;&nbsp;<span>اضافة مردود مبيعات</span></button>
+                                <button class="btn btn-dark btn-sm col-md-3 col-12 m-1 p-2" onclick="return_modal('purchases')"><span class="fa fa-file-text"></span>&nbsp;&nbsp;<span>اضافة مردود مشتريات</span></button>                                   
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <h3>{{ $order_count }}</h3> --}}
+                </div>
+            </div>
         </div>
     </div>
-    <div class="card mt-2">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="form-group">
-                        <input onkeyup="returns_table(1)" type="text" id="reference_number" class="form-control" placeholder="بحث عن الرقم المرجعي">
-                    </div>
-                </div>
-                <div class="col-md-2 d-flex justify-content-between">
-                    <div class="form-group">
-                        <input checked onchange="returns_table(1)" name="radio_invoice_type" class="radio_invoice_type" value="sales" id="sales_radio_button" type="radio">
-                        <label for="sales_radio_button">مبيعات</label>
-                    </div>
-                    <div class="form-group">
-                        <input onchange="returns_table(1)" name="radio_invoice_type" class="radio_invoice_type" value="purchase" id="purchase_radio_button" type="radio">
-                        <label for="purchase_radio_button">مشتريات</label>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <div id="returns_table">
-
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <input onkeyup="returns_table(1)" type="text" id="reference_number" class="form-control" placeholder="بحث عن الرقم المرجعي">
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex justify-content-between">
+                            <div class="form-group">
+                                <input checked onchange="returns_table(1)" name="radio_invoice_type" class="radio_invoice_type" value="sales" id="sales_radio_button" type="radio">
+                                <label for="sales_radio_button">مبيعات</label>
+                            </div>
+                            <div class="form-group">
+                                <input onchange="returns_table(1)" name="radio_invoice_type" class="radio_invoice_type" value="purchase" id="purchase_radio_button" type="radio">
+                                <label for="purchase_radio_button">مشتريات</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mt-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <div id="returns_table">
+        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
     @include('admin.accounting.returns.modals.createReturns')
     @include('admin.accounting.returns.modals.createReturnsPurchases')
@@ -83,6 +112,12 @@
         });
 
         function return_modal(return_type) {
+            if(return_type == 'purchases'){
+                $('#modal_title').html('اضافة مردود مشتريات');
+            }
+            else if(return_type == 'sales'){
+                $('#modal_title').html('اضافة مردود مبيعات');
+            }
             $('#create-returns-modal').modal('show');
             $('#returns_type').val(return_type);
         }

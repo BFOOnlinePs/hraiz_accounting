@@ -28,10 +28,18 @@ class OrdersSalesController extends Controller
 
     public function list_orders_sales_ajax(Request $request)
     {
-        $data = OrdersSalesModel::get();
+        $data = OrdersSalesModel::query();
+        if($request->filled('reference_name')){
+            $data->where('reference_number','like','%'.$request->reference_name.'%');
+        }
+        if($request->filled('user_id')){
+            $data->where('user_id',$request->user_id);
+        }
+        $data = $data->paginate(10);
         foreach ($data as $key){
             $key->client = User::where('id',$key->user_id)->first();
         }
+    
         return response()->json([
             'success' => true,
             'view' => view('admin.accounting.orders_sales.ajax.orders_sales_ajax',['data'=>$data])->render()
