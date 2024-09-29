@@ -185,7 +185,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label for="">بحث عن عرض سعر</label>
+                                    <label for="">بحث عن طلبية بيع</label>
                                     <input onkeyup="search_order_ajax()" id="input_search" type="text" class="form-control" placeholder="ابحث عن طلبية">
                                     {{-- <select class="form-control select2bs4" name="order_id" id="">
                                         <option value="">اختر الطلبية</option>
