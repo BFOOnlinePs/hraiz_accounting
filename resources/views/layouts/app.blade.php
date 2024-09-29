@@ -28,6 +28,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         *{
             font-family: 'Tajawal', sans-serif;
         }
+
+
     </style>
 </head>
 <body class="layout-top-nav sidebar-collapse">

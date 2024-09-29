@@ -59,9 +59,9 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <label for="">المورد</label>
+                    <label for="">العميل</label>
                     <select onchange="invoice_table_index_ajax()" class="select2bs4 form-control supplier_select2" name="supplier_id" id="supplier_user_id">
-                        <option value="">جميع الموردين</option>
+                        <option value="">جميع العملاء</option>
                         @foreach($users as $key)
                             <option value="{{ $key->id }}">{{ $key->name }}</option>
                         @endforeach
@@ -82,14 +82,23 @@
             <div class="col">
                 <div class="form-group">
                     <label for="">حالة الطلبية</label>
-                    <select onchange="getOrderTable()" class="form-control" name="order_status" id="order_status">
-                        <option value="">جميع الحالات</option>
-                        {{--                    @foreach($order_status as $key)--}}
-                        {{--                        @if($key->id != 10)--}}
-                        {{--                            <option value="{{ $key->id }}">{{ $key->name }}</option>--}}
-                        {{--                        @endif--}}
-                        {{--                    @endforeach--}}
+                    <select onchange="invoice_table_index_ajax()" class="form-control" name="order_status" id="invoice_status">
+                        <option value="">جميع الحالات ...</option>
+                        <option value="stage">مرحل</option>
+                        <option value="non_stage">غير مرحل</option>
                     </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="">من تاريخ</label>
+                    <input onchange="invoice_table_index_ajax()" type='date' id="from_date" class="form-control">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="">الى تاريخ</label>
+                    <input onchange="invoice_table_index_ajax()" type='date' id="to_date" class="form-control">
                 </div>
             </div>
 {{--            <div class="col">--}}
@@ -263,7 +272,10 @@
                 data: {
                     'supplier_user_id': document.getElementById('supplier_user_id').value,
                     'invoice_reference_number': document.getElementById('invoice_reference_number').value,
-                    'page': page
+                    'page': page,
+                    'invoice_status': $('#invoice_status').val(),
+                    'from_date':$('#from_date').val(),
+                    'to_date':$('#to_date').val(),
                 },
                 success: function (data) {
                     $('#invoice_table').html(data.view);

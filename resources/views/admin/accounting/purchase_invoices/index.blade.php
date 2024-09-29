@@ -75,10 +75,10 @@
             <div class="col">
                 <div class="form-group">
                     <label for="">حالة الفاتورة</label>
-                    <select onchange="getOrderTable()" class="form-control" name="order_status" id="order_status">
+                    <select onchange="invoice_table_index_ajax()" class="form-control" name="order_status" id="invoice_status">
                         <option value="">جميع الحالات ...</option>
-                        <option value="">مرحل</option>
-                        <option value="">غير مرحل</option>
+                        <option value="stage">مرحل</option>
+                        <option value="not_stage">غير مرحل</option>
                         {{--                    @foreach($order_status as $key)--}}
                         {{--                        @if($key->id != 10)--}}
                         {{--                            <option value="{{ $key->id }}">{{ $key->name }}</option>--}}
@@ -90,13 +90,13 @@
             <div class="col">
                 <div class="form-group">
                     <label for="">من تاريخ</label>
-                    <input type='date' class="form-control">
+                    <input onchange="invoice_table_index_ajax()" id="from_date" type='date' class="form-control">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="">الى تاريخ</label>
-                    <input type='date' class="form-control">
+                    <input onchange="invoice_table_index_ajax()" id="to_date" type='date' class="form-control">
                 </div>
             </div>
 {{--            <div class="col">--}}
@@ -262,7 +262,10 @@
                 data: {
                     'supplier_user_id': document.getElementById('supplier_user_id').value,
                     'invoice_reference_number': document.getElementById('invoice_reference_number').value,
-                    'page': page
+                    'page': page,
+                    'invoice_status': $('#invoice_status').val(),
+                    'from_date': $('#from_date').val(),
+                    'to_date': $('#to_date').val(),
                 },
                 success: function (data) {
                     $('#invoice_table').html(data.view);

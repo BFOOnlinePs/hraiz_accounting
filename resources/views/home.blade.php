@@ -32,6 +32,18 @@
         #calendar {
             direction: ltr !important;
         }
+
+        .pagination .page-item .page-link {
+    color: black; /* Change text color */
+}
+
+.pagination .page-item.active .page-link,
+.pagination .page-item.active .page-link:focus,
+.pagination .page-item.active .page-link:hover {
+    background-color: black; /* Change background color of active page */
+    border-color: black;
+    color: white;      /* Change border color of active page */
+}
     </style>
 </head>
 

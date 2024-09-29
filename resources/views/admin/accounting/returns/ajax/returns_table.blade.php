@@ -1,10 +1,10 @@
-<table class="table table-sm table-hover table-bordered">
+<table class="table table-sm table-hover text-center table-bordered">
     <thead>
     <tr>
         <th>الرقم المرجعي للفاتورة</th>
         <th>نوع المردود</th>
         <th>ملاحظات</th>
-        <th></th>
+        <th style="width: 70px"></th>
     </tr>
     </thead>
     <tbody>
@@ -18,9 +18,9 @@
                     <td>{{ $key->invoice->invoice_reference_number ?? 'من غير فاتورة' }}</td>
                     <td>
                         @if($key->returns_type == 'sales')
-                            مبيعات
+                            <span class="w-100 badge badge-success">مبيعات</span>
                         @else
-                            مشتريات
+                            <span class="w-100 badge badge-warning">مشتريات</span>
                         @endif
                     </td>
                     <td>{{ $key->notes }}</td>
