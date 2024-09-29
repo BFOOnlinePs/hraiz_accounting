@@ -7,7 +7,7 @@
             <input type="hidden" name="invoice_id" id="invoice_id_input_hidden">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">اضافة مردود مبيعات</h4>
+                    <h4 class="modal-title" id="modal_title">اضافة مردود مبيعات</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

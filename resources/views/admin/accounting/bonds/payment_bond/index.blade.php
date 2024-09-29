@@ -19,11 +19,35 @@
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
     <div class="row">
+        <div class="col-lg-12 col-12">
+            <div class="small-box bg-dark text-white border border-dark">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="text-bold m-1">سندات القبض</h4>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row ml-2 w-100">
+                                <button class="btn btn-light btn-sm col-md-3 col-12 m-1 p-2" onclick="view_invoice_type()">
+                                    <span class="fa fa-plus"></span>
+                                    &nbsp;
+                                    &nbsp;
+                                    <span>اضافة سند قبض</span>
+                                </button>                           
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <h3>{{ $order_count }}</h3> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- <div class="row">
         <div class="col-md-12">
             <button class="btn btn-dark" onclick="view_invoice_type()">اضافة سند قبض
             </button>
         </div>
-    </div>
+    </div> --}}
     <div class="card mt-3">
         <div class="card-body">
             <div class="row">

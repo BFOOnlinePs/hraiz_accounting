@@ -33,8 +33,14 @@ class SalesInvoicesController extends Controller
     }
 
     public function invoice_table_index_ajax(Request $request){
+        $from = Carbon::parse($request->from_date)->startOfDay();
+        $to = Carbon::parse($request->to_date)->endOfDay();
         $data = PurchaseInvoicesModel::where('invoice_type','sales')->when(!empty($request->supplier_user_id),function ($query) use ($request){
             $query->where('client_id','like','%'.$request->supplier_user_id.'%');
+        })->when(!empty($request->from_date) && !empty($request->to_date) , function($query) use ($from,$to){
+            $query->whereBetween('bill_date',[$from,$to]);
+        })->when(!empty($request->invoice_status),function($query) use ($request){
+            $query->where('status',$request->invoice_status);
         })->when(!empty($request->invoice_reference_number),function ($query) use ($request){
             $query->where('invoice_reference_number','like','%'.$request->invoice_reference_number.'%');
         })->orderBy('id','desc')->paginate(10);

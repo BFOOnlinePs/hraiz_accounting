@@ -1,4 +1,4 @@
-<table class="table table-bordered text-center">
+<table class="table table-sm table-bordered text-center">
     <thead class="bg-dark">
     <tr>
 {{--        <td>#</td>--}}
@@ -21,17 +21,17 @@
         @foreach ($data as $key)
             <tr>
 {{--                <td>{{ ($data ->currentpage()-1) * $data ->perpage() + $loop->index + 1 }}</td>--}}
-                <td>{{ $key->invoice_reference_number }}</td>
-                <td>{{ $key->bill_date }}</td>
+                <td class="text-left">{{ $key->invoice_reference_number }}</td>
+                <td class="text-left">{{ $key->bill_date }}</td>
                 <td>{{ $key->due_date }}</td>
                 <td>{{ App\Models\User::where('id',$key->client_id)->value('name') }}</td>
                 <td>{{ $key->totalAmount }}</td>
                 <td>{{ $key->note }}</td>
                 <td class="text-center">
                     @if($key->status == 'stage')
-                        <span class="badge bg-success">مرحل</span>
+                        <span class="badge bg-success w-100">مرحل</span>
                     @else
-                        <span class="badge bg-warning">غير مرحل</span>
+                        <span class="badge bg-warning w-100">غير مرحل</span>
                     @endif
                 </td>
                 <td>

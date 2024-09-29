@@ -596,7 +596,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
     });
     Route::group(['prefix'=>'sales_invoices'],function(){
         Route::get('index',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'index'])->name('accounting.sales_invoices.index');
-        Route::post('invoice_table_index_ajax',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'invoice_table_index_ajax'])->name('accounting.sales_invoices.invoice_table_index_ajax');
+        // Route::post('invoice_table_index_ajax',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'invoice_table_index_ajax'])->name('accounting.sales_invoices.invoice_table_index_ajax');
         Route::get('new_invoices_index',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'new_invoices_index'])->name('accounting.sales_invoices.new_invoices_index');
         Route::post('create_new_invoices',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'create_new_invoices'])->name('accounting.sales_invoices.create_new_invoices');
         Route::get('edit_invoices/{id}',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'edit_invoices'])->name('accounting.sales_invoices.edit_invoices');

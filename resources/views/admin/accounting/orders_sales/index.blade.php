@@ -19,10 +19,52 @@
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
     <div class="row">
+        <div class="col-lg-12 col-12">
+            <div class="small-box bg-dark text-white border border-dark">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="text-bold m-1">طلبيات البيع</h4>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row ml-2">
+                                <button class="btn btn-sm btn-light col-md-3 col-12 m-1 p-2" data-toggle="modal" data-target="#add_orders_sales_modal"><span class="fa fa-plus"></span>&nbsp;&nbsp;<span>اضافة طلبية</span></button>
+                                <button class="btn btn-light btn-sm col-md-3 col-12 m-1 p-2" onclick="open_add_sales_price_offer_modal()"><span class="fa fa-file-text"></span>&nbsp;&nbsp;<span>اضافة طلبية من عرض سعر بيع</span></button>            
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <h3>{{ $order_count }}</h3> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- <div class="row">
         <div class="col-md-12">
-{{--            <button class="btn btn-dark" onclick="open_add_product_modal()">اضافة اصناف</button>--}}
             <button class="btn btn-dark" data-toggle="modal" data-target="#add_orders_sales_modal">اضافة طلبية</button>
             <button class="btn btn-dark" onclick="open_add_sales_price_offer_modal()">اضافة طلبية من عرض سعر بيع</button>
+        </div>
+    </div> --}}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">الرقم المرجعي</label>
+                            <input class="form-control" onkeyup="list_orders_sales_ajax()" id="reference_number" type="text">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">الزبون</label>
+                            <select onchange="list_orders_sales_ajax()" class="form-control select2bs4" id="client_id" name="">
+                                <option value="">اختر زبون ...</option>
+                                @foreach ($clients as $key)
+                                    <option value="{{ $key->id }}">{{ $key->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row mt-2">
@@ -47,17 +89,18 @@
     <script>
 
         $(document).ready(function () {
-            list_orders_sales_ajax();
+            list_orders_sales_ajax(page);
             list_price_offer_sales_ajax();
         });
+        var page = 1;
 
         $(document).on('click', '.pagination a', function(event) {
             event.preventDefault();
-            var page = $(this).attr('href').split('page=')[1];
-            product_list_ajax(page);
+            page = $(this).attr('href').split('page=')[1];
+            list_orders_sales_ajax(page);
         });
 
-        function list_orders_sales_ajax() {
+        function list_orders_sales_ajax(page) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
                 "X-CSRF-Token": csrfToken
@@ -66,7 +109,11 @@
                 url: '{{ route('accounting.orders_sales.list_orders_sales_ajax') }}',
                 method: 'post',
                 headers: headers,
-                data: {},
+                data: {
+                    reference_name: $('#reference_number').val(),
+                    user_id: $('#client_id').val(),
+                    page: page
+                },
                 success: function (data) {
                     $('#orders_sales_table').html(data.view)
                 },
