@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">طباعة عرض سعر</h4>
+                <h4 class="modal-title">طباعة طلبية بيع</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -17,6 +17,7 @@
                                 <select class="form-control" name="language" id="">
                                     <option value="ar">العربية</option>
                                     <option value="en">الانجليزية</option>
+                                    <option value="he">عبري</option>
                                 </select>
                             </div>
                         </div>

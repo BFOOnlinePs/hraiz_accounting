@@ -16,7 +16,7 @@
                 <tr>
                     <td>{{ $loop->index + 1 }}</td>
                     <td>{{ $key['client']->name }}</td>
-                    <td>{{ \Carbon\Carbon::parse($key->insert_at)->toDateString() }}</td>
+                    <td>{{ \Carbon\Carbon::parse($key->inserted_at)->toDateString() }}</td>
 
                     <td>{{ $key->notes }}</td>
                     <td>{{ $key->currency->currency_name ?? '' }}</td>
