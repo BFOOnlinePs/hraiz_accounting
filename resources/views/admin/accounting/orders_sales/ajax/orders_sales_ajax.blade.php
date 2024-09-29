@@ -1,4 +1,4 @@
-<table class="table table-sm table-bordered table-hover">
+<table class="table table-sm text-center table-bordered table-hover">
     <thead>
     <tr>
         <th>الرقم المرجعي</th>
@@ -6,7 +6,7 @@
         <th>حالة الطلبية</th>
         <th>العملة</th>
         <th>تمت الاضافة</th>
-        <th>العمليات</th>
+        <th style="width: 80px">العمليات</th>
     </tr>
     </thead>
     <tbody>
@@ -31,3 +31,6 @@
         @endif
     </tbody>
 </table>
+<div class="container">
+    {{ $data->links() }}
+</div>

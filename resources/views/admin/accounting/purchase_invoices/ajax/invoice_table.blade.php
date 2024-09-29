@@ -1,11 +1,11 @@
-<table class="table table-bordered text-center">
+<table class="table table-sm table-bordered text-center">
     <thead class="bg-dark">
     <tr>
-        <td>#</td>
+        {{-- <td>#</td> --}}
         <td>الرقم المرجعي</td>
+        <th>العميل</th>
         <th>تاريخ الفاتورة</th>
         <th>تاريخ التسليم</th>
-        <th>العميل</th>
         {{-- <th>الضريبة الاولى</th> --}}
         {{-- <th>الضريبة الثانية</th> --}}
         <th>الملاحظات</th>
@@ -21,19 +21,19 @@
     @else
         @foreach ($data as $key)
             <tr>
-                <td>{{ ($data ->currentpage()-1) * $data ->perpage() + $loop->index + 1 }}</td>
-                <td>{{ $key->invoice_reference_number }}</td>
+                {{-- <td>{{ ($data ->currentpage()-1) * $data ->perpage() + $loop->index + 1 }}</td> --}}
+                <td class="text-left">{{ $key->invoice_reference_number }}</td>
+                <td class="text-left">{{ App\Models\User::where('id',$key->client_id)->value('name') }}</td>
                 <td>{{ $key->bill_date }}</td>
                 <td>{{ $key->due_date }}</td>
-                <td>{{ App\Models\User::where('id',$key->client_id)->value('name') }}</td>
                 {{-- <td>{{ $key->tax_id }}</td> --}}
                 {{-- <td>{{ $key->tax_id2 }}</td> --}}
                 <td>{{ $key->note }}</td>
                 <td class="text-center">
                     @if ($key->status == 'stage')
-                        <span class="badge badge-success">مرحل</span>
+                        <span class="badge badge-success w-100">مرحل</span>
                     @else
-                        <span class="badge badge-danger">غير مرحل</span>
+                        <span class="badge badge-danger w-100">غير مرحل</span>
                     @endif
                 </td>
                 <td class=''>

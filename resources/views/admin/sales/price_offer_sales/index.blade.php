@@ -20,13 +20,31 @@
 @section('content')
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
-
-    <button type="button" class="btn btn-dark mb-2" data-toggle="modal" data-target="#create_price_offer_sales_modal">اضافة عرض سعر
-    </button>
-    <div class="card">
-        <div class="card-header">
-            <h3 class="text-center">عروض اسعار البيع</h3>
+    <div class="row">
+        <div class="col-lg-12 col-12">
+            <div class="small-box bg-dark text-white border border-dark">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="text-bold m-1">عروض اسعار البيع</h4>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row ml-2 w-100">
+                                <button type="button" class="btn btn-light btn-sm col-md-3 col-12 m-1 p-2" data-toggle="modal" data-target="#create_price_offer_sales_modal">
+                                    <span class="fa fa-plus"></span>
+                                    &nbsp;
+                                    &nbsp;
+                                    <span>اضافة عرض سعر</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <h3>{{ $order_count }}</h3> --}}
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="card">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4">
