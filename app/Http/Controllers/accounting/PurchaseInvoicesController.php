@@ -72,7 +72,8 @@ class PurchaseInvoicesController extends Controller
         $taxes = TaxesModel::get();
         $currency = Currency::get();
         $wherehouses = WhereHouseModel::get();
-        return view('admin.accounting.purchase_invoices.new_invoice.index',['client'=>$client,'taxes'=>$taxes,'wherehouses'=>$wherehouses , 'currency'=>$currency]);
+        $get_invoice_order_number = PurchaseInvoicesModel::latest('id')->first()->id + 1;
+        return view('admin.accounting.purchase_invoices.new_invoice.index',['client'=>$client,'taxes'=>$taxes,'wherehouses'=>$wherehouses , 'currency'=>$currency , 'get_invoice_order_number'=>$get_invoice_order_number]);
     }
 
     public function create_new_invoices(Request $request){
@@ -379,28 +380,28 @@ class PurchaseInvoicesController extends Controller
         }
     }
 
-    public function purchase_invoice_pdf($invoice_id){
-        $data = PurchaseInvoicesModel::where('id',$invoice_id)->first();
+    public function purchase_invoice_pdf(Request $request){
+        $data = PurchaseInvoicesModel::where('id',$request->invoice_id)->first();
 
 //        $purchase_invoice->tax = TaxesModel::where('id', $purchase_invoice->tax_id)->first();
 //        $purchase_invoice->order = OrderModel::where('id',$purchase_invoice->order_id)->first();
         $data->user = User::where('id', $data->client_id)->first();
         $taxes = TaxesModel::get();
         $data->tax = TaxesModel::where('id', $data->tax_id)->first();
-        $invoice = InvoiceItemsModel::where('invoice_id', $invoice_id)->get();
+        $invoice = InvoiceItemsModel::where('invoice_id', $request->invoice_id)->get();
         foreach ($invoice as $key) {
             $key->product = ProductModel::where('id', $key->item_id)->first();
         }
 
         // حساب المجموع الكلي
-        $total = InvoiceItemsModel::where('invoice_id', $invoice_id)->sum(DB::raw('rate * quantity'));
+        $total = InvoiceItemsModel::where('invoice_id', $request->invoice_id)->sum(DB::raw('rate * quantity'));
 
         // حساب المجموع المستحق
-        $final_total = InvoiceItemsModel::where('invoice_id', $invoice_id)->sum(DB::raw('rate * quantity'));
+        $final_total = InvoiceItemsModel::where('invoice_id', $request->invoice_id)->sum(DB::raw('rate * quantity'));
 
         $system_setting = SystemSettingModel::first();
         $users = User::get();
-        $pdf = PDF::loadView('admin.accounting.purchase_invoices.invoices.pdf.purchase_invoice',['data'=>$data,'invoice'=>$invoice,'total'=>$total,'final_total'=>$final_total,'system_setting'=>$system_setting]);
+        $pdf = PDF::loadView('admin.accounting.purchase_invoices.invoices.pdf.purchase_invoice',['data'=>$data,'invoice'=>$invoice,'total'=>$total,'final_total'=>$final_total,'system_setting'=>$system_setting , 'request'=>$request]);
         return $pdf->stream('sales_invoice.pdf');
     }
 }

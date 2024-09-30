@@ -1,14 +1,15 @@
 <div class="row">
-  <table width="100%" class="table-striped table-hover">
-    <thead>
+  <table width="100%" class="table-striped table table-sm table-bordered text-center table-hover">
+    <thead class="bg-dark">
         <tr>
-            <td></td>
-            <th style="width: 250px">الصنف</th>
-            <th>الكمية</th>
-            <th>السعر</th>
-            <th>خصم</th>
-            <th>بونص</th>
+            <td style="width: 100px"></td>
+            <th style="width: 400px">الصنف</th>
+            <th style="width: 110px">الكمية</th>
+            <th style="width: 110px">السعر</th>
+            <th style="width: 110px">خصم</th>
+            <th style="width: 110px">بونص</th>
             <th>المجموع</th>
+            <th style="width: 40px">العمليات</th>
         </tr>
     </thead>
     <tbody>
@@ -28,20 +29,22 @@
             </td>
             <td>{{ $key['product']->product_name_ar??'' }}</td>
             <td>
-                <input @if($invoice->status == 'stage') disabled @endif class="input" id="qty_input_{{ $key->id }}" onchange="edit_inputs_from_invoice({{ $key->id }},this.value,'qty')" type="text" value="{{ $key->quantity ?? 1 }}">
+                <input style="margin: 0" class="input form-control text-center" @if($invoice->status == 'stage') disabled @endif id="qty_input_{{ $key->id }}" onchange="edit_inputs_from_invoice({{ $key->id }},this.value,'qty')" type="text" value="{{ $key->quantity ?? 1 }}">
             </td>
             <td>
-                <input @if($invoice->status == 'stage') disabled @endif class="input" id="rate_input_{{ $key->id }}" onchange="edit_inputs_from_invoice({{ $key->id }},this.value,'rate')" type="text" value="{{ $key->rate ?? 1 }}">
+                <input style="margin: 0" class="input form-control text-center" @if($invoice->status == 'stage') disabled @endif class="input" id="rate_input_{{ $key->id }}" onchange="edit_inputs_from_invoice({{ $key->id }},this.value,'rate')" type="text" value="{{ $key->rate ?? 1 }}">
             </td>
             <td>
-                <input @if($invoice->status == 'stage') disabled @endif class="input" style="width: 40px" onchange="edit_inputs_from_invoice({{ $key->id }}, this.value, 'discount')" type="text" value="{{ $key->discount ?? '' }}"> %
+                <input style="margin: 0" class="input form-control text-center" placeholder="%" @if($invoice->status == 'stage') disabled @endif class="input" style="width: 40px" onchange="edit_inputs_from_invoice({{ $key->id }}, this.value, 'discount')" type="text" value="{{ $key->discount ?? '' }}">
             </td>
             <td>
-                <input @if($invoice->status == 'stage') disabled @endif class="input" onchange="edit_inputs_from_invoice({{ $key->id }}, this.value, 'bonus')" type="text" value="{{ $key->bonus ?? '' }}">
+                <input style="margin: 0" class="input form-control text-center" @if($invoice->status == 'stage') disabled @endif class="input" onchange="edit_inputs_from_invoice({{ $key->id }}, this.value, 'bonus')" type="text" value="{{ $key->bonus ?? '' }}">
             </td>
             <td id="total_td_{{ $key->id }}"></td>
             <td>
-                <button @if($invoice->status == 'stage') disabled @endif onclick="delete_item({{ $key->id }})" class="btn btn-danger btn-sm"><span class="fa fa-close"></span></button>
+                {{-- <button @if($invoice->status == 'stage') disabled @endif onclick="delete_item({{ $key->id }})" class="btn btn-danger btn-sm"><span class="fa fa-close"></span></button> --}}
+                <span style="cursor: pointer" class="fa fa-trash text-danger" @if($invoice->status == 'stage') disabled @endif onclick="delete_item({{ $key->id }})"></span>
+
             </td>
         </tr>
         @endforeach
