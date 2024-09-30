@@ -258,6 +258,28 @@
             });
         }
 
+        function add_price_offer_sales_to_order_sales() {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.add_price_offer_sales_to_order_sales') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    price_offer_sales_id : {{ $data->id }},
+                    customer_id : {{ $data->user_id }},
+                },
+                success: function (response) {
+                    window.location.href
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
         function open_add_product_modal() {
             $('#add_product_modal').modal('show');
             product_list_ajax();
