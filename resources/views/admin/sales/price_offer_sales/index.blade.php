@@ -34,7 +34,7 @@
                                     <span class="fa fa-plus"></span>
                                     &nbsp;
                                     &nbsp;
-                                    <span>اضافة عرض سعر</span>
+                                    <span>اضافة عرض سعر بيع</span>
                                 </button>
                             </div>
                         </div>

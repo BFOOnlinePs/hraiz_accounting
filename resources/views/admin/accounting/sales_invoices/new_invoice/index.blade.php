@@ -47,7 +47,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">الرقم المرجعي للفاتورة</label>
-                                    <input required name="invoice_reference_number" placeholder="ادخل الرقم المرجعي" type="text" class="form-control">
+                                    <input required value="INV_00{{ $get_invoice_order_number }}" name="invoice_reference_number" placeholder="ادخل الرقم المرجعي" type="text" class="form-control">
                                 </div>
                             </div>
 
@@ -68,7 +68,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">الضريبة</label>
-                                    <select required name="tax_id" id="tax_id" class="form-control select2bs4">
+                                    <select name="tax_id" id="tax_id" class="form-control select2bs4">
                                         <option value="">اختر قيمة الضريبة ...</option>
                                         @foreach ($taxes as $key)
                                             <option value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>
@@ -79,7 +79,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">العملة</label>
-                                    <select name="currency_id" id="currency_id" class="form-control select2bs4">
+                                    <select required name="currency_id" id="currency_id" class="form-control select2bs4">
                                         <option value="">اختر العملة ...</option>
                                         @foreach ($currency as $key)
                                             <option value="{{ $key->id }}">{{ $key->currency_name }} {{ $key->currency_symbol }}</option>
