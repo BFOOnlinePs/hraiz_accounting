@@ -35,216 +35,173 @@
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
 
-    <div class="card mt-2">
-
-        {{-- <div class="card-header">
-            <h3 class="text-center">قائمة البنوك</h3>
-        </div> --}}
-
-        <div class="card-body">
-            @if($purchase_invoice->status == 'stage')
-                <div class="alert alert-success text-center">
-                    تم ترحيل هذه الفاتورة بنجاح
-                </div>
-            @endif
-            <a href="{{ route('accounting.sales_invoices.sales_invoice_pdf',['invoice_id'=>$purchase_invoice->id]) }}" class="btn btn-warning"><span class="fa fa-print"></span></a>
-            @if($purchase_invoice->price_offer_sales_id != null)
-                <div class="row text-center">
-                    <div class="col-md-12 alert alert-info">
-                        تم انشاء هذه الفاتورة استناداً لعرض سعر رقم <a href="{{ route('procurement_officer.orders.product.index',['order_id'=>$purchase_invoice->price_offer_sales_id]) }}" class="btn btn-dark btn-sm">{{ $purchase_invoice->price_offer_sales_id }}</a> وتم اضافة التاريخ بشكل تلقائي
-                    </div>
-                </div>
-            @endif
-            <div class="row">
-                <div class="col-md-10">
+    <div class="row">
+        <div class="col-lg-12 col-12">
+            <div class="small-box bg-light text-white border border-success">
+                <div class="inner">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="from-group">
-                                <label for="">الرقم المرجعي للفاتورة</label>
-                                <input @if($purchase_invoice->status == 'stage') disabled @endif type="text" onchange="update_invoice_reference_number_ajax(this.value)" class="form-control" value="{{ $purchase_invoice->invoice_reference_number }}">
-                            </div>
+                        <div class="col-md-4">
+                            <h4 class="text-bold text-dark m-1">فاتورة مبيعات # {{$data->id}} - <span class="text-danger">{{$data->invoice_reference_number}}</span></h4>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">العميل</label>
-                                <select disabled name="client_id" id="" class="form-control select2bs4">
-                                    <option value="">اختر عميل ...</option>
-                                    @foreach ($users as $key)
-                                        <option @if($key->id == $purchase_invoice->client_id) selected @endif value="{{ $key->id }}">{{ $key->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                       <div class="col-md-3">
-                            <div class="form-group">
-                                <?php
-                                $month = date('m');
-                                $day = date('d');
-                                $year = date('Y');
-                                $today = $year . '-' . $month . '-' . $day;
-                                ?>
-                                <label for="">تاريخ الفاتورة</label>
-                                <input @if($purchase_invoice->status == 'stage') readonly @endif onchange="update_purchase_invoices_from_ajax('bill_date',this.value)" type="date" name="bill_date" class="form-control text-center"
-                                    value="{{ $purchase_invoice->bill_date }}">
-                            </div>
-                        </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <?php
-                            $month = date('m');
-                            $day = date('d');
-                            $year = date('Y');
-                            $today = $year . '-' . $month . '-' . $day;
-                            ?>
-                            <label for="">تاريخ الاستحقاق</label>
-                            <input @if($purchase_invoice->status == 'stage') disabled @endif onchange="update_purchase_invoices_from_ajax('due_date',this.value)" type="date" name="due_date" class="form-control text-center"
-                                value="{{ $purchase_invoice->due_date }}">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="">الضريبة الاولى</label>
-                            <select @if($purchase_invoice->status == 'stage') disabled @endif onchange="update_purchase_invoices_from_ajax('tax_id',this.value)" required name="tax_id" id="tax_id1" class="form-control select2bs4">
-                                <option value="">اختر قيمة الضريبة ...</option>
-                                @foreach ($taxes as $key)
-                                    <option @if($key->id == $purchase_invoice->tax_id) selected @endif value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="">الضريبة الثانية</label>
-                            <select @if($purchase_invoice->status == 'stage') disabled @endif onchange="update_purchase_invoices_from_ajax('tax_id2',this.value)" required name="tax_id2" id="tax_id2" class="form-control select2bs4">
-                                <option value="">اختر قيمة الضريبة ...</option>
-                                @foreach ($taxes as $key)
-                                    <option @if($key->id == $purchase_invoice->tax_id2) selected @endif value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input @if($purchase_invoice->status == 'stage') disabled @endif type="checkbox" id="checkbox" onchange="if_checked(this.value)">
-                            <label for="checkbox">فاتورة دورية</label>
-                        </div>
-                    </div>
-                    <div style="display: none" id="recurring_form" class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="">التكرار خلال</label>
-                                    <input @if($purchase_invoice->status == 'stage') disabled @endif onchange="update_purchase_invoices_from_ajax('repeat_every',this.value)" value="{{ $purchase_invoice->repeat_every }}" type="text" name="repeat_every" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="">خلال</label>
-                                    <select @if($purchase_invoice->status == 'stage') disabled @endif onchange="update_purchase_invoices_from_ajax('repeat_type',this.value)" class="form-control" name="repeat_type" id="">
-                                        <option @if($purchase_invoice->repeat_type == 'days') selected @endif value="days">يوم</option>
-                                        <option @if($purchase_invoice->repeat_type == 'weeks') selected @endif value="weeks">اسبوع</option>
-                                        <option @if($purchase_invoice->repeat_type == 'months') selected @endif value="months">شهر</option>
-                                        <option @if($purchase_invoice->repeat_type == 'years') selected @endif value="years">سنة</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="">الدورة</label>
-                                    <input @if($purchase_invoice->status == 'stage') disabled @endif value="{{ $purchase_invoice->no_of_cycles }}" type="text" onchange="update_purchase_invoices_from_ajax('no_of_cycles',this.value)" name="no_of_cycles" class="form-control" placeholder="الدورة">
-                                </div>
+                        <div class="col-md-8">
+                            <div class="row ml-2">
+                                {{-- <a href="{{ route('accounting.purchase_invoices.purchase_invoice_pdf',['invoice_id'=>$purchase_invoice->id]) }}" class="btn btn-sm btn-warning col-md-2 col-12 m-1 p-2"><span class="fa fa-print"></span> &nbsp;&nbsp; <span>طباعة</span></a> --}}
+                                <button class="btn btn-sm btn-warning col-md-2 col-12 m-1 p-2" data-toggle="modal" data-target="#add_print_language_modal"><span class="fa fa-print"></span> &nbsp;&nbsp; <span>طباعة</span></button>
+                                @if($purchase_invoice->status != 'stage')
+                                    <button @if($purchase_invoice->status == 'stage') disabled @endif onclick="post_the_invoice()" class="btn btn-sm btn-info col-md-2 col-12 m-1 p-2"><span class="fa fa-check"></span>&nbsp;&nbsp;<span>ترحيل الفاتورة</span></button>
+                                @endif
+                                @if($purchase_invoice->status == 'stage')
+                                    <div class="btn btn-sm btn-success col-md-4 col-12 m-1 p-2">
+                                        <span class="fa fa-check"></span>
+                                        &nbsp;
+                                        &nbsp;
+                                        <span>تم ترحيل هذه الفاتورة</span>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
-                    </div>
+                    {{-- <h3>{{ $order_count }}</h3> --}}
                 </div>
-                <div class="col-md-2">
-{{--                    <button @if($purchase_invoice->status == 'stage') disabled @endif onclick="window.location.href='{{ route('accounting.sales_invoices.invoice_posting',['id'=>$purchase_invoice->id]) }}'" class="btn btn-info form-control" style="height: 100%">ترحيل</button>--}}
-                    <button @if($purchase_invoice->status == 'stage') disabled @endif onclick="post_invoice()" class="btn btn-info form-control" style="height: 100%">
-                        <span class="text-success">@if($purchase_invoice->status == 'stage') <span class="fa fa-check-circle"></span> @endif</span>
-                        <p>ترحيل</p>
-                    </button>
-                </div>
-{{--                <div class="col-md-4 p-3 card bg-warning">--}}
-{{--                        <div class="row">--}}
-{{--                            <div class="col-md-12">--}}
-{{--                                <div class="from-group">--}}
-{{--                                    <label for="">الرقم المرجعي للفاتورة</label>--}}
-{{--                                    <input type="text" onchange="update_invoice_reference_number_ajax(this.value)" class="form-control" value="{{ $purchase_invoice->invoice_reference_number }}">--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-12">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="">العميل</label>--}}
-{{--                                    <select disabled name="client_id" id="" class="form-control select2bs4">--}}
-{{--                                        <option value="">اختر عميل ...</option>--}}
-{{--                                        @foreach ($users as $key)--}}
-{{--                                            <option @if($key->id == $purchase_invoice->client_id) selected @endif value="{{ $key->id }}">{{ $key->name }}</option>--}}
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-12">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="">حالة الفاتورة</label>--}}
-{{--                                    <select name="" class="form-control" id="">--}}
-{{--                                        <option value="">اختر حالة الفاتورة ...</option>--}}
-{{--                                        <option value="">فاتورة جديدة غير مرحلة</option>--}}
-{{--                                        <option value="">فاتورة مرحلة</option>--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                </div>--}}
             </div>
-            <div class="row">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">        
+                <div class="card-body">                
+                    @if($purchase_invoice->order_id != null)
+                        <div class="row text-center">
+                            <div class="col-md-12 alert alert-info">
+                                تم انشاء هذه الفاتورة استناداً لطلبية رقم <a href="{{ route('procurement_officer.orders.product.index',['order_id'=>$purchase_invoice->order_id]) }}" class="btn btn-dark btn-sm">{{ $purchase_invoice->order->reference_number }}</a> وتم اضافة التاريخ بشكل تلقائي
+                            </div>
+                        </div>
+                    @endif
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="from-group">
+                                        <label for="">الرقم المرجعي للفاتورة</label>
+                                        <input type="text" @if($purchase_invoice->status == 'stage') readonly @endif onchange="update_invoice_reference_number_ajax(this.value)" class="form-control" value="{{ $purchase_invoice->invoice_reference_number }}">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="">من</label>    
+                                        <select disabled name="client_id" id="" class="form-control select2bs4">
+                                            <option value="">اختر عميل ...</option>
+                                            @foreach ($users as $key)
+                                                <option @if($key->id == $purchase_invoice->client_id) selected @endif value="{{ $key->id }}">{{ $key->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <?php
+                                        $month = date('m');
+                                        $day = date('d');
+                                        $year = date('Y');
+                                        $today = $year . '-' . $month . '-' . $day;
+                                        ?>
+                                        <label for="">تاريخ الفاتورة</label>
+                                        <input @if($purchase_invoice->status == 'stage') readonly @endif onchange="update_purchase_invoices_from_ajax('bill_date',this.value)" type="date" name="bill_date" class="form-control text-center"
+                                            value="{{ $purchase_invoice->bill_date }}">
+                                    </div>
+                                </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <?php
+                                    $month = date('m');
+                                    $day = date('d');
+                                    $year = date('Y');
+                                    $today = $year . '-' . $month . '-' . $day;
+                                    ?>
+                                    <label for="">تاريخ الاستحقاق</label>
+                                    <input @if($purchase_invoice->status == 'stage') readonly @endif onchange="update_purchase_invoices_from_ajax('due_date',this.value)" type="date" name="due_date" class="form-control text-center"
+                                        value="{{ $purchase_invoice->due_date }}">
+                                </div>
+                            </div>
+                            </div>
+                            
+                            <div class="row">
+                                                            <div style="display: none" id="recurring_form" class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">التكرار خلال</label>
+                                            <input @if($purchase_invoice->status == 'stage') readonly @endif onchange="update_purchase_invoices_from_ajax('repeat_every',this.value)" value="{{ $purchase_invoice->repeat_every }}" type="text" name="repeat_every" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">خلال</label>
+                                            <select @if($purchase_invoice->status == 'stage') disabled @endif onchange="update_purchase_invoices_from_ajax('repeat_type',this.value)" class="form-control" name="repeat_type" id="">
+                                                <option @if($purchase_invoice->repeat_type == 'days') selected @endif value="days">يوم</option>
+                                                <option @if($purchase_invoice->repeat_type == 'weeks') selected @endif value="weeks">اسبوع</option>
+                                                <option @if($purchase_invoice->repeat_type == 'months') selected @endif value="months">شهر</option>
+                                                <option @if($purchase_invoice->repeat_type == 'years') selected @endif value="years">سنة</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">الدورة</label>
+                                            <input @if($purchase_invoice->status == 'stage') readonly @endif value="{{ $purchase_invoice->no_of_cycles }}" type="text" onchange="update_purchase_invoices_from_ajax('no_of_cycles',this.value)" name="no_of_cycles" class="form-control" placeholder="الدورة">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                          
+                    @if($purchase_invoice->status != 'stage')
+                    <button onclick="show_form_product()" type="button" id="add_product" class="btn btn-info mb-2">
+                        اضافة صنف
+                    </button>
+                @endif
+    
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div id="invoices_table">
+    
+                        </div>
+                    </div>
+                </div> 
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="">ملاحظات</label>
-                        <textarea @if($purchase_invoice->status == 'stage') readonly @endif class="form-control" name="note" onchange="update_purchase_invoices_from_ajax('note',this.value)" id="" cols="30" rows="3">{{ $purchase_invoice->note }}</textarea>
+                        <textarea style="background-color: #ffbc0773" @if($purchase_invoice->status == 'stage') readonly @endif class="form-control" name="note" onchange="update_purchase_invoices_from_ajax('note',this.value)" id="" cols="30" rows="3">{{ $purchase_invoice->note }}</textarea>
                     </div>
-                </div>
-            </div>
-            <hr>
-            @if($purchase_invoice->status != 'stage')
-                <button onclick="show_form_product()" type="button" id="add_product" class="btn btn-info mb-2">
-                    اضافة صنف
-                </button>
-            @endif
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <div id="invoices_table">
-
-                    </div>
-                </div>
-            </div>
-            <div style="position: fixed; left: 20px; bottom: 20px;height:500px" id="toastsContainerBottomLeft"
-                class="toasts-bottom-left fixed">
-                <div class="toast fade" style="background-color:rgba(255,255,255,.85);" id="form_product" role="alert"
-                    aria-live="assertive" aria-atomic="true" style="width: 100%; height: 100%;">
-                    <div class="toast-header">
-                        <strong class="mr-auto">قائمة الأصناف</strong>
-                        <button type="button" class="ml-2 mb-1 close" onclick="close_form_product()">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="toast-body">
-                        <input type="text" id="search_product" onkeyup="search_product_ajax(this.value)"
-                            class="form-control" placeholder="بحث عن عنصر">
-                        <div style="width: 300px;display:block" class="mt-2">
-                            <div id="search_product_table">
-
+                </div>     
+                <div style="position: fixed; left: 20px; bottom: 20px;height:500px;" id="toastsContainerBottomLeft"
+                        class="toasts-bottom-left fixed">
+                        <div class="toast border border-success fade" style="background-color:rgba(255,255,255);" id="form_product" role="alert"
+                            aria-live="assertive" aria-atomic="true" style="width: 100%; height: 100%;">
+                            <div class="toast-header">
+                                <strong class="mr-auto">قائمة الأصناف</strong>
+                                <button type="button" class="ml-2 mb-1 close" onclick="close_form_product()">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="toast-body">
+                                <input type="text" id="search_product" onkeyup="search_product_ajax(this.value)"
+                                    class="form-control border border-success" placeholder="بحث عن عنصر">
+                                <div style="width: 300px;display:block" class="mt-2">
+                                    <div id="search_product_table">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
     <div class="modal fade" id="discount-modal">
         <div class="modal-dialog modal-lg">
             <form action="{{ route('accounting.texes.create') }}" method="post" enctype="multipart/form-data">
@@ -264,7 +221,7 @@
                                     <select class="form-control" name="" id="tax_ratio">
                                         <option value="">لا يوجد ضريبة</option>
                                         @foreach($taxes as $key)
-                                            <option value="{{$key->id}}">{{ $key->tax_name }}</option>
+                                            <option @if($key->id == $purchase_invoice->tax_id) selected @endif value="{{$key->id}}">{{ $key->tax_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -306,6 +263,8 @@
 
         </div>
     </div>
+    @include('admin.accounting.sales_invoices.invoices.modals.print_language')
+
 @endsection()
 
 @section('script')
@@ -551,7 +510,8 @@
                 },
                 success: function(data) {
                     console.log(data);
-                    toastr.success(data.message)
+                    toastr.success(data.message);
+                    invoices_table();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');

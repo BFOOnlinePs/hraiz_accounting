@@ -59,7 +59,8 @@ class SalesInvoicesController extends Controller
         $client = User::whereJsonContains('user_role',['10'])->get();
         $taxes = TaxesModel::get();
         $currency = CurrencyModel::get();
-        return view('admin.accounting.sales_invoices.new_invoice.index',['client'=>$client,'taxes'=>$taxes,'currency'=>$currency]);
+        $get_invoice_order_number = PurchaseInvoicesModel::latest('id')->first()->id + 1;
+        return view('admin.accounting.sales_invoices.new_invoice.index',['client'=>$client,'taxes'=>$taxes,'currency'=>$currency , 'get_invoice_order_number'=>$get_invoice_order_number]);
     }
 
     public function create_new_invoices(Request $request){
@@ -363,29 +364,29 @@ class SalesInvoicesController extends Controller
         }
     }
 
-    public function sales_invoice_pdf($invoice_id){
-        $data = PurchaseInvoicesModel::where('id',$invoice_id)->first();
+    public function sales_invoice_pdf(Request $request){
+        $data = PurchaseInvoicesModel::where('id',$request->invoice_id)->first();
 
 //        $purchase_invoice->tax = TaxesModel::where('id', $purchase_invoice->tax_id)->first();
 //        $purchase_invoice->order = OrderModel::where('id',$purchase_invoice->order_id)->first();
         $data->user = User::where('id', $data->client_id)->first();
         $taxes = TaxesModel::get();
         $data->tax = TaxesModel::where('id', $data->tax_id)->first();
-        $invoice = InvoiceItemsModel::where('invoice_id', $invoice_id)->get();
+        $invoice = InvoiceItemsModel::where('invoice_id', $request->invoice_id)->get();
         foreach ($invoice as $key) {
             $key->product = ProductModel::where('id', $key->item_id)->first();
         }
 
         // حساب المجموع الكلي
-        $total = InvoiceItemsModel::where('invoice_id', $invoice_id)->sum(DB::raw('rate * quantity'));
+        $total = InvoiceItemsModel::where('invoice_id', $request->invoice_id)->sum(DB::raw('rate * quantity'));
 
         // حساب المجموع المستحق
-        $final_total = InvoiceItemsModel::where('invoice_id', $invoice_id)->sum(DB::raw('rate * quantity'));
+        $final_total = InvoiceItemsModel::where('invoice_id', $request->invoice_id)->sum(DB::raw('rate * quantity'));
 
         $system_setting = SystemSettingModel::first();
 
         $users = User::get();
-        $pdf = PDF::loadView('admin.accounting.sales_invoices.invoices.pdf.sales_invoice',['data'=>$data,'invoice'=>$invoice,'total'=>$total,'final_total'=>$final_total,'system_setting'=>$system_setting]);
+        $pdf = PDF::loadView('admin.accounting.sales_invoices.invoices.pdf.sales_invoice',['data'=>$data,'invoice'=>$invoice,'total'=>$total,'final_total'=>$final_total,'system_setting'=>$system_setting,'request'=>$request]);
         return $pdf->stream('sales_invoice.pdf');
     }
 
