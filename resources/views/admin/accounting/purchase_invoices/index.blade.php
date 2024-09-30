@@ -174,7 +174,7 @@
                 <input type="hidden" name="invoice_type" value="purchases">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">فاتورة من طلبية</h4>
+                        <h4 class="modal-title">فاتورة من طلبية شراء</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -184,7 +184,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="">بحث عن طلبية</label>
-                                    <input onkeyup="search_order_ajax()" id="input_search" type="text" class="form-control" placeholder="ابحث عن طلبية">
+                                    <input onkeyup="search_order_ajax()" id="input_search" type="text" class="form-control" placeholder="بحث عن طلبية شراء">
                                     {{-- <select class="form-control select2bs4" name="order_id" id="">
                                         <option value="">اختر الطلبية</option>
                                         @foreach ($order as $key)

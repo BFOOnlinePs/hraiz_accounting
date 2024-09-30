@@ -591,7 +591,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
             Route::post('update_invoice_reference_number_ajax',[App\Http\Controllers\accounting\PurchaseInvoicesController::class , 'update_invoice_reference_number_ajax'])->name('accounting.purchase_invoices.update_invoice_reference_number_ajax');
             Route::post('update_tax_id_ratio',[App\Http\Controllers\accounting\PurchaseInvoicesController::class , 'update_tax_id_ratio'])->name('accounting.purchase_invoices.update_tax_id_ratio');
             Route::get('invoice_posting/{id}',[App\Http\Controllers\accounting\PurchaseInvoicesController::class , 'invoice_posting'])->name('accounting.purchase_invoices.invoice_posting');
-            Route::get('purchase_invoice_pdf/{invoice_id}',[App\Http\Controllers\accounting\PurchaseInvoicesController::class , 'purchase_invoice_pdf'])->name('accounting.purchase_invoices.purchase_invoice_pdf');
+            Route::post('purchase_invoice_pdf',[App\Http\Controllers\accounting\PurchaseInvoicesController::class , 'purchase_invoice_pdf'])->name('accounting.purchase_invoices.purchase_invoice_pdf');
         });
     });
     Route::group(['prefix'=>'sales_invoices'],function(){
@@ -616,7 +616,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
             Route::post('update_invoice_reference_number_ajax',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'update_invoice_reference_number_ajax'])->name('accounting.sales_invoices.update_invoice_reference_number_ajax');
             Route::post('update_tax_id_ratio',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'update_tax_id_ratio'])->name('accounting.sales_invoices.update_tax_id_ratio');
             Route::get('invoice_posting/{id}',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'invoice_posting'])->name('accounting.sales_invoices.invoice_posting');
-            Route::get('sales_invoice_pdf/{invoice_id}',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'sales_invoice_pdf'])->name('accounting.sales_invoices.sales_invoice_pdf');
+            Route::post('sales_invoice_pdf',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'sales_invoice_pdf'])->name('accounting.sales_invoices.sales_invoice_pdf');
         });
         Route::group(['prefix'=>'expenses'],function(){
             Route::get('index',[App\Http\Controllers\accounting\ExpensesController::class, 'index'])->name('accounting.expenses.index');

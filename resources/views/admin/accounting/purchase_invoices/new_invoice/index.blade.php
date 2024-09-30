@@ -52,7 +52,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">الرقم المرجعي للفاتورة</label>
-                                    <input required name="invoice_reference_number" placeholder="ادخل الرقم المرجعي" type="text" class="form-control">
+                                    <input value="INV_00{{ $get_invoice_order_number }}" required name="invoice_reference_number" placeholder="ادخل الرقم المرجعي" type="text" class="form-control">
                                 </div>
                             </div>
 
