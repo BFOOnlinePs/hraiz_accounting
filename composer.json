@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
         "milon/barcode": "^10.0",
+        "nativephp/electron": "^0.7.0",
         "psr/simple-cache": "^2.0",
         "rats/zkteco": "^002.0",
         "simplesoftwareio/simple-qrcode": "^4.2"
