@@ -27,6 +27,7 @@
                         @endforeach
                     </td>
                     <td>
+                        {{ $key->id }}
                         <button onclick="get_order_id({{ $key->id }},{{ $key->client->id }})" type="submit"
                             class="btn btn-success btn-sm"><span class="fa fa-check"></span>&nbsp; انشاء فاتورة من طلبية
                             بيع</button>
