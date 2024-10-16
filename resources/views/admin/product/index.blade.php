@@ -27,25 +27,35 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* خلفية شفافة لشاشة التحميل */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* خلفية شفافة لشاشة التحميل */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999; /* يجعل شاشة التحميل فوق جميع العناصر الأخرى */
+            z-index: 9999;
+            /* يجعل شاشة التحميل فوق جميع العناصر الأخرى */
         }
 
         .loader {
-            border: 4px solid #f3f3f3; /* لون الدائرة الخارجية */
-            border-top: 4px solid #3498db; /* لون الدائرة الداخلية */
+            border: 4px solid #f3f3f3;
+            /* لون الدائرة الخارجية */
+            border-top: 4px solid #3498db;
+            /* لون الدائرة الداخلية */
             border-radius: 50%;
             width: 50px;
             height: 50px;
-            animation: spin 2s linear infinite; /* تأثير دوران */
+            animation: spin 2s linear infinite;
+            /* تأثير دوران */
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 
@@ -54,20 +64,24 @@
             margin-top: 150px;
             margin-left: 200px
         }
+
         /*.card-header {*/
         /*    background-color: #9575CD*/
         /*}*/
         h5 {
             color: #fff
         }
+
         .card-block {
             margin-top: 10px
         }
+
         .mytooltip {
             display: inline;
             position: absolute;
             z-index: 999
         }
+
         .mytooltip .tooltip-item {
             background: rgba(0, 0, 0, 0.1);
             cursor: pointer;
@@ -75,6 +89,7 @@
             font-weight: 500;
             padding: 0 10px
         }
+
         .mytooltip .tooltip-content {
             position: absolute;
             z-index: 9999;
@@ -93,6 +108,7 @@
             cursor: default;
             pointer-events: none
         }
+
         .mytooltip .tooltip-content::after {
             content: '';
             top: 100%;
@@ -106,6 +122,7 @@
             border-width: 10px;
             margin-left: -10px
         }
+
         .mytooltip .tooltip-content img {
             position: relative;
             width: 100%;
@@ -113,6 +130,7 @@
             float: left;
             margin-right: 1em
         }
+
         .mytooltip .tooltip-item::after {
             content: '';
             position: absolute;
@@ -124,19 +142,23 @@
             -webkit-transform: translateX(-50%);
             transform: translateX(-50%)
         }
+
         .mytooltip:hover .tooltip-item::after {
             pointer-events: auto
         }
+
         .mytooltip:hover .tooltip-content {
             pointer-events: auto;
             opacity: 1;
             -webkit-transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0deg);
             transform: translate3d(0, 0, 0) rotate3d(0, 0, 0, 0deg)
         }
+
         .mytooltip:hover .tooltip-content2 {
             opacity: 1;
             font-size: 18px
         }
+
         .mytooltip .tooltip-text {
             font-size: 14px;
             line-height: 24px;
@@ -151,13 +173,15 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <input onkeyup="fetchAdditionalData()" id="input_search" name="product_search" type="text" placeholder="بحث" class="form-control mb-2">
+                    <input onkeyup="fetchAdditionalData()" id="input_search" name="product_search" type="text"
+                        placeholder="بحث" class="form-control mb-2">
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <select onchange="fetchAdditionalData()" class="form-control select2bs4" name="" id="category_selected_id">
+                        <select onchange="fetchAdditionalData()" class="form-control select2bs4" name=""
+                            id="category_selected_id">
                             <option value="">جميع المجموعات</option>
-                            @foreach($category as $key)
+                            @foreach ($category as $key)
                                 <option value="{{ $key->id }}">{{ $key->cat_name }}</option>
                             @endforeach
                         </select>
@@ -165,9 +189,10 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <select onchange="fetchAdditionalData()" class="form-control select2bs4" name="" id="units_selected_id">
+                        <select onchange="fetchAdditionalData()" class="form-control select2bs4" name=""
+                            id="units_selected_id">
                             <option value="">جميع الوحدات</option>
-                            @foreach($unit as $key)
+                            @foreach ($unit as $key)
                                 <option value="{{ $key->id }}">{{ $key->unit_name }}</option>
                             @endforeach
                         </select>
@@ -176,9 +201,9 @@
             </div>
             <div class="card">
 
-{{--                <div class="card-header">--}}
-{{--                    <h3 class="text-center">قائمة الأصناف</h3>--}}
-{{--                </div>--}}
+                {{--                <div class="card-header"> --}}
+                {{--                    <h3 class="text-center">قائمة الأصناف</h3> --}}
+                {{--                </div> --}}
 
                 <div class="card-body">
                     <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -199,11 +224,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="mb-2">
-                        <button type="button" class="btn btn-sm form-control btn-dark" data-toggle="modal" data-target="#modal-xl">
+                        <button type="button" class="btn btn-sm form-control btn-dark" data-toggle="modal"
+                            data-target="#modal-xl">
                             <span class="fa fa-plus"></span> اضافة صنف
 
                         </button>
-                        <button type="button" class="btn mt-2 btn-sm form-control btn-success" data-toggle="modal" data-target="#modal-default">
+                        <button type="button" class="btn mt-2 btn-sm form-control btn-success" data-toggle="modal"
+                            data-target="#modal-default">
                             <span class="fa fa-file-import"></span> استيراد من اكسيل
                         </button>
                     </div>
@@ -233,8 +260,7 @@
                             <label for="">ارفاق الملف</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" name="file" class="custom-file-input"
-                                           id="exampleInputFile">
+                                    <input type="file" name="file" class="custom-file-input" id="exampleInputFile">
                                     <label class="custom-file-label" for="exampleInputFile">اختر ملف</label>
                                 </div>
                                 <div class="input-group-append">
@@ -270,27 +296,32 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">اسم الصنف عربي</label>
-                                            <input name="product_name_ar" type="text" class="form-control" placeholder="اسم الصنف عربي">
+                                            <input name="product_name_ar" type="text" class="form-control"
+                                                placeholder="اسم الصنف عربي">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">اسم الصنف انجليزي</label>
-                                            <input name="product_name_en" type="text" class="form-control" placeholder="اسم الصنف انجليزي">
+                                            <input name="product_name_en" type="text" class="form-control"
+                                                placeholder="اسم الصنف انجليزي">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">اسم الصنف عبري</label>
-                                            <input name="product_name_he" type="text" class="form-control" placeholder="اسم الصنف عبري">
+                                            <input name="product_name_he" type="text" class="form-control"
+                                                placeholder="اسم الصنف عبري">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group" data-select2-id="41">
                                             <label>تصنيف المنتج</label>
-                                            <select name="category_id" class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;"
-                                                    data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                                @foreach($category as $key)
+                                            <select name="category_id"
+                                                class="form-control select2bs4 select2-hidden-accessible"
+                                                style="width: 100%;" data-select2-id="1" tabindex="-1"
+                                                aria-hidden="true">
+                                                @foreach ($category as $key)
                                                     <option value="{{ $key->id }}">{{ $key->cat_name }}</option>
                                                 @endforeach
                                             </select>
@@ -299,9 +330,11 @@
                                     <div class="col-md-4">
                                         <div class="form-group" data-select2-id="41">
                                             <label>الوحدة</label>
-                                            <select name="unit_id" class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;"
-                                                    data-select2-id="2" tabindex="-1" aria-hidden="true">
-                                                @foreach($unit as $key)
+                                            <select name="unit_id"
+                                                class="form-control select2bs4 select2-hidden-accessible"
+                                                style="width: 100%;" data-select2-id="2" tabindex="-1"
+                                                aria-hidden="true">
+                                                @foreach ($unit as $key)
                                                     <option value="{{ $key->id }}">{{ $key->unit_name }}</option>
                                                 @endforeach
                                             </select>
@@ -310,53 +343,62 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">باركود المنتج</label>
-                                            <input name="barcode" class="form-control" type="text" placeholder="باركود المنتج">
+                                            <input name="barcode" class="form-control" type="text"
+                                                placeholder="باركود المنتج">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group" data-select2-id="41">
                                             <label>اقل كمية</label>
-                                            <input type="number" name="less_qty" placeholder="اقل كمية" class="form-control">
+                                            <input type="number" name="less_qty" placeholder="اقل كمية"
+                                                class="form-control">
                                         </div>
                                     </div>
                                     <div hidden class="col-md-12">
                                         <div class="form-group">
                                             <label for="">معتمد / غير معتمد</label><br>
-                                            <select name="certified" class="form-control w-25 ml-2" style="float: right" id="">
+                                            <select name="certified" class="form-control w-25 ml-2" style="float: right"
+                                                id="">
                                                 <option value="1">معتمد</option>
                                                 <option value="0">غير معتمد</option>
                                             </select>
-                                            <b class="">(معتمد بحاجة الى عرض سعر واحد فقط اما الغير معتمد بحاجة الى 3 عروض اسعار)</b>
+                                            <b class="">(معتمد بحاجة الى عرض سعر واحد فقط اما الغير معتمد بحاجة الى 3
+                                                عروض اسعار)</b>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">سعر المنتج</label>
-                                            <input name="product_price" height="50" class="form-control" type="number" placeholder="سعر المتنج">
+                                            <input name="product_price" height="50" class="form-control"
+                                                type="number" placeholder="سعر المتنج">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">الوزن</label>
-                                            <input name="weight" height="50" class="form-control" type="number" placeholder="الوزن">
+                                            <input name="weight" height="50" class="form-control" type="number"
+                                                placeholder="الوزن">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">الطول</label>
-                                            <input name="height" height="50" class="form-control" type="number" placeholder="الطول">
+                                            <input name="height" height="50" class="form-control" type="number"
+                                                placeholder="الطول">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">سعر التكلفة</label>
-                                            <input name="cost_price" height="50" class="form-control" type="number" placeholder="سعر التكلفة">
+                                            <input name="cost_price" height="50" class="form-control" type="number"
+                                                placeholder="سعر التكلفة">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">اقل سعر للبيع</label>
-                                            <input name="min_sale_price" height="50" class="form-control" type="number" placeholder="اقل سعر للبيع">
+                                            <input name="min_sale_price" height="50" class="form-control"
+                                                type="number" placeholder="اقل سعر للبيع">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -368,9 +410,8 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="assembled_product">هل هذا المنتج مجمع ام لا</label>
-                                            <input class="" id="assembled_product" name="assembled_product" type="checkbox"
-                                                   value="1"
-                                                   placeholder="سعر المنتج">
+                                            <input class="" id="assembled_product" name="assembled_product"
+                                                type="checkbox" value="1" placeholder="سعر المنتج">
                                         </div>
                                     </div>
                                 </div>
@@ -379,11 +420,13 @@
                                 <row>
                                     <div class="col-md-12">
                                         <div class="form-group text-center">
-                                            <span style="font-size: 150px;text-align: center" class="fa fa-image text-secondary"></span>
+                                            <span style="font-size: 150px;text-align: center"
+                                                class="fa fa-image text-secondary"></span>
                                             <br>
                                             <label for="">صورة المنتج</label>
                                             <div class="custom-file">
-                                                <input name="product_photo" type="file" class="custom-file-input" id="customFile">
+                                                <input name="product_photo" type="file" class="custom-file-input"
+                                                    id="customFile">
                                                 <label class="custom-file-label" for="customFile">اختر ملف</label>
                                             </div>
                                         </div>
@@ -395,18 +438,21 @@
                         <div style="display: none" id="assembled_form" class="row">
                             <div class="col-md-12">
                                 <select class="form-control select2bs4 " name="" id="select_value">
-                                    @foreach($products as $key)
-                                        <option value="{{ $key->id }}" data-product-name="{{ $key->product_name_ar }}">{{ $key->product_name_ar }}</option>
+                                    @foreach ($products as $key)
+                                        <option value="{{ $key->id }}"
+                                            data-product-name="{{ $key->product_name_ar }}">{{ $key->product_name_ar }}
+                                        </option>
                                     @endforeach
                                 </select>
-                                <button class="btn btn-success btn-sm mt-1 mb-2" type="button" onclick="get_data()">اضافة</button>
+                                <button class="btn btn-success btn-sm mt-1 mb-2" type="button"
+                                    onclick="get_data()">اضافة</button>
                                 <div id="assembled_product_table">
 
                                 </div>
                                 <div id="add_input">
 
                                 </div>
-                                {{--                            <input onchange="" id="assembled_product" type="text">--}}
+                                {{--                            <input onchange="" id="assembled_product" type="text"> --}}
                             </div>
                         </div>
                     </div>
@@ -418,7 +464,6 @@
             </div>
         </div>
     </div>
-
 @endsection()
 
 @section('script')
@@ -437,7 +482,7 @@
 
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
-    {{--        <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>--}}
+    {{--        <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script> --}}
 
     {{-- <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
 
@@ -454,7 +499,7 @@
             fetchAdditionalData();
         });
 
-        $(document).on('click', '.pagination a', function (e) {
+        $(document).on('click', '.pagination a', function(e) {
             e.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
             fetchAdditionalData(page);
@@ -465,13 +510,15 @@
             $.ajax({
                 url: '{{ url('/product/search_table') }}',
                 type: 'get',
-                data:{
-                    'product_search':document.getElementById('input_search').value,
-                    'category_selected_id':document.getElementById('category_selected_id').value,
-                    'units_selected_id':document.getElementById('units_selected_id').value,
+                data: {
+                    'product_search': document.getElementById('input_search').value,
+                    'category_selected_id': document.getElementById('category_selected_id').value,
+                    'units_selected_id': document.getElementById('units_selected_id').value,
                     'page': page
                 },
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 beforeSend: function() {
                     // showLoader();
                 },
@@ -498,10 +545,9 @@
             $('#loaderContainer').hide();
         }
 
-        function myFunction(){
+        function myFunction() {
             alert('load');
         }
-
     </script>
 
     <script>
@@ -518,19 +564,20 @@
                     'id': id,
                     'user_status': document.getElementById('customSwitch' + id).checked
                 },
-                success: function (data) {
+                success: function(data) {
                     toastr.success('تم تعديل الحالة بنجاح')
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
                 }
             });
         }
+
         function edit_product_ajax(id) {
-            if((document.getElementById('product_name_ar_' + id).value == '') && (document.getElementById('product_name_en_' + id).value)){
+            if ((document.getElementById('product_name_ar_' + id).value == '') && (document.getElementById(
+                    'product_name_en_' + id).value)) {
                 alert('يجب ان لا يكون حقل الحروف فارغ');
-            }
-            else{
+            } else {
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
                 var headers = {
                     "X-CSRF-Token": csrfToken
@@ -544,38 +591,40 @@
                         'product_name_ar': document.getElementById('product_name_ar_' + id).value,
                         'product_name_en': document.getElementById('product_name_en_' + id).value,
                     },
-                    success: function (data) {
+                    success: function(data) {
                         // alert('mohamad');
                         console.log(data);
                         toastr.success('تم تعديل الاسم بنجاح')
                     },
-                    error: function (jqXHR, textStatus, errorThrown) {
+                    error: function(jqXHR, textStatus, errorThrown) {
                         alert('error');
                     }
                 });
             }
         }
         var x = [];
+
         function add_input() {
             // document.getElementById('add_input').innerHTML('<h1>Mohamad Maraqa</h1>');
             x.push(`<select id="product_att_${x.length}" name="product_att[]" class="form-control">
-                @foreach($products as $key)
+                @foreach ($products as $key)
                 <option value="{{ $key->id }}">{{ $key->product_name_ar }}</option>
                 @endforeach
                 </select>`);
 
             var empty_string = ``;
-            for (var i = 0 ; i < x.length ; i++){
+            for (var i = 0; i < x.length; i++) {
                 empty_string = empty_string + x[i];
             }
             $('#add_input').html(empty_string);
         }
+
         function get_data() {
             var selectedValue = document.getElementById('select_value').value;
 
             if (selectedValue) {
                 // Check if the ID is already present in the array
-                var isDuplicate = x.some(function (entry) {
+                var isDuplicate = x.some(function(entry) {
                     return entry.includes(`value="${selectedValue}"`);
                 });
 
@@ -603,44 +652,45 @@
         }
 
 
-        function create_assembled_product_ajax(product_id,assembled_product) {
-                var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                var headers = {
-                    "X-CSRF-Token": csrfToken
-                };
-                $.ajax({
-                    url: '{{ route('product.create_assembled_product_ajax') }}',
-                    method: 'post',
-                    headers: headers,
-                    data: {
-                        'product_id': product_id,
-                        'assembled_product': assembled_product
-                    },
-                    success: function (data) {
-                        $('#').html(data.view);
-                        toastr.success('تم اضافة البيانات بنجاح')
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert('error');
-                    }
-                });
+        function create_assembled_product_ajax(product_id, assembled_product) {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('product.create_assembled_product_ajax') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    'product_id': product_id,
+                    'assembled_product': assembled_product
+                },
+                success: function(data) {
+                    $('#').html(data.view);
+                    toastr.success('تم اضافة البيانات بنجاح')
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
         }
 
         const checkbox_assembled = document.getElementById('assembled_product');
-        checkbox_assembled.addEventListener('click',function handleClick(){
-          if(checkbox_assembled.checked){
-              document.getElementById('assembled_form').style.display = 'block';
-          }
-          else{
-              document.getElementById('assembled_form').style.display = 'none';
-          }
+        checkbox_assembled.addEventListener('click', function handleClick() {
+            if (checkbox_assembled.checked) {
+                document.getElementById('assembled_form').style.display = 'block';
+            } else {
+                document.getElementById('assembled_form').style.display = 'none';
+            }
         })
     </script>
 
     <script>
-        $(function () {
+        $(function() {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": true, "autoWidth": true,
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": true,
                 // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -656,7 +706,7 @@
     </script>
 
     <script>
-        $(function () {
+        $(function() {
             var Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -664,78 +714,78 @@
                 timer: 3000
             });
 
-            $('.swalDefaultSuccess').click(function () {
+            $('.swalDefaultSuccess').click(function() {
                 Toast.fire({
                     icon: 'success',
                     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.swalDefaultInfo').click(function () {
+            $('.swalDefaultInfo').click(function() {
                 Toast.fire({
                     icon: 'info',
                     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.swalDefaultError').click(function () {
+            $('.swalDefaultError').click(function() {
                 Toast.fire({
                     icon: 'error',
                     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.swalDefaultWarning').click(function () {
+            $('.swalDefaultWarning').click(function() {
                 Toast.fire({
                     icon: 'warning',
                     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.swalDefaultQuestion').click(function () {
+            $('.swalDefaultQuestion').click(function() {
                 Toast.fire({
                     icon: 'question',
                     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
 
-            $('.toastrDefaultSuccess').click(function () {
+            $('.toastrDefaultSuccess').click(function() {
                 toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
             });
-            $('.toastrDefaultInfo').click(function () {
+            $('.toastrDefaultInfo').click(function() {
                 toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
             });
-            $('.toastrDefaultError').click(function () {
+            $('.toastrDefaultError').click(function() {
                 toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
             });
-            $('.toastrDefaultWarning').click(function () {
+            $('.toastrDefaultWarning').click(function() {
                 toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
             });
 
-            $('.toastsDefaultDefault').click(function () {
+            $('.toastsDefaultDefault').click(function() {
                 $(document).Toasts('create', {
                     title: 'Toast Title',
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.toastsDefaultTopLeft').click(function () {
+            $('.toastsDefaultTopLeft').click(function() {
                 $(document).Toasts('create', {
                     title: 'Toast Title',
                     position: 'topLeft',
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.toastsDefaultBottomRight').click(function () {
+            $('.toastsDefaultBottomRight').click(function() {
                 $(document).Toasts('create', {
                     title: 'Toast Title',
                     position: 'bottomRight',
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.toastsDefaultBottomLeft').click(function () {
+            $('.toastsDefaultBottomLeft').click(function() {
                 $(document).Toasts('create', {
                     title: 'Toast Title',
                     position: 'bottomLeft',
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.toastsDefaultAutohide').click(function () {
+            $('.toastsDefaultAutohide').click(function() {
                 $(document).Toasts('create', {
                     title: 'Toast Title',
                     autohide: true,
@@ -743,14 +793,14 @@
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.toastsDefaultNotFixed').click(function () {
+            $('.toastsDefaultNotFixed').click(function() {
                 $(document).Toasts('create', {
                     title: 'Toast Title',
                     fixed: false,
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.toastsDefaultFull').click(function () {
+            $('.toastsDefaultFull').click(function() {
                 $(document).Toasts('create', {
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
                     title: 'Toast Title',
@@ -758,7 +808,7 @@
                     icon: 'fas fa-envelope fa-lg',
                 })
             });
-            $('.toastsDefaultFullImage').click(function () {
+            $('.toastsDefaultFullImage').click(function() {
                 $(document).Toasts('create', {
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
                     title: 'Toast Title',
@@ -767,7 +817,7 @@
                     imageAlt: 'User Picture',
                 })
             });
-            $('.toastsDefaultSuccess').click(function () {
+            $('.toastsDefaultSuccess').click(function() {
                 $(document).Toasts('create', {
                     class: 'bg-success',
                     title: 'Toast Title',
@@ -775,7 +825,7 @@
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.toastsDefaultInfo').click(function () {
+            $('.toastsDefaultInfo').click(function() {
                 $(document).Toasts('create', {
                     class: 'bg-info',
                     title: 'Toast Title',
@@ -783,7 +833,7 @@
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.toastsDefaultWarning').click(function () {
+            $('.toastsDefaultWarning').click(function() {
                 $(document).Toasts('create', {
                     class: 'bg-warning',
                     title: 'Toast Title',
@@ -791,7 +841,7 @@
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.toastsDefaultDanger').click(function () {
+            $('.toastsDefaultDanger').click(function() {
                 $(document).Toasts('create', {
                     class: 'bg-danger',
                     title: 'Toast Title',
@@ -799,7 +849,7 @@
                     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
                 })
             });
-            $('.toastsDefaultMaroon').click(function () {
+            $('.toastsDefaultMaroon').click(function() {
                 $(document).Toasts('create', {
                     class: 'bg-maroon',
                     title: 'Toast Title',
@@ -808,11 +858,10 @@
                 })
             });
         });
-
     </script>
 
     <script>
-        $(function () {
+        $(function() {
             //Initialize Select2 Elements
             $('.select2').select2()
 
@@ -822,9 +871,13 @@
             })
 
             //Datemask dd/mm/yyyy
-            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('#datemask').inputmask('dd/mm/yyyy', {
+                'placeholder': 'dd/mm/yyyy'
+            })
             //Datemask2 mm/dd/yyyy
-            $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+            $('#datemask2').inputmask('mm/dd/yyyy', {
+                'placeholder': 'mm/dd/yyyy'
+            })
             //Money Euro
             $('[data-mask]').inputmask()
 
@@ -834,7 +887,11 @@
             });
 
             //Date and time picker
-            $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
+            $('#reservationdatetime').datetimepicker({
+                icons: {
+                    time: 'far fa-clock'
+                }
+            });
 
             //Date range picker
             $('#reservation').daterangepicker()
@@ -847,21 +904,22 @@
                 }
             })
             //Date range as a button
-            $('#daterange-btn').daterangepicker(
-                {
-                    ranges   : {
-                        'Today'       : [moment(), moment()],
-                        'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+            $('#daterange-btn').daterangepicker({
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
                         'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+                            'month').endOf('month')]
                     },
                     startDate: moment().subtract(29, 'days'),
-                    endDate  : moment()
+                    endDate: moment()
                 },
-                function (start, end) {
-                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                function(start, end) {
+                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
+                        'MMMM D, YYYY'))
                 }
             )
 
@@ -882,13 +940,13 @@
                 $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
             })
 
-            $("input[data-bootstrap-switch]").each(function(){
+            $("input[data-bootstrap-switch]").each(function() {
                 $(this).bootstrapSwitch('state', $(this).prop('checked'));
             })
 
         })
         // BS-Stepper Init
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             window.stepper = new Stepper(document.querySelector('.bs-stepper'))
         })
 
@@ -914,7 +972,9 @@
 
         myDropzone.on("addedfile", function(file) {
             // Hookup the start button
-            file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
+            file.previewElement.querySelector(".start").onclick = function() {
+                myDropzone.enqueueFile(file)
+            }
         })
 
         // Update the total progress bar
@@ -945,6 +1005,4 @@
         }
         // DropzoneJS Demo Code End
     </script>
-
 @endsection
-

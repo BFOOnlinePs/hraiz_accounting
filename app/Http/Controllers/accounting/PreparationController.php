@@ -7,6 +7,7 @@ use App\Models\OrdersSalesItemsModel;
 use App\Models\OrdersSalesModel;
 use App\Models\PreparationModel;
 use Illuminate\Http\Request;
+use PDF;
 
 class PreparationController extends Controller
 {
@@ -30,5 +31,18 @@ class PreparationController extends Controller
                 'message'=>'تم تعديل البيانات بنجاح'
             ]);
         }
+    }
+
+    public function print_qr_code_pdf($id){
+        $data = PreparationModel::where('id',$id)->first();
+        $pdf = PDF::loadView('admin.accounting.preparation.pdf.order_qrcode', ['data' => $data], [], [
+            'format' => [100, 100],
+            'defaultFontSize' => 10,
+            'margin_left' => 5,
+            'margin_right' => 5,
+            'margin_top' => 5,
+            'margin_bottom' => 5,
+        ]);       
+        return $pdf->stream('qr_code_product.pdf');
     }
 }

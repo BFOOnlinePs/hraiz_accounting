@@ -3,13 +3,13 @@
     التحضير
 @endsection
 @section('header_title')
-التحضير
+    التحضير
 @endsection
 @section('header_link')
     الرئيسية
 @endsection
 @section('header_title_link')
-التحضير
+    التحضير
 @endsection
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
@@ -37,25 +37,28 @@
                                         <td colspan="8" class="text-center">لا يوجد بيانات</td>
                                     </tr>
                                 @else
-                                @foreach ($data as $key)
-                                    <tr>
-                                        <td>{{ $key->order->reference_number }}</td>
-                                        <td>{{ $key->fromUser->name }}</td>
-                                        <td>
-                                            @if ($key->status == 'waiting_prepared')
-                                                بانتظار التجهيز
-                                            @elseif ($key->status == 'ready_prepared')
-                                                تم التجهيز
-                                            @elseif ($key->status == 'delivered')
-                                                تم التسليم
-                                            @endif
-                                        </td>
-                                        <td>{{ $key->insert_at }}</td>
-                                        <td>
-                                            <a href="{{ route('accounting.preparation.details',['preparation_id'=>$key->id]) }}" class="btn btn-info btn-sm">الدخول الى الطلبية</a> 
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                    @foreach ($data as $key)
+                                        <tr>
+                                            <td>{{ $key->order->reference_number }}</td>
+                                            <td>{{ $key->fromUser->name }}</td>
+                                            <td>
+                                                @if ($key->status == 'waiting_prepared')
+                                                    بانتظار التجهيز
+                                                @elseif ($key->status == 'ready_prepared')
+                                                    تم التجهيز
+                                                @elseif ($key->status == 'delivered')
+                                                    تم التسليم
+                                                @endif
+                                            </td>
+                                            <td>{{ $key->insert_at }}</td>
+                                            <td>
+                                                <a href="{{ route('accounting.preparation.details', ['preparation_id' => $key->id]) }}"
+                                                    class="btn btn-info btn-sm">الدخول الى الطلبية</a>
+                                                <a href="{{ route('accounting.preparation.print_qr_code_pdf', ['id' => $key->id]) }}"
+                                                    class="btn btn-warning btn-sm"><span class="fa fa-barcode"></span></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endif
                             </tbody>
                         </table>
