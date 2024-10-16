@@ -362,7 +362,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('edit_product_ajax', [App\Http\Controllers\ProductController::class, 'edit_product_ajax'])->name('product.edit_product_ajax');
         Route::post('delete_image', [App\Http\Controllers\ProductController::class, 'delete_image'])->name('product.delete_image');
         Route::get('qrCode_product/{id}', [App\Http\Controllers\ProductController::class, 'qrCode_product'])->name('product.qrCode_product');
-        Route::get('qrCode_product/{id}', [App\Http\Controllers\ProductController::class, 'qrCode_product'])->name('product.qrCode_product');
         Route::post('create_product_compatibility', [App\Http\Controllers\ProductController::class, 'create_product_compatibility'])->name('product.create_product_compatibility');
         Route::get('edit_product_compatibility/{id}', [App\Http\Controllers\ProductController::class, 'edit_product_compatibility'])->name('product.edit_product_compatibility');
         Route::post('update_product_compatibility', [App\Http\Controllers\ProductController::class, 'update_product_compatibility'])->name('product.update_product_compatibility');
@@ -712,6 +711,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::get('index',[\App\Http\Controllers\accounting\PreparationController::class,'index'])->name('accounting.preparation.index');
         Route::get('details/{preparation_id}',[\App\Http\Controllers\accounting\PreparationController::class,'details'])->name('accounting.preparation.details');
         Route::post('update_data',[\App\Http\Controllers\accounting\PreparationController::class,'update_data'])->name('accounting.preparation.update_data');
+        Route::get('print_qr_code_pdf/{id}',[\App\Http\Controllers\accounting\PreparationController::class,'print_qr_code_pdf'])->name('accounting.preparation.print_qr_code_pdf');
     });
 });
 

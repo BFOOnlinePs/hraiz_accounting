@@ -242,9 +242,17 @@ class ProductController extends Controller
         }
     }
 
+
     public function qrCode_product($id){
         $data = ProductModel::where('id',$id)->first();
-        $pdf = PDF::loadView('admin.product.pdf.qrcode_product', ['data' => $data],[],['format' => [80,30]]);
+        $pdf = PDF::loadView('admin.product.pdf.qrcode_product', ['data' => $data], [], [
+            'format' => [80, 30], // Set the custom format (width, height) in mm
+            'defaultFontSize' => 10, // Adjust font size if needed
+            'margin_left' => 2,
+            'margin_right' => 2,
+            'margin_top' => 2,
+            'margin_bottom' => 2,
+        ]);       
         return $pdf->stream('qr_code_product.pdf');
     }
 
