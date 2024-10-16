@@ -176,7 +176,7 @@
             <form action="{{ route('accounting.sales_invoices.create_purchase_invoices_from_order') }}" method="post"
                 enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="order_id" id="order_input">
+                <input type="text" name="order_id" id="order_input">
                 <input type="hidden" name="supplier_user_id" id="supplier_input">
                 <input type="hidden" name="invoice_type" value="sales">
                 <div class="modal-content">
@@ -244,6 +244,7 @@
 
     <script>
         function search_order_ajax(page) {
+
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
                 "X-CSRF-Token": csrfToken
