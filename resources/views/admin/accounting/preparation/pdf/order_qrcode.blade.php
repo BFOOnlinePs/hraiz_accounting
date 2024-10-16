@@ -15,6 +15,7 @@
         .barcode {
             width: 100%;
             height: 100%;
+            text-align: center;
         }
 
         .section {
@@ -51,9 +52,13 @@
     {{-- </div> --}}
 
     <div class="section">
+        <div style="text-align: center">
+            <span class="barcode"> {!! str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', QrCode::size(150)->generate($data->id)) !!}</span>
+        </div>
         <div>
-            <span class="barcode"> {!! str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', QrCode::size(93)->generate($data->barcode)) !!}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span
-                style="font-size: 10px;font-weight: bold">{{ $data->product_name_ar }}</span>
+            <h3 style="font-weight: bold;text-align: center">{{ $data->order->reference_number }}</h1>
+                <h3 style="font-weight: bold;text-align: center">{{ $data->order->user->name }}</h3>
+                <h3 style="font-weight: bold;text-align: center">{{ $data->order->inserted_at }}</h3>
         </div>
         {{--    <img src="data:image/png;base64,' . {!! DNS2D::getBarcodePNG($data->barcode, 'QRCODE') !!} . '" alt="barcode"   /> --}}
         {{-- {!! DNS1D::getBarcodeHTML($data->barcode, 'barcode'); !!} --}}

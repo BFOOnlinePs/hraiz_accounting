@@ -3,13 +3,13 @@
     تفاصيي التحضير
 @endsection
 @section('header_title')
-تفاصيي التحضير
+    تفاصيي التحضير
 @endsection
 @section('header_link')
     التحضير
 @endsection
 @section('header_title_link')
-تفاصيي التحضير
+    تفاصيي التحضير
 @endsection
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
@@ -18,8 +18,22 @@
 @section('content')
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{{ route('accounting.preparation.print_qr_code_pdf', ['id' => $preparation->id]) }}"
+                                class="btn btn-warning btn-sm"><span class="fa fa-print"></span></a>
 
-    <div class="row mt-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
@@ -29,18 +43,23 @@
                                 <div class="col-md-6">
                                     <div class="from-group">
                                         <label for="">الرقم المرجعي لطلبية البيع</label>
-                                        {{-- <input @if($data->order_status == 'invoice_has_been_posted') disabled @endif type="text" onchange="update_orders_sales({{ $data->id }},'reference_number',this.value)" class="form-control" value="{{ $data->reference_number }}"> --}}
-                                        <input type="text" class="form-control" disabled value="{{ $data->reference_number }}">
+                                        {{-- <input @if ($data->order_status == 'invoice_has_been_posted') disabled @endif type="text" onchange="update_orders_sales({{ $data->id }},'reference_number',this.value)" class="form-control" value="{{ $data->reference_number }}"> --}}
+                                        <input type="text" class="form-control" disabled
+                                            value="{{ $data->reference_number }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="from-group">
                                         <label for="">حالة طلبية التحضير</label>
-                                        <select class="select2bs4 form-control" onchange="update_data('status',this.value)" name="" id="">
+                                        <select class="select2bs4 form-control" onchange="update_data('status',this.value)"
+                                            name="" id="">
                                             <option value="">اختر الحالة ...</option>
-                                            <option @if($preparation->status == 'waiting_prepared') selected @endif value="waiting_prepared">بانتظار التجهيز</option>
-                                            <option @if($preparation->status == 'ready_prepared') selected @endif value="ready_prepared">تم التجهيز</option>
-                                            <option @if($preparation->status == 'delivered') selected @endif value="delivered">تم التسليم</option>
+                                            <option @if ($preparation->status == 'waiting_prepared') selected @endif
+                                                value="waiting_prepared">بانتظار التجهيز</option>
+                                            <option @if ($preparation->status == 'ready_prepared') selected @endif
+                                                value="ready_prepared">تم التجهيز</option>
+                                            <option @if ($preparation->status == 'delivered') selected @endif value="delivered">تم
+                                                التسليم</option>
                                         </select>
                                         {{-- Mohamad Maraqa --}}
                                     </div>
@@ -48,13 +67,15 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">ملاحظات المستخدم</label>
-                                        <textarea name="" class="form-control" id="" onchange="update_data('notes',this.value)" cols="30" rows="3">{{ $preparation->notes }}</textarea>
+                                        <textarea name="" class="form-control" id="" onchange="update_data('notes',this.value)" cols="30"
+                                            rows="3">{{ $preparation->notes }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">ملاحظات طلبية التحضير</label>
-                                        <textarea name="" class="form-control" id="" onchange="update_data('notes_preparation',this.value)" cols="30" rows="3">{{ $preparation->notes_preparation }}</textarea>
+                                        <textarea name="" class="form-control" id="" onchange="update_data('notes_preparation',this.value)"
+                                            cols="30" rows="3">{{ $preparation->notes_preparation }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -63,8 +84,8 @@
                             <form action="{{ route('accounting.orders_sales.update_order_sales_status') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $data->id }}">
-                                <button @if($data->order_status == 'invoice_has_been_posted') disabled @endif class="btn btn-info form-control" style="height: 100%">
-                                    <span class="text-success">@if($data->order_status == 'invoice_has_been_posted') <span class="fa fa-check-circle"></span> @endif</span>
+                                <button @if ($data->order_status == 'invoice_has_been_posted') disabled @endif class="btn btn-info form-control" style="height: 100%">
+                                    <span class="text-success">@if ($data->order_status == 'invoice_has_been_posted') <span class="fa fa-check-circle"></span> @endif</span>
                                     <p>ترحيل</p>
                                 </button>
                             </form>
@@ -112,7 +133,7 @@
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             orders_sales_items_list_ajax(1);
         });
 
@@ -122,7 +143,7 @@
             product_list_ajax(page);
         });
 
-        function update_data(data_type,value) {
+        function update_data(data_type, value) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
                 "X-CSRF-Token": csrfToken
@@ -132,14 +153,14 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'order_id':{{ $data->id }},
-                    'data_type' : data_type,
-                    'value' : value
+                    'order_id': {{ $data->id }},
+                    'data_type': data_type,
+                    'value': value
                 },
-                success: function (data) {
-                    
+                success: function(data) {
+
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
                 }
             });
@@ -147,11 +168,10 @@
     </script>
 
     <script>
-        $(function(){
+        $(function() {
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
         })
     </script>
 @endsection
-
