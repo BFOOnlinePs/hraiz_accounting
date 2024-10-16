@@ -9,6 +9,7 @@ use App\Models\DocAmountModel;
 use App\Models\InvoiceItemsModel;
 use App\Models\OrderItemsModel;
 use App\Models\OrderModel;
+use App\Models\OrdersSalesItemsModel;
 use App\Models\OrdersSalesModel;
 use App\Models\PriceOfferItemsModel;
 use App\Models\PriceOfferSalesItemsModel;
@@ -227,13 +228,14 @@ class SalesInvoicesController extends Controller
         $data->bill_date = Carbon::now()->toDateString();
         $data->due_date = Carbon::now()->toDateString();
         $data->client_id = $request->supplier_user_id;
-        $order_itmes = OrderItemsModel::where('order_id',$request->order_id)->get();
+        $data->invoice_type = 'sales';
+        $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
         if($data->save()){
             foreach($order_itmes as $key){
                 $invoice_items = new InvoiceItemsModel();
                 $invoice_items->quantity = $key->qty ?? 0;
 //                return PriceOfferItemsModel::where('order_id',$request->order_id)->where('supplier_id',$request->supplier_user_id)->where('product_id',$key->product_id)->value('price');
-                $invoice_items->rate = PriceOfferItemsModel::where('price_offer_sales_id',$request->price_offer_sales_id)->where('supplier_id',$request->supplier_user_id)->where('product_id',$key->product_id)->value('price') ?? 0;
+                // $invoice_items->rate = PriceOfferSalesItemsModel::where('price_offer_sales_id',$request->price_offer_sales_id)->where('product_id',$key->product_id)->value('price') ?? 0;
                 $invoice_items->invoice_id = $data->id;
                 $invoice_items->item_id = $key->product_id;
                 $invoice_items->save();
