@@ -15,13 +15,12 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
-
 @endsection
 @section('content')
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
-{{--    <button type="button" class="btn btn-dark mb-2" data-toggle="modal" data-target="#product_search_modal">اضافة صنف--}}
-{{--    </button>--}}
+    {{--    <button type="button" class="btn btn-dark mb-2" data-toggle="modal" data-target="#product_search_modal">اضافة صنف --}}
+    {{--    </button> --}}
     <button type="button" class="btn btn-dark mb-2" onclick="show_form_product()">اضافة صنف
     </button>
     <div class="card">
@@ -35,9 +34,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">العملة : </label>
-                                <select onchange="update_currency_notes_customer_for_price_offer_sales_items_ajax(this.value,'currency')" name="" id="">
-                                    @foreach($currency as $key)
-                                        <option @if($key->id == $price_offer_sales->currency_id) selected @endif value="{{ $key->id }}">{{ $key->currency_name }}</option>
+                                <select
+                                    onchange="update_currency_notes_customer_for_price_offer_sales_items_ajax(this.value,'currency')"
+                                    name="" id="">
+                                    @foreach ($currency as $key)
+                                        <option @if ($key->id == $price_offer_sales->currency_id) selected @endif
+                                            value="{{ $key->id }}">{{ $key->currency_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -45,12 +47,14 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-dark" style="float: left" data-toggle="modal" data-target="#language_print_pdf"><span class="fa fa-print"></span></button>
-                    <button class="btn btn-warning mr-2" id="add_price_offer_sales_button" style="float: left">اضافة طلبية بيع من عرض السعر هذا</button>
+                    <button class="btn btn-dark" style="float: left" data-toggle="modal"
+                        data-target="#language_print_pdf"><span class="fa fa-print"></span></button>
+                    <button class="btn btn-warning mr-2" id="add_price_offer_sales_button" style="float: left">اضافة طلبية
+                        بيع من عرض السعر هذا</button>
                 </div>
-{{--                <div class="col-md-4">--}}
-{{--                    <a target="_blank" style="float: left" href="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_pdf',['id'=>$price_offer_sales]) }}" class="btn btn-dark"><span class="fa fa-print"></span></a>--}}
-{{--                </div>--}}
+                {{--                <div class="col-md-4"> --}}
+                {{--                    <a target="_blank" style="float: left" href="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_pdf',['id'=>$price_offer_sales]) }}" class="btn btn-dark"><span class="fa fa-print"></span></a> --}}
+                {{--                </div> --}}
             </div>
         </div>
         <div class="card-body">
@@ -68,7 +72,8 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="">الملاحظات</label>
-                        <textarea onchange="update_currency_notes_customer_for_price_offer_sales_items_ajax(this.value,'notes')" class="form-control" name="" id="" cols="30" rows="3">{{ $price_offer_sales->notes }}</textarea>
+                        <textarea onchange="update_currency_notes_customer_for_price_offer_sales_items_ajax(this.value,'notes')"
+                            class="form-control" name="" id="" cols="30" rows="3">{{ $price_offer_sales->notes }}</textarea>
                     </div>
                 </div>
             </div>
@@ -86,7 +91,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_pdf') }}" method="post">
+                    <form action="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_pdf') }}"
+                        method="post">
                         @csrf
                         <input type="hidden" name="id" value="{{ $price_offer_sales->id }}">
                         <div class="row mt-2">
@@ -116,7 +122,7 @@
     <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             document.getElementById('form_product').style.display = 'none';
             product_list_search(page);
             price_offer_sales_items_table_ajax(page);
@@ -142,7 +148,7 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'price_offer_sales_id':{{ $price_offer_sales->id }},
+                    'price_offer_sales_id': {{ $price_offer_sales->id }},
                     'product_search': document.getElementById('product_search').value,
                     'page': page
                 },
@@ -167,8 +173,8 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'price_offer_sales_id':{{ $price_offer_sales->id }},
-                    'page':page,
+                    'price_offer_sales_id': {{ $price_offer_sales->id }},
+                    'page': page,
                 },
                 success: function(data) {
                     $('#price_offer_sales_items_table').html(data.view)
@@ -191,11 +197,11 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'price_offer_sales_id':{{ $price_offer_sales->id }},
+                    'price_offer_sales_id': {{ $price_offer_sales->id }},
                     'product_id': product_id,
                 },
                 success: function(data) {
-                    if(data.success == 'true'){
+                    if (data.success == 'true') {
                         toastr.success(data.message);
                         product_list_search(page);
                         price_offer_sales_items_table_ajax(page);
@@ -219,16 +225,15 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'id':id,
+                    'id': id,
                 },
                 success: function(data) {
                     console.log(data);
-                    if(data.success == 'true'){
+                    if (data.success == 'true') {
                         toastr.success(data.message);
                         product_list_search(page);
                         price_offer_sales_items_table_ajax(page)
-                    }
-                    else if(data.success == 'false'){
+                    } else if (data.success == 'false') {
                         toastr.error(data.message);
                         product_list_search(page);
                         price_offer_sales_items_table_ajax(page)
@@ -240,12 +245,11 @@
             });
         }
 
-        $('#add_price_offer_sales_button').click(function () {
-            check_price_offer_sales_if_found(function (response) {
-                if (response.status === 'not_empty'){
+        $('#add_price_offer_sales_button').click(function() {
+            check_price_offer_sales_if_found(function(response) {
+                if (response.status === 'not_empty') {
                     get_price_offer_sales_table_for_order_items();
-                }
-                else{
+                } else {
                     add_price_offer_sales_to_order_sales({{ $price_offer_sales->id }})
                 }
             });
@@ -261,7 +265,7 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'price_offer_sales_id' : {{ $price_offer_sales->id }}
+                    'price_offer_sales_id': {{ $price_offer_sales->id }}
                 },
                 success: function(data) {
                     $('#price_offer_found_modal').modal('show');
@@ -283,7 +287,7 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'price_offer_sales_id' : {{ $price_offer_sales->id }}
+                    'price_offer_sales_id': {{ $price_offer_sales->id }}
                 },
                 success: function(data) {
                     callback(data);
@@ -304,9 +308,9 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'id':id,
-                    'customer_id' : {{ $price_offer_sales->customer_id }},
-                    'price_offer_sales_id' : id
+                    'id': id,
+                    'customer_id': {{ $price_offer_sales->customer_id }},
+                    'price_offer_sales_id': id
                 },
                 success: function(data) {
                     // console.log(data.redirect);
@@ -318,7 +322,7 @@
             });
         }
 
-        function update_qty_price_price_offer_sales_items_ajax(id,value,operation) {
+        function update_qty_price_price_offer_sales_items_ajax(id, value, operation) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
                 "X-CSRF-Token": csrfToken
@@ -329,18 +333,17 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'id':id,
+                    'id': id,
                     'operation': operation,
-                    'value':value
+                    'value': value
                 },
                 success: function(data) {
                     console.log(data);
-                    if(data.success == 'true'){
+                    if (data.success == 'true') {
                         toastr.success(data.message);
                         price_offer_sales_items_table_ajax(page);
                         // get_sum_price_offer_sales_items_ajax();
-                    }
-                    else if(data.success == 'false'){
+                    } else if (data.success == 'false') {
                         toastr.error(data.message);
                     }
                 },
@@ -350,7 +353,7 @@
             });
         }
 
-        function update_currency_notes_customer_for_price_offer_sales_items_ajax(value,operation) {
+        function update_currency_notes_customer_for_price_offer_sales_items_ajax(value, operation) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
                 "X-CSRF-Token": csrfToken
@@ -362,14 +365,13 @@
                 data: {
                     'price_offer_sales_id': {{ $price_offer_sales->id }},
                     'operation': operation,
-                    'value':value
+                    'value': value
                 },
                 success: function(data) {
                     console.log(data);
-                    if(data.success == 'true'){
+                    if (data.success == 'true') {
                         toastr.success(data.message);
-                    }
-                    else if(data.success == 'false'){
+                    } else if (data.success == 'false') {
                         toastr.error(data.message);
                     }
                 },
@@ -392,7 +394,7 @@
                     'price_offer_sales_id': {{ $price_offer_sales->id }},
                 },
                 success: function(data) {
-                    if(data.success == 'true'){
+                    if (data.success == 'true') {
                         document.getElementById('sum_items').innerText = data.sum;
                     }
                 },
@@ -410,7 +412,7 @@
             price_offer_sales_items_table_ajax(page);
         });
 
-        $('#price_offer_found_form').submit(function (e) {
+        $('#price_offer_found_form').submit(function(e) {
             e.preventDefault();
             let formData = new FormData(this);
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -435,11 +437,10 @@
     </script>
 
     <script>
-        $(function () {
+        $(function() {
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
         })
     </script>
 @endsection
-

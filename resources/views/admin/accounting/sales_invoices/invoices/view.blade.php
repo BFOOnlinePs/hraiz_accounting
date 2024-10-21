@@ -616,6 +616,15 @@
                 recurring_form.style.display = "none";
             }
         }
+
+        function post_the_invoice() {
+            // if ($('#wherehouse_select').val()) {
+            window.location.href =
+                '{{ route('accounting.sales_invoices.invoice_posting', ['id' => $purchase_invoice->id]) }}'
+            // } else {
+            //     alert('يجب ان تحدد المخزن')
+            // }
+        }
     </script>
 
     <script>

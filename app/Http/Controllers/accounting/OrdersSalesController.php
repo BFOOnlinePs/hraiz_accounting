@@ -28,7 +28,7 @@ class OrdersSalesController extends Controller
 
     public function list_orders_sales_ajax(Request $request)
     {
-        $data = OrdersSalesModel::query();
+        $data = OrdersSalesModel::query()->orderBy('id','desc');
         if($request->filled('reference_name')){
             $data->where('reference_number','like','%'.$request->reference_name.'%');
         }
@@ -226,8 +226,21 @@ class OrdersSalesController extends Controller
     public function order_sales_pdf($order_id,Request $request){
         $data = OrdersSalesModel::with('user','order_sales_items','order_sales_items.product')->where('id',$order_id)->first();
         $system_setting = SystemSettingModel::first();
-        $pdf = PDF::loadView('admin.accounting.orders_sales.pdf.order_sales_details',['data'=>$data , 'system_setting'=>$system_setting ,'request'=>$request]);
-        return $pdf->stream('order_sales.pdf');
+        if($request->radio_button == 'radio_qr'){
+            $pdf = PDF::loadView('admin.accounting.orders_sales.pdf.order_sales_qr', ['data'=>$data , 'system_setting'=>$system_setting ,'request'=>$request], [], [
+                'format' => [100, 100],
+                'defaultFontSize' => 10,
+                'margin_left' => 5,
+                'margin_right' => 5,
+                'margin_top' => 5,
+                'margin_bottom' => 5,
+            ]);       
+            return $pdf->stream('qr_code_product.pdf');
+        }
+        else{
+            $pdf = PDF::loadView('admin.accounting.orders_sales.pdf.order_sales_details',['data'=>$data , 'system_setting'=>$system_setting ,'request'=>$request]);
+            return $pdf->stream('order_sales.pdf');    
+        }
     }
 
     public function create_preparation(Request $request){
@@ -239,7 +252,27 @@ class OrdersSalesController extends Controller
         $data->notes = $request->notes;
         $data->insert_at = Carbon::now();
         if($data->save()){
-            return redirect()->back();
+            return redirect()->route('accounting.preparation.details',['preparation_id'=>$data->id]);
         }
+    }
+
+    public function order_sales_select_item_ajax(Request $request){
+        $data = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
+        $order_items = OrdersSalesModel::where('id',$request->order_id)->first();
+        foreach ($data as $key){
+            $key->product = ProductModel::where('id',$key->product_id)->first();
+        }
+        return response()->json([
+            'success' => true,
+            'view' => view('admin.accounting.orders_sales.ajax.sales_price_select_items',['data'=>$data , 'order_items'=>$order_items])->render()
+        ]);
+    }
+
+    public function list_order_sales_product_for_qr(Request $request){
+        $data = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
+        return response()->json([
+            'success' => true,
+            'view' => view('admin.accounting.orders_sales.ajax.sales_price_select_items_for_qr',['data'=>$data])->render()
+        ]);
     }
 }
