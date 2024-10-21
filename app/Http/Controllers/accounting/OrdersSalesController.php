@@ -35,7 +35,8 @@ class OrdersSalesController extends Controller
         if($request->filled('user_id')){
             $data->where('user_id',$request->user_id);
         }
-        $data = $data->paginate(10);
+
+        $data = OrdersSalesModel::orderBy('id','desc')->paginate(10);
         foreach ($data as $key){
             $key->client = User::where('id',$key->user_id)->first();
         }
