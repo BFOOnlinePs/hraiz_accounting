@@ -605,6 +605,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('update_purchase_invoices_from_ajax',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'update_purchase_invoices_from_ajax'])->name('accounting.sales_invoices.update_purchase_invoices_from_ajax');
         Route::post('search_order_ajax',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'search_order_ajax'])->name('accounting.sales_invoices.search_order_ajax');
         Route::post('invoice_table_index_ajax',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'invoice_table_index_ajax'])->name('accounting.sales_invoices.invoice_table_index_ajax');
+        Route::get('delete_invoices/{id}',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'delete_invoices'])->name('accounting.sales_invoices.delete_invoices');
         Route::group(['prefix'=>'invoices'],function(){
             Route::get('view/{id}',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'invoice_view'])->name('accounting.sales_invoices.invoice_view');
             Route::post('search_product_ajax',[App\Http\Controllers\accounting\SalesInvoicesController::class , 'search_product_ajax'])->name('accounting.sales_invoices.search_product_ajax');
@@ -703,6 +704,8 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('check_if_price_offer_if_found',[\App\Http\Controllers\accounting\OrdersSalesController::class,'check_if_price_offer_if_found'])->name('accounting.orders_sales.check_if_price_offer_if_found');
         Route::get('order_sales_pdf/{price_offer_id}',[\App\Http\Controllers\accounting\OrdersSalesController::class,'order_sales_pdf'])->name('accounting.orders_sales.order_sales_pdf');
         Route::post('create_preparation',[\App\Http\Controllers\accounting\OrdersSalesController::class,'create_preparation'])->name('accounting.orders_sales.create_preparation');
+        Route::post('order_sales_select_item_ajax',[\App\Http\Controllers\accounting\OrdersSalesController::class,'order_sales_select_item_ajax'])->name('accounting.orders_sales.order_sales_select_item_ajax');
+        Route::post('list_order_sales_product_for_qr',[\App\Http\Controllers\accounting\OrdersSalesController::class,'list_order_sales_product_for_qr'])->name('accounting.orders_sales.list_order_sales_product_for_qr');
     });
     Route::group(['prefix'=>'preparing_order'],function (){
         Route::get('index',[\App\Http\Controllers\PreparingOrderController::class,'index'])->name('accounting.preparing_order.index');

@@ -22,9 +22,21 @@
         <div class="col-md-12">
             <button class="btn btn-dark" @if ($data->order_status == 'invoice_has_been_posted') disabled @endif
                 onclick="open_add_product_modal()">اضافة اصناف</button>
-            <button class="btn btn-secondary" @if ($data->order_status == 'invoice_has_been_posted') disabled @endif
-                onclick="create_orders_sales_items()">انشاء فاتورة من
+            {{-- <form class="d-inline" action="{{ route('accounting.sales_invoices.create_purchase_invoices_from_order') }}"
+                method="post">
+                @csrf
+                <input type="hidden" value="{{ $data->id }}" name="order_id" id="order_input">
+                <input type="hidden" value="{{ $data->user_id }}" name="supplier_user_id" id="supplier_input">
+                <input type="hidden" name="invoice_type" value="sales">
+                <button type="sumbit" class="btn btn-secondary" @if ($data->order_status == 'invoice_has_been_posted') disabled @endif>انشاء
+                    فاتورة من
+                    طلبية البيع</button>
+            </form> --}}
+            <button type="sumbit" onclick="order_sales_select_item_ajax()" class="btn btn-secondary"
+                @if ($data->order_status == 'invoice_has_been_posted') disabled @endif>انشاء
+                فاتورة من
                 طلبية البيع</button>
+
             {{--            <a href="{{  route('accounting.orders_sales.order_sales_pdf',['price_offer_id'=>$data->id]) }}" class="btn btn-warning float-right" @if ($data->order_status == 'invoice_has_been_posted') onclick="return false;" style="pointer-events: none; opacity: 0.6;" @endif><span class="fa fa-print"></span></a> --}}
             {{--            <a href="{{  route('accounting.orders_sales.order_sales_pdf',['price_offer_id'=>$data->id]) }}" class="btn btn-warning float-right"><span class="fa fa-print"></span></a> --}}
             <button class="btn btn-warning float-right" data-toggle="modal" data-target="#order_sales_print_modal"><span
@@ -43,7 +55,7 @@
                         </div>
                     @endif
                     {{--                    <a href="" class="btn btn-warning"><span class="fa fa-print"></span></a> --}}
-                    @if ($data->price_offer_sales_id != null)
+                    @if (empty($data->price_offer_sales_id))
                         <div class="row text-center">
                             <div class="col-md-12 alert alert-info">
                                 تم انشاء طلبية البيع استناداً لعرض سعر رقم <a
@@ -117,6 +129,7 @@
     @include('admin.accounting.orders_sales.modals.order_sales_print_modal')
     @include('admin.accounting.orders_sales.modals.add_preparation_modal')
     @include('admin.accounting.orders_sales.modals.add_orders_sales')
+    @include('admin.accounting.orders_sales.modals.create_order_from_order_sales')
 @endsection
 
 @section('script')
@@ -266,6 +279,7 @@
                 },
                 success: function(data) {
                     orders_sales_items_list_ajax();
+                    order_sales_select_item_ajax
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
@@ -280,6 +294,58 @@
 
         function post_the_invoice() {
             window.location.href = '<?php echo route('accounting.orders_sales.orders_sales_details', ['order_id' => $data->id]); ?>'
+        }
+
+        function order_sales_select_item_ajax() {
+            $('#create_order_from_order_sales').modal('show');
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.order_sales_select_item_ajax') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    'order_id': {{ $data->id }}
+                },
+                success: function(data) {
+                    $('#order_sales_list').html(data.view)
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
+        $('input[name="radio_button"]').change(function() {
+            if ($('#print_qr').is(':checked')) {
+                order_sales_select_item_ajax();
+            } else {
+                $('#list_order_sales_product_for_qr').html('');
+            }
+        });
+
+        function order_sales_select_item_ajax() {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.list_order_sales_product_for_qr') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    'order_id': {{ $data->id }}
+                },
+                success: function(data) {
+                    $('#list_order_sales_product_for_qr').html(data.view)
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
         }
     </script>
 

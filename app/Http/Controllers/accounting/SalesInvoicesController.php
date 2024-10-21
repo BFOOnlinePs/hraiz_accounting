@@ -119,7 +119,8 @@ class SalesInvoicesController extends Controller
 
     public function delete_invoices($id){
         $data = PurchaseInvoicesModel::find($id);
-        if($data->delete()){
+        $data->deleted = 1;
+        if($data->first()){
             return redirect()->route('accounting.sales_invoices.index')->with(['success'=>'تم حذف البيانات بنجاح']);
         }
         else{
@@ -221,6 +222,7 @@ class SalesInvoicesController extends Controller
 
     // انشاء فاتورة من عرض سعر
     public function create_purchase_invoices_from_order(Request $request){
+        
         $data = new PurchaseInvoicesModel();
 //        $order = OrderModel::where('id',$request->order_id)->first();
         $data->invoice_reference_number = $request->order_id;
@@ -229,15 +231,15 @@ class SalesInvoicesController extends Controller
         $data->due_date = Carbon::now()->toDateString();
         $data->client_id = $request->supplier_user_id;
         $data->invoice_type = 'sales';
-        $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
+        // $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
         if($data->save()){
-            foreach($order_itmes as $key){
+            foreach($request->select_items as $key){
+                $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->where('id',$key)->first();
                 $invoice_items = new InvoiceItemsModel();
-                $invoice_items->quantity = $key->qty ?? 0;
-//                return PriceOfferItemsModel::where('order_id',$request->order_id)->where('supplier_id',$request->supplier_user_id)->where('product_id',$key->product_id)->value('price');
-                // $invoice_items->rate = PriceOfferSalesItemsModel::where('price_offer_sales_id',$request->price_offer_sales_id)->where('product_id',$key->product_id)->value('price') ?? 0;
+                $invoice_items->quantity = $order_itmes->qty ?? 0;
+                $invoice_items->rate = $order_itmes->price ?? 0;
                 $invoice_items->invoice_id = $data->id;
-                $invoice_items->item_id = $key->product_id;
+                $invoice_items->item_id = $order_itmes->product_id;
                 $invoice_items->save();
             }
             return redirect()->route('accounting.sales_invoices.invoice_view',['id'=>$data->id])->with(['success'=>'تم انشاء الفاتورة بنجاح']);
@@ -391,5 +393,4 @@ class SalesInvoicesController extends Controller
         $pdf = PDF::loadView('admin.accounting.sales_invoices.invoices.pdf.sales_invoice',['data'=>$data,'invoice'=>$invoice,'total'=>$total,'final_total'=>$final_total,'system_setting'=>$system_setting,'request'=>$request]);
         return $pdf->stream('sales_invoice.pdf');
     }
-
 }

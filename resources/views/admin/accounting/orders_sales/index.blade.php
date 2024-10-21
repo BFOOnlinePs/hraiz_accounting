@@ -28,8 +28,13 @@
                         </div>
                         <div class="col-md-9">
                             <div class="row ml-2">
-                                <button class="btn btn-sm btn-light col-md-3 col-12 m-1 p-2" data-toggle="modal" data-target="#add_orders_sales_modal"><span class="fa fa-plus"></span>&nbsp;&nbsp;<span>اضافة طلبية</span></button>
-                                <button class="btn btn-light btn-sm col-md-3 col-12 m-1 p-2" onclick="open_add_sales_price_offer_modal()"><span class="fa fa-file-text"></span>&nbsp;&nbsp;<span>اضافة طلبية من عرض سعر بيع</span></button>            
+                                <button class="btn btn-sm btn-light col-md-3 col-12 m-1 p-2" data-toggle="modal"
+                                    data-target="#add_orders_sales_modal"><span
+                                        class="fa fa-plus"></span>&nbsp;&nbsp;<span>اضافة طلبية</span></button>
+                                <button class="btn btn-light btn-sm col-md-3 col-12 m-1 p-2"
+                                    onclick="open_add_sales_price_offer_modal()"><span
+                                        class="fa fa-file-text"></span>&nbsp;&nbsp;<span>اضافة طلبية من عرض سعر
+                                        بيع</span></button>
                             </div>
                         </div>
                     </div>
@@ -51,11 +56,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="">الرقم المرجعي</label>
-                            <input class="form-control" onkeyup="list_orders_sales_ajax()" id="reference_number" type="text">
+                            <input class="form-control" onkeyup="list_orders_sales_ajax()" id="reference_number"
+                                type="text">
                         </div>
                         <div class="col-md-6">
                             <label for="">الزبون</label>
-                            <select onchange="list_orders_sales_ajax()" class="form-control select2bs4" id="client_id" name="">
+                            <select onchange="list_orders_sales_ajax()" class="form-control select2bs4" id="client_id"
+                                name="">
                                 <option value="">اختر زبون ...</option>
                                 @foreach ($clients as $key)
                                     <option value="{{ $key->id }}">{{ $key->name }}</option>
@@ -87,8 +94,7 @@
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script>
-
-        $(document).ready(function () {
+        $(document).ready(function() {
             list_orders_sales_ajax(page);
             list_price_offer_sales_ajax();
         });
@@ -114,10 +120,10 @@
                     user_id: $('#client_id').val(),
                     page: page
                 },
-                success: function (data) {
+                success: function(data) {
                     $('#orders_sales_table').html(data.view)
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
                 }
             });
@@ -137,12 +143,12 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'client_id' : $('#select_client').val()
+                    'client_id': $('#select_client').val()
                 },
-                success: function (data) {
+                success: function(data) {
                     $('#sales_price_offer_table').html(data.view)
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
                 }
             });
@@ -158,13 +164,13 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    'page' : page,
-                    'search' : $('#product_search').val()
+                    'page': page,
+                    'search': $('#product_search').val()
                 },
-                success: function (data) {
+                success: function(data) {
                     $('#product_list_table').html(data.view)
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
                 }
             });
@@ -180,14 +186,13 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    price_offer_sales_id : data.id,
-                    customer_id : data.user.id,
+                    price_offer_sales_id: data.id,
+                    customer_id: data.user.id,
                 },
-                success: function (response) {
-                    console.log(data);
-                    $('#add_sales_price_offer_modal').modal('hide');
+                success: function(response) {
+                    window.location.href = response.redirect;
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
                 }
             });
@@ -200,11 +205,10 @@
     </script>
 
     <script>
-        $(function(){
+        $(function() {
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
         })
     </script>
 @endsection
-
