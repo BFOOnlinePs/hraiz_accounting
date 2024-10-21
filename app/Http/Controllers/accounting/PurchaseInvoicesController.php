@@ -8,6 +8,7 @@ use App\Models\DocAmountModel;
 use App\Models\InvoiceItemsModel;
 use App\Models\OrderItemsModel;
 use App\Models\OrderModel;
+use App\Models\OrdersSalesItemsModel;
 use App\Models\PriceOfferItemsModel;
 use App\Models\PriceOffersModel;
 use App\Models\ProductModel;
@@ -246,9 +247,9 @@ class PurchaseInvoicesController extends Controller
         else if ($request->invoice_type == 'sales'){
             $data->price_offer_sales_id = $request->order_id;
         }
-        $order_itmes = OrderItemsModel::where('order_id',$request->order_id)->get();
+        $order_items = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
         if($data->save()){
-            foreach($order_itmes as $key){
+            foreach($order_items as $key){
                 $invoice_items = new InvoiceItemsModel();
                 $invoice_items->quantity = $key->qty ?? 0;
 //                return PriceOfferItemsModel::where('order_id',$request->order_id)->where('supplier_id',$request->supplier_user_id)->where('product_id',$key->product_id)->value('price');
