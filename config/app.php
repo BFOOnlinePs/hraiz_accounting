@@ -190,7 +190,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'PDF' => Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::class,
-        'Helper' => App\Helper\Helper::class,
+        // 'Helper' => App\Helper\Helper::class,
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
 
