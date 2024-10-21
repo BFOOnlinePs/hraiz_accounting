@@ -37,7 +37,24 @@
                                     </div>
                                     <div class="icheck-danger d-inline">
                                         <label for="print_a4">
-                                            طباعة A4
+                                            طباعة طلبية A4 مع أسعار
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="form-group clearfix">
+                                    <div class="icheck-danger d-inline">
+                                        <input type="radio" name="radio_button" value="radio_A4_non_price"
+                                            id="print_a4_non_price">
+                                        <label for="print_a4_non_price">
+                                        </label>
+                                    </div>
+                                    <div class="icheck-danger d-inline">
+                                        <label for="print_a4_non_price">
+                                            طباعة طلبية A4 بدون أسعار
                                         </label>
                                     </div>
                                 </div>
@@ -53,7 +70,7 @@
                                     </div>
                                     <div class="icheck-danger d-inline">
                                         <label for="print_qr">
-                                            طباعة QR
+                                            طباعة ليبل
                                         </label>
                                     </div>
                                 </div>
