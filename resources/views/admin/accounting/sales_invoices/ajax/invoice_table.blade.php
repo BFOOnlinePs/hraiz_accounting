@@ -31,7 +31,7 @@
                         @if ($key->status == 'stage')
                             <span class="badge bg-success w-100">مرحل</span>
                         @else
-                            <span class="badge bg-warning w-100">غير مرحل</span>
+                            <span class="badge bg-danger w-100">غير مرحل</span>
                         @endif
                     </td>
                     <td>
@@ -39,9 +39,16 @@
                             class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>
                         <a href="{{ route('accounting.sales_invoices.edit_invoices', ['id' => $key->id]) }}"
                             class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
-                        <a href="{{ route('accounting.sales_invoices.delete_invoices', ['id' => $key->id]) }}"
-                            onclick="return confirm('هل تريد حذف البيانات ؟')" class="btn btn-danger btn-sm"><span
-                                class="fa fa-trash"></span></a>
+                        @if ($key->status == 'stage')
+                            <button @if ($key->status == 'stage') disabled @endif
+                                onclick="return confirm('هل تريد حذف البيانات ؟')" class="btn btn-danger btn-sm"><span
+                                    class="fa fa-trash"></span></button>
+                        @else
+                            <a @if ($key->status == 'stage') disabled @endif
+                                href="{{ route('accounting.sales_invoices.delete_invoices', ['id' => $key->id]) }}"
+                                onclick="return confirm('هل تريد حذف البيانات ؟')" class="btn btn-danger btn-sm"><span
+                                    class="fa fa-trash"></span></a>
+                        @endif
                     </td>
                 </tr>
             @endforeach

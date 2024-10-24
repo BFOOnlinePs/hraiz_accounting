@@ -20,6 +20,7 @@
                                             <select class="form-control" name="language" id="">
                                                 <option value="ar">العربية</option>
                                                 <option value="en">الانجليزية</option>
+                                                <option value="he">العبرية</option>
                                             </select>
                                         </td>
                                     </tr>

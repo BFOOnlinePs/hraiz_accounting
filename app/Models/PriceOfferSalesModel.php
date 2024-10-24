@@ -15,4 +15,9 @@ class PriceOfferSalesModel extends Model
     {
         return $this->belongsTo(User::class , 'customer_id' , 'id');
     }
+
+    public function orderSales()
+    {
+        return $this->hasMany(OrdersSalesModel::class , 'price_offer_sales_id' , 'id');
+    }
 }
