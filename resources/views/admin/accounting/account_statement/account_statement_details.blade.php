@@ -22,7 +22,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-10">
-                    @if($user_type == 'customer')
+                    @if ($user_type == 'customer')
                         <p>كشف حساب زبون : <span>{{ $user->name }}</span></p>
                         <p>كشف حساب عميل تقرير بجميع المعاملات المالية للزبون</p>
                     @elseif($user_type == 'supplier')
@@ -31,26 +31,31 @@
                     @endif
                 </div>
                 <div class="col-md-2">
-                    <a target="_blank" href="{{ route('accounting.account-statement.print_account_statement_details_pdf',['user_id'=>$user->id]) }}" class="btn btn-dark float-right"><span class="fa fa-print"></span></a>
+                    <a target="_blank"
+                        href="{{ route('accounting.account-statement.print_account_statement_details_pdf', ['user_id' => $user->id]) }}"
+                        class="btn btn-dark float-right"><span class="fa fa-print"></span></a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">المستند</label>
-                        <input type="text" onkeyup="account_statement_details_table_ajax()" id="reference_number" class="form-control" placeholder="بحث عن مستند">
+                        <input type="text" onkeyup="account_statement_details_table_ajax()" id="reference_number"
+                            class="form-control" placeholder="بحث عن مستند">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">من تاريخ</label>
-                        <input onchange="account_statement_details_table_ajax()" id="from" type="date" class="form-control" placeholder="من تاريخ">
+                        <input onchange="account_statement_details_table_ajax()" id="from" type="date"
+                            class="form-control" placeholder="من تاريخ">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">الى تاريخ</label>
-                        <input onchange="account_statement_details_table_ajax()" id="to" type="date" class="form-control" placeholder="الى تاريخ">
+                        <input onchange="account_statement_details_table_ajax()" id="to" type="date"
+                            class="form-control" placeholder="الى تاريخ">
                     </div>
                 </div>
             </div>
@@ -70,7 +75,7 @@
 @section('script')
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             account_statement_details_table_ajax();
         });
 
@@ -80,32 +85,31 @@
                 "X-CSRF-Token": csrfToken
             };
             $.ajax({
-                url:'{{ route('accounting.account-statement.account_statement_details_table_ajax') }}',
-                method:'POST',
-                header:headers,
-                data:{
+                url: '{{ route('accounting.account-statement.account_statement_details_table_ajax') }}',
+                method: 'POST',
+                header: headers,
+                data: {
                     '_token': csrfToken,
-                    'user_id':{{ $user->id }},
-                    'reference_number' : $('#reference_number').val(),
-                    'from':$('#from').val(),
-                    'to':$('#to').val(),
+                    'user_id': {{ $user->id }},
+                    'reference_number': $('#reference_number').val(),
+                    'from': $('#from').val(),
+                    'to': $('#to').val(),
                 },
-                success:function (data) {
+                success: function(data) {
                     console.log(data);
                     $('#account_statement_details_table').html(data.view);
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR.responseText);
                 }
             });
         }
     </script>
     <script>
-        $(function () {
+        $(function() {
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
         })
     </script>
 @endsection
-

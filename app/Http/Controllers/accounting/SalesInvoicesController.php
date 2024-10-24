@@ -44,7 +44,7 @@ class SalesInvoicesController extends Controller
             $query->where('status',$request->invoice_status);
         })->when(!empty($request->invoice_reference_number),function ($query) use ($request){
             $query->where('invoice_reference_number','like','%'.$request->invoice_reference_number.'%');
-        })->orderBy('id','desc')->paginate(10);
+        })->where('deleted',0)->orderBy('id','desc')->paginate(10);
         foreach ($data as $key){
             $key->totalAmount =InvoiceItemsModel::where('invoice_id',$key->id)
                 ->sum('rate');
@@ -120,7 +120,7 @@ class SalesInvoicesController extends Controller
     public function delete_invoices($id){
         $data = PurchaseInvoicesModel::find($id);
         $data->deleted = 1;
-        if($data->first()){
+        if($data->save()){
             return redirect()->route('accounting.sales_invoices.index')->with(['success'=>'تم حذف البيانات بنجاح']);
         }
         else{
@@ -222,10 +222,9 @@ class SalesInvoicesController extends Controller
 
     // انشاء فاتورة من عرض سعر
     public function create_purchase_invoices_from_order(Request $request){
-        
         $data = new PurchaseInvoicesModel();
 //        $order = OrderModel::where('id',$request->order_id)->first();
-        $data->invoice_reference_number = $request->order_id;
+        $data->invoice_reference_number = $request->order_id ?? $request->price_offer_sales_id;
         $data->price_offer_sales_id = $request->price_offer_sales_id;
         $data->bill_date = Carbon::now()->toDateString();
         $data->due_date = Carbon::now()->toDateString();
@@ -351,22 +350,42 @@ class SalesInvoicesController extends Controller
     }
 
     //TODO ترحيل الفاتورة
-    public function invoice_posting($id){
-        $data = PurchaseInvoicesModel::where('id',$id)->first();
-        $data->status = 'stage';
-        $doc_amount = new DocAmountModel();
-        $doc_amount->type = 'sales';
-        $doc_amount->invoice_id = $id;
-        $doc_amount->amount = InvoiceItemsModel::where('invoice_id',$id)->sum(DB::raw('rate * quantity'));
-        $doc_amount->client_id = $data->client_id;
-        $doc_amount->save();
-        if ($data->save()){
-            return redirect()->route('accounting.sales_invoices.invoice_view',['id'=>$id])->with(['success'=>'تم ترحيل الفاتورة بنجاح']);
-        }
-        else{
-            return redirect()->route('accounting.sales_invoices.invoice_view',['id'=>$id])->with(['fail'=>'هناك خلل ما لم يتم ترحيل الفاتورة']);
-        }
+    public function invoice_posting($id)
+{
+    $data = PurchaseInvoicesModel::where('id', $id)->first();
+    
+    // تغيير حالة الفاتورة
+    $data->status = 'stage';
+    
+    // إنشاء كائن جديد لمبلغ الوثيقة
+    $doc_amount = new DocAmountModel();
+    $doc_amount->type = 'sales';
+    $doc_amount->invoice_id = $id;
+
+    // حساب المبلغ مع الأخذ في الاعتبار الخصومات الفارغة
+    $totalAmountWithDiscounts = InvoiceItemsModel::where('invoice_id', $id)
+        ->sum(DB::raw('rate * quantity * (1 - (discount / 100))'));
+
+    $totalAmountWithoutDiscounts = InvoiceItemsModel::where('invoice_id', $id)
+        ->whereNull('discount')
+        ->sum(DB::raw('rate * quantity'));
+
+    // إضافة المبالغ المحسوبة
+    $doc_amount->amount = $totalAmountWithDiscounts + $totalAmountWithoutDiscounts;
+
+    // حفظ بيانات المبلغ
+    $doc_amount->client_id = $data->client_id;
+    $doc_amount->save();
+
+    // حفظ حالة الفاتورة
+    if ($data->save()) {
+        return redirect()->route('accounting.sales_invoices.invoice_view', ['id' => $id])
+            ->with(['success' => 'تم ترحيل الفاتورة بنجاح']);
+    } else {
+        return redirect()->route('accounting.sales_invoices.invoice_view', ['id' => $id])
+            ->with(['fail' => 'هناك خلل ما لم يتم ترحيل الفاتورة']);
     }
+}
 
     public function sales_invoice_pdf(Request $request){
         $data = PurchaseInvoicesModel::where('id',$request->invoice_id)->first();
@@ -392,5 +411,21 @@ class SalesInvoicesController extends Controller
         $users = User::get();
         $pdf = PDF::loadView('admin.accounting.sales_invoices.invoices.pdf.sales_invoice',['data'=>$data,'invoice'=>$invoice,'total'=>$total,'final_total'=>$final_total,'system_setting'=>$system_setting,'request'=>$request]);
         return $pdf->stream('sales_invoice.pdf');
+    }
+
+    public function archive_order(){
+        $data = PurchaseInvoicesModel::where('deleted',1)->where('invoice_type','sales')->get();
+        return view('admin.accounting.sales_invoices.archive.index',['data'=>$data]);
+    }
+
+    public function restore_invoices($id){
+        $data = PurchaseInvoicesModel::find($id);
+        $data->deleted = 0;
+        if($data->save()){
+            return redirect()->route('accounting.sales_invoices.archive_order')->with(['success'=>'تم استرجاع البيانات بنجاح']);
+        }
+        else{
+            return redirect()->route('accounting.sales_invoices.archive_order')->with(['fail'=>'هناك خطا ما لم يتم استرجاع البيانات بنجاح']);
+        }
     }
 }

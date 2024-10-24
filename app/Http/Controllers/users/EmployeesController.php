@@ -15,7 +15,7 @@ class EmployeesController extends Controller
         $data = new User();
         $data->name = $request->name;
         $data->email = $request->email;
-        $data->password = $request->password;
+        $data->password = encrypt($request->password);
         $data->user_phone1 = $request->user_phone1;
         $data->user_phone2 = $request->user_phone2;
         $data->user_role = json_encode(['11']);

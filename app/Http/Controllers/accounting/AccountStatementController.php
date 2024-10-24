@@ -30,12 +30,15 @@ class AccountStatementController extends Controller
         if ($request->radio_user == 'customer'){
             $query->whereJsonContains('user_role','10')->when($request->filled('search_input'),function ($query) use ($request){
                 $query->where('name','like','%'.$request->search_input.'%')->get();
-            })->get();
+            });
         }
         if($request->radio_user == 'supplier'){
             $query->whereJsonContains('user_role','4')->when($request->filled('search_input'),function ($query) use ($request){
                 $query->where('name','like','%'.$request->search_input.'%')->get();
-            })->get();
+            });
+        }
+        if(!$request->radio_user == 'supplier' && !$request->radio_user == 'customer'){
+            $query->whereJsonContains('user_role','10')->orWhereJsonContains('user_role','4');
         }
         $data = $query->paginate(10);
         return response()->json([

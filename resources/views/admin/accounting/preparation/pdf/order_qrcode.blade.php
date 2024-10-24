@@ -1,72 +1,71 @@
-<html>
+<html dir="rtl">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>QrCode Product</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلبية البيع</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
+        /* Add your styles here */
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 10px;
         }
 
-        .barcode {
-            width: 100%;
-            height: 100%;
+        td,
+        th {
+            border: 1px solid #dddddd;
+            padding: 8px;
             text-align: center;
         }
 
-        .section {
-            justify-content: center;
-            align-content: center;
+        tr:nth-child(even) {
+            background-color: #dddddd;
         }
 
-        .left-section {
-            flex: 1;
-            background-color: #f0f0f0;
-            /* Adjust as needed */
-            padding: 20px;
-        }
-
-        .right-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+        p {
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-    {{-- <div style="display: inline-flex"> --}}
-    {{--    <div style="display: inline" align="center"> --}}
-    {{--        <span style="font-size: 2px">{{ $data->product_name_ar }}</span> --}}
-    {{--    </div> --}}
-    {{--    <div style="display: inline;" align="center"> --}}
-    {{--        {!! str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', QrCode::size(100)->generate($data->barcode)    ); !!} --}}
-    {{--    </div> --}}
-    {{-- </div> --}}
+    @if ($request->language == 'ar' || $request->language == 'he' || $request->language == 'en')
+        @foreach ($data->order_sales_items as $item)
+            @foreach ($request->items as $index => $key)
+                @if ($index == $item->product_id)
+                    @for ($i = 0; $i < $key; $i++)
+                        <div style="text-align: center">
+                            <span class="barcode"> {!! str_replace(
+                                '<?xml version="1.0" encoding="UTF-8"?>',
+                                '',
+                                QrCode::size(80)->generate('https://360alum.com/'),
+                            ) !!}</span>
+                        </div>
+                        <div style="text-align: center">
+                            <h3>{{ $data->user->name }}</h3>
+                            <h4>{{ $item->product->product_name_ar }}</h4>
+                            <h4>{{ $item->product->barcode }}</h4>
 
-    <div class="section">
-        <div style="text-align: center">
-            <span class="barcode"> {!! str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', QrCode::size(150)->generate($data->id)) !!}</span>
-        </div>
-        <div>
-            <h3 style="font-weight: bold;text-align: center">{{ $data->order->reference_number }}</h1>
-                <h3 style="font-weight: bold;text-align: center">{{ $data->order->user->name }}</h3>
-                <h3 style="font-weight: bold;text-align: center">{{ $data->order->inserted_at }}</h3>
-        </div>
-        {{--    <img src="data:image/png;base64,' . {!! DNS2D::getBarcodePNG($data->barcode, 'QRCODE') !!} . '" alt="barcode"   /> --}}
-        {{-- {!! DNS1D::getBarcodeHTML($data->barcode, 'barcode'); !!} --}}
-        {{--    {!! DNS2D::getBarcodeHTML($data->barcode, 'QRCODE'); !!} --}}
-        {{--    <img src="https://th.bing.com/th/id/R.dcf4b6e228aef80dd1a58f4c76f07128?rik=Qj2LybacmBALtA&riu=http%3a%2f%2fpngimg.com%2fuploads%2fqr_code%2fqr_code_PNG25.png&ehk=eKH2pdoegouCUxO1rt6BJXt4avVYywmyOS8biIPp5zc%3d&risl=&pid=ImgRaw&r=0" alt="Your Photo" style="max-width: 100%;"> --}}
-    </div>
-
-
+                        </div>
+                        @if (!empty($item->product->barcode))
+                            <div class="barcode" style="text-align: center">
+                                {!! str_replace('<?xml version="1.0" standalone="no"?>', '', DNS1D::getBarcodeSVG($data->id, 'C39', 3, 60)) !!}
+                            </div>
+                        @else
+                            <div class="no-barcode">
+                                <p>No barcode available.</p>
+                            </div>
+                        @endif
+                        @if (!$loop->last)
+                            <pagebreak />
+                        @endif
+                    @endfor
+                @endif
+            @endforeach
+        @endforeach
+    @endif
 </body>
 
 </html>

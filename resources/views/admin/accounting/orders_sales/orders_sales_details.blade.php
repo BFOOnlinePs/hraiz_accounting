@@ -32,7 +32,7 @@
                     فاتورة من
                     طلبية البيع</button>
             </form> --}}
-            <button type="sumbit" onclick="order_sales_select_item_ajax()" class="btn btn-secondary"
+            <button type="button" onclick="order_sales_select_item_ajax()" class="btn btn-secondary"
                 @if ($data->order_status == 'invoice_has_been_posted') disabled @endif>انشاء
                 فاتورة من
                 طلبية البيع</button>
@@ -279,7 +279,7 @@
                 },
                 success: function(data) {
                     orders_sales_items_list_ajax();
-                    order_sales_select_item_ajax
+                    order_sales_select_item_ajax()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
@@ -297,13 +297,13 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    price_offer_sales_id : {{ $data->id }},
-                    customer_id : {{ $data->user_id }},
+                    price_offer_sales_id: {{ $data->id }},
+                    customer_id: {{ $data->user_id }},
                 },
-                success: function (response) {
+                success: function(response) {
                     window.location.href
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
                 }
             });
@@ -343,13 +343,13 @@
 
         $('input[name="radio_button"]').change(function() {
             if ($('#print_qr').is(':checked')) {
-                order_sales_select_item_ajax();
+                list_order_sales_product_for_qr();
             } else {
                 $('#list_order_sales_product_for_qr').html('');
             }
         });
 
-        function order_sales_select_item_ajax() {
+        function list_order_sales_product_for_qr() {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
                 "X-CSRF-Token": csrfToken

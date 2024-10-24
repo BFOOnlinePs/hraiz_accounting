@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Price;
 
 class OrdersSalesController extends Controller
 {
@@ -151,6 +152,7 @@ class OrdersSalesController extends Controller
     public function price_offer_sales_ajax(Request $request)
     {
         $data = PriceOfferSalesModel::query();
+        $data->with('orderSales');
         if ($request->filled('client_id')){
             $data->where('customer_id',$request->client_id);
         }
@@ -168,7 +170,7 @@ class OrdersSalesController extends Controller
         $data->user_id = $request->customer_id;
         $data->order_status = 'invoice_has_not_been_posted';
         $data->price_offer_sales_id = $request->price_offer_sales_id;
-        $data->reference_number = 'عرض سعر رقم ' . $data->id;
+        $data->reference_number = 'عرض سعر رقم ' . ($get_last_id + 1);
         $data->inserted_at = Carbon::now();
         if ($data->save()){
             $get_price_offer_sales_items = PriceOfferSalesItemsModel::where('price_offer_sales_id',$request->price_offer_sales_id)->get();
@@ -276,4 +278,41 @@ class OrdersSalesController extends Controller
             'view' => view('admin.accounting.orders_sales.ajax.sales_price_select_items_for_qr',['data'=>$data])->render()
         ]);
     }
+
+    public function list_price_offer_items(Request $request){
+        $data = PriceOfferSalesItemsModel::where('price_offer_sales_id',$request->price_offer_sales_id)->get();
+        return response()->json([
+            'success' => true,
+            'view' => view('admin.accounting.orders_sales.ajax.sales_price_offer_items',['data'=>$data])->render()
+        ]);
+    }
+
+    public function create_order_sales_from_price_offer(Request $request)
+{
+    // إنشاء سجل جديد للأمر
+    $data = new OrdersSalesModel();
+    $data->user_id = $request->supplier_id;
+    $data->price_offer_sales_id = $request->price_offer_sales_id;
+    $data->reference_number = $request->price_offer_sales_id;
+    $data->inserted_at = Carbon::now();
+
+    if ($data->save()) {
+        // التعامل مع العناصر المحددة
+        foreach ($request->select_items as $key) {
+            $order_item = new OrdersSalesItemsModel();
+            $order_item->order_id = $data->id;
+            $order_item->product_id = $key;
+
+            // جلب السعر والكمية من الطلب
+            $order_item->price = $request->prices[$key];
+            $order_item->qty = $request->quantities[$key];
+            
+            // حفظ العنصر
+            $order_item->save();
+        }
+
+        // إعادة التوجيه بعد حفظ الطلب
+        return redirect()->route('accounting.orders_sales.orders_sales_details', ['order_id' => $data->id]);
+    }
+}
 }

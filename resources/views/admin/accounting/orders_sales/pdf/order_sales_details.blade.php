@@ -38,7 +38,9 @@
         <table style="width: 100%;margin-bottom: 10px">
             <tr>
                 <td style="text-align: right">
-                    <h5 style="font-size: 13px">اسم الزبون : <span>{{ $data->user->name }}</span></h5>
+                    <h5 style="font-size: 13px">اسم الزبون : <span>{{ $data->user->name }} -
+                            {{ $data->user->user_phone1 }}</span>
+                    </h5>
                 </td>
                 <td style="text-align: left;width:50%">
                     <h5 style="font-size: 13px;">التاريخ : <span>{{ $data->inserted_at }}</span></h5>
@@ -118,33 +120,33 @@
             </tbody>
         </table>
     @elseif($request->language == 'he')
-    <h4 style="text-align: center">הזמנת מכירה</h4>
+        <h4 style="text-align: center">הזמנת מכירה</h4>
         <h5 dir="">שם הלקוח : <span>{{ $data->user->name }}</span></h5>
         <h5 dir="">מספר סימוכין : <span>{{ $data->reference_number }}</span></h5>
         <table dir="">
             <thead>
-            <tr>
-                <th>ברקוד</th>
-                <th>מוּצָר</th>
-                <th>כַּמוּת</th>
-                <th>המחיר</th>
-                <th>סך הכל</th>
-            </tr>
+                <tr>
+                    <th>ברקוד</th>
+                    <th>מוּצָר</th>
+                    <th>כַּמוּת</th>
+                    <th>המחיר</th>
+                    <th>סך הכל</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach ($data->order_sales_items as $key)
+                @foreach ($data->order_sales_items as $key)
+                    <tr>
+                        <td>{{ $key->product->barcode }}</td>
+                        <td>{{ $key->product->product_name_he }}</td>
+                        <td>{{ $key->qty ?? 0 }}</td>
+                        <td>{{ $key->price ?? 0 }}</td>
+                        <td>{{ ($key->price ?? 0) * ($key->qty ?? 0) }}</td>
+                    </tr>
+                @endforeach
                 <tr>
-                    <td>{{ $key->product->barcode }}</td>
-                    <td>{{ $key->product->product_name_he }}</td>
-                    <td>{{ $key->qty ?? 0 }}</td>
-                    <td>{{ $key->price ?? 0 }}</td>
-                    <td>{{ ($key->price ?? 0) * ($key->qty ?? 0) }}</td>
+                    <td colspan="4" style="font-weight: bold">סך הכל</td>
+                    <td>{{ $data->total_sum }}</td>
                 </tr>
-            @endforeach
-            <tr>
-                <td colspan="4" style="font-weight: bold">סך הכל</td>
-                <td>{{  $data->total_sum }}</td>
-            </tr>
             </tbody>
         </table>
     @endif

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,16 +35,19 @@
         }
 
         .pagination .page-item .page-link {
-    color: black; /* Change text color */
-}
+            color: black;
+            /* Change text color */
+        }
 
-.pagination .page-item.active .page-link,
-.pagination .page-item.active .page-link:focus,
-.pagination .page-item.active .page-link:hover {
-    background-color: black; /* Change background color of active page */
-    border-color: black;
-    color: white;      /* Change border color of active page */
-}
+        .pagination .page-item.active .page-link,
+        .pagination .page-item.active .page-link:focus,
+        .pagination .page-item.active .page-link:hover {
+            background-color: black;
+            /* Change background color of active page */
+            border-color: black;
+            color: white;
+            /* Change border color of active page */
+        }
     </style>
 </head>
 
@@ -132,7 +136,7 @@
             // Use Number() to convert back to a number (removes trailing zeros)
             return Number(roundedValue);
         }
-
     </script>
 </body>
+
 </html>

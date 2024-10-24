@@ -14,15 +14,13 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-
 @endsection
 @section('content')
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-dark" data-toggle="modal"
-                    data-target="#expenses-category-create-modal">اضافة تصنيف للمصروف
+            <button class="btn btn-dark" data-toggle="modal" data-target="#expenses-category-create-modal">اضافة تصنيف للمصروف
             </button>
         </div>
     </div>
@@ -32,30 +30,29 @@
                 <div class="card-body">
                     <table class="table table-hover table-bordered table-sm">
                         <thead>
-                        <tr>
-                            <th>الاسم</th>
-                            <th></th>
-                        </tr>
+                            <tr>
+                                <th>الاسم</th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @if($data->isEmpty())
-                            <tr>
-                                <td colspan="2" class="text-center">لا توجد بيانات</td>
-                            </tr>
-                        @else
-                            @foreach($data as $key)
+                            @if ($data->isEmpty())
                                 <tr>
-                                    <td>{{ $key->title }}</td>
-                                    <td>
-                                        <button type="button" onclick="get_expenses_category_data({{ $key }})"
-                                                class="btn btn-success btn-sm"><span
-                                                class="fa fa-edit"></span></button>
-{{--                                        <a onclick="return confirm('هل انت متاكد من حذف البيانات ؟')" href="{{ route('accounting.expenses.delete',['id'=>$key->id]) }}" class="btn btn-danger btn-sm"><span--}}
-{{--                                                class="fa fa-trash"></span></a>--}}
-                                    </td>
+                                    <td colspan="2" class="text-center">لا توجد بيانات</td>
                                 </tr>
-                            @endforeach
-                        @endif
+                            @else
+                                @foreach ($data as $key)
+                                    <tr>
+                                        <td>{{ $key->title }}</td>
+                                        <td>
+                                            <button type="button" onclick="get_expenses_category_data({{ $key }})"
+                                                class="btn btn-success btn-sm"><span class="fa fa-edit"></span></button>
+                                            {{--                                        <a onclick="return confirm('هل انت متاكد من حذف البيانات ؟')" href="{{ route('accounting.expenses.delete',['id'=>$key->id]) }}" class="btn btn-danger btn-sm"><span --}}
+                                            {{--                                                class="fa fa-trash"></span></a> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -77,4 +74,3 @@
         }
     </script>
 @endsection
-

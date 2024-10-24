@@ -31,7 +31,7 @@
 </head>
 
 <body>
-    @if ($request->language == 'ar')
+    @if ($request->language == 'ar' || $request->language == 'he' || $request->language == 'en')
         @foreach ($data->order_sales_items as $item)
             @foreach ($request->items as $index => $key)
                 @if ($index == $item->product_id)

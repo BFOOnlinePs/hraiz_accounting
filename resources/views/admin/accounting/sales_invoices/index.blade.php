@@ -42,8 +42,8 @@
                                         فاتورة من طلبيات بيع
                                     </span>
                                 </button>
-                                <a class="btn btn-danger btn-sm col-md-3 col-12 m-1 p-2" data-toggle="modal"
-                                    data-target="#modal-lg">
+                                <a class="btn btn-danger btn-sm col-md-3 col-12 m-1 p-2"
+                                    href="{{ route('accounting.sales_invoices.archive_order') }}">
                                     <span class="fa fa-trash"></span>&nbsp&nbsp
                                     <span>
                                         ارشيف طلبيات البيع

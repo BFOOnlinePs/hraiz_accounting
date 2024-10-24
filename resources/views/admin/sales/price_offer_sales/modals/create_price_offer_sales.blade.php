@@ -16,7 +16,7 @@
                                 <label for="">اسم الزبون</label>
                                 <select required class="form-control select2bs4" name="customer_id" id="">
                                     <option value="">اختر زبون ...</option>
-                                    @foreach($clients as $key)
+                                    @foreach ($clients as $key)
                                         <option value="{{ $key->id }}">{{ $key->name }}</option>
                                     @endforeach
                                 </select>
@@ -26,7 +26,7 @@
                             <div class="form-group">
                                 <label for="">العملة</label>
                                 <select class="form-control select2bs4" name="currency_id" id="">
-                                    @foreach($currency as $key)
+                                    @foreach ($currency as $key)
                                         <option value="{{ $key->id }}">{{ $key->currency_name }}</option>
                                     @endforeach
                                 </select>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">اغلاق</button>
-                    <button type="submit" class="btn btn-dark">حفظ</button>
+                    <button type="submit" class="btn btn-dark">انشاء عرض سعر بيع</button>
                 </div>
 
             </div>

@@ -11,9 +11,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <select class="form-control select2bs4" onchange="list_price_offer_sales_ajax()" name="" id="select_client">
+                            <select class="form-control select2bs4" onchange="list_price_offer_sales_ajax()"
+                                name="" id="select_client">
                                 <option value="">جميع المستخدمين</option>
-                                @foreach($clients as $key)
+                                @foreach ($clients as $key)
                                     <option value="{{ $key->id }}">{{ $key->name }}</option>
                                 @endforeach
                             </select>

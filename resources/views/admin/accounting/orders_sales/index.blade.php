@@ -88,6 +88,7 @@
     @include('admin.accounting.orders_sales.modals.add_product_modal')
     @include('admin.accounting.orders_sales.modals.add_orders_sales')
     @include('admin.accounting.orders_sales.modals.add_sales_price_offer_modal')
+    @include('admin.accounting.orders_sales.modals.sales_price_offer_items')
 @endsection
 
 @section('script')
@@ -177,30 +178,58 @@
         }
 
         function add_price_offer_sales_to_order_sales(data) {
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            var headers = {
-                "X-CSRF-Token": csrfToken
-            };
-            $.ajax({
-                url: '{{ route('accounting.orders_sales.add_price_offer_sales_to_order_sales') }}',
-                method: 'post',
-                headers: headers,
-                data: {
-                    price_offer_sales_id: data.id,
-                    customer_id: data.user.id,
-                },
-                success: function(response) {
-                    window.location.href = response.redirect;
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert('error');
-                }
-            });
+            $('#price_offer_sales_id_input').val(data.id);
+            $('#supplier_user_id_input').val(data.customer_id);
+            $('#sales_price_offer_items').modal('show');
+            list_price_offer_items(data.id, data.customer_id);
+            // var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            // var headers = {
+            //     "X-CSRF-Token": csrfToken
+            // };
+            // $.ajax({
+            //     url: '{{ route('accounting.orders_sales.add_price_offer_sales_to_order_sales') }}',
+            //     method: 'post',
+            //     headers: headers,
+            //     data: {
+            //         price_offer_sales_id: data.id,
+            //         customer_id: data.user.id,
+            //     },
+            //     success: function(response) {
+            //         window.location.href = response.redirect;
+            //     },
+            //     error: function(jqXHR, textStatus, errorThrown) {
+            //         alert('error');
+            //     }
+            // });
         }
 
         function open_add_product_modal() {
             $('#add_product_modal').modal('show');
             product_list_ajax();
+        }
+
+        function list_price_offer_items(order_id, supplier_id) {
+            $('#create_order_from_order_sales').modal('show');
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.list_price_offer_items') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    price_offer_sales_id: order_id,
+                    supplier_id: supplier_id,
+                },
+                success: function(data) {
+                    $('#price_offer_sales_items_table').html(data.view)
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
         }
     </script>
 
