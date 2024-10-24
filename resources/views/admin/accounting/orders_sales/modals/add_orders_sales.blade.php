@@ -16,11 +16,11 @@
                                 <label for="">اسم الزبون</label>
                                 <select class="form-control select2bs4" name="user_id" id="">
                                     <option value="">اختر زبون ...</option>
-                                    @foreach($clients as $key)
+                                    @foreach ($clients as $key)
                                         <option value="{{ $key->id }}">{{ $key->name }}
                                             <span>(</span>
-                                            @foreach(json_decode($key->user_role) as $key)
-                                                {{ \App\Models\UserRole::where('id',$key)->first()->name }} ,
+                                            @foreach (json_decode($key->user_role) as $key)
+                                                {{ \App\Models\UserRole::where('id', $key)->first()->name }} ,
                                             @endforeach
                                             <span>)</span>
                                         </option>
@@ -32,7 +32,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">الرقم المرجعي</label>
-                            <input required type="text" class="form-control" name="reference_number" placeholder="الرقم المرجعي">
+                            <input required type="text" class="form-control" name="reference_number"
+                                placeholder="الرقم المرجعي">
                         </div>
                     </div>
                 </div>
@@ -44,4 +45,4 @@
         </div>
     </div>
 </div>
-{{--Mohamad Maraqa--}}
+{{-- Mohamad Maraqa --}}

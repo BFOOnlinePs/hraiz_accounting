@@ -22,28 +22,36 @@
     <div class="card mt-3">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-9">
                     <div class="form-group">
-                        <input onkeyup="list_customers_table()" type="text" class="form-control" id="search_input" placeholder="البحث عن زبون">
+                        <input onkeyup="list_customers_table()" type="text" class="form-control" id="search_input"
+                            placeholder="البحث عن زبون">
                     </div>
                 </div>
-                <div class="col-md-2 text-center d-flex">
+                <div class="col-md-3 text-center d-flex">
                     <div class="custom-control custom-radio">
-                        <input onchange="list_customers_table()" class="custom-control-input radio_button_user" value="supplier" type="radio" id="customRadio1" name="customRadio" checked>
+                        <input onchange="list_customers_table()" class="custom-control-input radio_button_user"
+                            value="" type="radio" id="customRadio0" name="customRadio" checked>
+                        <label for="customRadio0" class="custom-control-label">الجميع</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input onchange="list_customers_table()" class="custom-control-input radio_button_user"
+                            value="supplier" type="radio" id="customRadio1" name="customRadio">
                         <label for="customRadio1" class="custom-control-label">مورد</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input onchange="list_customers_table()" class="custom-control-input radio_button_user" value="customer" type="radio" id="customRadio2" name="customRadio">
+                        <input onchange="list_customers_table()" class="custom-control-input radio_button_user"
+                            value="customer" type="radio" id="customRadio2" name="customRadio">
                         <label for="customRadio2" class="custom-control-label">زبون</label>
                     </div>
-{{--                    <div class="btn-group btn-group-toggle" data-toggle="buttons">--}}
-{{--                        <label class="btn btn-secondary active">--}}
-{{--                            <input onchange="list_customers_table()" type="radio" class="radio_button_user" value="supplier" name="options" id="option_a1" autocomplete="off" checked=""> مورد--}}
-{{--                        </label>--}}
-{{--                        <label class="btn btn-secondary">--}}
-{{--                            <input onchange="list_customers_table()" type="radio" class="radio_button_user" value="customer" name="options" id="option_a2" autocomplete="off"> زبون--}}
-{{--                        </label>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="btn-group btn-group-toggle" data-toggle="buttons"> --}}
+                    {{--                        <label class="btn btn-secondary active"> --}}
+                    {{--                            <input onchange="list_customers_table()" type="radio" class="radio_button_user" value="supplier" name="options" id="option_a1" autocomplete="off" checked=""> مورد --}}
+                    {{--                        </label> --}}
+                    {{--                        <label class="btn btn-secondary"> --}}
+                    {{--                            <input onchange="list_customers_table()" type="radio" class="radio_button_user" value="customer" name="options" id="option_a2" autocomplete="off"> زبون --}}
+                    {{--                        </label> --}}
+                    {{--                    </div> --}}
                 </div>
             </div>
             <div class="row mt-2">
@@ -62,7 +70,7 @@
 @section('script')
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             list_customers_table(1);
         });
 
@@ -72,38 +80,37 @@
                 "X-CSRF-Token": csrfToken
             };
             $.ajax({
-                url:'{{ route('accounting.account-statement.list_customers_table_ajax') }}',
-                method:'POST',
-                header:headers,
-                data:{
-                    'radio_user':$('.radio_button_user:checked').val(),
-                    'search_input':$('#search_input').val(),
-                    'user_type':$('#user_type').val(),
+                url: '{{ route('accounting.account-statement.list_customers_table_ajax') }}',
+                method: 'POST',
+                header: headers,
+                data: {
+                    'radio_user': $('.radio_button_user:checked').val(),
+                    'search_input': $('#search_input').val(),
+                    'user_type': $('#user_type').val(),
                     '_token': csrfToken,
-                    'page' : page
+                    'page': page
                 },
-                success:function (data) {
+                success: function(data) {
                     $('#list_customers_table').html(data.view);
                     console.log(data);
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR.responseText);
                 }
             });
         }
 
-        $(document).on('click', '.pagination a', function(event){
+        $(document).on('click', '.pagination a', function(event) {
             event.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
             list_customers_table(page)
         });
     </script>
     <script>
-        $(function () {
+        $(function() {
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
         })
     </script>
 @endsection
-

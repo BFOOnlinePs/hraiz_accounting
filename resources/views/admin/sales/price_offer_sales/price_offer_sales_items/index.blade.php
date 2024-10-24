@@ -21,8 +21,11 @@
     @include('admin.messge_alert.fail')
     {{--    <button type="button" class="btn btn-dark mb-2" data-toggle="modal" data-target="#product_search_modal">اضافة صنف --}}
     {{--    </button> --}}
-    <button type="button" class="btn btn-dark mb-2" onclick="show_form_product()">اضافة صنف
-    </button>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>عرض سعر بيع</h4>
+        </div>
+    </div>
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -51,7 +54,11 @@
                         data-target="#language_print_pdf"><span class="fa fa-print"></span></button>
                     <button class="btn btn-warning mr-2" id="add_price_offer_sales_button" style="float: left">اضافة طلبية
                         بيع من عرض السعر هذا</button>
+
                 </div>
+                <button type="button" class="btn btn-info mb-2" onclick="show_form_product()">اضافة صنف
+                </button>
+
                 {{--                <div class="col-md-4"> --}}
                 {{--                    <a target="_blank" style="float: left" href="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_pdf',['id'=>$price_offer_sales]) }}" class="btn btn-dark"><span class="fa fa-print"></span></a> --}}
                 {{--                </div> --}}
@@ -131,6 +138,9 @@
         function show_form_product() {
             document.getElementById('form_product').classList.add('show');
             document.getElementById('form_product').style.display = 'block';
+            setTimeout(function() {
+                $('#product_search').focus();
+            }, 200);
         }
 
         function close_form_product() {
@@ -341,7 +351,15 @@
                     console.log(data);
                     if (data.success == 'true') {
                         toastr.success(data.message);
-                        price_offer_sales_items_table_ajax(page);
+                        document.getElementById(`loader_${operation}_${id}`).style.display = 'none';
+                        // price_offer_sales_items_table_ajax(page);
+                        if (value > 0) {
+                            $('#price_' + id).css('background-color',
+                                'palegoldenrod');
+                        } else {
+                            $('#price_' + id).css('background-color',
+                                '#DC3545');
+                        }
                         // get_sum_price_offer_sales_items_ajax();
                     } else if (data.success == 'false') {
                         toastr.error(data.message);

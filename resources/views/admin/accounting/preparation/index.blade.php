@@ -18,53 +18,127 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            <h4>طلبيات بانتظار التحضير</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <div class='table-responsive'>
-                        <table class="table table-sm table-hover">
-                            <thead>
-                                <tr>
-                                    <th>رقم المرجعي للفاتورة</th>
-                                    <th>بواسطة</th>
-                                    <th>حالة التحضير</th>
-                                    <th>تاريخ الاضافة</th>
-                                    <th>العمليات</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($data->isEmpty())
-                                    <tr>
-                                        <td colspan="8" class="text-center">لا يوجد بيانات</td>
-                                    </tr>
-                                @else
-                                    @foreach ($data as $key)
-                                        <tr>
-                                            <td>{{ $key->order->reference_number }}</td>
-                                            <td>{{ $key->fromUser->name }}</td>
-                                            <td>
-                                                @if ($key->status == 'waiting_prepared')
-                                                    بانتظار التجهيز
-                                                @elseif ($key->status == 'ready_prepared')
-                                                    تم التجهيز
-                                                @elseif ($key->status == 'delivered')
-                                                    تم التسليم
-                                                @endif
-                                            </td>
-                                            <td>{{ $key->insert_at }}</td>
-                                            <td>
-                                                <a href="{{ route('accounting.preparation.details', ['preparation_id' => $key->id]) }}"
-                                                    class="btn btn-info btn-sm">الدخول الى الطلبية</a>
-                                                <a href="{{ route('accounting.preparation.print_qr_code_pdf', ['id' => $key->id]) }}"
-                                                    class="btn btn-warning btn-sm"><span class="fa fa-barcode"></span></a>
-                                            </td>
-                                        </tr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">من تاريخ</label>
+                                <input type="date" onchange="preparation_list_ajax()" id="from_date"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">الى تاريخ</label>
+                                <input type="date" onchange="preparation_list_ajax()" id="to_date"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">الموظف</label>
+                                <select onchange="preparation_list_ajax()" class="select2bs4 form-control" name=""
+                                    id="employee_id">
+                                    <option value="">جميع الموظفين</option>
+                                    @foreach ($employees as $employee)
+                                        <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                                     @endforeach
-                                @endif
-                            </tbody>
-                        </table>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">حالة طلبية التحضير</label>
+                                <select onchange="preparation_list_ajax()" class="form-control" name=""
+                                    id="status">
+                                    <option value="">جميع الحالات</option>
+                                    <option value="waiting_prepared">قيد التحضير</option>
+                                    <option value="ready_prepared">تم التحضير</option>
+                                    <option value="delivered">تم التسليم</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class='table-responsive' id="preparation_list_table">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function() {
+            preparation_list_ajax();
+        })
+
+        function preparation_list_ajax() {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.preparation.list_preparation_ajax') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    'from_date': $('#from_date').val(),
+                    'to_date': $('#to_date').val(),
+                    'to_user': $('#employee_id').val(),
+                    'status': $('#status').val()
+                },
+                success: function(data) {
+                    $('#preparation_list_table').html(data.view);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
+        function update_status_preparation(id, value) {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.preparation.update_status_preparation') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    id: id,
+                    status: value
+                },
+                success: function(data) {
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $(function() {
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+        })
+    </script>
 @endsection
