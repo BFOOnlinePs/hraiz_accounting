@@ -46,7 +46,7 @@ class PurchaseInvoicesController extends Controller
             $query->where('status',$request->invoice_status);
         })->when(!empty($request->invoice_reference_number),function ($query) use ($request){
             $query->where('invoice_reference_number','like','%'.$request->invoice_reference_number.'%');
-        })->orderBy('id','desc')->paginate(10);
+        })->where('deleted',0)->orderBy('id','desc')->paginate(10);
         foreach ($data as $key){
             $key->totalAmount =InvoiceItemsModel::where('invoice_id',$key->id)
                 ->sum('rate');
@@ -131,7 +131,8 @@ class PurchaseInvoicesController extends Controller
 
     public function delete_invoices($id){
         $data = PurchaseInvoicesModel::find($id);
-        if($data->delete()){
+        $data->deleted = 1;
+        if($data->save()){
             return redirect()->route('accounting.purchase_invoices.index')->with(['success'=>'تم حذف البيانات بنجاح']);
         }
         else{
@@ -404,5 +405,21 @@ class PurchaseInvoicesController extends Controller
         $users = User::get();
         $pdf = PDF::loadView('admin.accounting.purchase_invoices.invoices.pdf.purchase_invoice',['data'=>$data,'invoice'=>$invoice,'total'=>$total,'final_total'=>$final_total,'system_setting'=>$system_setting , 'request'=>$request]);
         return $pdf->stream('sales_invoice.pdf');
+    }
+
+    public function archive_order(){
+        $data = PurchaseInvoicesModel::where('deleted',1)->where('invoice_type','purchases')->get();
+        return view('admin.accounting.purchase_invoices.archive.index',['data'=>$data]);
+    }
+
+    public function restore_invoices($id){
+        $data = PurchaseInvoicesModel::find($id);
+        $data->deleted = 0;
+        if($data->save()){
+            return redirect()->route('accounting.purchase_invoices.archive_order')->with(['success'=>'تم استرجاع البيانات بنجاح']);
+        }
+        else{
+            return redirect()->route('accounting.purchase_invoices.archive_order')->with(['fail'=>'هناك خطا ما لم يتم استرجاع البيانات بنجاح']);
+        }
     }
 }

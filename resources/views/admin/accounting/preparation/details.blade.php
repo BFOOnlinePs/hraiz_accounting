@@ -24,9 +24,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{ route('accounting.preparation.print_qr_code_pdf', ['id' => $preparation->id]) }}"
-                                class="btn btn-warning btn-sm"><span class="fa fa-print"></span></a>
-
+                            {{-- <a href="{{ route('accounting.preparation.print_qr_code_pdf', ['id' => $preparation->id]) }}"
+                                class="btn btn-warning btn-sm"><span class="fa fa-print"></span></a> --}}
+                            <a href="{{ route('accounting.orders_sales.orders_sales_details', ['order_id' => $preparation->order_id]) }}"
+                                class="btn btn-info">الانتقال الى الطلبية</a>
                         </div>
                     </div>
                 </div>
