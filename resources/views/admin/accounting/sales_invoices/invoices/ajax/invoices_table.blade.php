@@ -56,7 +56,14 @@
                                 onchange="edit_inputs_from_invoice({{ $key->id }}, this.value, 'bonus')"
                                 type="text" value="{{ $key->bonus ?? '' }}">
                         </td> --}}
-                        <td id="total_td_{{ $key->id }}"></td>
+                        <td id="total_td_{{ $key->id }}">
+                            @if ($key->discount > 0)
+                                <del>{{ number_format($key->quantity * $key->rate, 2) }}</del>
+                                {{ number_format($key->quantity * $key->rate - $key->quantity * $key->rate * ($key->discount / 100), 2) }}
+                            @else
+                                {{ number_format($key->quantity * $key->rate, 2) }}
+                            @endif
+                        </td>
                         <td>
                             {{-- <button @if ($invoice->status == 'stage') disabled @endif onclick="delete_item({{ $key->id }})" class="btn btn-danger btn-sm"><span class="fa fa-close"></span></button> --}}
                             <span style="cursor: pointer" class="fa fa-trash text-danger"
@@ -111,91 +118,66 @@
 <script>
     var sub_total = 0;
     var tax = 0;
-    var sub_total_after_tax = 0;
-    var totalDiscount = 0; // For total discount calculation
+    var totalDiscount = 0; // لحساب الخصم الكلي
+    var original_total = 0; // للحفاظ على المجموع الكلي قبل الخصم
 
     // Loop through all items to calculate total and discount
     @foreach ($data as $key)
         var itemData = updateTotal({{ $key->id }}); // Get total and discount for each item
         sub_total += itemData.total; // Add item total to subtotal
+        original_total += itemData.originalPrice; // Add original price to original total
         totalDiscount += itemData.discountAmount; // Add item discount to total discount
     @endforeach
 
-    // Calculate tax and total after tax
+    // حساب الضريبة
     tax = ((sub_total * {{ $invoice->tax->tax_ratio ?? 0 }}) / 100);
-    if (document.getElementById('tax_type').value == 'before') {
-        sub_total_after_tax = sub_total;
-    } else if (document.getElementById('tax_type').value == 'after') {
-        sub_total_after_tax = sub_total + ((sub_total * {{ $invoice->tax->tax_ratio ?? 0 }}) / 100);
-    }
 
-    // Update the displayed values
-    document.getElementById('sub_total').innerText = sub_total.toFixed(2);
-    document.getElementById('tax_id').innerText = tax.toFixed(2);
-    document.getElementById('sub_total_after_tax').innerText = sub_total_after_tax.toFixed(2);
-    document.getElementById('sub_discount').innerText = totalDiscount.toFixed(2); // Display total discount
+    // حساب المجموع الكلي (original_total)
+    original_total += tax; // إضافة الضريبة إلى المجموع الكلي
 
-    // Function to update subtotal, tax, and discount dynamically
+    // حساب الرصيد المستحق بعد الخصم
+    var final_total = original_total - totalDiscount; // حساب الرصيد المستحق
+
+    // تحديث القيم المعروضة
+    document.getElementById('sub_total').innerText = original_total.toFixed(2); // عرض المجموع الكلي
+    document.getElementById('tax_id').innerText = tax.toFixed(2); // عرض الضريبة
+    document.getElementById('sub_discount').innerText = totalDiscount.toFixed(2); // عرض إجمالي الخصم
+    document.getElementById('sub_total_after_tax').innerText = final_total.toFixed(2); // عرض الرصيد المستحق
+
+    // دالة لتحديث المجموع الكلي بشكل ديناميكي
     function updateSubTotal() {
         var sub_total = 0;
-        var totalDiscount = 0; // For total discount calculation
-        var tax = 0;
-        var sub_total_after_tax = 0;
+        var totalDiscount = 0; // لحساب الخصم الكلي
+        var tax = 0; // لإعادة حساب الضريبة
+        var original_total = 0; // للحفاظ على المجموع الكلي قبل الخصم
 
-        // Recalculate total for all items
+        // إعادة حساب المجموع لجميع العناصر
         @foreach ($data as $key)
-            var itemData = updateTotal({{ $key->id }}); // Get total and discount for each item
-            sub_total += itemData.total; // Add item total to subtotal
-            totalDiscount += itemData.discountAmount; // Add item discount to total discount
+            var itemData = updateTotal({{ $key->id }}); // الحصول على المجموع والخصم لكل عنصر
+            sub_total += itemData.total; // إضافة إجمالي العنصر إلى المجموع الفرعي
+            original_total += itemData.originalPrice; // إضافة السعر الأصلي
+            totalDiscount += itemData.discountAmount; // إضافة خصم العنصر إلى الخصم الكلي
         @endforeach
 
+        // إعادة حساب الضريبة
         tax = ((sub_total * {{ $invoice->tax->tax_ratio ?? 0 }}) / 100);
 
-        if (document.getElementById('tax_type').value == 'before') {
-            sub_total_after_tax = sub_total;
-        } else if (document.getElementById('tax_type').value == 'after') {
-            sub_total_after_tax = sub_total + ((sub_total * {{ $invoice->tax->tax_ratio ?? 0 }}) / 100);
-        }
+        // تحديث المجموع الكلي (original_total)
+        original_total += tax; // إضافة الضريبة إلى المجموع الكلي
 
-        // Update displayed values
-        document.getElementById('sub_total').innerText = sub_total.toFixed(2);
-        document.getElementById('tax_id').innerText = tax.toFixed(2);
-        document.getElementById('sub_total_after_tax').innerText = sub_total_after_tax.toFixed(2);
-        document.getElementById('sub_discount').innerText = totalDiscount.toFixed(2); // Display total discount
-        return sub_total;
-    }
+        // حساب الرصيد المستحق بعد الخصم
+        var final_total = original_total - totalDiscount; // حساب الرصيد المستحق
 
-    // Function to calculate total and discount for each item
-
-    function updateSubTotal() {
-        var sub_total = 0;
-        var totalDiscount = 0; // لتجميع الخصم الإجمالي
-        var tax = 0;
-        var sub_total_after_tax = 0;
-
-        @foreach ($data as $key)
-            var itemData = updateTotal({{ $key->id }}); // احصل على المجموع والخصم لكل عنصر
-            sub_total += itemData.total; // أضف إجمالي العنصر إلى المجموع الكلي
-            totalDiscount += itemData.discountAmount; // أضف خصم العنصر إلى الخصم الكلي
-        @endforeach
-
-        tax = ((sub_total * {{ $invoice->tax->tax_ratio ?? 0 }}) / 100); // حساب الضريبة
-
-        if (document.getElementById('tax_type').value == 'before') {
-            sub_total_after_tax = sub_total;
-        } else if (document.getElementById('tax_type').value == 'after') {
-            sub_total_after_tax = sub_total + tax;
-        }
-
-        // تحديث القيم في الصفحة
-        document.getElementById('sub_total').innerText = sub_total.toFixed(2);
-        document.getElementById('tax_id').innerText = tax.toFixed(2);
-        document.getElementById('sub_total_after_tax').innerText = sub_total_after_tax.toFixed(2);
-        document.getElementById('sub_discount').innerText = totalDiscount.toFixed(2); // عرض الخصم الإجمالي
+        // تحديث القيم المعروضة
+        document.getElementById('sub_total').innerText = original_total.toFixed(2); // عرض المجموع الكلي
+        document.getElementById('tax_id').innerText = tax.toFixed(2); // عرض الضريبة
+        document.getElementById('sub_discount').innerText = totalDiscount.toFixed(2); // عرض إجمالي الخصم
+        document.getElementById('sub_total_after_tax').innerText = final_total.toFixed(2); // عرض الرصيد المستحق
 
         return sub_total;
     }
 
+    // دالة لحساب المجموع والخصم لكل عنصر
     function updateTotal(itemId) {
         var qty = parseFloat(document.getElementById('qty_input_' + itemId).value) || 0;
         var rate = parseFloat(document.getElementById('rate_input_' + itemId).value) || 0;
@@ -203,16 +185,24 @@
 
         var total = qty * rate;
         var discountAmount = 0;
+        var originalPrice = total; // حفظ السعر الأصلي
 
+        // إذا كان هناك خصم
         if (discount > 0) {
             discountAmount = (total * (discount / 100)); // حساب مبلغ الخصم
-            total = total - discountAmount; // طرح الخصم من المجموع
+            total = total - discountAmount; // خصم المبلغ من الإجمالي
         }
 
-        document.getElementById('total_td_' + itemId).innerText = total.toFixed(2); // عرض المجموع بعد الخصم
+        // عرض السعر الأصلي مع الخصم إذا كان ذلك مطلوبًا
+        document.getElementById('total_td_' + itemId).innerHTML =
+            discount > 0 ?
+            `<del>${originalPrice.toFixed(2)}</del> ${total.toFixed(2)}` : // عرض السعر الأصلي
+            total.toFixed(2); // السعر بعد الخصم
+
         return {
             total: total,
-            discountAmount: discountAmount // إرجاع إجمالي الخصم
+            originalPrice: originalPrice, // إعادة السعر الأصلي
+            discountAmount: discountAmount // إعادة مبلغ الخصم
         };
     }
 
@@ -232,8 +222,8 @@
                 'value': value
             },
             success: function(data) {
-                updateTotal(id); // تحديث المجموع لكل عنصر
-                updateSubTotal(); // تحديث المجموع الكلي بعد التعديل
+                updateTotal(id); // Update total for each item
+                updateSubTotal(); // Update overall total after modification
                 toastr.success('تم التعديل بنجاح');
             },
             error: function(jqXHR, textStatus, errorThrown) {
