@@ -54,7 +54,17 @@
                             id="customer_id">
                             <option value="">الكل</option>
                             @foreach ($clients as $key)
-                                <option value="{{ $key->id }}">{{ $key->name }}</option>
+                                @if (in_array(4, json_decode($key->user_role)))
+                                    مورد |
+                                    <span>
+                                        {{ $key->name }}
+                                    </span>
+                                @elseif (in_array(10, json_decode($key->user_role)))
+                                    زبون |
+                                    <span>
+                                        {{ $key->name }}
+                                    </span>
+                                @endif
                             @endforeach
                         </select>
                     </div>
