@@ -92,7 +92,8 @@
                                     <div class="from-group">
                                         <label for="">الرقم المرجعي للفاتورة</label>
                                         <input type="text" @if ($purchase_invoice->status == 'stage') readonly @endif
-                                            onchange="update_invoice_reference_number_ajax(this.value)" class="form-control"
+                                            onchange="update_invoice_reference_number_ajax(this.value)"
+                                            class="form-control arabicNumbers"
                                             value="{{ $purchase_invoice->invoice_reference_number }}">
                                     </div>
                                 </div>

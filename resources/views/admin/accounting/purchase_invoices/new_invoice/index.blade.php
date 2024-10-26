@@ -52,7 +52,9 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">الرقم المرجعي للفاتورة</label>
-                                    <input value="INV_00{{ $get_invoice_order_number }}" required name="invoice_reference_number" placeholder="ادخل الرقم المرجعي" type="text" class="form-control">
+                                    <input value="INV_00{{ $get_invoice_order_number }}" required
+                                        name="invoice_reference_number" placeholder="ادخل الرقم المرجعي" type="text"
+                                        class="form-control">
                                 </div>
                             </div>
 
@@ -66,7 +68,7 @@
                                     ?>
                                     <label for="">تاريخ الفاتورة</label>
                                     <input required type="date" name="bill_date" class="form-control text-center"
-                                           value="{{ $today }}">
+                                        value="{{ $today }}">
                                 </div>
                             </div>
 
@@ -76,7 +78,8 @@
                                     <select required name="tax_id" id="tax_id" class="form-control select2bs4">
                                         <option value="">اختر قيمة الضريبة ...</option>
                                         @foreach ($taxes as $key)
-                                            <option value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>
+                                            <option value="{{ $key->id }}">{{ $key->tax_name }}
+                                                ({{ $key->tax_ratio }}%)</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -87,7 +90,8 @@
                                     <select name="currency_id" id="currency_id" class="form-control select2bs4">
                                         <option value="">اختر العملة ...</option>
                                         @foreach ($currency as $key)
-                                            <option value="{{ $key->id }}">{{ $key->currency_name }} {{ $key->currency_symbol }}</option>
+                                            <option value="{{ $key->id }}">{{ $key->currency_name }}
+                                                {{ $key->currency_symbol }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -95,7 +99,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="">ملاحظات</label>
-                                    <textarea style="background-color: #ffbc0773" class="form-control" placeholder="يرجى ادخال الملاحظات" name="note" id="" cols="30" rows="3"></textarea>
+                                    <textarea style="background-color: #ffbc0773" class="form-control" placeholder="يرجى ادخال الملاحظات" name="note"
+                                        id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +129,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">الدورة</label>
-                                            <input type="text" name="no_of_cycles" class="form-control" placeholder="الدورة">
+                                            <input type="text" name="no_of_cycles" class="form-control"
+                                                placeholder="الدورة">
                                         </div>
                                     </div>
                                 </div>
@@ -179,24 +185,24 @@
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script>
-        {{--$(document).ready(function () {--}}
-        {{--$('#tax_id').on('change', function () {--}}
-        {{--    var selectedValue = $(this).val();--}}
+        {{-- $(document).ready(function () { --}}
+        {{-- $('#tax_id').on('change', function () { --}}
+        {{--    var selectedValue = $(this).val(); --}}
 
-        {{--    // Clear the options in tax_id2--}}
-        {{--    $('#tax_id2').empty();--}}
+        {{--    // Clear the options in tax_id2 --}}
+        {{--    $('#tax_id2').empty(); --}}
 
-        {{--    // Add default option to tax_id2--}}
-        {{--    $('#tax_id2').append('<option value="">اختر قيمة الضريبة ...</option>');--}}
+        {{--    // Add default option to tax_id2 --}}
+        {{--    $('#tax_id2').append('<option value="">اختر قيمة الضريبة ...</option>'); --}}
 
-        {{--    // Add formatted options to tax_id2 based on the selected value in tax_id--}}
-        {{--    @foreach ($taxes as $key)--}}
-        {{--        if ('{{ $key->id }}' !== selectedValue) {--}}
-        {{--            $('#tax_id2').append('<option value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>');--}}
-        {{--        }--}}
-        {{--    @endforeach--}}
-        {{--});--}}
-        {{--});--}}
+        {{--    // Add formatted options to tax_id2 based on the selected value in tax_id --}}
+        {{--    @foreach ($taxes as $key) --}}
+        {{--        if ('{{ $key->id }}' !== selectedValue) { --}}
+        {{--            $('#tax_id2').append('<option value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>'); --}}
+        {{--        } --}}
+        {{--    @endforeach --}}
+        {{-- }); --}}
+        {{-- }); --}}
 
 
         function if_checked() {

@@ -1,129 +1,3 @@
-{{-- <table class="table table-bordered table-hover table-sm"> --}}
-{{--    <thead> --}}
-{{--    <tr> --}}
-{{--        <th>المستند</th> --}}
-{{--        <th>التاريخ</th> --}}
-{{--        <th>دائن</th> --}}
-{{--        <th>مدين</th> --}}
-{{--        <th>الرصيد</th> --}}
-{{--        <th>البيان</th> --}}
-{{--    </tr> --}}
-{{--    </thead> --}}
-{{--    <tbody> --}}
-{{--    @php --}}
-{{--        $sumCreditor = 0; --}}
-{{--        $sumDebtor = 0; --}}
-{{--        $amount = 0; --}}
-{{--    @endphp --}}
-{{--    @if (empty($data)) --}}
-{{--        <tr> --}}
-{{--            <td colspan="7" class="text-center">لا توجد بيانات</td> --}}
-{{--        </tr> --}}
-{{--    @else --}}
-{{--        <tr> --}}
-{{--            <td></td> --}}
-{{--            <td></td> --}}
-{{--            <td> --}}
-{{--                0 --}}
-{{--            </td> --}}
-{{--            <td> --}}
-{{--                0 --}}
-{{--            </td> --}}
-{{--            <td></td> --}}
-{{--            <td>رصيد اول المدة</td> --}}
-{{--        </tr> --}}
-
-{{--        @foreach ($data as $key) --}}
-{{--            <tr> --}}
-{{--                <td>{{ $key->i_id }}</td> --}}
-{{--                <td>{{ $key->created_at }}</td> --}}
-{{--                <td> --}}
-{{--                    @if ($key->invoice_type == 'purchases' || $key->invoice_type == 'payment_bond') --}}
-{{--                        {{ $key->total_rate }} --}}
-{{--                        @php --}}
-{{--                            $sumCreditor += $key->total_rate; --}}
-{{--                            $amount -= $key->total_rate; --}}
-{{--                        @endphp --}}
-{{--                    @else --}}
-{{--                        0 --}}
-{{--                    @endif --}}
-{{--                </td> --}}
-{{--                <td> --}}
-{{--                    @if ($key->invoice_type == 'sales' || $key->invoice_type == 'performance_bond') --}}
-{{--                        {{ $key->total_rate }} --}}
-{{--                        @php --}}
-{{--                            $sumDebtor += $key->total_rate; --}}
-{{--                            $amount += $key->total_rate; --}}
-{{--                        @endphp --}}
-{{--                    @else --}}
-{{--                        0 --}}
-{{--                    @endif --}}
-{{--                </td> --}}
-{{--                <td> --}}
-{{--                    {{ $amount }} --}}
-{{--                </td> --}}
-{{--                <td> --}}
-{{--                    @if ($key->invoice_type == 'sales') --}}
-{{--                        فاتورة بيع --}}
-{{--                    @elseif($key->invoice_type == 'purchases') --}}
-{{--                        فاتورة مشتريات --}}
-{{--                    @elseif($key->invoice_type == 'performance_bond') --}}
-{{--                        سند صرف --}}
-{{--                    @elseif($key->invoice_type == 'payment_bond') --}}
-{{--                        سند قبض --}}
-{{--                    @endif --}}
-{{--                </td> --}}
-{{--            </tr> --}}
-{{--        @endforeach --}}
-{{--    @endif --}}
-{{--    <tr class="bg-dark"> --}}
-{{--        <td colspan="2" class="text-center">المجموع</td> --}}
-{{--        <td>{{ $sumCreditor }}</td> --}}
-{{--        <td>{{ $sumDebtor }}</td> --}}
-{{--        <td>{{ $sumDebtor - $sumCreditor }}</td> --}}
-{{--        <td></td> --}}
-{{--    </tr> --}}
-{{--    <tr> --}}
-
-
-{{--        <td>{{ $invoiceCount->count }}</td> --}}
-{{--                <td></td> --}}
-{{--                <td></td> --}}
-{{--                <td></td> --}}
-{{--                <td></td> --}}
-{{--                <td></td> --}}
-{{--            </tr> --}}
-{{--    </tbody> --}}
-{{-- </table> --}}
-
-{{-- <div > --}}
-{{--    @foreach ($invoiceCounts as $invoiceCount) --}}
-{{--        <span class="text-center" style="font-size: 12px"> --}}
-
-{{--        @if ($invoiceCount->invoice_type == 'sales') --}}
-
-{{--                عدد فواتير المبيعات --}}
-{{--                {{ $invoiceCount->count }} --}}
-{{--            @endif --}}
-{{--        @if ($invoiceCount->invoice_type == 'purchases') --}}
-{{--                عدد فواتير المشتريات --}}
-{{--                {{ $invoiceCount->count }} --}}
-{{--            @endif --}}
-{{--        @if ($invoiceCount->invoice_type == 'payment_bond') --}}
-{{--                عدد سندات القبض --}}
-{{--                {{ $invoiceCount->count }} --}}
-{{--            @endif --}}
-{{--        @if ($invoiceCount->invoice_type == 'performance_bond') --}}
-{{--                عدد سندات الصرف --}}
-{{--                {{ $invoiceCount->count }} --}}
-{{--            @endif --}}
-{{--            &nbsp; --}}
-{{--            </span> --}}
-
-{{--    @endforeach --}}
-
-{{-- </div> --}}
-
 <table class="table table-bordered table-hover table-sm">
     <thead>
         <tr>
@@ -132,19 +6,20 @@
             <th>دائن</th>
             <th>مدين</th>
             <th>الرصيد</th>
+            <th>الملاحظات</th>
             <th>البيان</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
         @php
-            $sumCreditor = 0;
-            $sumDebtor = 0;
+            $sumCreditor = [];
+            $sumDebtor = [];
             $amount = 0;
         @endphp
+
         @if ($data->isEmpty())
             <tr>
-                <td colspan="6" class="text-center">لا توجد بيانات</td>
+                <td colspan="7" class="text-center">لا توجد بيانات</td>
             </tr>
         @else
             <tr>
@@ -157,6 +32,16 @@
                 <td></td>
             </tr>
             @foreach ($data as $key)
+                @php
+                    $currencySymbol = $key->currency_info->currency_symbol ?? 'بدون عملة';
+                    // Initialize sums for this currency if not already set
+                    if (!isset($sumCreditor[$currencySymbol])) {
+                        $sumCreditor[$currencySymbol] = 0;
+                    }
+                    if (!isset($sumDebtor[$currencySymbol])) {
+                        $sumDebtor[$currencySymbol] = 0;
+                    }
+                @endphp
                 <tr>
                     <td>{{ $key->reference_number }}</td>
                     <td>{{ \Carbon\Carbon::parse($key->created_at)->format('Y-m-d') }}</td>
@@ -166,9 +51,9 @@
                                 $key->type == 'payment_bond' ||
                                 $key->type == 'return_sales' ||
                                 $key->type == 'registration_bond_credit')
-                            {{ $key->amount }}
+                            {{ $key->amount }} {{ $currencySymbol }}
                             @php
-                                $sumCreditor += $key->amount;
+                                $sumCreditor[$currencySymbol] += $key->amount; // Update creditor sum
                                 $amount -= $key->amount;
                             @endphp
                         @else
@@ -181,9 +66,9 @@
                                 $key->type == 'performance_bond' ||
                                 $key->type == 'return_purchase' ||
                                 $key->type == 'registration_bond_debt')
-                            {{ $key->amount }}
+                            {{ $key->amount }} {{ $currencySymbol }}
                             @php
-                                $sumDebtor += $key->amount;
+                                $sumDebtor[$currencySymbol] += $key->amount; // Update debtor sum
                                 $amount += $key->amount;
                             @endphp
                         @else
@@ -191,62 +76,59 @@
                         @endif
                     </td>
                     <td>{{ $amount }}</td>
+                    <td>{{ $key->invoice->note }}</td>
                     <td>
                         @if ($key->type == 'sales')
                             <a href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}"
-                                target="_blank">
-                                فاتورة مبيعات
-                            </a>
+                                target="_blank">فاتورة مبيعات</a>
                         @elseif($key->type == 'payment_bond')
                             <a href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}"
-                                target="_blank">
-                                سند قبض
-                            </a>
+                                target="_blank">سند قبض</a>
                         @elseif($key->type == 'return_sales')
                             <a
-                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">
-                                مردود مبيعات
-                            </a>
+                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">مردود
+                                مبيعات</a>
                         @elseif($key->type == 'purchase')
                             <a
-                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">
-                                فاتورة مشتريات
-                            </a>
+                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">فاتورة
+                                مشتريات</a>
                         @elseif($key->type == 'performance_bond')
                             <a
-                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">
-                                سند صرف
-                            </a>
-                        @elseif($key->type == 'registration_bond_debt')
+                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">سند
+                                صرف</a>
+                        @elseif($key->type == 'registration_bond_debt' || $key->type == 'registration_bond_credit')
                             <a
-                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">
-                                سند قيد
-                            </a>
-                        @elseif($key->type == 'registration_bond_credit')
-                            <a
-                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">
-                                سند قيد
-                            </a>
+                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">سند
+                                قيد</a>
                         @elseif($key->type == 'return_purchase')
                             <a
-                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">
-                                مردود مشتريات
-                            </a>
+                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">مردود
+                                مشتريات</a>
                         @endif
-                    </td>
-                    <td>
-                        {{--                    <a href="{{ route('accounting.purchase_invoices.invoice_view',['id'=>$key->invoice_id]) }}" class="btn btn-warning btn-sm"><span class="fa fa-search"></span></a> --}}
                     </td>
                 </tr>
             @endforeach
             <tr class="bg-dark">
                 <td></td>
-                <td colspan="" class="text-center">المجموع</td>
-                <td>{{ $sumCreditor }}</td>
-                <td>{{ $sumDebtor }}</td>
-                <td>{{ $sumDebtor - $sumCreditor }}</td>
+                <td colspan="2" class="text-center justify-content-center align-content-center">المجموع حسب العملة
+                </td>
+                <td colspan="5">
+                    @foreach ($sumCreditor as $currency => $total)
+                        <div>{{ $currency }} (دائن): {{ $total }}</div>
+                    @endforeach
+                    <hr class="bg-white">
+                    @foreach ($sumDebtor as $currency => $total)
+                        <div>{{ $currency }} (مدين): {{ $total }}</div>
+                    @endforeach
+                </td>
+            </tr>
+            <tr class="bg-dark">
                 <td></td>
-                <td></td>
+                <td colspan="2" class="text-center">الإجمالي</td>
+                <td colspan="5">
+                    <div>الإجمالي: <span class="text-bold">{{ array_sum($sumDebtor) - array_sum($sumCreditor) }}</span>
+                    </div>
+                </td>
             </tr>
         @endif
     </tbody>
@@ -255,38 +137,28 @@
 <div>
     @foreach ($sumQuery as $key)
         <span class="text-center" style="font-size: 12px">
-
             @if ($key->type == 'sales')
-                عدد فواتير المبيعات
-                {{ $key->type_count }}
+                عدد فواتير المبيعات {{ $key->type_count }}
             @endif
             @if ($key->type == 'purchases')
-                عدد فواتير المشتريات
-                {{ $key->type_count }}
+                عدد فواتير المشتريات {{ $key->type_count }}
             @endif
             @if ($key->type == 'payment_bond')
-                عدد سندات القبض
-                {{ $key->type_count }}
+                عدد سندات القبض {{ $key->type_count }}
             @endif
             @if ($key->type == 'performance_bond')
-                عدد سندات الصرف
-                {{ $key->type_count }}
+                عدد سندات الصرف {{ $key->type_count }}
             @endif
             @if ($key->type == 'return_sales')
-                عدد مردودات المبيعات
-                {{ $key->type_count }}
+                عدد مردودات المبيعات {{ $key->type_count }}
             @endif
             @if ($key->type == 'return_purchase')
-                عدد مردودات المشتريات
-                {{ $key->type_count }}
+                عدد مردودات المشتريات {{ $key->type_count }}
             @endif
             @if ($key->type == 'order_sales')
-                عدد مردودات المشتريات
-                {{ $key->type_count }}
+                عدد مردودات المشتريات {{ $key->type_count }}
             @endif
             &nbsp;
-
         </span>
     @endforeach
-
 </div>

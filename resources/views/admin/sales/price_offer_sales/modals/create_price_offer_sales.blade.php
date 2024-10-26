@@ -17,7 +17,19 @@
                                 <select required class="form-control select2bs4" name="customer_id" id="">
                                     <option value="">اختر زبون ...</option>
                                     @foreach ($clients as $key)
-                                        <option value="{{ $key->id }}">{{ $key->name }}</option>
+                                        <option value="{{ $key->id }}"><span class="bg-danger">
+                                                @if (in_array(4, json_decode($key->user_role)))
+                                                    مورد |
+                                                    <span>
+                                                        {{ $key->name }}
+                                                    </span>
+                                                @else
+                                                    زبون |
+                                                    <span>
+                                                        {{ $key->name }}
+                                                    </span>
+                                                @endif
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

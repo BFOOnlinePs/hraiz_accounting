@@ -35,15 +35,17 @@
                             <div class="col-md-4">
                                 <div class="gorm-group">
                                     <label for="">القيمة</label>
-                                    <input class="form-control" name="amount" title="يرجى ادخال ارقام فقط" value="{{ $data->invoice_id }}" type="text">
+                                    <input class="form-control" name="amount" title="يرجى ادخال ارقام فقط"
+                                        value="{{ $data->amount }}" type="text">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="gorm-group">
                                     <label for="">العملة</label>
                                     <select class="form-control" name="currency_id" id="">
-                                        @foreach($currency as $key)
-                                            <option @if($key->id == $data->currency_id) selected @endif value="{{ $key->id }}">{{ $key->currency_name }}</option>
+                                        @foreach ($currency as $key)
+                                            <option @if ($key->id == $data->currency_id) selected @endif
+                                                value="{{ $key->id }}">{{ $key->currency_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -58,13 +60,17 @@
                                 <div class="row mt-3">
                                     <div class="col-md-1">
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input" type="radio" @if($data->payment_type == 'cash') checked @endif value="cash" id="cash" name="customRadio">
+                                            <input class="custom-control-input" type="radio"
+                                                @if ($data->payment_type == 'cash') checked @endif value="cash"
+                                                id="cash" name="customRadio">
                                             <label for="cash" class="custom-control-label">كاش</label>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input" type="radio" @if($data->payment_type == 'check') checked @endif value="check" id="check" name="customRadio">
+                                            <input class="custom-control-input" type="radio"
+                                                @if ($data->payment_type == 'check') checked @endif value="check"
+                                                id="check" name="customRadio">
                                             <label for="check" class="custom-control-label">شيك</label>
                                         </div>
                                     </div>
@@ -75,19 +81,23 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="checkNumber">رقم الشيك</label>
-                                    <input name="check_number" value="{{ $data->check_number }}" type="text" class="form-control" id="checkNumber" placeholder="رقم الشيك" pattern="[0-9]+" title="يرجى إدخال رقم شيك صحيح (الأرقام فقط)">
+                                    <input name="check_number" value="{{ $data->check_number }}" type="text"
+                                        class="form-control" id="checkNumber" placeholder="رقم الشيك" pattern="[0-9]+"
+                                        title="يرجى إدخال رقم شيك صحيح (الأرقام فقط)">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">تاريخ الاستحقاق</label>
-                                    <input name="due_date" value="{{ $data->due_date }}" id="due_date" type="date" class="form-control" placeholder="تاريخ الاستحقاق">
+                                    <input name="due_date" value="{{ $data->due_date }}" id="due_date" type="date"
+                                        class="form-control" placeholder="تاريخ الاستحقاق">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">اسم البنك</label>
-                                    <input name="bank_name" value="{{ $data->bank_name }}" id="bank_name" type="text" class="form-control" placeholder="اسم البنك">
+                                    <input name="bank_name" value="{{ $data->bank_name }}" id="bank_name" type="text"
+                                        class="form-control" placeholder="اسم البنك">
                                 </div>
                             </div>
                         </div>
@@ -107,22 +117,20 @@
 
     <script>
         $(document).ready(function() {
-            $('input[name="customRadio"]').on('change', function () {
+            $('input[name="customRadio"]').on('change', function() {
                 if ($(this).val() === 'check') {
                     $('#check_information').show();
-                    $('#checkNumber').prop('required',true);
-                    $('#due_date').prop('required',true);
-                    $('#bank_name').prop('required',true);
+                    $('#checkNumber').prop('required', true);
+                    $('#due_date').prop('required', true);
+                    $('#bank_name').prop('required', true);
                 } else {
                     $('#check_information').hide();
-                    $('#checkNumber').prop('required',false);
-                    $('#due_date').prop('required',false);
-                    $('#bank_name').prop('required',false);
+                    $('#checkNumber').prop('required', false);
+                    $('#due_date').prop('required', false);
+                    $('#bank_name').prop('required', false);
                 }
             });
             $('input[name="customRadio"]:checked').change();
         });
-
     </script>
 @endsection
-
