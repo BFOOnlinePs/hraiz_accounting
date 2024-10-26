@@ -1,3 +1,5 @@
 *.tmp
 .env
-/storage/*
+!/public/storage
+storage/
+public/
