@@ -88,10 +88,10 @@ class BondsController extends Controller
         $data->due_date = $request->due_date;
         $data->bank_name = $request->bank_name;
         if ($data->save()){
-            return redirect()->route('accounting.bonds.index')->with(['success'=>'تم تعديل البيانات بنجاح']);
+            return redirect()->route('accounting.bonds.payment_bond.index')->with(['success'=>'تم تعديل البيانات بنجاح']);
         }
         else{
-            return redirect()->route('accounting.bonds.index')->with(['fail'=>'هناك خلل ما لم يتم تعديل البيانات']);
+            return redirect()->route('accounting.bonds.payment_bond.index')->with(['fail'=>'هناك خلل ما لم يتم تعديل البيانات']);
         }
     }
 
@@ -107,8 +107,8 @@ class BondsController extends Controller
           })
             ->when($request->filled('insert_by'),function ($query) use ($request){
                 $query->where('insert_by','like','%'.$request->insert_by.'%')->get();
-            })
-            ->get();
+            })->
+            orderBy('id','desc')->get();
         foreach ($data as $key){
             $key->currency = Currency::where('id',$key->currency_id)->first();
             $key->users = User::where('id',$key->insert_by)->first();
@@ -264,9 +264,10 @@ class BondsController extends Controller
                 });
             });
         }
-        $data = $query->where('invoice_type','sales')->paginate(10);
+        $data = $query->where('invoice_type','sales')->orderBy('id','desc')->paginate(10);
         foreach ($data as $key){
             $key->client = User::where('id',$key->client_id)->first();
+            $key->total_amount = $key->totalAmount(); // احسب المجموع هنا
         }
         return response()->json([
             'success' => 'true',
