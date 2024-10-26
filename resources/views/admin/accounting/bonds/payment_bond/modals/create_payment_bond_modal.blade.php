@@ -16,12 +16,6 @@
                             <div class="form-group">
                                 <label for="">اختر فاتورة</label>
                                 <input readonly type="text" class="form-control" name="invoice_id" id="invoice_select">
-{{--                                <select onchange="get_amount_for_invoice()" required class="form-control select2bs4" name="invoice_id" id="invoice_select">--}}
-{{--                                    <option value="">اختر فاتورة ...</option>--}}
-{{--                                    @foreach($invoices as $key)--}}
-{{--                                        <option value="{{ $key->id }}">{{ $key->id }}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
                             </div>
                         </div>
                         <div class="col-md-3">
