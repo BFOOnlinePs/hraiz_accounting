@@ -135,8 +135,8 @@ class AccountStatementController extends Controller
 //    }
 
     public function account_statement_details_table_ajax(Request $request){
-//        $data = DocAmountModel::where('client_id',$request->user_id)->get();
         $query = DocAmountModel::query();
+        $query->with('currency_info');
         $query->where('client_id',$request->user_id);
         if ($request->filled('reference_number')){
             $query->where('reference_number','like','%'.$request->reference_number.'%');
@@ -145,6 +145,7 @@ class AccountStatementController extends Controller
             $query->whereBetween('created_at',[Carbon::parse($request->from)->startOfDay(),Carbon::parse($request->to)->endOfDay()]);
         }
         $data = $query->get();
+
         $sumQuery = DocAmountModel::select('type', DB::raw('COUNT(*) as type_count'))
             ->where('client_id',$request->user_id)
             ->groupBy('type')

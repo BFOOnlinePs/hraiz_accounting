@@ -69,7 +69,7 @@ class PurchaseInvoicesController extends Controller
     }
 
     public function new_invoices_index(){
-        $client = User::whereJsonContains('user_role',['4'])->get();
+        $client = User::whereJsonContains('user_role',['4'])->orwhereJsonContains('user_role',['10'])->get();
         $taxes = TaxesModel::get();
         $currency = Currency::get();
         $wherehouses = WhereHouseModel::get();
@@ -371,6 +371,7 @@ class PurchaseInvoicesController extends Controller
         $doc_amount = new DocAmountModel();
         $doc_amount->type = 'purchase';
         $doc_amount->invoice_id = $id;
+        $doc_amount->reference_number = $data->invoice_reference_number;
         $doc_amount->amount = InvoiceItemsModel::where('invoice_id',$id)->sum(DB::raw('rate * quantity'));
         $doc_amount->client_id = $data->client_id;
         $doc_amount->save();

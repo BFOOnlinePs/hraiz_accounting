@@ -136,6 +136,21 @@
             // Use Number() to convert back to a number (removes trailing zeros)
             return Number(roundedValue);
         }
+
+        function toEnglishNumber(strNum) {
+            var ar = '٠١٢٣٤٥٦٧٨٩'.split(''); // الأرقام العربية
+            var en = '0123456789'.split(''); // الأرقام الإنجليزية
+            return strNum.replace(/[٠١٢٣٤٥٦٧٨٩]/g, function(x) {
+                return en[ar.indexOf(x)];
+            });
+        }
+
+        // تطبيق الدالة على جميع حقول number
+        $(document).on('input', 'input[type="number"]', function() {
+            var val = $(this).val();
+            var newVal = toEnglishNumber(val); // تحويل الأرقام العربية إلى إنجليزية
+            $(this).val(newVal); // تحديث القيمة
+        });
     </script>
 </body>
 

@@ -24,7 +24,7 @@ class PriceOfferSalesController extends Controller
             $key->insert_by_user = User::where('id',$key->insert_by)->first();
             $key->currency = CurrencyModel::where('id',$key->currency_id)->first();
         }
-        $clients = User::whereJsonContains('user_role','10')->get();
+        $clients = User::whereJsonContains('user_role','10')->orwhereJsonContains('user_role','4')->get();
         $added_by = User::whereJsonContains('user_role','1')->orWhereJsonContains('user_role','2')->get();
         $currency = CurrencyModel::get();
         return view('admin.sales.price_offer_sales.index',['data'=>$data,'clients'=>$clients,'currency'=>$currency,'added_by'=>$added_by]);
