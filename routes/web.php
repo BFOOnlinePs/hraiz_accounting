@@ -801,4 +801,13 @@ Route::group(['prefix'=>'wherehouse'],function (){
     Route::post('update',[App\Http\Controllers\WhereHouseController::class,'update'])->name('wherehouse.update');
 });
 
-
+Route::get('/optimize-app', function () {
+    // Run composer dump-autoload
+    exec('composer dump-autoload');
+    
+    // Run artisan commands
+    Artisan::call('clear-compiled');
+    Artisan::call('optimize:clear');
+    
+    return 'Application optimized successfully!';
+});
