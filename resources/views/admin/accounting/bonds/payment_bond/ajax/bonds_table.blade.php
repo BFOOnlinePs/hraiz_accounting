@@ -31,13 +31,13 @@
                         @endif
                     </td>
                     <td>
-                        {{-- {{ $key->users->name ?? '' }} --}}
+                        {{ \App\Models\User::where('id', $key->insert_by)->first()->name ?? '' }}
                     </td>
                     <td>
-                        {{ \App\Models\User::where('id', $key->invoice->client_id)->first()->name ?? '' }}
+                        {{ \App\Models\User::where('id', $key->client_id)->first()->name ?? '' }}
                     </td>
                     <td>
-                        <a href="{{ route('accounting.sales_invoices.invoice_view', ['id' => $key->invoice_id]) }}"
+                        <a href="{{ route('accounting.bonds.payment_bond.details', ['id' => $key->id]) }}"
                             class="btn btn-sm btn-dark"><span class="fa fa-search"></span></a>
                         <a href="{{ route('accounting.bonds.payment_bond.edit_payment_bonds', ['id' => $key->id]) }}"
                             class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
