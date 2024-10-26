@@ -3,7 +3,7 @@
         <thead class="bg-dark">
             <tr>
                 <td style="width: 100px"></td>
-                <th style="width: 400px">الصنف</th>
+                <th style="width: 50%">الصنف</th>
                 <th style="width: 110px">الكمية</th>
                 <th style="width: 110px">السعر</th>
                 <th style="width: 110px">خصم</th>
@@ -56,10 +56,16 @@
                                 onchange="edit_inputs_from_invoice({{ $key->id }}, this.value, 'bonus')"
                                 type="text" value="{{ $key->bonus ?? '' }}">
                         </td> --}}
-                        <td id="total_td_{{ $key->id }}">
+                        <td class="" id="total_td_{{ $key->id }}">
                             @if ($key->discount > 0)
-                                <del>{{ number_format($key->quantity * $key->rate, 2) }}</del>
-                                {{ number_format($key->quantity * $key->rate - $key->quantity * $key->rate * ($key->discount / 100), 2) }}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <del>{{ number_format($key->quantity * $key->rate, 2) }}</del>
+                                    </div>
+                                    <div>
+                                        {{ number_format($key->quantity * $key->rate - $key->quantity * $key->rate * ($key->discount / 100), 2) }}
+                                    </div>
+                                </div>
                             @else
                                 {{ number_format($key->quantity * $key->rate, 2) }}
                             @endif
@@ -196,9 +202,14 @@
         // عرض السعر الأصلي مع الخصم إذا كان ذلك مطلوبًا
         document.getElementById('total_td_' + itemId).innerHTML =
             discount > 0 ?
-            `<del>${originalPrice.toFixed(2)}</del> ${total.toFixed(2)}` : // عرض السعر الأصلي
-            total.toFixed(2); // السعر بعد الخصم
-
+            `<div class="row">
+        <div class="col-md-6 text-right"><del>${originalPrice.toFixed(2)}</del></div>
+        <div class="col-md-6 text-left">${total.toFixed(2)}</div>
+    </div>` :
+            `<div class="row">
+                <div class="col-md-6"></div>
+        <div class="col-md-6 text-left">${total.toFixed(2)}</div>
+    </div>`;
         return {
             total: total,
             originalPrice: originalPrice, // إعادة السعر الأصلي

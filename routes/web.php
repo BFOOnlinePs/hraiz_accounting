@@ -641,6 +641,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
             Route::get('index',[App\Http\Controllers\accounting\BondsController::class , 'index'])->name('accounting.bonds.payment_bond.index');
             Route::post('create',[App\Http\Controllers\accounting\BondsController::class , 'create'])->name('accounting.bonds.payment_bond.create');
             Route::post('bonds_table_ajax',[App\Http\Controllers\accounting\BondsController::class , 'bonds_table_ajax'])->name('accounting.bonds.payment_bond.bonds_table_ajax');
+            Route::get('details/{id}',[App\Http\Controllers\accounting\BondsController::class , 'details'])->name('accounting.bonds.payment_bond.details');
             Route::get('edit_payment_bonds/{id}',[App\Http\Controllers\accounting\BondsController::class , 'edit_payment_bonds'])->name('accounting.bonds.payment_bond.edit_payment_bonds');
             Route::post('update_payment_bonds',[App\Http\Controllers\accounting\BondsController::class , 'update_payment_bonds'])->name('accounting.bonds.payment_bond.update_payment_bonds');
             Route::post('list_invoice_for_payment_bond_clients_table_ajax',[App\Http\Controllers\accounting\BondsController::class , 'list_invoice_for_payment_bond_clients_table_ajax'])->name('bonds.list_invoice_for_payment_bond_clients_table_ajax');

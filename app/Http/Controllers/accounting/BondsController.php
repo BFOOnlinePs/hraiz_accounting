@@ -54,15 +54,15 @@ class BondsController extends Controller
             $data->check_status = $request->check_status;
         }
 
-        $doc_amount->type = 'payment_bond';
-        $doc_amount->invoice_id = $request->invoice_id;
+        
+
+        if ($data->save()){
+            $doc_amount->type = 'payment_bond';
+        $doc_amount->invoice_id = $data->id;
         $doc_amount->amount = $request->amount;
         $doc_amount->reference_number = $request->reference_number;
         $doc_amount->currency = $request->currency_id;
-
         $doc_amount->save();
-
-        if ($data->save()){
             return redirect()->route('accounting.bonds.payment_bond.index')->with(['success'=>'تم اضافة البيانات بنجاح']);
         }
         else{
@@ -96,9 +96,10 @@ class BondsController extends Controller
     }
 
     public function bonds_table_ajax(Request $request){
-        $data = BondsModel::where('invoice_type','payment_bond')->whereIn('invoice_id',function ($query) use ($request){
-            $query->select('id')->from('bfo_invoices')->where('client_id','like','%'.$request->client_id.'%')->get();
-        })
+        $data = BondsModel::where('invoice_type','payment_bond')
+        // ->whereIn('invoice_id',function ($query) use ($request){
+        //     $query->select('id')->from('bfo_invoices')->where('client_id','like','%'.$request->client_id.'%')->get();
+        // })
         ->when($request->filled('invoice_number'),function ($query) use ($request){
             $query->where('invoice_id','like','%'.$request->invoice_number.'%')->get();
         })
@@ -125,7 +126,7 @@ class BondsController extends Controller
         $invoices = PurchaseInvoicesModel::where('invoice_type','purchases')->get();
         $currencies = Currency::get();
         $users = User::whereJsonContains('user_role',['2'])->get();
-        $clients = User::whereJsonContains('user_role',['4'])->get();
+        $clients = User::whereJsonContains('user_role',['4'])->orWhereJsonContains('user_role',['10'])->get();
         return view('admin.accounting.bonds.performance_bond.index',['data'=>$data,'invoices'=>$invoices,'currencies'=>$currencies,'users'=>$users,'clients'=>$clients]);
     }
 
@@ -382,5 +383,11 @@ class BondsController extends Controller
         if ($data->save()){
             return redirect()->route('accounting.bonds.registration_bonds.registration_bonds_index')->with('تم اضافة سند القيد بنجاح');
         }
+    }
+
+    public function details($id){
+        $data = BondsModel::where('id',$id)->first();
+        $currencies = Currency::get();
+        return view('admin.accounting.bonds.payment_bond.details',['data'=>$data , 'currencies'=>$currencies]);
     }
 }
