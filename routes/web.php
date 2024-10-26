@@ -811,3 +811,10 @@ Route::get('/optimize-app', function () {
     
     return 'Application optimized successfully!';
 });
+
+Route::get('/clear-cache', function () {
+    Artisan::call('config:cache');
+    Artisan::call('route:cache');
+    Artisan::call('view:cache');
+    return 'Cache cleared';
+});
