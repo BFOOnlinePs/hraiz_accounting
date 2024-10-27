@@ -32,14 +32,31 @@
                 <div class="col-md-8">
                     <div class="row">
                         <div class="col-md-12">
-                            <span>السادة : <span>{{ $price_offer_sales->user->name }}</span></span>
+
+                            <div style="display: flex; gap: 10px; align-content:center; justify-content:start">
+                                <span class="justify-content-center align-content-center">
+                                    السادة :
+                                </span>
+                                <select style="width: 500px" name="" id=""
+                                    onchange="update_customer_ajax(this.value)" class="form-control select2bs4"
+                                    style="display: inline">
+                                    @foreach ($client as $key)
+                                        <option @if ($price_offer_sales->customer_id == $key->id) selected @endif
+                                            value="{{ $key->id }}">
+                                            {{ $key->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="">العملة : </label>
+                        <div class="col-md-12 mt-4">
+                            <div style="display: flex; gap: 10px; align-content:center; justify-content:start">
+                                <span class="justify-content-center align-content-center">
+                                    العملة :
+                                </span>
                                 <select
                                     onchange="update_currency_notes_customer_for_price_offer_sales_items_ajax(this.value,'currency')"
-                                    name="" id="">
+                                    style="width: 500px" name="" id="" class="form-control select2bs4"
+                                    style="display: inline" name="" id="">
                                     @foreach ($currency as $key)
                                         <option @if ($key->id == $price_offer_sales->currency_id) selected @endif
                                             value="{{ $key->id }}">{{ $key->currency_name }}</option>
@@ -54,10 +71,20 @@
                         data-target="#language_print_pdf"><span class="fa fa-print"></span></button>
                     <button class="btn btn-warning mr-2" id="add_price_offer_sales_button" style="float: left">اضافة طلبية
                         بيع من عرض السعر هذا</button>
+                    {{-- <a class="btn btn-success" style="float: left"
+                        href="{{ route('price_offer_sales.edit', ['id' => $key->id]) }}"><span
+                            class="fa fa-edit"></span></a> --}}
+
 
                 </div>
-                <button type="button" class="btn btn-info mb-2" onclick="show_form_product()">اضافة صنف
-                </button>
+                <div class="col-md-12">
+                    <div class="form-group mt-3">
+                        <button type="button" class="btn btn-info mb-2" onclick="show_form_product()">اضافة صنف
+                        </button>
+
+                    </div>
+
+                </div>
 
                 {{--                <div class="col-md-4"> --}}
                 {{--                    <a target="_blank" style="float: left" href="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_pdf',['id'=>$price_offer_sales]) }}" class="btn btn-dark"><span class="fa fa-print"></span></a> --}}
@@ -414,6 +441,30 @@
                 success: function(data) {
                     if (data.success == 'true') {
                         document.getElementById('sum_items').innerText = data.sum;
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
+        function update_customer_ajax(customer_id) {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('price_offer_sales.update_customer_ajax') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    'price_offer_sales_id': {{ $price_offer_sales->id }},
+                    'customer_id': customer_id,
+                },
+                success: function(data) {
+                    if (data.success == 'true') {
+                        toastr.success(data.message);
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

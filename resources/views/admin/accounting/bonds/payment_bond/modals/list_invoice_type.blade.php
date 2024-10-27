@@ -6,7 +6,8 @@
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-around">
                         <button class="btn btn-dark" onclick="list_invoice_clients_modal()">من فاتورة</button>
-                        <button class="btn btn-dark" onclick="view_create_payment_bond_for_client_modal()">مباشرة</button>
+                        <button class="btn btn-dark"
+                            onclick="view_create_payment_bond_for_client_modal()">مباشرة</button>
                     </div>
                 </div>
             </div>

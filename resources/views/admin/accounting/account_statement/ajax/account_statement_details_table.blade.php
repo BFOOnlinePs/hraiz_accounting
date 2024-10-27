@@ -70,10 +70,10 @@
                             // Format balances for display with badge class
                             $balanceDisplay = collect($balances)
                                 ->map(function ($value, $currency) {
-                                    return '<span class="badge bg-warning">' .
-                                        number_format($value) .
-                                        ' ' .
+                                    return '<span class="badge bg-warning w-25">' .
                                         $currency .
+                                        ' ' .
+                                        number_format($value) .
                                         '</span>';
                                 })
                                 ->join(' , ');
@@ -82,8 +82,22 @@
                     </td>
                     <td>{{ $key->notes ?? '' }}</td>
                     <td>
-                        <!-- Add links as per transaction type -->
-                        <!-- Omitted for brevity -->
+                        @if ($key->type == 'sales')
+                            <a target="_blank"
+                                href="{{ route('accounting.sales_invoices.invoice_view', ['id' => $key->invoice_id]) }}">فاتورة
+                                مبيعات</a>
+                        @elseif ($key->type == 'payment_bond')
+                            <a target="_blank"
+                                href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}">سند قبض</a>
+                        @elseif ($key->type == 'performance_bond')
+                            <a target="_blank"
+                                href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}">سند صرف</a>
+                        @elseif ($key->type == 'purchase')
+                            <a target="_blank"
+                                href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">فاتورة
+                                مشتريات</a>
+                        @elseif ($key->type == 'performance_bond')
+                        @endif
                     </td>
                 </tr>
             @endforeach

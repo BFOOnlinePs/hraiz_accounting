@@ -68,7 +68,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="from-group">
                                         <label for="">الرقم المرجعي لطلبية البيع</label>
                                         <input @if ($data->order_status == 'invoice_has_been_posted') disabled @endif type="text"
@@ -76,7 +76,7 @@
                                             class="form-control" value="{{ $data->reference_number }}">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">العميل</label>
                                         <select disabled name="client_id" id="" class="form-control select2bs4">
@@ -88,13 +88,33 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">تاريخ اصدار طلبية البيع</label>
                                         <input type="date" @if ($data->order_status == 'invoice_has_been_posted') disabled @endif
                                             class="form-control"
                                             onchange="update_orders_sales({{ $data->id }},'inserted_at',this.value)"
                                             value="{{ $data->inserted_at }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">حالة الطلبية</label>
+                                        <select name="" onchange="update_order_sales_status_ajax(this.value)"
+                                            id="" class="form-control select2bs4">
+                                            <option @if ($data->order_status == 'new') selected @endif value="new">جديدة
+                                            </option>
+                                            <option @if ($data->order_status == 'invoice_send_preparation') selected @endif
+                                                value="invoice_send_preparation">
+                                                تم
+                                                ارسالها الى التحضير</option>
+                                            <option @if ($data->order_status == 'pending') selected @endif value="pending">قيد
+                                                الانتظار
+                                            </option>
+                                            <option @if ($data->order_status == 'ready') selected @endif value="ready">جاهزة
+                                            </option>
+
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -364,6 +384,26 @@
                 success: function(data) {
                     $('#list_order_sales_product_for_qr').html(data.view)
                 },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
+
+        function update_order_sales_status_ajax(order_status) {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.update_order_sales_status_ajax') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    order_id: {{ $data->id }},
+                    order_status: order_status
+                },
+                success: function(data) {},
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
                 }
