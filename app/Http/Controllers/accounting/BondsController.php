@@ -188,14 +188,16 @@ class BondsController extends Controller
             $data->check_status = $request->check_status;
         }
 
-        $doc_amount->type = 'performance_bond';
-        $doc_amount->invoice_id = $request->invoice_id;
-        $doc_amount->amount = $request->amount;
-        $doc_amount->reference_number = $request->reference_number;
-        $doc_amount->currency = $request->currency_id;
-        $doc_amount->save();
-
         if ($data->save()){
+
+            $doc_amount->type = 'performance_bond';
+            $doc_amount->invoice_id = $data->id;
+            $doc_amount->amount = $request->amount;
+            $doc_amount->reference_number = $request->reference_number;
+            $doc_amount->currency = $request->currency_id;
+            $doc_amount->save();
+    
+    
             return redirect()->route('accounting.bonds.performance_bond.performance_bond_index')->with(['success'=>'تم اضافة البيانات بنجاح']);
         }
         else{
@@ -296,6 +298,7 @@ class BondsController extends Controller
         $data = $query->where('invoice_type','purchases')->paginate(10);
         foreach ($data as $key){
             $key->client = User::where('id',$key->client_id)->first();
+            $key->total_amount = $key->totalAmount();
         }
         return response()->json([
             'success' => 'true',
@@ -354,7 +357,6 @@ class BondsController extends Controller
         $data->bank_name = $request->bank_name;
         $data->invoice_type = 'registration_bonds';
         $data->bank_name = $request->bank_name;
-        $data->check_status = $request->check_status;
         $data->check_status = $request->check_status;
         $data->debt_credit = $request->debt_credit;
 

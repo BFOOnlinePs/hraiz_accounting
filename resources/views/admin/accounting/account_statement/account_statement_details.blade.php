@@ -37,25 +37,51 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col">
                     <div class="form-group">
                         <label for="">المستند</label>
                         <input type="text" onkeyup="account_statement_details_table_ajax()" id="reference_number"
                             class="form-control" placeholder="بحث عن مستند">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col">
                     <div class="form-group">
                         <label for="">من تاريخ</label>
                         <input onchange="account_statement_details_table_ajax()" id="from" type="date"
                             class="form-control" placeholder="من تاريخ">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col">
                     <div class="form-group">
                         <label for="">الى تاريخ</label>
                         <input onchange="account_statement_details_table_ajax()" id="to" type="date"
                             class="form-control" placeholder="الى تاريخ">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="">اساس الاستحقاق</label>
+                        <select name="" id="" class="form-control">
+                            <option value="">الكل</option>
+                            <option value="">عرض الإيرادات المحققة</option>
+                            <option value="">عرض المصروفات المستحقة</option>
+                            <option value="">الإيرادات المؤجلة</option>
+                            <option value="">المصروفات المؤجلة</option>
+                            <option value="">الفواتير المستحقة</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="">اساس النقدية</label>
+                        <select name="" id="" class="form-control">
+                            <option value="">الكل</option>
+                            <option value="">الإيرادات المستلمة نقدًا</option>
+                            <option value="">المصروفات المدفوعة نقدًا</option>
+                            <option value="">الإيرادات النقدية المؤكدة</option>
+                            <option value="">المصروفات النقدية المؤكدة</option>
+                            <option value="">الدفعات النقدية</option>
+                        </select>
                     </div>
                 </div>
             </div>
