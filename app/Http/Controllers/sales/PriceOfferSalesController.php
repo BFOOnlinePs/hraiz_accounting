@@ -72,7 +72,8 @@ class PriceOfferSalesController extends Controller
         $price_offer_sales['user'] = User::where('id',$price_offer_sales->customer_id)->first();
         $price_offer_sales['currency'] = CurrencyModel::where('id',$price_offer_sales->currency_id)->first();
         $currency = CurrencyModel::get();
-        return view('admin.sales.price_offer_sales.price_offer_sales_items.index',['data'=>$data,'price_offer_sales'=>$price_offer_sales,'currency'=>$currency]);
+        $client = User::whereJsonContains('user_role',['10'])->orWhereJsonContains('user_role',['4'])->get();
+        return view('admin.sales.price_offer_sales.price_offer_sales_items.index',['data'=>$data,'price_offer_sales'=>$price_offer_sales,'currency'=>$currency , 'client'=>$client]);
     }
 
     public function price_offer_sales_items_table_ajax(Request $request){
@@ -254,5 +255,22 @@ class PriceOfferSalesController extends Controller
             'success'=>'true',
             'view' => view('admin.sales.price_offer_sales.price_offer_sales_items.ajax.price_offer_sales_product_table_found',['data'=>$data])->render()
         ]);
+    }
+
+    public function update_customer_ajax(Request $request){
+        $data = PriceOfferSalesModel::where('id',$request->price_offer_sales_id)->first();
+        $data->customer_id = $request->customer_id;
+        if ($data->save()){
+            return response()->json([
+                'success'=>'true',
+                'message'=>'تم تعديل العميل بنجاح'
+            ]);
+        }
+        else{
+            return response()->json([
+                'success'=>'false',
+                'message'=>'هناك خلل ما لم يتم تعديل العميل'
+            ]);
+        }
     }
 }

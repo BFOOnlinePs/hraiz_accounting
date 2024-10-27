@@ -636,12 +636,13 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         });
     });
     Route::group(['prefix'=>'bonds'],function(){
+        Route::get('details/{id}',[App\Http\Controllers\accounting\BondsController::class , 'details'])->name('accounting.bonds.details');
+
         Route::post('get_amount_for_invoice',[App\Http\Controllers\accounting\BondsController::class , 'get_amount_for_invoice'])->name('bonds.get_amount_for_invoice');
         Route::group(['prefix'=>'payment_bond'],function (){
             Route::get('index',[App\Http\Controllers\accounting\BondsController::class , 'index'])->name('accounting.bonds.payment_bond.index');
             Route::post('create',[App\Http\Controllers\accounting\BondsController::class , 'create'])->name('accounting.bonds.payment_bond.create');
             Route::post('bonds_table_ajax',[App\Http\Controllers\accounting\BondsController::class , 'bonds_table_ajax'])->name('accounting.bonds.payment_bond.bonds_table_ajax');
-            Route::get('details/{id}',[App\Http\Controllers\accounting\BondsController::class , 'details'])->name('accounting.bonds.payment_bond.details');
             Route::get('edit_payment_bonds/{id}',[App\Http\Controllers\accounting\BondsController::class , 'edit_payment_bonds'])->name('accounting.bonds.payment_bond.edit_payment_bonds');
             Route::post('update_payment_bonds',[App\Http\Controllers\accounting\BondsController::class , 'update_payment_bonds'])->name('accounting.bonds.payment_bond.update_payment_bonds');
             Route::post('list_invoice_for_payment_bond_clients_table_ajax',[App\Http\Controllers\accounting\BondsController::class , 'list_invoice_for_payment_bond_clients_table_ajax'])->name('bonds.list_invoice_for_payment_bond_clients_table_ajax');
@@ -713,6 +714,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('list_order_sales_product_for_qr',[\App\Http\Controllers\accounting\OrdersSalesController::class,'list_order_sales_product_for_qr'])->name('accounting.orders_sales.list_order_sales_product_for_qr');
         Route::post('list_price_offer_items',[\App\Http\Controllers\accounting\OrdersSalesController::class,'list_price_offer_items'])->name('accounting.orders_sales.list_price_offer_items');
         Route::post('create_order_sales_from_price_offer',[\App\Http\Controllers\accounting\OrdersSalesController::class,'create_order_sales_from_price_offer'])->name('accounting.orders_sales.create_order_sales_from_price_offer');
+        Route::post('update_order_sales_status_ajax',[\App\Http\Controllers\accounting\OrdersSalesController::class,'update_order_sales_status_ajax'])->name('accounting.orders_sales.update_order_sales_status_ajax');
     });
     Route::group(['prefix'=>'preparing_order'],function (){
         Route::get('index',[\App\Http\Controllers\PreparingOrderController::class,'index'])->name('accounting.preparing_order.index');
@@ -783,6 +785,7 @@ Route::group(['prefix'=>'price_offer_sales'],function (){
     Route::post('update',[App\Http\Controllers\sales\PriceOfferSalesController::class,'update'])->name('price_offer_sales.update');
     Route::post('price_offer_sales_table_ajax',[App\Http\Controllers\sales\PriceOfferSalesController::class,'price_offer_sales_table_ajax'])->name('price_offer_sales.price_offer_sales_table_ajax');
     Route::post('price_offer_sales_items_table_display_for_order_sales',[App\Http\Controllers\sales\PriceOfferSalesController::class,'price_offer_sales_items_table_display_for_order_sales'])->name('price_offer_sales.price_offer_sales_items_table_display_for_order_sales');
+    Route::post('update_customer_ajax',[App\Http\Controllers\sales\PriceOfferSalesController::class,'update_customer_ajax'])->name('price_offer_sales.update_customer_ajax');
     Route::group(['prefix'=>'price_offer_sales_items'],function (){
         Route::get('price_offer_sales_items_index/{id}',[App\Http\Controllers\sales\PriceOfferSalesController::class,'price_offer_sales_items_index'])->name('price_offer_sales.price_offer_sales_items.price_offer_sales_items_index');
         Route::post('price_offer_sales_items_table_ajax',[App\Http\Controllers\sales\PriceOfferSalesController::class,'price_offer_sales_items_table_ajax'])->name('price_offer_sales.price_offer_sales_items.price_offer_sales_items_table_ajax');

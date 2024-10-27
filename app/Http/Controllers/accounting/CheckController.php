@@ -44,7 +44,7 @@ class CheckController extends Controller
         }
         $data = $data->paginate(10);
         foreach ($data as $key){
-            $key->user = User::where('id',$key->client_id)->first()->name;
+            $key->user = User::where('id',$key->client_id)->first()->name ?? '';
         }
         return response()->json([
             'success' => true,

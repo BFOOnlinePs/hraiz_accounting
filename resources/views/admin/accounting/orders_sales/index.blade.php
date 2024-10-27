@@ -220,11 +220,11 @@
                 method: 'post',
                 headers: headers,
                 data: {
-                    price_offer_sales_id: order_id,
+                    order_id: order_id,
                     supplier_id: supplier_id,
                 },
                 success: function(data) {
-                    $('#price_offer_sales_items_table').html(data.view)
+
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
@@ -239,5 +239,37 @@
                 theme: 'bootstrap4'
             })
         })
+
+        function update_order_sales_status_ajax(order_id, order_status) {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var headers = {
+                "X-CSRF-Token": csrfToken
+            };
+            $.ajax({
+                url: '{{ route('accounting.orders_sales.update_order_sales_status_ajax') }}',
+                method: 'post',
+                headers: headers,
+                data: {
+                    order_id: order_id,
+                    order_status: order_status
+                },
+                success: function(data) {
+                    $('#select_order_status_' + order_id).removeClass(
+                        'bg-info bg-success bg-warning bg-danger bg-primary');
+                    if (order_status == 'new') {
+                        $('#select_order_status_' + order_id).addClass('bg-info');
+                    } else if (order_status == 'invoice_send_preparation') {
+                        $('#select_order_status_' + order_id).addClass('bg-primary');
+                    } else if (order_status == 'pending') {
+                        $('#select_order_status_' + order_id).addClass('bg-warning');
+                    } else if (order_status == 'ready') {
+                        $('#select_order_status_' + order_id).addClass('bg-success');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error');
+                }
+            });
+        }
     </script>
 @endsection
