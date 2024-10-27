@@ -37,7 +37,7 @@
                         {{ \App\Models\User::where('id', $key->client_id)->first()->name ?? '' }}
                     </td>
                     <td>
-                        <a href="{{ route('accounting.bonds.payment_bond.details', ['id' => $key->id]) }}"
+                        <a href="{{ route('accounting.bonds.details', ['id' => $key->id]) }}"
                             class="btn btn-sm btn-dark"><span class="fa fa-search"></span></a>
                         <a href="{{ route('accounting.bonds.payment_bond.edit_payment_bonds', ['id' => $key->id]) }}"
                             class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>

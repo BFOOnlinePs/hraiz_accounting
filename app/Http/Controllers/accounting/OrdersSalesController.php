@@ -37,7 +37,7 @@ class OrdersSalesController extends Controller
             $data->where('user_id',$request->user_id);
         }
 
-        $data = OrdersSalesModel::orderBy('id','desc')->paginate(10);
+        $data = OrdersSalesModel::orderBy('id','desc')->paginate(20);
         foreach ($data as $key){
             $key->client = User::where('id',$key->user_id)->first();
         }
@@ -61,6 +61,7 @@ class OrdersSalesController extends Controller
         $data = new OrdersSalesModel();
         $data->user_id = $request->user_id;
         $data->reference_number = $request->reference_number;
+        $data->order_status = 'new';
         $data->inserted_at = Carbon::now();
         if ($data->save()){
             return redirect()->route('accounting.orders_sales.orders_sales_details',['order_id'=>$data->id]);
@@ -294,6 +295,7 @@ class OrdersSalesController extends Controller
     $data->user_id = $request->supplier_id;
     $data->price_offer_sales_id = $request->price_offer_sales_id;
     $data->reference_number = $request->price_offer_sales_id;
+    $data->order_status = 'new';
     $data->inserted_at = Carbon::now();
 
     if ($data->save()) {
@@ -315,4 +317,15 @@ class OrdersSalesController extends Controller
         return redirect()->route('accounting.orders_sales.orders_sales_details', ['order_id' => $data->id]);
     }
 }
+
+    public function update_order_sales_status_ajax(Request $request){
+        $data = OrdersSalesModel::where('id',$request->order_id)->first();
+        $data->order_status = $request->order_status;
+        if ($data->save()){
+            return response()->json([
+                'success' => true,
+                'message' => 'تم ترحيل طلبية البيع بنجاح'
+            ]);
+        }
+    }
 }
