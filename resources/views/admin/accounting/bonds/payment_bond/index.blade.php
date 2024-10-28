@@ -197,6 +197,15 @@
                 client_name); // Call the function with page 1 and the search query
         });
 
+        function get_check_data(data) {
+            $('#check_number_edit').val(data.check_number);
+            $('#due_date_edit').val(data.due_date);
+            $('#bank_name_edit').val(data.bank_name);
+            $('#check_status').val(data.check_status);
+            $('#bonds_id').val(data.id);
+            $('#update_check_payment_type_modal').modal('show');
+        }
+
         function get_amount_for_invoice() {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
