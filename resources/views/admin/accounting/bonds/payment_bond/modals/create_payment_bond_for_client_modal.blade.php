@@ -60,16 +60,16 @@
                         </div>
                         <div class="col-md-1">
                             <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" value="cash" id="cash"
+                                <input class="custom-control-input" type="radio" value="cash" id="cash_for_client"
                                     name="customRadio" checked="">
-                                <label for="cash" class="custom-control-label">كاش</label>
+                                <label for="cash_for_client" class="custom-control-label">كاش</label>
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="custom-control custom-radio">
-                                <input class="custom-control-input" type="radio" value="check" id="check"
+                                <input class="custom-control-input" type="radio" value="check" id="check_for_client"
                                     name="customRadio">
-                                <label for="check" class="custom-control-label">شيك</label>
+                                <label for="check_for_client" class="custom-control-label">شيك</label>
                             </div>
                         </div>
                     </div>
