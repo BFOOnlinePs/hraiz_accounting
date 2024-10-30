@@ -18,7 +18,7 @@
 @section('content')
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
-    <input type="text" id="pageType">
+    <input type="hidden" id="pageType">
     <div class="row">
         <div class="col-lg-12 col-12">
             <div class="small-box bg-dark text-white border border-dark">
