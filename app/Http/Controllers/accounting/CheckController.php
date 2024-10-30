@@ -17,7 +17,7 @@ class CheckController extends Controller
 
     public function list_cheques_ajax(Request $request)
     {
-        $data = BondsModel::orderBy('id', 'desc');
+        $data = BondsModel::where('payment_type','check')->where('invoice_type','payment_bond')->orderBy('id', 'desc');
         if ($request->filled('client_name')) {
             $data->whereIn('client_id', function ($query) use ($request) {
                 $query->select('id')
@@ -86,5 +86,28 @@ class CheckController extends Controller
                 'message' => 'تم تعديل البيانات بنجاح'
             ]);
         }
+    }
+
+    public function performance_bond_cheques_index(){
+        return view('admin.accounting.cheques.performance_cheques_index');
+    }
+    
+    public function list_performance_bond_cheques_ajax(Request $request){
+        $data = BondsModel::where('payment_type','check')->where('invoice_type','performance_bond')->orderBy('id', 'desc');
+        if ($request->filled('client_name')) {
+            $data->whereIn('client_id', function ($query) use ($request) {
+                $query->select('id')
+                    ->from('users')
+                    ->where('name', 'like','%'.$request->client_name.'%');
+            });
+        }
+        $data = $data->paginate(10);
+        foreach ($data as $key){
+            $key->user = User::where('id',$key->client_id)->first()->name ?? '';
+        }
+        return response()->json([
+            'success' => true,
+            'view' => view('admin.accounting.cheques.ajax.list_performance_bond_cheques_ajax', ['data' => $data])->render(),
+        ]);
     }
 }

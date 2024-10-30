@@ -105,7 +105,11 @@
                                     class="dropdown-item">سندات قبض</a></li>
                             <li><a href="{{ route('accounting.bonds.registration_bonds.registration_bonds_index') }}"
                                     class="dropdown-item">سندات قيد</a></li>
-                            <li><a href="{{ route('accounting.bonds.check.index') }}" class="dropdown-item">محفظة
+                            <li><a href="{{ route('accounting.bonds.check.index') }}" class="dropdown-item">شكات
+                                    واردة ( محفظة )</a></li>
+
+                            <li><a href="{{ route('accounting.bonds.check.performance_bond_cheques_index') }}"
+                                    class="dropdown-item">محفظة
                                     الشيكات</a></li>
                         </ul>
                     </li>

@@ -113,6 +113,7 @@
     @include('admin.accounting.bonds.payment_bond.modals.list_invoice_type')
     @include('admin.accounting.bonds.payment_bond.modals.create_payment_bond_for_client_modal')
     @include('admin.accounting.bonds.payment_bond.modals.list_invoice_clients')
+    @include('admin.accounting.bonds.payment_bond.modals.search_check')
 @endsection
 
 @section('script')
@@ -135,6 +136,30 @@
                 $('#check_information').hide();
             }
         })
+
+        $(document).ready(function() {
+            $('#check_create_form').submit(function(e) {
+                e.preventDefault();
+                var form_data = $(this).serialize();
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                var headers = {
+                    "X-CSRF-Token": csrfToken
+                };
+                $.ajax({
+                    url: '{{ route('bonds.update_check_information') }}',
+                    method: 'post',
+                    headers: headers,
+                    data: form_data,
+                    success: function(data) {
+                        bonds_table_ajax();
+                        $('#update_check_payment_type_modal').modal('hide');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert('error');
+                    }
+                });
+            });
+        });
 
         function bonds_table_ajax() {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -253,6 +278,117 @@
             $('#invoice_amount').val(value.total_amount);
             $('#list_invoice_clients_modal').modal('hide');
             view_create_payment_bond_modal();
+        }
+
+        let checkIndex = 0;
+
+        function add_check_for_client(data) {
+            const currencies = @json($currencies);
+            const clients = @json($clients);
+            let currencyOptions = currencies.map(currency =>
+                `<option ${currency.id === data.currency ? 'selected' : ''} value="${currency.id}">${currency.currency_name}</option>`
+            ).join('');
+            let clientsOptions = clients.map(client =>
+                `<option ${client.id === data.clinet_id ? 'selected' : ''} value="${client.id}">${client.name}</option>`
+            ).join('');
+
+            $('#add_check_for_client_div').append(
+                '<div class="col-md-12 mb-3 card-container" data-index="' + checkIndex + '">' +
+                '<div class="card">' +
+                '<div class="card-header d-flex justify-content-between align-items-center">' +
+                '<h5 class="mb-0">شيك جديد</h5>' +
+                '<button type="button" class="btn btn-sm btn-danger delete-check-btn" title="حذف الشيك">' +
+                '<i class="fas fa-x"></i>' +
+                '</button>' +
+                '</div>' +
+                '<div class="card-body">' +
+                '<div class="row">' +
+
+                // Check Number Field
+                '<div class="col-md-4">' +
+                '<div class="form-group">' +
+                '<label for="">رقم الشيك</label>' +
+                '<input required type="text" value="' + (data.check_number || '') +
+                '" name="checks[' + checkIndex + '][check_number]" class="form-control">' +
+                '</div>' +
+                '</div>' +
+
+                // Due Date Field
+                '<div class="col-md-4">' +
+                '<div class="form-group">' +
+                '<label for="">تاريخ الاستحقاق</label>' +
+                '<input required type="date" value="' + (data.due_date || '') +
+                '" name="checks[' + checkIndex + '][due_date]" class="form-control">' +
+                '</div>' +
+                '</div>' +
+
+                // Bank Name Field
+                '<div class="col-md-4">' +
+                '<div class="form-group">' +
+                '<label for="">اسم البنك</label>' +
+                '<input required type="text" value="' + (data.bank_name || '') +
+                '" name="checks[' + checkIndex + '][bank_name]" class="form-control">' +
+                '</div>' +
+                '</div>' +
+
+                // Currency Field
+                '<div class="col-md-4">' +
+                '<div class="form-group">' +
+                '<label for="">العملة</label>' +
+                '<select name="checks[' + checkIndex + '][currency_id]" class="form-control">' +
+                currencyOptions +
+                '</select>' +
+                '</div>' +
+                '</div>' +
+
+                // Amount Field
+                '<div class="col-md-4">' +
+                '<div class="form-group">' +
+                '<label for="">القيمة</label>' +
+                '<input required type="text" value="' + (data.amount || '') +
+                '" name="checks[' + checkIndex + '][amount]" class="form-control">' +
+                '</div>' +
+                '</div>' +
+
+                // Notes Field
+                '<div class="col-md-4">' +
+                '<div class="form-group">' +
+                '<label for="">الملاحظات</label>' +
+                '<input type="text" value="' + (data.notes || '') +
+                '" name="checks[' + checkIndex + '][notes]" class="form-control">' +
+                '</div>' +
+                '</div>' +
+
+                // Front Image Field
+                '<div class="col-md-4">' +
+                '<div class="form-group">' +
+                '<label for="">صورة الوجه الأمامي</label>' +
+                '<input type="file" name="checks[' + checkIndex +
+                '][front_image]" accept="image/*" class="form-control">' +
+                '</div>' +
+                '</div>' +
+
+                // Rear Image Field
+                '<div class="col-md-4">' +
+                '<div class="form-group">' +
+                '<label for="">صورة الوجه الخلفي</label>' +
+                '<input type="file" name="checks[' + checkIndex +
+                '][rear_image]" accept="image/*" class="form-control">' +
+                '</div>' +
+                '</div>' +
+
+                '</div>' + // Close row
+                '</div>' + // Close card-body
+                '</div>' + // Close card
+                '</div>' // Close col-md-12
+            );
+
+            // Attach event handler for delete button
+            $('#add_check_for_client_div').on('click', '.delete-check-btn', function() {
+                $(this).closest('.card-container').remove();
+            });
+
+            checkIndex++; // Increment the index for each new check
         }
     </script>
 

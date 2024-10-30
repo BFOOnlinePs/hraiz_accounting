@@ -43,7 +43,8 @@ class BondsController extends Controller
         $data->reference_number = $request->reference_number;
         $data->notes = $request->notes;
         $data->currency_id = $request->currency_id;
-        $data->payment_type = $request->customRadio;
+        // $data->payment_type = $request->customRadio;
+        $data->payment_type = 'cash';
         $data->insert_by = auth()->user()->id;
         $data->check_number = $request->check_number;
         $data->due_date = $request->due_date;
@@ -67,6 +68,86 @@ class BondsController extends Controller
         }
         else{
             return redirect()->route('accounting.bonds.payment_bond.index')->with(['fail'=>'هناك خلل ما لم يتم اضافة البيانات']);
+        }
+    }
+
+    public function payment_bond_check_create(Request $request)
+    {
+        $checkData = $request->input('checks'); // Assuming checks[] is the array of checks in the form
+        $successCount = 0;
+    
+        foreach ($checkData as $i => $check) {
+            // Validate required fields before processing
+           
+            $data = new BondsModel();
+            $doc_amount = new DocAmountModel();
+    
+            // Determine client and invoice based on the type
+            if ($request->invoice_modal_type == 'invoice') {
+                $client = PurchaseInvoicesModel::where('id', $request->invoice_id)->first()->client_id;
+                $data->invoice_id = $request->invoice_id;
+                $data->client_id = $client;
+                $doc_amount->client_id = $client;
+            } else {
+                $data->invoice_id = -1;
+                $data->client_id = $request->client_id;
+                $doc_amount->client_id = $request->client_id;
+            }
+    
+            // Populate fields from each check data
+            $data->amount = $check['amount'];
+            $data->reference_number = $check['reference_number'] ?? null; // Handle optional reference number
+            // $data->client_id = $check['client_id'] ?? null; // Handle optional reference number
+            $data->client_id = $request->client_id ?? null; // Handle optional reference number
+            $data->notes = $check['notes'] ?? ''; // Ensure notes is set to empty string if not provided
+            $data->currency_id = $check['currency_id'];
+            $data->payment_type = 'check';
+            $data->insert_by = auth()->user()->id;
+            $data->check_number = $check['check_number'];
+            $data->due_date = $check['due_date'];
+            $data->bank_name = $check['bank_name'];
+            $data->invoice_type = 'payment_bond';
+    
+
+            // Handle front image upload
+        if ($request->hasFile("checks.$i.front_image")) {
+            $frontImage = $request->file("checks.$i.front_image");
+            $frontImagePath = $frontImage->store('checks/front', 'public'); // Store in public/storage/checks/front
+            $data->front_image = $frontImagePath; // Save the path in the database
+        }
+
+        // Handle rear image upload
+        if ($request->hasFile("checks.$i.rear_image")) {
+            $rearImage = $request->file("checks.$i.rear_image");
+            $rearImagePath = $rearImage->store('checks/rear', 'public'); // Store in public/storage/checks/rear
+            $data->rear_image = $rearImagePath; // Save the path in the database
+        }
+
+            // Set check type and status if check number is provided
+            if (!empty($check['check_number'])) {
+                $data->check_type = 'incoming';
+                $data->check_status = $check['check_status'] ?? 'under_collection'; // Handle optional check status
+            }
+            
+    
+            if ($data->save()) {
+                $doc_amount->type = 'payment_bond';
+                $doc_amount->invoice_id = $data->id;
+                $doc_amount->amount = $check['amount'];
+                $doc_amount->reference_number = $check['reference_number'] ?? null; // Optional reference number
+                $doc_amount->currency = $check['currency_id'];
+                $doc_amount->save();
+    
+                $successCount++;
+            }
+        }
+    
+        if ($successCount > 0) {
+            return redirect()->route('accounting.bonds.payment_bond.index')
+                ->with(['success' => 'تم اضافة البيانات بنجاح']);
+        } else {
+            return redirect()->route('accounting.bonds.payment_bond.index')
+                ->with(['fail' => 'هناك خلل ما لم يتم اضافة البيانات']);
         }
     }
 
@@ -161,7 +242,6 @@ class BondsController extends Controller
         $data = new BondsModel();
         // ترحيل فاتورة
         $doc_amount = new DocAmountModel();
-//        $data->invoice_id = $request->invoice_id;
         if ($request->invoice_modal_type == 'invoice'){
             $client = PurchaseInvoicesModel::where('id',$request->invoice_id)->first()->client_id;
             $data->invoice_id = $request->invoice_id;
@@ -177,7 +257,7 @@ class BondsController extends Controller
         $data->reference_number = $request->reference_number;
         $data->notes = $request->notes;
         $data->currency_id = $request->currency_id;
-        $data->payment_type = $request->customRadio;
+        $data->payment_type = 'cash';
         $data->insert_by = auth()->user()->id;
         $data->check_number = $request->check_number;
         $data->due_date = $request->due_date;
@@ -202,6 +282,87 @@ class BondsController extends Controller
         }
         else{
             return redirect()->route('accounting.bonds.performance_bond.performance_bond_index')->with(['fail'=>'هناك خلل ما لم يتم اضافة البيانات']);
+        }
+    }
+
+
+    public function performance_bond_check_create(Request $request)
+    {
+        $checkData = $request->input('checks'); // Assuming checks[] is the array of checks in the form
+        $successCount = 0;
+    
+        foreach ($checkData as $i => $check) {
+            // Validate required fields before processing
+           
+            $data = new BondsModel();
+            $doc_amount = new DocAmountModel();
+    
+            // Determine client and invoice based on the type
+            if ($request->invoice_modal_type == 'invoice') {
+                $client = PurchaseInvoicesModel::where('id', $request->invoice_id)->first()->client_id;
+                $data->invoice_id = $request->invoice_id;
+                $data->client_id = $client;
+                $doc_amount->client_id = $client;
+            } else {
+                $data->invoice_id = -1;
+                $data->client_id = $request->client_id;
+                $doc_amount->client_id = $request->client_id;
+            }
+    
+            // Populate fields from each check data
+            $data->amount = $check['amount'];
+            $data->reference_number = $check['reference_number'] ?? null; // Handle optional reference number
+            // $data->client_id = $check['client_id'] ?? null; // Handle optional reference number
+            $data->client_id = $request->client_id ?? null; // Handle optional reference number
+            $data->notes = $check['notes'] ?? ''; // Ensure notes is set to empty string if not provided
+            $data->currency_id = $check['currency_id'];
+            $data->payment_type = 'check';
+            $data->insert_by = auth()->user()->id;
+            $data->check_number = $check['check_number'];
+            $data->due_date = $check['due_date'];
+            $data->bank_name = $check['bank_name'];
+            $data->invoice_type = 'performance_bond';
+    
+
+            // Handle front image upload
+        if ($request->hasFile("checks.$i.front_image")) {
+            $frontImage = $request->file("checks.$i.front_image");
+            $frontImagePath = $frontImage->store('checks/front', 'public'); // Store in public/storage/checks/front
+            $data->front_image = $frontImagePath; // Save the path in the database
+        }
+
+        // Handle rear image upload
+        if ($request->hasFile("checks.$i.rear_image")) {
+            $rearImage = $request->file("checks.$i.rear_image");
+            $rearImagePath = $rearImage->store('checks/rear', 'public'); // Store in public/storage/checks/rear
+            $data->rear_image = $rearImagePath; // Save the path in the database
+        }
+
+            // Set check type and status if check number is provided
+            if (!empty($check['check_number'])) {
+                $data->check_type = 'incoming';
+                $data->check_status = $check['check_status'] ?? 'under_collection'; // Handle optional check status
+            }
+            
+    
+            if ($data->save()) {
+                $doc_amount->type = 'performance_bond';
+                $doc_amount->invoice_id = $data->id;
+                $doc_amount->amount = $check['amount'];
+                $doc_amount->reference_number = $check['reference_number'] ?? null; // Optional reference number
+                $doc_amount->currency = $check['currency_id'];
+                $doc_amount->save();
+    
+                $successCount++;
+            }
+        }
+    
+        if ($successCount > 0) {
+            return redirect()->route('accounting.bonds.performance_bond.performance_bond_index')
+                ->with(['success' => 'تم اضافة البيانات بنجاح']);
+        } else {
+            return redirect()->route('accounting.bonds.performance_bond.performance_bond_index')
+                ->with(['fail' => 'هناك خلل ما لم يتم اضافة البيانات']);
         }
     }
 
@@ -391,5 +552,13 @@ class BondsController extends Controller
         $data = BondsModel::where('id',$id)->first();
         $currencies = Currency::get();
         return view('admin.accounting.bonds.payment_bond.details',['data'=>$data , 'currencies'=>$currencies]);
+    }
+
+    public function list_check_ajax(Request $request){
+        $data = BondsModel::where('payment_type','check')->where('check_number','like','%'.$request->check_number.'%')->get();
+        return response()->json([
+            'success' => 'true',
+            'view' => view('admin.accounting.bonds.performance_bond.ajax.list_check',['data'=>$data])->render()
+        ]);
     }
 }

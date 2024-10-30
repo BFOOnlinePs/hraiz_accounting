@@ -10,4 +10,8 @@ class BondsModel extends Model
     use HasFactory;
 
     protected $table = 'bonds';
+
+    public function currency(){
+        return $this->belongsTo(CurrencyModel::class, 'currency_id', 'id');
+    }
 }

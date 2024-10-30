@@ -49,9 +49,8 @@
                         <a href="{{ route('accounting.bonds.details', ['id' => $key->id]) }}"
                             class="btn btn-sm btn-dark"><span class="fa fa-search"></span></a> <a
                             href="{{ route('accounting.bonds.performance_bond.edit_performance_bonds', ['id' => $key->id]) }}"
-                            class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
-                        <a href="" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></a>
-                    </td>
+                            {{-- class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
+                        <a href="" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></a> --}} </td>
                 </tr>
             @endforeach
         @endif
