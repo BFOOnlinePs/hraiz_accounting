@@ -1,15 +1,15 @@
 @extends('home')
 @section('title')
-    محفظة الشيكات
+    شكات صادرة
 @endsection
 @section('header_title')
-    محفظة الشيكات
+    شكات صادرة
 @endsection
 @section('header_link')
     الرئيسية
 @endsection
 @section('header_title_link')
-    محفظة الشيكات
+    شكات صادرة
 @endsection
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
@@ -96,22 +96,22 @@
 
     <script>
         $(document).ready(function() {
-            list_cheques_ajax();
+            list_performance_bond_cheques_ajax();
 
             $(document).on('click', '#pagination a', function(e) {
                 e.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
-                list_cheques_ajax(page);
+                list_performance_bond_cheques_ajax(page);
             });
         });
 
-        function list_cheques_ajax(page = 1) {
+        function list_performance_bond_cheques_ajax(page = 1) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
                 "X-CSRF-Token": csrfToken
             };
             $.ajax({
-                url: '{{ route('accounting.bonds.check.list_cheques_ajax') }}',
+                url: '{{ route('accounting.bonds.check.list_performance_bond_cheques_ajax') }}',
                 method: 'post',
                 headers: headers,
                 data: {
