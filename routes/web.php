@@ -637,6 +637,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
     });
     Route::group(['prefix'=>'bonds'],function(){
         Route::get('details/{id}',[App\Http\Controllers\accounting\BondsController::class , 'details'])->name('accounting.bonds.details');
+        Route::post('list_check_ajax',[App\Http\Controllers\accounting\BondsController::class , 'list_check_ajax'])->name('accounting.bonds.check.list_check_ajax');
 
         Route::post('get_amount_for_invoice',[App\Http\Controllers\accounting\BondsController::class , 'get_amount_for_invoice'])->name('bonds.get_amount_for_invoice');
         Route::group(['prefix'=>'payment_bond'],function (){
@@ -646,6 +647,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
             Route::get('edit_payment_bonds/{id}',[App\Http\Controllers\accounting\BondsController::class , 'edit_payment_bonds'])->name('accounting.bonds.payment_bond.edit_payment_bonds');
             Route::post('update_payment_bonds',[App\Http\Controllers\accounting\BondsController::class , 'update_payment_bonds'])->name('accounting.bonds.payment_bond.update_payment_bonds');
             Route::post('list_invoice_for_payment_bond_clients_table_ajax',[App\Http\Controllers\accounting\BondsController::class , 'list_invoice_for_payment_bond_clients_table_ajax'])->name('bonds.list_invoice_for_payment_bond_clients_table_ajax');
+            Route::post('payment_bond_check_create',[App\Http\Controllers\accounting\BondsController::class , 'payment_bond_check_create'])->name('accounting.bonds.payment_bond.payment_bond_check_create');
         });
         Route::group(['prefix'=>'performance_bond'],function (){
             Route::get('performance_bond_index',[App\Http\Controllers\accounting\BondsController::class , 'performance_bond_index'])->name('accounting.bonds.performance_bond.performance_bond_index');
@@ -655,10 +657,13 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
             Route::post('update_performance_bond',[App\Http\Controllers\accounting\BondsController::class , 'update_performance_bond'])->name('accounting.bonds.performance_bond.update_performance_bond');
             Route::post('list_invoice_for_performance_bond_clients_table_ajax',[App\Http\Controllers\accounting\BondsController::class , 'list_invoice_for_performance_bond_clients_table_ajax'])->name('bonds.list_invoice_for_performance_bond_clients_table_ajax');
             Route::post('update_check_information',[App\Http\Controllers\accounting\BondsController::class , 'update_check_information'])->name('bonds.update_check_information');
+            Route::post('performance_bond_check_create',[App\Http\Controllers\accounting\BondsController::class , 'performance_bond_check_create'])->name('accounting.bonds.performance_bond.performance_bond_check_create');
         });
         Route::group(['prefix'=>'check'],function (){
             Route::get('index',[App\Http\Controllers\accounting\CheckController::class , 'index'])->name('accounting.bonds.check.index');
+            Route::get('performance_bond_cheques_index',[App\Http\Controllers\accounting\CheckController::class , 'performance_bond_cheques_index'])->name('accounting.bonds.check.performance_bond_cheques_index');
             Route::post('list_cheques_ajax',[App\Http\Controllers\accounting\CheckController::class , 'list_cheques_ajax'])->name('accounting.bonds.check.list_cheques_ajax');
+            Route::post('list_performance_bond_cheques_ajax',[App\Http\Controllers\accounting\CheckController::class , 'list_performance_bond_cheques_ajax'])->name('accounting.bonds.check.list_performance_bond_cheques_ajax');
             Route::post('update_check_status_ajax',[App\Http\Controllers\accounting\CheckController::class , 'update_check_status_ajax'])->name('accounting.bonds.check.update_check_status_ajax');
             Route::post('update_check_type_ajax',[App\Http\Controllers\accounting\CheckController::class , 'update_check_type_ajax'])->name('accounting.bonds.check.update_check_type_ajax');
             Route::post('update_check_amount_ajax',[App\Http\Controllers\accounting\CheckController::class , 'update_check_amount_ajax'])->name('accounting.bonds.check.update_check_amount_ajax');

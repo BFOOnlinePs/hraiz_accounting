@@ -22,10 +22,7 @@
                 <tr>
                     <td>{{ $key->check_number }}</td>
                     <td>
-                        <span> {{ $key->amount }}
-                        </span>
-                        <span> {{ $key->currency->currency_name }}
-                        </span>
+
 
                         {{-- <select onchange="update_check_type_ajax({{ $key->id }} , this.value)" class="form-control"
                             name="" id="">
@@ -39,10 +36,14 @@
                         @endif --}}
                     </td>
                     <td>
-
+                        <span> {{ $key->amount }}
+                        </span>
+                        <span> {{ $key->currency->currency_name }}
+                        </span>
                     </td>
                     <td>
-                        <a href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id] ?? '') }}">سند قبض</a>
+                        <a target="_blank"
+                            href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id] ?? '') }}">سند صرف</a>
                     </td>
                     <td>{{ $key->user }}</td>
                     {{-- <td>
