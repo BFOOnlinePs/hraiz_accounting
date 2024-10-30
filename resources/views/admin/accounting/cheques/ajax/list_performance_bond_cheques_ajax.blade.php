@@ -8,7 +8,7 @@
             <th>اسم الزبون</th>
             {{-- <th style="width: 10%">قيمة الشيك</th> --}}
             <th>تاريخ الاستحقاق</th>
-            <th>حالة الشيك</th>
+            <th style="width:12%">حالة الشيك</th>
             {{--            <th>العمليات</th> --}}
         </tr>
     </thead>
@@ -42,8 +42,8 @@
                         </span>
                     </td>
                     <td>
-                        <a target="_blank"
-                            href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id] ?? '') }}">سند صرف</a>
+                        <a target="_blank" href="{{ route('accounting.bonds.details', ['id' => $key->id] ?? '') }}">سند
+                            صرف</a>
                     </td>
                     <td>{{ $key->user }}</td>
                     {{-- <td>
