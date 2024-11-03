@@ -226,7 +226,7 @@
         function get_check_data(data) {
             $('#check_number_edit').val(data.check_number);
             $('#due_date_edit').val(data.due_date);
-            $('#bank_name_edit').val(data.bank_name);
+            $('#bank_name_edit').val(data.bank.user_bank_name);
             $('#check_status').val(data.check_status);
             $('#bonds_id').val(data.id);
             $('#update_check_payment_type_modal').modal('show');
@@ -281,16 +281,30 @@
             view_create_payment_bond_modal();
         }
 
+        function checkIfDivIsEmpty() {
+            if ($('#add_check_div').is(':empty') || $('#add_check_client_div').is(':empty')) {
+                $('#submit_button').hide();
+                $('#submit_button_client').hide();
+            } else {
+                $('#submit_button').show();
+                $('#submit_button_client').show();
+            }
+        }
+
         let checkIndex = 0;
 
         function add_check_for_client(data) {
             const currencies = @json($currencies);
+            const banks = @json($banks);
             const clients = @json($clients);
             let currencyOptions = currencies.map(currency =>
                 `<option ${currency.id === data.currency ? 'selected' : ''} value="${currency.id}">${currency.currency_name}</option>`
             ).join('');
             let clientsOptions = clients.map(client =>
                 `<option ${client.id === data.clinet_id ? 'selected' : ''} value="${client.id}">${client.name}</option>`
+            ).join('');
+            let banksOptions = banks.map(bank =>
+                `<option ${bank.id === data.bank_id ? 'selected' : ''} value="${bank.id}">${bank.user_bank_name}</option>`
             ).join('');
 
             $('#add_check_for_client_div').append(
@@ -327,9 +341,9 @@
                 '<div class="col-md-4">' +
                 '<div class="form-group">' +
                 '<label for="">اسم البنك</label>' +
-                '<input required type="text" value="' + (data.bank_name || '') +
-                '" name="checks[' + checkIndex + '][bank_name]" class="form-control">' +
-                '</div>' +
+                '<select name="checks[' + checkIndex + '][bank_id]" class="form-control select2bs4">' +
+                banksOptions +
+                '</select>' + '</div>' +
                 '</div>' +
 
                 // Currency Field
@@ -387,19 +401,24 @@
             // Attach event handler for delete button
             $('#add_check_for_client_div').on('click', '.delete-check-btn', function() {
                 $(this).closest('.card-container').remove();
+                checkIfDivIsEmpty();
             });
-
+            checkIfDivIsEmpty();
             checkIndex++; // Increment the index for each new check
         }
 
         function add_check(data) {
             const currencies = @json($currencies);
+            const banks = @json($banks);
             const clients = @json($clients);
             let currencyOptions = currencies.map(currency =>
                 `<option ${currency.id === data.currency ? 'selected' : ''} value="${currency.id}">${currency.currency_name}</option>`
             ).join('');
             let clientsOptions = clients.map(client =>
                 `<option ${client.id === data.clinet_id ? 'selected' : ''} value="${client.id}">${client.name}</option>`
+            ).join('');
+            let banksOptions = banks.map(bank =>
+                `<option ${bank.id === data.bank_id ? 'selected' : ''} value="${bank.id}">${bank.user_bank_name}</option>`
             ).join('');
 
             var pageType = $('#pageType').val();
@@ -438,8 +457,9 @@
                     '<div class="col-md-4">' +
                     '<div class="form-group">' +
                     '<label for="">اسم البنك</label>' +
-                    '<input required type="text" value="' + (data.bank_name || '') +
-                    '" name="checks[' + checkIndex + '][bank_name]" class="form-control">' +
+                    '<select name="checks[' + checkIndex + '][bank_id]" class="form-control select2bs4">' +
+                    banksOptions +
+                    '</select>' +
                     '</div>' +
                     '</div>' +
 
@@ -498,6 +518,7 @@
                 // Attach event handler for delete button
                 $('#add_check_for_client_div').on('click', '.delete-check-btn', function() {
                     $(this).closest('.card-container').remove();
+                    checkIfDivIsEmpty();
                 });
             } else {
                 $('#add_check_div').append(
@@ -534,8 +555,9 @@
                     '<div class="col-md-4">' +
                     '<div class="form-group">' +
                     '<label for="">اسم البنك</label>' +
-                    '<input required type="text" value="' + (data.bank_name || '') +
-                    '" name="checks[' + checkIndex + '][bank_name]" class="form-control">' +
+                    '<select name="checks[' + checkIndex + '][bank_id]" class="form-control select2bs4">' +
+                    banksOptions +
+                    '</select>' +
                     '</div>' +
                     '</div>' +
 
@@ -592,13 +614,32 @@
                 );
 
                 // Attach event handler for delete button
-                $('#add_check_for_client_div').on('click', '.delete-check-btn', function() {
+                $('#add_check_div').on('click', '.delete-check-btn', function() {
                     $(this).closest('.card-container').remove();
+                    checkIfDivIsEmpty();
                 });
             }
-
+            checkIfDivIsEmpty();
 
             checkIndex++; // Increment the index for each new check
+        }
+
+        // اختر الصور وحاوية العرض الكبير
+        const frontImage = document.getElementById("front_check_edit");
+        const rearImage = document.getElementById("rear_check_edit");
+        const modal = document.getElementById("list_image_modal");
+        const modalImage = document.getElementById("image_modal");
+
+        // عرض الصورة الكبيرة عند الضغط على الصورة الأمامية
+        frontImage.onclick = function() {
+            $('#list_image_modal').modal('show');
+            $('#image_modal').attr('src', frontImage.src);
+        }
+
+        // عرض الصورة الكبيرة عند الضغط على الصورة الخلفية
+        rearImage.onclick = function() {
+            $('#list_image_modal').modal('show');
+            $('#image_modal').attr('src', rearImage.src);
         }
     </script>
 

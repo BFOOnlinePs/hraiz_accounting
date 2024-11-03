@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="overflow:scroll;height:700px">
+            <div class="modal-body" style="overflow:scroll;height:400px">
                 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="custom-content-below-cash-tab" data-toggle="pill"
@@ -120,7 +120,7 @@
                                 </div>
                             </div> --}}
                         </div>
-                        <form class="row" id="add_check_for_client_div"
+                        <form class="row" id=""
                             action="{{ route('accounting.bonds.performance_bond.performance_bond_check_create') }}"
                             method="post" enctype="multipart/form-data">
                             @csrf
@@ -152,11 +152,11 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="row" id="add_check_client_div">
+                                <div class="row" id="add_check_for_client_div">
 
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="display: none;" id="submit_button_client">
                                 <button type="submit" class="btn btn-success btn-sm">اضافة</button>
                             </div>
                         </form>

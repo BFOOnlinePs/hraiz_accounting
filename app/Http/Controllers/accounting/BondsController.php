@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\accounting;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankModel;
 use App\Models\BondsModel;
 use App\Models\Currency;
 use App\Models\DocAmountModel;
@@ -20,7 +21,8 @@ class BondsController extends Controller
         $currencies = Currency::get();
         $users = User::whereJsonContains('user_role',['2'])->get();
         $clients = User::whereJsonContains('user_role',['10'])->get();
-        return view('admin.accounting.bonds.payment_bond.index',['data'=>$data,'invoices'=>$invoices,'currencies'=>$currencies,'users'=>$users,'clients'=>$clients]);
+        $banks = BankModel::get();
+        return view('admin.accounting.bonds.payment_bond.index',['data'=>$data,'invoices'=>$invoices,'currencies'=>$currencies,'users'=>$users,'clients'=>$clients , 'banks'=>$banks]);
     }
 
     public function create(Request $request){
@@ -48,7 +50,7 @@ class BondsController extends Controller
         $data->insert_by = auth()->user()->id;
         $data->check_number = $request->check_number;
         $data->due_date = $request->due_date;
-        $data->bank_name = $request->bank_name;
+        $data->bank_id = $request->bank_id;
         $data->invoice_type = 'payment_bond';
         if (!$request->check_number == ''){
             $data->check_type = 'outgoing';
@@ -105,7 +107,7 @@ class BondsController extends Controller
             $data->insert_by = auth()->user()->id;
             $data->check_number = $check['check_number'];
             $data->due_date = $check['due_date'];
-            $data->bank_name = $check['bank_name'];
+            $data->bank_id = $check['bank_id'];
             $data->invoice_type = 'payment_bond';
     
 
@@ -167,7 +169,7 @@ class BondsController extends Controller
         $data->insert_by = auth()->user()->id;
         $data->check_number = $request->check_number;
         $data->due_date = $request->due_date;
-        $data->bank_name = $request->bank_name;
+        $data->bank_id = $request->bank_id;
         if ($data->save()){
             return redirect()->route('accounting.bonds.payment_bond.index')->with(['success'=>'تم تعديل البيانات بنجاح']);
         }
@@ -177,7 +179,7 @@ class BondsController extends Controller
     }
 
     public function bonds_table_ajax(Request $request){
-        $data = BondsModel::where('invoice_type','payment_bond')
+        $data = BondsModel::with('bank')->where('invoice_type','payment_bond')
         // ->whereIn('invoice_id',function ($query) use ($request){
         //     $query->select('id')->from('bfo_invoices')->where('client_id','like','%'.$request->client_id.'%')->get();
         // })
@@ -203,16 +205,17 @@ class BondsController extends Controller
     }
 
     public function performance_bond_index(){
-        $data = BondsModel::where('invoice_type','performance_bond')->get();
+        $data = BondsModel::with('bank')->where('invoice_type','performance_bond')->get();
         $invoices = PurchaseInvoicesModel::where('invoice_type','purchases')->get();
         $currencies = Currency::get();
         $users = User::whereJsonContains('user_role',['2'])->get();
         $clients = User::whereJsonContains('user_role',['4'])->orWhereJsonContains('user_role',['10'])->get();
-        return view('admin.accounting.bonds.performance_bond.index',['data'=>$data,'invoices'=>$invoices,'currencies'=>$currencies,'users'=>$users,'clients'=>$clients]);
+        $banks = BankModel::get();
+        return view('admin.accounting.bonds.performance_bond.index',['data'=>$data,'invoices'=>$invoices,'currencies'=>$currencies,'users'=>$users,'clients'=>$clients , 'banks'=>$banks]);
     }
 
     public function performance_bonds_table_ajax(Request $request){
-        $data = BondsModel::where('invoice_type','performance_bond')->when($request->filled('reference_number'),function ($query) use ($request){
+        $data = BondsModel::with('bank')->where('invoice_type','performance_bond')->when($request->filled('reference_number'),function ($query) use ($request){
             $query->where('reference_number','like','%'.$request->reference_number.'%')->get();
         })
             ->when($request->filled('client_id'),function ($query) use ($request){
@@ -261,7 +264,7 @@ class BondsController extends Controller
         $data->insert_by = auth()->user()->id;
         $data->check_number = $request->check_number;
         $data->due_date = $request->due_date;
-        $data->bank_name = $request->bank_name;
+        $data->bank_id = $request->bank_id;
         $data->invoice_type = 'performance_bond';
         if (!$request->check_number == ''){
             $data->check_type = 'incoming';
@@ -320,7 +323,7 @@ class BondsController extends Controller
             $data->insert_by = auth()->user()->id;
             $data->check_number = $check['check_number'];
             $data->due_date = $check['due_date'];
-            $data->bank_name = $check['bank_name'];
+            $data->bank_id = $check['bank_id'];
             $data->invoice_type = 'performance_bond';
     
 
@@ -381,7 +384,7 @@ class BondsController extends Controller
         $data->insert_by = auth()->user()->id;
         $data->check_number = $request->check_number;
         $data->due_date = $request->due_date;
-        $data->bank_name = $request->bank_name;
+        $data->bank_id = $request->bank_id;
         if ($data->save()){
             return redirect()->route('accounting.bonds.performance_bond.performance_bond_index')->with(['success'=>'تم تعديل البيانات بنجاح']);
         }
@@ -394,7 +397,7 @@ class BondsController extends Controller
         $data = BondsModel::where('id',$request->id)->first();
         $data->check_number = $request->check_number;
         $data->due_date = $request->due_date;
-        $data->bank_name = $request->bank_name;
+        $data->bank_id = $request->bank_id;
         if ($data->save()){
 //            return red
         }
@@ -472,7 +475,7 @@ class BondsController extends Controller
         $data = BondsModel::where('id',$request->bonds_id)->first();
         $data->check_number = $request->check_number;
         $data->due_date = $request->due_date;
-        $data->bank_name = $request->bank_name;
+        $data->bank_id = $request->bank_id;
         $data->check_status = $request->check_status;
         if ($data->save()){
             return response()->json([
@@ -515,9 +518,8 @@ class BondsController extends Controller
         $data->insert_by = auth()->user()->id;
         $data->check_number = $request->check_number;
         $data->due_date = $request->due_date;
-        $data->bank_name = $request->bank_name;
+        $data->bank_id = $request->bank_id;
         $data->invoice_type = 'registration_bonds';
-        $data->bank_name = $request->bank_name;
         $data->check_status = $request->check_status;
         $data->debt_credit = $request->debt_credit;
 
