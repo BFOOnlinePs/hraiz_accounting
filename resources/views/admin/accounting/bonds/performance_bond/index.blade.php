@@ -14,6 +14,26 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <style>
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+    </style>
 @endsection
 @section('content')
     @include('admin.messge_alert.success')
@@ -111,6 +131,7 @@
     @include('admin.accounting.bonds.performance_bond.modals.list_invoice_type')
     @include('admin.accounting.bonds.performance_bond.modals.list_invoice_clients')
     @include('admin.accounting.bonds.performance_bond.modals.search_check')
+    @include('admin.accounting.bonds.performance_bond.modals.view_image')
 @endsection
 
 @section('script')
@@ -217,10 +238,15 @@
         }
 
         function get_check_data(data) {
+            var frontImageUrl = "{{ asset('storage') }}" + '/' + data.front_image;
+            var rearImageUrl = "{{ asset('storage') }}" + '/' + data.rear_image;
             $('#check_number_edit').val(data.check_number);
             $('#due_date_edit').val(data.due_date);
-            $('#bank_name_edit').val(data.bank_name);
+            $('#bank_name_edit').val(data.bank.user_bank_name);
             $('#check_status').val(data.check_status);
+            $('#front_check_edit').attr('src', frontImageUrl);
+            $('#rear_check_edit').attr('src', rearImageUrl);
+            // alert(data.front_image);
             $('#bonds_id').val(data.id);
             $('#update_check_payment_type_modal').modal('show');
         }
@@ -285,16 +311,30 @@
             view_create_payment_bond_modal();
         }
 
+        function checkIfDivIsEmpty() {
+            if ($('#add_check_div').is(':empty') || $('#add_check_client_div').is(':empty')) {
+                $('#submit_button').hide();
+                $('#submit_button_client').hide();
+            } else {
+                $('#submit_button').show();
+                $('#submit_button_client').show();
+            }
+        }
+
         let checkIndex = 0;
 
         function add_check_for_client(data) {
             const currencies = @json($currencies);
+            const banks = @json($banks);
             const clients = @json($clients);
             let currencyOptions = currencies.map(currency =>
                 `<option ${currency.id === data.currency ? 'selected' : ''} value="${currency.id}">${currency.currency_name}</option>`
             ).join('');
             let clientsOptions = clients.map(client =>
                 `<option ${client.id === data.clinet_id ? 'selected' : ''} value="${client.id}">${client.name}</option>`
+            ).join('');
+            let banksOptions = banks.map(bank =>
+                `<option ${bank.id === data.bank_id ? 'selected' : ''} value="${bank.id}">${bank.user_bank_name}</option>`
             ).join('');
 
             $('#add_check_for_client_div').append(
@@ -331,8 +371,9 @@
                 '<div class="col-md-4">' +
                 '<div class="form-group">' +
                 '<label for="">اسم البنك</label>' +
-                '<input required type="text" value="' + (data.bank_name || '') +
-                '" name="checks[' + checkIndex + '][bank_name]" class="form-control">' +
+                '<select name="checks[' + checkIndex + '][bank_id]" class="form-control select2bs4">' +
+                banksOptions +
+                '</select>' +
                 '</div>' +
                 '</div>' +
 
@@ -391,13 +432,18 @@
             // Attach event handler for delete button
             $('#add_check_for_client_div').on('click', '.delete-check-btn', function() {
                 $(this).closest('.card-container').remove();
+                checkIfDivIsEmpty();
             });
+
+            checkIfDivIsEmpty();
 
             checkIndex++; // Increment the index for each new check
         }
 
         function add_check(data) {
+            checkIfDivIsEmpty();
             const currencies = @json($currencies);
+            const banks = @json($banks);
             const clients = @json($clients);
             let currencyOptions = currencies.map(currency =>
                 `<option ${currency.id === data.currency ? 'selected' : ''} value="${currency.id}">${currency.currency_name}</option>`
@@ -405,10 +451,13 @@
             let clientsOptions = clients.map(client =>
                 `<option ${client.id === data.clinet_id ? 'selected' : ''} value="${client.id}">${client.name}</option>`
             ).join('');
+            let banksOptions = banks.map(bank =>
+                `<option ${bank.id === data.bank_id ? 'selected' : ''} value="${bank.id}">${bank.user_bank_name}</option>`
+            ).join('');
 
             var pageType = $('#pageType').val();
             if (pageType == 'add_check_div_client') {
-                $('#add_check_client_div').append(
+                $('#add_check_for_client_div').append(
                     '<div class="col-md-12 mb-3 card-container" data-index="' + checkIndex + '">' +
                     '<div class="card">' +
                     '<div class="card-header d-flex justify-content-between align-items-center">' +
@@ -442,8 +491,9 @@
                     '<div class="col-md-4">' +
                     '<div class="form-group">' +
                     '<label for="">اسم البنك</label>' +
-                    '<input required type="text" value="' + (data.bank_name || '') +
-                    '" name="checks[' + checkIndex + '][bank_name]" class="form-control">' +
+                    '<select name="checks[' + checkIndex + '][bank_id]" class="form-control select2bs4">' +
+                    banksOptions +
+                    '</select>' +
                     '</div>' +
                     '</div>' +
 
@@ -502,7 +552,9 @@
                 // Attach event handler for delete button
                 $('#add_check_for_client_div').on('click', '.delete-check-btn', function() {
                     $(this).closest('.card-container').remove();
+                    checkIfDivIsEmpty();
                 });
+
             } else {
                 $('#add_check_div').append(
                     '<div class="col-md-12 mb-3 card-container" data-index="' + checkIndex + '">' +
@@ -538,8 +590,9 @@
                     '<div class="col-md-4">' +
                     '<div class="form-group">' +
                     '<label for="">اسم البنك</label>' +
-                    '<input required type="text" value="' + (data.bank_name || '') +
-                    '" name="checks[' + checkIndex + '][bank_name]" class="form-control">' +
+                    '<select name="checks[' + checkIndex + '][bank_id]" class="form-control select2bs4">' +
+                    banksOptions +
+                    '</select>' +
                     '</div>' +
                     '</div>' +
 
@@ -596,12 +649,12 @@
                 );
 
                 // Attach event handler for delete button
-                $('#add_check_for_client_div').on('click', '.delete-check-btn', function() {
+                $('#add_check_div').on('click', '.delete-check-btn', function() {
                     $(this).closest('.card-container').remove();
+                    checkIfDivIsEmpty();
                 });
+                checkIfDivIsEmpty();
             }
-
-
             checkIndex++; // Increment the index for each new check
         }
 
@@ -626,9 +679,6 @@
                     'check_number': $(this).val()
                 },
                 success: function(data) {
-                    console.log(key);
-
-
                     if (data.success == 'true') {
                         $('#list_checks').html(data.view);
                     }
@@ -639,6 +689,24 @@
                 }
             });
         });
+
+        // اختر الصور وحاوية العرض الكبير
+        const frontImage = document.getElementById("front_check_edit");
+        const rearImage = document.getElementById("rear_check_edit");
+        const modal = document.getElementById("list_image_modal");
+        const modalImage = document.getElementById("image_modal");
+
+        // عرض الصورة الكبيرة عند الضغط على الصورة الأمامية
+        frontImage.onclick = function() {
+            $('#list_image_modal').modal('show');
+            $('#image_modal').attr('src', frontImage.src);
+        }
+
+        // عرض الصورة الكبيرة عند الضغط على الصورة الخلفية
+        rearImage.onclick = function() {
+            $('#list_image_modal').modal('show');
+            $('#image_modal').attr('src', rearImage.src);
+        }
     </script>
 
     <script>
