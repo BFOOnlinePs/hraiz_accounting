@@ -14,4 +14,8 @@ class BondsModel extends Model
     public function currency(){
         return $this->belongsTo(CurrencyModel::class, 'currency_id', 'id');
     }
+
+    public function bank(){
+        return $this->belongsTo(BankModel::class, 'bank_id', 'id');
+    }
 }
