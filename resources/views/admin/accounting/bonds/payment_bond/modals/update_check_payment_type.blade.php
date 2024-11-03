@@ -29,8 +29,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">اسم البنك</label>
-                                <input name="bank_name" id="bank_name_edit" type="text" class="form-control"
-                                    placeholder="اسم البنك">
+                                {{-- <input name="bank_name" id="bank_name_edit" type="text" class="form-control"
+                                    placeholder="اسم البنك"> --}}
+                                <select name="" id="" class="select2bs4">
+                                    @foreach ($banks as $key)
+                                        <option id="bank_name_edit" value="{{ $key->id }}">
+                                            {{ $key->user_bank_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">
