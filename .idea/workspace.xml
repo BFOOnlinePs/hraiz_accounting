@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/accounting/PurchaseInvoicesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/accounting/PurchaseInvoicesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/accounting/SalesInvoicesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/accounting/SalesInvoicesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/modals/add_sales_price_offer_modal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/modals/add_sales_price_offer_modal.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/purchase_invoices/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/purchase_invoices/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/purchase_invoices/new_invoice/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/purchase_invoices/new_invoice/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/sales_invoices/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/sales_invoices/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/sales_invoices/new_invoice/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/sales_invoices/new_invoice/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/sales/price_offer_sales/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/sales/price_offer_sales/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/sales/price_offer_sales/modals/create_price_offer_sales.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/sales/price_offer_sales/modals/create_price_offer_sales.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -425,6 +415,7 @@
       <workItem from="1725515832570" duration="1278000" />
       <workItem from="1726467436928" duration="10000" />
       <workItem from="1727616669948" duration="4000" />
+      <workItem from="1730735835200" duration="9000" />
     </task>
     <task id="LOCAL-00001" summary="edit">
       <created>1692272515017</created>
