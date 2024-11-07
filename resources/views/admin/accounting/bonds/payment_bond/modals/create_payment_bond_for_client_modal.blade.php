@@ -11,19 +11,19 @@
             <div class="modal-body" style="overflow:scroll;height:400px">
                 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill"
-                            href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home"
-                            aria-selected="false">كاش</a>
+                        <a class="nav-link active" id="custom-content-below-homeddd-tab" data-toggle="pill"
+                            href="#custom-content-below-homeddd" role="tab"
+                            aria-controls="custom-content-below-homeddd" aria-selected="false">كاش</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill"
-                            href="#custom-content-below-profile" role="tab"
-                            aria-controls="custom-content-below-profile" aria-selected="false">شيك</a>
+                            href="#custom-content-below-profileddd" role="tab"
+                            aria-controls="custom-content-below-profileddd" aria-selected="false">شيك</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="custom-content-below-tabContent">
-                    <div class="tab-pane active show fade" id="custom-content-below-home" role="tabpanel"
-                        aria-labelledby="custom-content-below-home-tab">
+                    <div class="tab-pane active show fade" id="custom-content-below-homeddd" role="tabpanel"
+                        aria-labelledby="custom-content-below-homeddd-tab">
                         <form class="row mt-3" action="{{ route('accounting.bonds.payment_bond.create') }}"
                             method="post" id="bonds_create" enctype="multipart/form-data">
                             @csrf
@@ -92,8 +92,8 @@
 
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel"
-                        aria-labelledby="custom-content-below-profile-tab">
+                    <div class="tab-pane fade" id="custom-content-below-profileddd" role="tabpanel"
+                        aria-labelledby="custom-content-below-profileddd-tab">
                         <div class="row" id="check_information_client">
                             <div class="col-md-12 mt-3">
                                 <div class="form-group">
