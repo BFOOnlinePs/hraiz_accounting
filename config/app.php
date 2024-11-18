@@ -172,7 +172,7 @@ return [
         Milon\Barcode\BarcodeServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
         Laradevsbd\Zkteco\ZktecoServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
+        // Barryvdh\Debugbar\ServiceProvider::class,
 
     ])->toArray(),
 

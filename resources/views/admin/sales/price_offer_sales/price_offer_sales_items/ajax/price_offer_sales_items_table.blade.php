@@ -36,7 +36,7 @@
                         <input style="width: 80px;background-color:palegoldenrod" id="price_{{ $key->id }}"
                             class="form-control @if ($key->price == 0 || $key->price == '') bg-danger @endif"
                             onchange="update_qty_price_price_offer_sales_items_ajax({{ $key->id }},this.value,'price')"
-                            type="number" value="{{ $key->price }}">
+                            type="text" value="{{ $key->price }}">
                         <div id="loader_price_{{ $key->id }}" style="display: none" class="col text-center"><i
                                 style="font-size: 16px" class="fas fa-3x fa-sync-alt fa-spin"></i></div>
                     </td>
