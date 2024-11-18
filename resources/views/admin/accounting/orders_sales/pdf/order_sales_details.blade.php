@@ -104,7 +104,7 @@
                 @foreach ($data->order_sales_items as $key)
                     <tr>
                         <td>{{ $key->product->barcode }}</td>
-                        <td>{{ $key->product->product_name_ar }}</td>
+                        <td>{{ $key->product->product_name_en }}</td>
                         <td>{{ $key->qty ?? 0 }}</td>
                         <td>{{ $key->price ?? 0 }}</td>
                         <td>{{ ($key->price ?? 0) * ($key->qty ?? 0) }}</td>
