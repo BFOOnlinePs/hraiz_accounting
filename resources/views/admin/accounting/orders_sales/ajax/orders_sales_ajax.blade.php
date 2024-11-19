@@ -1,27 +1,30 @@
-<table class="table table-sm text-center table-bordered table-hover">
-    <thead>
+<table class="w-100 text-center table-bordered table-hover table-striped">
+    <thead class="bg-dark">
         <tr>
-            <th>الرقم المرجعي</th>
+            <td style="width: 50px">#</td>
+            <th style="width: 17%">الرقم المرجعي</th>
             <th>الزبون</th>
-            <th style="width: 15%">حالة الطلبية</th>
-            <th>تمت الاضافة</th>
-            <th style="width: 80px">العمليات</th>
+            <th style="width: 17%">تمت الاضافة</th>
+            <th style="width: 12%">حالة الطلبية</th>
+            <th style="width: 100px">العمليات</th>
         </tr>
     </thead>
     <tbody>
         @if ($data->isEmpty())
             <tr>
-                <td colspan="6" class="text-center">لا يوجد بيانات</td>
+                <td colspan="7" class="text-center">لا يوجد بيانات</td>
             </tr>
         @else
             @foreach ($data as $key)
                 <tr>
+                    <td>{{ ($data->currentPage()-1) * $data->perPage() + $loop->index + 1 }}</td>
                     <td>{{ $key->reference_number }}</td>
                     <td>{{ $key->client->name }}</td>
+                    <td>{{ $key->inserted_at }}</td>
                     <td>
                         <select id="select_order_status_{{ $key->id }}"
                             onchange="update_order_sales_status_ajax({{ $key->id }},this.value)"
-                            class="select2bs4 form-control @if ($key->order_status == 'new') bg-info @elseif($key->order_status == 'invoice_send_preparation') bg-primary @elseif($key->order_status == 'pending') bg-warning @elseif($key->order_status == 'ready') bg-success @endif "
+                            class="select2bs4 w-100 btn-xs @if ($key->order_status == 'new') bg-info @elseif($key->order_status == 'invoice_send_preparation') bg-primary @elseif($key->order_status == 'pending') bg-warning @elseif($key->order_status == 'ready') bg-success @endif "
                             name="" id="">
                             <option @if ($key->order_status == 'new') selected @endif value="new">جديدة</option>
                             <option @if ($key->order_status == 'invoice_send_preparation') selected @endif value="invoice_send_preparation">
@@ -32,11 +35,10 @@
                             <option @if ($key->order_status == 'ready') selected @endif value="ready">جاهزة</option>
                         </select>
                     </td>
-                    <td>{{ $key->inserted_at }}</td>
                     <td>
                         <a href="{{ route('accounting.orders_sales.orders_sales_details', ['order_id' => $key->id]) }}"
-                            class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>
-                        <a href="" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></a>
+                            class="btn btn-dark btn-xs"><span class="fa fa-search"></span></a>
+                        <a href="" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
                     </td>
                 </tr>
             @endforeach

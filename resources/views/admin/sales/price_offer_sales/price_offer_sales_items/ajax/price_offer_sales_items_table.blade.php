@@ -1,14 +1,14 @@
-<table class="table table-sm table-bordered table-hover">
-    <thead class="bg-secondary">
+<table class="w-100 table-bordered table-hover table-striped">
+    <thead class="bg-dark">
         <tr>
             <th style="width: 40px"></th>
             <th>باركود</th>
             <th>اسم الصنف</th>
             {{--        <th style="width: 100px">الكمية</th> --}}
-            <th style="width: 100px">السعر</th>
+            <th style="width: 100px" class="text-center">السعر</th>
             {{--        <th>المجموع</th> --}}
             <th>الملاحظات</th>
-            <th style="width: 10px">العمليات</th>
+            <th style="width: 10px" class="text-center">العمليات</th>
         </tr>
     </thead>
     <tbody>
@@ -32,9 +32,9 @@
                     {{--                    <input style="width: 80px;@if (!$key->qty == 0) background-color:palegoldenrod @endif;display: inline" class="form-control @if ($key->qty == 0 || $key->qty == '') bg-danger @endif" onchange="update_qty_price_price_offer_sales_items_ajax({{ $key->id }},this.value,'qty')" type="text" value="{{ $key->qty }}"> --}}
                     {{--                    <div id="loader_qty_{{ $key->id }}" style="display: none" class="col text-center"><i style="font-size: 16px" class="fas fa-3x fa-sync-alt fa-spin"></i></div> --}}
                     {{--                </td> --}}
-                    <td>
-                        <input style="width: 80px;background-color:palegoldenrod" id="price_{{ $key->id }}"
-                            class="form-control @if ($key->price == 0 || $key->price == '') bg-danger @endif"
+                    <td class="text-center">
+                        <input style="width: 80px;background-color:palegoldenrod;border: 1px solid #ced4da" id="price_{{ $key->id }}"
+                            class="text-center @if ($key->price == 0 || $key->price == '') bg-danger @endif"
                             onchange="update_qty_price_price_offer_sales_items_ajax({{ $key->id }},this.value,'price')"
                             type="text" value="{{ $key->price }}">
                         <div id="loader_price_{{ $key->id }}" style="display: none" class="col text-center"><i
@@ -49,9 +49,9 @@
                         <div id="loader_notes_{{ $key->id }}" style="display: none" class="col text-center"><i
                                 style="font-size: 16px" class="fas fa-3x fa-sync-alt fa-spin"></i></div>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <button onclick="delete_price_offer_sales_items({{ $key->id }})"
-                            class="btn btn-sm btn-danger"><span class="fa fa-close"></span></button>
+                            class="btn btn-xs btn-danger"><span class="fa fa-close"></span></button>
                     </td>
                 </tr>
             @endforeach

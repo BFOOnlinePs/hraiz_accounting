@@ -48,6 +48,13 @@
             color: white;
             /* Change border color of active page */
         }
+
+        .btn-xs{
+            padding: .25rem .5rem;
+            font-size: 10px;
+            line-height: 1.5;
+            border-radius: .2rem;
+        }
     </style>
 </head>
 

@@ -1,4 +1,4 @@
-<table class="table table-sm table-striped- table-bordered table-hover">
+<table class="w-100 table-striped table-bordered table-hover">
     <thead class="bg-dark">
         <tr>
             <th>رقم الشيك</th>
@@ -52,15 +52,15 @@
                             class="form-control text-center" value="{{ $key->amount }}">
                     </td> --}}
                     <td>{{ $key->due_date }}</td>
-                    <td>
+                    <td class="text-center">
                         <select id="check_status_{{ $key->id }}"
                             onchange="update_check_status({{ $key->id }}, this.value )"
-                            class="form-control
+                            class="btn-xs w-75
                             @if ($key->check_status == 'paid') bg-success
                             @elseif ($key->check_status == 'under_collection')
                                 bg-warning
                             @elseif ($key->check_status == 'returned')
-                                bg-danger 
+                                bg-danger
                                 @elseif($key->check_status == 'portfolio')
                                 bg-info @endif
                             "

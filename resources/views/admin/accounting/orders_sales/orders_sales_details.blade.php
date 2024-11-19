@@ -299,7 +299,7 @@
                 },
                 success: function(data) {
                     orders_sales_items_list_ajax();
-                    order_sales_select_item_ajax()
+                    // order_sales_select_item_ajax()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');

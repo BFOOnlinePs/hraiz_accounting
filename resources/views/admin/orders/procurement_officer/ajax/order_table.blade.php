@@ -4,9 +4,9 @@
         {{ $data->links() }}
     </div>
     <div class="table-responsive">
-        <table id="example1" class="table  table-bordered table-hover dataTable dtr-inline"
+        <table id="example1" class="w-100 table-bordered table-hover dtr-inline"
                aria-describedby="example1_info">
-            <thead>
+            <thead class="bg-dark">
             <tr>
                 {{--                <th>رقم طلبية الشراء</th>--}}
                 <th style="width: 10px">#</th>
@@ -90,7 +90,7 @@
                         <td>
                             <a target="_blank" data-toggle="tooltip" data-placement="top" title="التفاصيل"
                                @if(in_array(['9'],json_decode(auth()->user()->user_role))) href="{{ route('orders.order_items.index',['order_id'=>$key->id]) }}"  @else href="{{ route('procurement_officer.orders.product.index',['order_id'=>$key->id]) }}" @endif
-                               class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>
+                               class="btn btn-dark btn-xs"><span class="fa fa-search"></span></a>
                             {{--                        <button type="button" onclick="getReferenceNumber({{ $key->order_id }})" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-reference_number">--}}
                             {{--                            تعديل الرقم المرجعي--}}
                             {{--                        </button>--}}
@@ -99,7 +99,7 @@
                                 <a data-toggle="tooltip" data-placement="top" title="حذف"
                                    href="{{ route('orders.procurement_officer.delete_order',['id'=>$key->id]) }}"
                                    onclick="return confirm('هل انت متاكد من عملية الحذف علما انه بعد الحذف سوف يتم نقله لسلة المحذوفات')"
-                                   class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></a>
+                                   class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
                             @endif
                         </td>
                     </tr>

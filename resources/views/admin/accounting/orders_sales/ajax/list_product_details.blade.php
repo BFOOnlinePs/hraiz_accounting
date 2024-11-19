@@ -1,14 +1,14 @@
-<table class="table table-sm table-striped table-hover">
-    <thead>
+<table class="w-100 table-striped table-hover table-bordered">
+    <thead class="bg-dark">
         <tr>
             <th>الباركود</th>
             <th>الصنف</th>
-            <th>الكمية</th>
-            <th>السعر</th>
+            <th style="width: 10%">الكمية</th>
+            <th style="width: 10%">السعر</th>
             @if (
                 $order_items->order_status == 'invoice_has_not_been_posted' &&
                     in_array('1', json_decode(auth()->user()->user_role)))
-                <th>العمليات</th>
+                <th style="width: 100px" class="text-center">العمليات</th>
             @endif
         </tr>
     </thead>
@@ -25,18 +25,18 @@
                     <td><input pattern="[0-9]+" title="please enter number only" tabindex="{{ $loop->index + 1 }}"
                             @if ($order_items->order_status == 'invoice_has_been_posted' || in_array('11', json_decode(auth()->user()->user_role))) disabled @endif type="text"
                             onchange="update_orders_sales_items({{ $key->id }} ,'qty',this.value)"
-                            class="form-control" value="{{ $key->qty }}"></td>
+                            class="" value="{{ $key->qty }}"></td>
                     <td>
                         <input pattern="[0-9]+" title="please enter number only"
                             @if ($order_items->order_status == 'invoice_has_been_posted' || in_array('11', json_decode(auth()->user()->user_role))) disabled @endif type="text"
                             onchange="update_orders_sales_items({{ $key->id }},'price',this.value)"
-                            class="form-control" value="{{ $key->price }}">
+                            class="" value="{{ $key->price }}">
                     </td>
                     @if (
                         $order_items->order_status == 'invoice_has_not_been_posted' &&
                             in_array('1', json_decode(auth()->user()->user_role)))
-                        <td>
-                            <button class="btn btn-danger btn-sm"
+                        <td class="text-center">
+                            <button class="btn btn-danger btn-xs"
                                 onclick="delete_orders_sales_items({{ $key->id }})"><span
                                     class="fa fa-close"></span></button>
                         </td>
