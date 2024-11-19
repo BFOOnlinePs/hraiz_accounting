@@ -106,8 +106,10 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <div id="price_offer_sales_table">
+                    <div class="table-responsive">
+                        <div id="price_offer_sales_table">
 
+                        </div>
                     </div>
                 </div>
             </div>

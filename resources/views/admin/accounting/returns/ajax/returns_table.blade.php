@@ -1,4 +1,4 @@
-<table class="table table-sm table-hover text-center table-bordered">
+<table class="w-100 table-hover text-center table-bordered table-striped">
     <thead>
     <tr>
         <th>الرقم المرجعي للفاتورة</th>
@@ -25,7 +25,7 @@
                     </td>
                     <td>{{ $key->notes }}</td>
                     <td>
-                        <a href="{{ route('accounting.returns.returns_details',['id'=>$key->id]) }}" class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>
+                        <a href="{{ route('accounting.returns.returns_details',['id'=>$key->id]) }}" class="btn btn-dark btn-xs"><span class="fa fa-search"></span></a>
                     </td>
                 </tr>
             @endforeach

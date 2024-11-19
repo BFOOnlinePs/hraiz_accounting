@@ -29,19 +29,18 @@ class OrdersSalesController extends Controller
 
     public function list_orders_sales_ajax(Request $request)
     {
-        $data = OrdersSalesModel::query()->orderBy('id','desc');
+        $data = OrdersSalesModel::query();
         if($request->filled('reference_name')){
             $data->where('reference_number','like','%'.$request->reference_name.'%');
         }
         if($request->filled('user_id')){
             $data->where('user_id',$request->user_id);
         }
+        $data = $data->orderBy('id','desc')->paginate(10);
 
-        $data = OrdersSalesModel::orderBy('id','desc')->paginate(20);
         foreach ($data as $key){
             $key->client = User::where('id',$key->user_id)->first();
         }
-    
         return response()->json([
             'success' => true,
             'view' => view('admin.accounting.orders_sales.ajax.orders_sales_ajax',['data'=>$data])->render()
@@ -201,8 +200,8 @@ class OrdersSalesController extends Controller
             $doc_amount->invoice_id = $request->id;
             $doc_amount->amount = OrdersSalesItemsModel::where('order_id',$request->id)->sum(DB::raw('price * qty'));
             $doc_amount->client_id = $data->user_id;
-            $doc_amount->save();    
-        
+            $doc_amount->save();
+
         if ($data->save()){
             return redirect()->route('accounting.orders_sales.orders_sales_details',['order_id'=>$request->id])->with('تم ترحيل طلبية البيع بنجاح');
         }
@@ -238,12 +237,12 @@ class OrdersSalesController extends Controller
                 'margin_right' => 5,
                 'margin_top' => 5,
                 'margin_bottom' => 5,
-            ]);       
+            ]);
             return $pdf->stream('qr_code_product.pdf');
         }
         else{
             $pdf = PDF::loadView('admin.accounting.orders_sales.pdf.order_sales_details',['data'=>$data , 'system_setting'=>$system_setting ,'request'=>$request]);
-            return $pdf->stream('order_sales.pdf');    
+            return $pdf->stream('order_sales.pdf');
         }
     }
 
@@ -308,7 +307,7 @@ class OrdersSalesController extends Controller
             // جلب السعر والكمية من الطلب
             $order_item->price = $request->prices[$key];
             $order_item->qty = $request->quantities[$key];
-            
+
             // حفظ العنصر
             $order_item->save();
         }

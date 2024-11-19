@@ -1,5 +1,5 @@
-<table class="table table-sm text-center table-bordered table-hover">
-    <thead>
+<table class="w-100 text-center table-bordered table-hover">
+    <thead class="bg-dark">
         <tr>
             <th>الرقم المرجعي</th>
             <th>القيمة</th>
@@ -25,11 +25,12 @@
                     <td>{{ $key->currency->currency_name }}</td>
                     <td>
                         @if ($key->payment_type == 'cash')
-                            <small class="badge badge-info">كاش</small>
+                            <small class="badge badge-info w-100">كاش</small>
                         @else
-                            <small class="badge badge-warning"><span>شيك </span><span data-toggle="modal"
-                                    data-target="#update_check_payment_type_modal"
-                                    onclick="get_check_data({{ $key }})"
+                            <small data-toggle="modal"
+                            data-target="#update_check_payment_type_modal"
+                            onclick="get_check_data({{ $key }})" class="badge badge-warning w-100"><span>شيك </span><span
+
                                     class="fa fa-money-check"></span></small>
                         @endif
                     </td>
@@ -41,7 +42,7 @@
                     </td>
                     <td>
                         <a href="{{ route('accounting.bonds.details', ['id' => $key->id]) }}"
-                            class="btn btn-sm btn-dark"><span class="fa fa-search"></span></a>
+                            class="btn btn-xs btn-dark"><span class="fa fa-search"></span></a>
                         {{-- <a href="{{ route('accounting.bonds.payment_bond.edit_payment_bonds', ['id' => $key->id]) }}"
                             class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a> --}}
                         {{-- <a href="" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></a> --}}

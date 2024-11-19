@@ -1,4 +1,4 @@
-<table class="table table-sm table-bordered text-center">
+<table class="w-100 table-bordered text-center table-hover table-striped">
     <thead class="bg-dark">
         <tr>
             {{--        <td>#</td> --}}
@@ -36,17 +36,17 @@
                     </td>
                     <td>
                         <a href="{{ route('accounting.sales_invoices.invoice_view', ['id' => $key->id]) }}"
-                            class="btn btn-dark btn-sm"><span class="fa fa-search"></span></a>
+                            class="btn btn-dark btn-xs"><span class="fa fa-search"></span></a>
                         <a href="{{ route('accounting.sales_invoices.edit_invoices', ['id' => $key->id]) }}"
-                            class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
+                            class="btn btn-success btn-xs"><span class="fa fa-edit"></span></a>
                         @if ($key->status == 'stage')
                             <button @if ($key->status == 'stage') disabled @endif
-                                onclick="return confirm('هل تريد حذف البيانات ؟')" class="btn btn-danger btn-sm"><span
+                                onclick="return confirm('هل تريد حذف البيانات ؟')" class="btn btn-danger btn-xs"><span
                                     class="fa fa-trash"></span></button>
                         @else
                             <a @if ($key->status == 'stage') disabled @endif
                                 href="{{ route('accounting.sales_invoices.delete_invoices', ['id' => $key->id]) }}"
-                                onclick="return confirm('هل تريد حذف البيانات ؟')" class="btn btn-danger btn-sm"><span
+                                onclick="return confirm('هل تريد حذف البيانات ؟')" class="btn btn-danger btn-xs"><span
                                     class="fa fa-trash"></span></a>
                         @endif
                     </td>

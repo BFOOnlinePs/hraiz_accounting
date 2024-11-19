@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-dark">طباعة</button>
+                    <button type="submit" class="btn btn-dark">عرض</button>
                 </form>
             </div>
         </div>

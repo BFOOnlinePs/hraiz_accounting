@@ -57,7 +57,7 @@ class BondsController extends Controller
             $data->check_status = $request->check_status;
         }
 
-        
+
 
         if ($data->save()){
             $doc_amount->type = 'payment_bond';
@@ -77,13 +77,13 @@ class BondsController extends Controller
     {
         $checkData = $request->input('checks'); // Assuming checks[] is the array of checks in the form
         $successCount = 0;
-    
+
         foreach ($checkData as $i => $check) {
             // Validate required fields before processing
-           
+
             $data = new BondsModel();
             $doc_amount = new DocAmountModel();
-    
+
             // Determine client and invoice based on the type
             if ($request->invoice_modal_type == 'invoice') {
                 $client = PurchaseInvoicesModel::where('id', $request->invoice_id)->first()->client_id;
@@ -95,7 +95,7 @@ class BondsController extends Controller
                 $data->client_id = $request->client_id;
                 $doc_amount->client_id = $request->client_id;
             }
-    
+
             // Populate fields from each check data
             $data->amount = $check['amount'];
             $data->reference_number = $check['reference_number'] ?? null; // Handle optional reference number
@@ -109,7 +109,7 @@ class BondsController extends Controller
             $data->due_date = $check['due_date'];
             $data->bank_id = $check['bank_id'];
             $data->invoice_type = 'payment_bond';
-    
+
 
             // Handle front image upload
         if ($request->hasFile("checks.$i.front_image")) {
@@ -130,8 +130,8 @@ class BondsController extends Controller
                 $data->check_type = 'incoming';
                 $data->check_status = $check['check_status'] ?? 'under_collection'; // Handle optional check status
             }
-            
-    
+
+
             if ($data->save()) {
                 $doc_amount->type = 'payment_bond';
                 $doc_amount->invoice_id = $data->id;
@@ -139,11 +139,11 @@ class BondsController extends Controller
                 $doc_amount->reference_number = $check['reference_number'] ?? null; // Optional reference number
                 $doc_amount->currency = $check['currency_id'];
                 $doc_amount->save();
-    
+
                 $successCount++;
             }
         }
-    
+
         if ($successCount > 0) {
             return redirect()->route('accounting.bonds.payment_bond.index')
                 ->with(['success' => 'تم اضافة البيانات بنجاح']);
@@ -183,8 +183,8 @@ class BondsController extends Controller
         // ->whereIn('invoice_id',function ($query) use ($request){
         //     $query->select('id')->from('bfo_invoices')->where('client_id','like','%'.$request->client_id.'%')->get();
         // })
-        ->when($request->filled('invoice_number'),function ($query) use ($request){
-            $query->where('invoice_id','like','%'.$request->invoice_number.'%')->get();
+        ->when($request->filled('reference_number'),function ($query) use ($request){
+            $query->where('reference_number','like','%'.$request->reference_number.'%')->get();
         })
           ->when($request->filled('payment_type'),function ($query) use ($request){
                 $query->where('payment_type','like','%'.$request->payment_type.'%')->get();
@@ -279,8 +279,8 @@ class BondsController extends Controller
             $doc_amount->reference_number = $request->reference_number;
             $doc_amount->currency = $request->currency_id;
             $doc_amount->save();
-    
-    
+
+
             return redirect()->route('accounting.bonds.performance_bond.performance_bond_index')->with(['success'=>'تم اضافة البيانات بنجاح']);
         }
         else{
@@ -293,13 +293,13 @@ class BondsController extends Controller
     {
         $checkData = $request->input('checks'); // Assuming checks[] is the array of checks in the form
         $successCount = 0;
-    
+
         foreach ($checkData as $i => $check) {
             // Validate required fields before processing
-           
+
             $data = new BondsModel();
             $doc_amount = new DocAmountModel();
-    
+
             // Determine client and invoice based on the type
             if ($request->invoice_modal_type == 'invoice') {
                 $client = PurchaseInvoicesModel::where('id', $request->invoice_id)->first()->client_id;
@@ -311,7 +311,7 @@ class BondsController extends Controller
                 $data->client_id = $request->client_id;
                 $doc_amount->client_id = $request->client_id;
             }
-    
+
             // Populate fields from each check data
             $data->amount = $check['amount'];
             $data->reference_number = $check['reference_number'] ?? null; // Handle optional reference number
@@ -325,7 +325,7 @@ class BondsController extends Controller
             $data->due_date = $check['due_date'];
             $data->bank_id = $check['bank_id'];
             $data->invoice_type = 'performance_bond';
-    
+
 
             // Handle front image upload
         if ($request->hasFile("checks.$i.front_image")) {
@@ -346,8 +346,8 @@ class BondsController extends Controller
                 $data->check_type = 'incoming';
                 $data->check_status = $check['check_status'] ?? 'under_collection'; // Handle optional check status
             }
-            
-    
+
+
             if ($data->save()) {
                 $doc_amount->type = 'performance_bond';
                 $doc_amount->invoice_id = $data->id;
@@ -355,11 +355,11 @@ class BondsController extends Controller
                 $doc_amount->reference_number = $check['reference_number'] ?? null; // Optional reference number
                 $doc_amount->currency = $check['currency_id'];
                 $doc_amount->save();
-    
+
                 $successCount++;
             }
         }
-    
+
         if ($successCount > 0) {
             return redirect()->route('accounting.bonds.performance_bond.performance_bond_index')
                 ->with(['success' => 'تم اضافة البيانات بنجاح']);
@@ -557,7 +557,7 @@ class BondsController extends Controller
     }
 
     public function list_check_ajax(Request $request){
-        $data = BondsModel::where('payment_type','check')->where('check_number','like','%'.$request->check_number.'%')->get();
+        $data = BondsModel::where('payment_type','check')->where('check_number','like','%'.$request->check_number.'%')->take(10)->get();
         return response()->json([
             'success' => 'true',
             'view' => view('admin.accounting.bonds.performance_bond.ajax.list_check',['data'=>$data])->render()

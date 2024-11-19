@@ -120,7 +120,9 @@
                     @php
                         $creditorDisplay = collect($sumCreditor)
                             ->map(function ($total, $currency) {
-                                return $currency . ' ' . number_format($total) . '<br>';
+                                if ($total != 0) {
+                                    return $currency . ' ' . number_format($total) . '<br>';
+                                }
                             })
                             ->join('');
                     @endphp
@@ -130,7 +132,9 @@
                     @php
                         $debtorDisplay = collect($sumDebtor)
                             ->map(function ($total, $currency) {
-                                return $currency . ' ' . number_format($total) . '<br>';
+                                if ($total != 0) {
+                                    return $currency . ' ' . number_format($total) . '<br>';
+                                }
                             })
                             ->join('');
                     @endphp
@@ -140,7 +144,9 @@
                     @php
                         $balanceDisplay = collect($balances)
                             ->map(function ($value, $currency) {
-                                return $currency . ' ' . number_format($value) . '<br>';
+                                if ($value != 0) {
+                                    return $currency . ' ' . number_format($value) . '<br>';
+                                }
                             })
                             ->join('');
                     @endphp

@@ -119,7 +119,7 @@
         <div class="modal-dialog modal-default">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">اضافة صنف</h4>
+                    <h4 class="modal-title">طباعة عرض سعر بيع</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -140,7 +140,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success mt-2">حفظ</button>
+                        <button type="submit" class="btn btn-success mt-2">عرض</button>
                     </form>
                 </div>
             </div>
@@ -380,7 +380,7 @@
                         toastr.success(data.message);
                         document.getElementById(`loader_${operation}_${id}`).style.display = 'none';
                         // price_offer_sales_items_table_ajax(page);
-                        if (value > 0) {
+                        if (value > 0 || $('#price_' + id).val() == '') {
                             $('#price_' + id).css('background-color',
                                 'palegoldenrod');
                         } else {

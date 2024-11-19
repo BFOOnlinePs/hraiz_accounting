@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="overflow:scroll;height:400px">
+            <div class="modal-body" style="overflow:scroll;height:80vh">
                 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="custom-content-below-cash-tab" data-toggle="pill"

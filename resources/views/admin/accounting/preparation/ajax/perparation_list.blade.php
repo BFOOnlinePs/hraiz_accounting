@@ -34,7 +34,7 @@
                             </div>
                         @endif --}}
                         <select
-                            class="p-1 @if ($key->status == 'delivered') bg-success @elseif ($key->status == 'ready_prepared') bg-info @else bg-warning @endif"
+                            class="p-1 btn-xs @if ($key->status == 'delivered') bg-success @elseif ($key->status == 'ready_prepared') bg-info @else bg-warning @endif"
                             style="width:100%" onchange="update_status_preparation({{ $key->id }} , this.value)"
                             name="" id="">
                             <option @if ($key->status == 'waiting_prepared') selected @endif value="waiting_prepared">بانتظار
