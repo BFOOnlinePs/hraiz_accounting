@@ -20,6 +20,45 @@
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
     <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>تفاصيل المردود</h5>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-xs text-center table-rounded">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>اسم العميل</th>
+                                        <th>تاريخ الفاتورة</th>
+                                        <th>نوع الفاتورة</th>
+                                        <th>نوع المردود</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ $data->invoice->client->name ?? '' }}</td>
+                                        <td>{{ $data->invoice->created_at }}</td>
+                                        <td>نوع المردود</td>
+                                        <td>
+                                            @if($data->returns_type == 'sales')
+                                                <span class="w-100 badge badge-success">مبيعات</span>
+                                            @else
+                                                <span class="w-100 badge badge-warning">مشتريات</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
@@ -30,7 +69,7 @@
                                     تم ترحيل هذه الفاتورة
                                 </div>
                             @endif
-                            <h6>الرقم المرجعي للفاتورة : <span>{{ $data->invoice->invoice_reference_number }}</span></h6>
+                            <h6>الرقم المرجعي لمردود المبيعات : <span>{{ $data->invoice->invoice_reference_number }}</span></h6>
                             <span><button onclick="window.location.href='{{ route('accounting.returns.returns_pdf',['id'=>$data->id]) }}'" class="btn btn-warning mr-1 float-right"><i class="fa fa-print"></i></button></span>
                             <span>المنتجات المردودة <button @if($data->status == 'stage') disabled @endif onclick="window.location.href='{{ route('accounting.returns.invoice_posting',['id'=>$data->id]) }}'" class="btn btn-info float-right">ترحيل</button></span>
                             <hr>

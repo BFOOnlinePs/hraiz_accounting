@@ -25,4 +25,16 @@ class PurchaseInvoicesModel extends Model
         }
         return $total;
     }
+
+    public function client(){
+        return $this->belongsTo(User::class,'client_id');
+    }
+
+    public function unit(){
+        return $this->belongsTo(UnitsModel::class,'unit_id');
+    }
+
+    public function currency(){
+        return $this->belongsTo(CurrencyModel::class,'currency_id');
+    }
 }

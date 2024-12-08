@@ -9,6 +9,7 @@ use App\Models\InvoiceItemsModel;
 use App\Models\OrderItemsModel;
 use App\Models\OrderModel;
 use App\Models\OrdersSalesItemsModel;
+use App\Models\OrdersSalesModel;
 use App\Models\PriceOfferItemsModel;
 use App\Models\PriceOffersModel;
 use App\Models\ProductModel;
@@ -145,7 +146,12 @@ class PurchaseInvoicesController extends Controller
         $purchase_invoice = PurchaseInvoicesModel::where('id',$id)->first();
         if ($purchase_invoice != null) {
             $purchase_invoice->tax = TaxesModel::where('id', $purchase_invoice->tax_id)->first();
-            $purchase_invoice->order = OrderModel::where('id',$purchase_invoice->order_id)->first();
+            if($purchase_invoice->invoice_type == 'sales'){
+                $purchase_invoice->order = OrderModel::where('id',$purchase_invoice->order_id)->first();
+            }
+            else{
+                $purchase_invoice->order_sales = OrdersSalesModel::where('id',$purchase_invoice->order_id)->first();
+            }
             $data = PurchaseInvoicesModel::find($id);
             $data->user = User::where('id',$data->client_id)->first();
             $taxes = TaxesModel::get();

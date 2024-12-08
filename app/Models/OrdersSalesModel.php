@@ -25,4 +25,8 @@ class OrdersSalesModel extends Model
             return $item->price * $item->qty;
         });
     }
+
+    public function getInvoices(){
+        return $this->hasMany(PurchaseInvoicesModel::class , 'order_id' , 'id');
+    }
 }

@@ -132,7 +132,8 @@ class SalesInvoicesController extends Controller
         $purchase_invoice = PurchaseInvoicesModel::where('id',$id)->first();
         if ($purchase_invoice != null) {
             $purchase_invoice->tax = TaxesModel::where('id', $purchase_invoice->tax_id)->first();
-//        $purchase_invoice->order = OrderModel::where('id',$purchase_invoice->order_id)->first();
+            $purchase_invoice->order = OrdersSalesModel::where('id',$purchase_invoice->order_id)->first();
+                // $purchase_invoice->order = OrderModel::where('id',$purchase_invoice->order_id)->first();
             $data = PurchaseInvoicesModel::find($id);
             $data->user = User::where('id', $data->client_id)->first();
             $taxes = TaxesModel::get();
@@ -230,6 +231,8 @@ class SalesInvoicesController extends Controller
         $data->due_date = Carbon::now()->toDateString();
         $data->client_id = $request->supplier_user_id;
         $data->invoice_type = 'sales';
+        $data->order_id = $request->order_id;
+        $data->invoice_type = $request->invoice_type;
         // $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
         if($data->save()){
             foreach($request->select_items as $key){
@@ -254,7 +257,7 @@ class SalesInvoicesController extends Controller
         }
         if($request->operation == 'due_date'){
             $data->due_date = $request->value;
-            $message = 'تم تعديل تاريخ التسليم بنجاح';
+            $message = 'تم تعديل تاريخ الاستحقاق بنجاح';
         }
         if($request->operation == 'client_id'){
             $data->client_id = $request->value;
@@ -353,10 +356,10 @@ class SalesInvoicesController extends Controller
     public function invoice_posting($id)
 {
     $data = PurchaseInvoicesModel::where('id', $id)->first();
-    
+
     // تغيير حالة الفاتورة
     $data->status = 'stage';
-    
+
     // إنشاء كائن جديد لمبلغ الوثيقة
     $doc_amount = new DocAmountModel();
     $doc_amount->type = 'sales';

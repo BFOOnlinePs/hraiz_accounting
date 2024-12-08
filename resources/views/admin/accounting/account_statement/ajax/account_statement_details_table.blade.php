@@ -1,5 +1,5 @@
 <table class="table table-bordered table-hover table-sm">
-    <thead>
+    <thead class="bg-dark">
         <tr>
             <th>المستند</th>
             <th>التاريخ</th>

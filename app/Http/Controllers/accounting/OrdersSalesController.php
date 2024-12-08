@@ -36,7 +36,7 @@ class OrdersSalesController extends Controller
         if($request->filled('user_id')){
             $data->where('user_id',$request->user_id);
         }
-        $data = $data->orderBy('id','desc')->paginate(10);
+        $data = $data->with('getInvoices')->where('delete_status',0)->orderBy('id','desc')->paginate(10);
 
         foreach ($data as $key){
             $key->client = User::where('id',$key->user_id)->first();
@@ -156,7 +156,7 @@ class OrdersSalesController extends Controller
         if ($request->filled('client_id')){
             $data->where('customer_id',$request->client_id);
         }
-        $data = $data->with('user')->get();
+        $data = $data->with('user','orderSales' , 'orderSales.getInvoices')->get();
         return response()->json([
             'success'=>'true',
             'view' => view('admin.accounting.orders_sales.ajax.sales_price_offer',['data'=>$data])->render()
@@ -325,6 +325,46 @@ class OrdersSalesController extends Controller
                 'success' => true,
                 'message' => 'تم ترحيل طلبية البيع بنجاح'
             ]);
+        }
+    }
+
+    public function archive_order_sales_index(){
+        $clients = User::whereJsonContains('user_role','10')->orWhereJsonContains('user_role','4')->get();
+        return view('admin.accounting.orders_sales.archive.index' , ['clients'=>$clients]);
+    }
+
+    public function archive_order_sales_list(Request $request){
+        $data = OrdersSalesModel::query();
+        if($request->filled('reference_name')){
+            $data->where('reference_number','like','%'.$request->reference_name.'%');
+        }
+        if($request->filled('user_id')){
+            $data->where('user_id',$request->user_id);
+        }
+        $data = $data->with('getInvoices')->where('delete_status',1)->orderBy('id','desc')->paginate(10);
+
+        foreach ($data as $key){
+            $key->client = User::where('id',$key->user_id)->first();
+        }
+        return response()->json([
+            'success' => true,
+            'view' => view('admin.accounting.orders_sales.ajax.orders_sales_archive_list',['data'=>$data])->render()
+        ]);
+    }
+
+    public function archive_order_sales($id){
+        $data = OrdersSalesModel::where('id',$id)->first();
+        $data->delete_status = 1;
+        if($data->save()){
+            return redirect()->back();
+        }
+    }
+
+    public function restore_archive_order_sales($id){
+        $data = OrdersSalesModel::where('id',$id)->first();
+        $data->delete_status = 0;
+        if($data->save()){
+            return redirect()->back();
         }
     }
 }

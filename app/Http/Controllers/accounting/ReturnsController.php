@@ -137,7 +137,7 @@ class ReturnsController extends Controller
     }
 
     public function returns_details($id){
-        $data = ReturnsModel::where('id',$id)->first();
+        $data = ReturnsModel::with('invoice.client')->where('id',$id)->first();
         $data->invoice = PurchaseInvoicesModel::where('id',$data->invoice_id)->first();
         $return_items = ReturnItemsModel::where('invoice_id',$id)->get();
         return view('admin.accounting.returns.details',['return_items'=>$return_items,'data'=>$data]);
@@ -240,7 +240,7 @@ class ReturnsController extends Controller
                 $query->select('id')->from('bfo_invoices')->where('invoice_reference_number','like','%'.$request->reference_number.'%');
             });
         }
-        $data = $query->paginate(10);
+        $data = $query->with('invoice.client')->orderBy('id','desc')->paginate(10);
         foreach ($data as $key){
             $key->invoice = PurchaseInvoicesModel::where('id',$key->invoice_id)->first();
         }
@@ -257,7 +257,7 @@ class ReturnsController extends Controller
             $key->product = ProductModel::where('id',$key->product_id)->first();
             $key->unit = UnitsModel::where('id',$key->unit_id)->first();
         }
-        $return = ReturnsModel::where('id',$id)->first();
+        $return = ReturnsModel::with('invoice')->where('id',$id)->first();
         $pdf = PDF::loadView('admin.accounting.returns.pdf.returns_pdf',['data'=>$data,'return'=>$return,'system_setting'=>$system_setting]);
         return $pdf->stream('returns.pdf');
     }

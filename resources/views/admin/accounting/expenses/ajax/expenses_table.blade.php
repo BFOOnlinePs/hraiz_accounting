@@ -1,5 +1,5 @@
-<table class="table table-hover table-bordered table-sm">
-    <thead>
+<table class="w-100 table-striped table-hover table-bordered">
+    <thead class="bg-dark">
     <tr>
         <th>التاريخ</th>
         <th>التصنيف</th>

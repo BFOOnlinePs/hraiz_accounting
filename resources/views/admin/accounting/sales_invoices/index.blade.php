@@ -46,7 +46,7 @@
                                     href="{{ route('accounting.sales_invoices.archive_order') }}">
                                     <span class="fa fa-trash"></span>&nbsp&nbsp
                                     <span>
-                                        ارشيف طلبيات البيع
+                                        ارشيف فواتير البيع
                                     </span>
                                 </a>
                             </div>

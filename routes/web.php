@@ -720,6 +720,12 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('list_price_offer_items',[\App\Http\Controllers\accounting\OrdersSalesController::class,'list_price_offer_items'])->name('accounting.orders_sales.list_price_offer_items');
         Route::post('create_order_sales_from_price_offer',[\App\Http\Controllers\accounting\OrdersSalesController::class,'create_order_sales_from_price_offer'])->name('accounting.orders_sales.create_order_sales_from_price_offer');
         Route::post('update_order_sales_status_ajax',[\App\Http\Controllers\accounting\OrdersSalesController::class,'update_order_sales_status_ajax'])->name('accounting.orders_sales.update_order_sales_status_ajax');
+        Route::get('archive_order_sales/{id}',[\App\Http\Controllers\accounting\OrdersSalesController::class,'archive_order_sales'])->name('accounting.orders_sales.archive_order_sales');
+        Route::group(['prefix'=>'archive'],function(){
+            Route::get('archive_order_sales_index',[\App\Http\Controllers\accounting\OrdersSalesController::class,'archive_order_sales_index'])->name('accounting.orders_sales.archive.archive_order_sales_index');
+            Route::post('archive_order_sales_list',[\App\Http\Controllers\accounting\OrdersSalesController::class,'archive_order_sales_list'])->name('accounting.orders_sales.archive.archive_order_sales_list');
+            Route::get('restore_archive_order_sales/{id}',[\App\Http\Controllers\accounting\OrdersSalesController::class,'restore_archive_order_sales'])->name('accounting.orders_sales.archive.restore_archive_order_sales');
+        });
     });
     Route::group(['prefix'=>'preparing_order'],function (){
         Route::get('index',[\App\Http\Controllers\PreparingOrderController::class,'index'])->name('accounting.preparing_order.index');
@@ -813,11 +819,11 @@ Route::group(['prefix'=>'wherehouse'],function (){
 Route::get('/optimize-app', function () {
     // Run composer dump-autoload
     exec('composer dump-autoload');
-    
+
     // Run artisan commands
     Artisan::call('clear-compiled');
     Artisan::call('optimize:clear');
-    
+
     return 'Application optimized successfully!';
 });
 
