@@ -10,4 +10,8 @@ class ReturnsModel extends Model
     use HasFactory;
 
     protected $table = 'returns';
+
+    public function invoice(){
+        return $this->belongsTo(PurchaseInvoicesModel::class,'invoice_id');
+    }
 }

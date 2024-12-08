@@ -35,16 +35,32 @@
     </style>
 </head>
 <body>
-    @if($return->return_type == 'sales')
+    @if($return->returns_type == 'sales')
         <h3 style="text-align: center">مردود مبيعات</h3>
     @else
         <h3 style="text-align: center">مردود مشتريات</h3>
     @endif
+    <div>
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 60%">الرقم المرجعي : {{ $return->invoice->invoice_reference_number ?? 'من غير فاتورة' }}</td>
+                <td>اسم العميل : {{ $return->invoice->client->name ?? '' }}</td>
+            </tr>
+            <tr>
+                <td>نوع المردود : {{ $return->returns_type == 'sales' ? 'مبيعات' : 'مشتريات' }}</td>
+                <td>تاريخ المردود : {{ $return->created_at }}</td>
+            </tr>
+            <tr>
+                <td>العملة : {{ $return->invoice->currency->currency_name ?? '' }}</td>
+            </tr>
+        </table>
+    </div>
     <p>ملاحظات : <span>{{ $return->notes }}</span></p>
     <div style="width: 100%">
         <table class="table_return" style="width: 100%">
             <tr>
                 <th>المنتج</th>
+                <th>السعر</th>
                 <th>الكمية</th>
                 <th>الوحدة</th>
                 <th>ملاحظات</th>
@@ -52,6 +68,7 @@
             @foreach($data as $key)
                 <tr>
                     <td>{{ $key->product->product_name_ar }}</td>
+                    <td>{{ $key->product->product_price }}</td>
                     <td>{{ $key->qty }}</td>
                     <td>{{ $key->unit->unit_name ?? '' }}</td>
                     <td>{{ $key->notes }}</td>

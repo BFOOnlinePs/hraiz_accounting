@@ -1,8 +1,10 @@
 <table class="w-100 table-hover text-center table-bordered table-striped">
-    <thead>
+    <thead class="bg-dark">
     <tr>
         <th>الرقم المرجعي للفاتورة</th>
+        <th>اسم العميل</th>
         <th>نوع المردود</th>
+        <th>التاريخ</th>
         <th>ملاحظات</th>
         <th style="width: 70px"></th>
     </tr>
@@ -16,6 +18,7 @@
             @foreach($data as $key)
                 <tr>
                     <td>{{ $key->invoice->invoice_reference_number ?? 'من غير فاتورة' }}</td>
+                    <td>{{ $key->invoice->client->name ?? '' }}</td>
                     <td>
                         @if($key->returns_type == 'sales')
                             <span class="w-100 badge badge-success">مبيعات</span>
@@ -23,6 +26,7 @@
                             <span class="w-100 badge badge-warning">مشتريات</span>
                         @endif
                     </td>
+                    <td>{{ $key->created_at }}</td>
                     <td>{{ $key->notes }}</td>
                     <td>
                         <a href="{{ route('accounting.returns.returns_details',['id'=>$key->id]) }}" class="btn btn-dark btn-xs"><span class="fa fa-search"></span></a>

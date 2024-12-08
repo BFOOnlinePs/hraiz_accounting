@@ -46,7 +46,7 @@
                     <td>
                         <a href="{{ route('accounting.orders_sales.orders_sales_details', ['order_id' => $key->id]) }}"
                             class="btn btn-dark btn-xs"><span class="fa fa-search"></span></a>
-                        <a href="{{ route('accounting.orders_sales.archive_order_sales',['id'=>$key->id ?? '']) }}" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+                        <a href="{{ route('accounting.orders_sales.archive.restore_archive_order_sales',['id'=>$key->id ?? '']) }}" class="btn btn-success btn-xs"><span class="fa fa-trash-arrow-up"></span></a>
                     </td>
                 </tr>
             @endforeach

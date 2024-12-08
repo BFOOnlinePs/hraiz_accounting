@@ -32,9 +32,13 @@
                                     data-target="#add_orders_sales_modal"><span
                                         class="fa fa-plus"></span>&nbsp;&nbsp;<span>اضافة طلبية</span></button>
                                 <button class="btn btn-light btn-sm col-md-3 col-12 m-1 p-2"
-                                    onclick="open_add_sales_price_offer_modal()"><span
+                                    onclick="open_add_sales_price_offer_modal()">
+                                    <span
                                         class="fa fa-file-text"></span>&nbsp;&nbsp;<span>اضافة طلبية من عرض سعر
-                                        بيع</span></button>
+                                        بيع</span>
+                                    </button>
+                                <a href="{{ route('accounting.orders_sales.archive.archive_order_sales_index')}}" class="btn btn-sm btn-danger col-md-3 col-12 m-1 p-2"><span
+                                    class="fa fa-trash"></span>&nbsp;&nbsp;<span>ارشيف طلبيات البيع</span></a>
                             </div>
                         </div>
                     </div>

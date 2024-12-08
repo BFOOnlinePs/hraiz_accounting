@@ -18,7 +18,7 @@
 @section('content')
     @include('admin.messge_alert.success')
     @include('admin.messge_alert.fail')
-    
+
     <div class="card card-success card-outline">
         <div class="card-body">
             <form action="{{ route('accounting.sales_invoices.create_new_invoices') }}" method="post">
@@ -138,24 +138,24 @@
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script>
-        {{--$(document).ready(function () {--}}
-        {{--$('#tax_id').on('change', function () {--}}
-        {{--    var selectedValue = $(this).val();--}}
+        // {{--$(document).ready(function () {--}}
+        // {{--$('#tax_id').on('change', function () {--}}
+        // {{--    var selectedValue = $(this).val();--}}
 
-        {{--    // Clear the options in tax_id2--}}
-        {{--    $('#tax_id2').empty();--}}
+        // {{--    // Clear the options in tax_id2--}}
+        // {{--    $('#tax_id2').empty();--}}
 
-        {{--    // Add default option to tax_id2--}}
-        {{--    $('#tax_id2').append('<option value="">اختر قيمة الضريبة ...</option>');--}}
+        // {{--    // Add default option to tax_id2--}}
+        // {{--    $('#tax_id2').append('<option value="">اختر قيمة الضريبة ...</option>');--}}
 
-        {{--    // Add formatted options to tax_id2 based on the selected value in tax_id--}}
-        {{--    @foreach ($taxes as $key)--}}
-        {{--        if ('{{ $key->id }}' !== selectedValue) {--}}
-        {{--            $('#tax_id2').append('<option value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>');--}}
-        {{--        }--}}
-        {{--    @endforeach--}}
-        {{--});--}}
-        {{--});--}}
+        // {{--    // Add formatted options to tax_id2 based on the selected value in tax_id--}}
+        // {{--    @foreach ($taxes as $key)--}}
+        // {{--        if ('{{ $key->id }}' !== selectedValue) {--}}
+        // {{--            $('#tax_id2').append('<option value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>');--}}
+        // {{--        }--}}
+        // {{--    @endforeach--}}
+        // {{--});--}}
+        // {{--});--}}
 
 
         function if_checked() {

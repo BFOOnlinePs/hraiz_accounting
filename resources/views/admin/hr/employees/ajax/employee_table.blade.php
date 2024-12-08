@@ -1,5 +1,5 @@
-<table class="table table-bordered">
-    <thead>
+<table class="w-100 table-hover table-striped table-bordered">
+    <thead class="bg-dark">
         <tr>
             <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">#
             </th>

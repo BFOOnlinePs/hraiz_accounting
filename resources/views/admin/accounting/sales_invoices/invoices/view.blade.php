@@ -80,7 +80,7 @@
                             <div class="col-md-12 alert alert-info">
                                 تم انشاء هذه الفاتورة استناداً لطلبية رقم <a
                                     href="{{ route('procurement_officer.orders.product.index', ['order_id' => $purchase_invoice->order_id]) }}"
-                                    class="btn btn-dark btn-sm">{{ $purchase_invoice->order->reference_number }}</a> وتم
+                                    class="btn btn-dark btn-sm">{{ $purchase_invoice->order->reference_number ?? '' }}</a> وتم
                                 اضافة التاريخ بشكل تلقائي
                             </div>
                         </div>

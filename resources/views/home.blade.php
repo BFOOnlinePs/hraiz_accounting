@@ -55,6 +55,24 @@
             line-height: 1.5;
             border-radius: .2rem;
         }
+
+        /* Customizing the Select2 field for smaller height */
+
+.form-control-sm {
+    font-size: 12px; /* Adjust to your desired size */
+    height: 30px;    /* Adjust the height */
+    padding: 0.2rem 0.5rem; /* Adjust padding */
+    line-height: 1.5;
+}
+
+.table-xs {
+    font-size: 14px; /* Extra small font */
+}
+
+.table-rounded {
+    border-radius: 4px; /* Custom rounded corners */
+    overflow: hidden;    /* Prevent borders from breaking */
+}
     </style>
 </head>
 

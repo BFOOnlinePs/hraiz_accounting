@@ -23,10 +23,16 @@
                     <td>{{ $key->user->name }}</td>
                     <td>{{ $key->notes }}</td>
                     <td>
-                        @foreach ($key->orderSales as $order_sales)
+                        {{-- {{ $key->orderSales->getInvoices }} --}}
+                        {{-- @foreach ($key->orderSales as $order_sales)
                             <a
                                 href="{{ route('accounting.orders_sales.orders_sales_details', ['order_id' => $order_sales->id]) }}">{{ $order_sales->reference_number }}</a>
                             ,
+                        @endforeach --}}
+                        @foreach ($key->orderSales as $order_sales)
+                            @foreach ($order_sales->getInvoices as $item)
+                                <a target="_blank" href="{{ route('accounting.sales_invoices.invoice_view',['id'=>$item->id ?? '']) }}" class="badge badge-success">{{ $item->invoice_reference_number }}</a> ,
+                            @endforeach
                         @endforeach
                     </td>
                     <td class="text-center">
