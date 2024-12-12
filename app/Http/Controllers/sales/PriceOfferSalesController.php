@@ -221,7 +221,7 @@ class PriceOfferSalesController extends Controller
         $from = Carbon::parse($request->from)->subMonth();
         $to = $request->to;
         $data = PriceOfferSalesModel::where('customer_id', 'like', '%' . $request->customer_id . '%')
-            ->where('insert_by', 'like', '%' . $request->insert_by . '%')
+            ->where('insert_by', 'like', '%' . $request->insert_by . '%')->where('deleted',0)
             ->when(!empty($request->from) || !empty($request->to), function ($query) use ($request,$from,$to) {
                 $query->when(!empty($request->from) && !empty($request->to), function ($query) use ($request) {
                     $query->whereBetween('insert_at', [
@@ -271,6 +271,66 @@ class PriceOfferSalesController extends Controller
                 'success'=>'false',
                 'message'=>'هناك خلل ما لم يتم تعديل العميل'
             ]);
+        }
+    }
+
+    public function archive_index(){
+        $clients = User::whereJsonContains('user_role','10')->orwhereJsonContains('user_role','4')->get();
+        $added_by = User::whereJsonContains('user_role','1')->orWhereJsonContains('user_role','2')->get();
+        $currency = CurrencyModel::get();
+        return view('admin.sales.price_offer_sales.archive.index',['clients'=>$clients , 'added_by'=>$added_by , 'currency'=>$currency]);
+    }
+
+    public function list_archive_ajax(Request $request){
+        $from = Carbon::parse($request->from)->subMonth();
+        $to = $request->to;
+        $data = PriceOfferSalesModel::where('customer_id', 'like', '%' . $request->customer_id . '%')
+            ->where('insert_by', 'like', '%' . $request->insert_by . '%')->where('deleted',1)
+            ->when(!empty($request->from) || !empty($request->to), function ($query) use ($request,$from,$to) {
+                $query->when(!empty($request->from) && !empty($request->to), function ($query) use ($request) {
+                    $query->whereBetween('insert_at', [
+                        $request->from,
+                        Carbon::parse($request->to)->addDays()
+                    ]);
+                })->when(empty($request->from) && !empty($request->to), function ($query) use ($from, $to) {
+                    $query->whereBetween('insert_at', [
+                        $from,
+                        Carbon::parse($to)->addDays()
+                    ]);
+                });
+            })->orderBy('id','desc')->get();
+        foreach ($data as $key){
+            $key->user = User::where('id',$key->customer_id)->first();
+            $key->insert_by_user = User::where('id',$key->insert_by)->first();
+            $key->currency = CurrencyModel::where('id',$key->currency_id)->first();
+        }
+        $clients = User::whereJsonContains('user_role','10')->get();
+        $currency = CurrencyModel::get();
+        return response()->json([
+            'success'=>'true',
+            'view'=>view('admin.sales.price_offer_sales.archive.ajax.list_archive',['data'=>$data,'clients'=>$clients,'currency'=>$currency])->render()
+        ]);
+    }
+
+    public function add_to_archive($id){
+        $data = PriceOfferSalesModel::where('id',$id)->first();
+        $data->deleted = 1;
+        if ($data->save()){
+            return redirect()->route('price_offer_sales.index')->with(['success'=>'تم اضافة عرض السعر الى الارشيف بنجاح']);
+        }
+        else{
+            return redirect()->route('price_offer_sales.index')->with(['fail'=>'هناك خلل ما لم يتم اضافة عرض السعر الى الارشيف بنجاح']);
+        }
+    }
+
+    public function remove_from_archive($id){
+        $data = PriceOfferSalesModel::where('id',$id)->first();
+        $data->deleted = 0;
+        if ($data->save()){
+            return redirect()->route('price_offer_sales.archive.archive_index')->with(['success'=>'تم حذف عرض السعر من الارشيف بنجاح']);
+        }
+        else{
+            return redirect()->route('price_offer_sales.archive.archive_index')->with(['fail'=>'هناك خلل ما لم يتم حذف عرض السعر من الارشيف بنجاح']);
         }
     }
 }

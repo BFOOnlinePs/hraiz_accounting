@@ -12,7 +12,7 @@ use App\Models\PurchaseInvoicesModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use PDF;
 class BondsController extends Controller
 {
     public function index(){
@@ -562,5 +562,12 @@ class BondsController extends Controller
             'success' => 'true',
             'view' => view('admin.accounting.bonds.performance_bond.ajax.list_check',['data'=>$data])->render()
         ]);
+    }
+
+    public function bonds_pdf($id){
+        $data = BondsModel::where('id',$id)->first();
+        $currencies = Currency::get();
+        $pdf = PDF::loadView('admin.accounting.bonds.pdf.bonds_details_pdf',['data'=>$data , 'currencies'=>$currencies]);
+        return $pdf->stream('order_sales.pdf');
     }
 }

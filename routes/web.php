@@ -638,6 +638,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
     Route::group(['prefix'=>'bonds'],function(){
         Route::get('details/{id}',[App\Http\Controllers\accounting\BondsController::class , 'details'])->name('accounting.bonds.details');
         Route::post('list_check_ajax',[App\Http\Controllers\accounting\BondsController::class , 'list_check_ajax'])->name('accounting.bonds.check.list_check_ajax');
+        Route::get('bonds_pdf/{id}',[App\Http\Controllers\accounting\BondsController::class , 'bonds_pdf'])->name('accounting.bonds.check.bonds_pdf');
 
         Route::post('get_amount_for_invoice',[App\Http\Controllers\accounting\BondsController::class , 'get_amount_for_invoice'])->name('bonds.get_amount_for_invoice');
         Route::group(['prefix'=>'payment_bond'],function (){
@@ -807,6 +808,12 @@ Route::group(['prefix'=>'price_offer_sales'],function (){
         Route::post('price_offer_sales_items_pdf',[App\Http\Controllers\sales\PriceOfferSalesController::class,'price_offer_sales_items_pdf'])->name('price_offer_sales.price_offer_sales_items.price_offer_sales_items_pdf');
         Route::post('update_currency_notes_customer_for_price_offer_sales_items_ajax',[App\Http\Controllers\sales\PriceOfferSalesController::class,'update_currency_notes_customer_for_price_offer_sales_items_ajax'])->name('price_offer_sales.price_offer_sales_items.update_currency_notes_customer_for_price_offer_sales_items_ajax');
         Route::post('get_sum_price_offer_sales_items_ajax',[App\Http\Controllers\sales\PriceOfferSalesController::class,'get_sum_price_offer_sales_items_ajax'])->name('price_offer_sales.price_offer_sales_items.get_sum_price_offer_sales_items_ajax');
+    });
+    Route::group(['prefix'=>'archive'],function(){
+        Route::get('/archive_index',[App\Http\Controllers\sales\PriceOfferSalesController::class,'archive_index'])->name('price_offer_sales.archive.archive_index');
+        Route::post('/list_archive_ajax',[App\Http\Controllers\sales\PriceOfferSalesController::class,'list_archive_ajax'])->name('price_offer_sales.archive.list_archive_ajax');
+        Route::get('/add_to_archive/{id}',[App\Http\Controllers\sales\PriceOfferSalesController::class,'add_to_archive'])->name('price_offer_sales.archive.add_to_archive');
+        Route::get('/remove_from_archive/{id}',[App\Http\Controllers\sales\PriceOfferSalesController::class,'remove_from_archive'])->name('price_offer_sales.archive.remove_from_archive');
     });
 });
 

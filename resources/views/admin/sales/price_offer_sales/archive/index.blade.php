@@ -25,22 +25,16 @@
                 <div class="inner">
                     <div class="row">
                         <div class="col-md-3">
-                            <h4 class="text-bold m-1">عروض اسعار البيع</h4>
+                            <h4 class="text-bold m-1">ارشيف عروض اسعار البيع</h4>
                         </div>
                         <div class="col-md-9">
                             <div class="row ml-2 w-100">
-                                <button type="button" class="btn btn-light btn-sm col-md-3 col-12 m-1 p-2"
-                                    data-toggle="modal" data-target="#create_price_offer_sales_modal">
+                                <a href="{{ route('price_offer_sales.index') }}" class="btn btn-light btn-sm col-md-3 col-12 m-1 p-2"
+                                    >
                                     <span class="fa fa-plus"></span>
                                     &nbsp;
                                     &nbsp;
                                     <span>اضافة عرض سعر بيع</span>
-                                </button>
-                                <a href="{{ route('price_offer_sales.archive.archive_index') }}" class="btn btn-danger btn-sm col-md-3 col-12 m-1 p-2">
-                                    <span class="fa fa-trash"></span>
-                                    &nbsp;
-                                    &nbsp;
-                                    <span>ارشيف عروض الاسعار</span>
                                 </a>
                             </div>
                         </div>
@@ -141,7 +135,7 @@
             document.getElementById('price_offer_sales_table').innerHTML =
                 '<div class="col text-center p-5"><i class="fas fa-3x fa-sync-alt fa-spin"></i></div>';
             $.ajax({
-                url: '{{ route('price_offer_sales.price_offer_sales_table_ajax') }}',
+                url: '{{ route('price_offer_sales.archive.list_archive_ajax') }}',
                 method: 'post',
                 headers: headers,
                 data: {
