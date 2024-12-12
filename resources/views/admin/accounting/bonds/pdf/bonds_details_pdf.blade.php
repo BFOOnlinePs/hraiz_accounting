@@ -1,23 +1,95 @@
-@extends('home')
-@section('title')
-    سند قبض
-@endsection
-@section('header_title')
-    سند قبض
-@endsection
-@section('header_link')
-    الرئيسية
-@endsection
-@section('header_title_link')
-    سند قبض
-@endsection
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-@endsection
-@section('content')
-    @include('admin.messge_alert.success')
-    @include('admin.messge_alert.fail')
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>تفاصيل سند قبض</title>
+    <style>
+        body {
+            font-family: 'DejaVu Sans', sans-serif;
+            line-height: 1.6;
+            direction: rtl;
+            text-align: right;
+        }
+        h5 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -10px;
+            margin-left: -10px;
+        }
+        .col-md-12, .col-md-6, .col-md-3 {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        .col-md-12 {
+            width: 100%;
+        }
+        .col-md-6 {
+            width: 50%;
+        }
+        .col-md-3 {
+            width: 25%;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .text-center {
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            resize: none;
+        }
+        .btn {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 12px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #f0ad4e;
+            border-radius: 4px;
+        }
+        .btn-warning {
+            background-color: #f0ad4e;
+        }
+        .d-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        hr {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h5>
+        @if ($data->invoice_type == 'payment_bond')
+            تفاصيل سند قبض
+        @else
+            تفاصيل سند صرف
+        @endif
+    </h5>
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -59,15 +131,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">العملة</label>
-                                        <select disabled class="form-control select2bs4" required name="currency_id"
-                                            id="">
-                                            <option value="">اختر العملة ...</option>
-                                            @foreach ($currencies as $key)
-                                                <option @if ($key->id == $data->currency_id) selected @endif
-                                                    value="{{ $key->id }}">{{ $key->currency_name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" value="{{ $data->currency->currency_name}}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -151,23 +215,6 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('script')
-    <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
-
-    <script>
-        $('input[name="customRadio"]').on('change', function() {
-            if ($(this).val() === 'check') {
-                $('#check_information_client').css('display', 'block');
-                $('#check_information').css('display', 'block');
-                $('#checkNumber').prop('required', true);
-                $('#due_date').prop('required', true);
-                $('#bank_name').prop('required', true);
-            } else {
-                $('#check_information_client').hide();
-                $('#check_information').hide();
-            }
-        })
-    </script>
-@endsection
+</body>
+</html>

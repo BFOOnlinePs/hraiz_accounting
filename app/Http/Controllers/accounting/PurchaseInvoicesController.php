@@ -28,7 +28,7 @@ class PurchaseInvoicesController extends Controller
     public function index(){
         $data = PurchaseInvoicesModel::get();
         $order = OrderModel::get();
-        $users = User::whereJsonContains('user_role',['4'])->get();
+        $users = User::whereJsonContains('user_role',['4'])->orWhereJsonContains('user_role',['10'])->get();
         // $order = OrderModel::whereIn('id',function($query){
         //     $query->from('price_offers')->where('status', 1)->select('id')->get();
         // })->get();

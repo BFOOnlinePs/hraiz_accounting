@@ -21,7 +21,7 @@
                     <td>
                         <a href="{{ route('price_offer_sales.price_offer_sales_items.price_offer_sales_items_index', ['id' => $key->id]) }}"
                             class="btn btn-dark btn-xs"><span class="fa fa-search"></span></a>
-                        <a class="btn btn-danger btn-xs" href="{{ route('price_offer_sales.archive.add_to_archive',['id'=>$key->id])}}"><span class="fa fa-trash"></span></a>
+                        <a class="btn btn-success btn-xs" href="{{ route('price_offer_sales.archive.remove_from_archive',['id'=>$key->id]) }}"><span class="fa fa-trash-arrow-up"></span></a>
                     </td>
                 </tr>
             @endforeach
