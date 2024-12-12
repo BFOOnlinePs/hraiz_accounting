@@ -14,8 +14,12 @@ class DocAmountModel extends Model
     public function invoice(){
         return $this->belongsTo(PurchaseInvoicesModel::class, 'invoice_id', 'id');
     }
-    
+
     public function currency_info(){
         return $this->belongsTo(CurrencyModel::class, 'currency', 'id');
+    }
+
+    public function invoice_items(){
+        return $this->belongsTo(InvoiceItemsModel::class, 'id', 'invoice_id');
     }
 }

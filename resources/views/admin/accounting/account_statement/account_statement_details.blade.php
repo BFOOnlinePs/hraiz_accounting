@@ -84,6 +84,15 @@
                         </select>
                     </div>
                 </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="">نوع كشف الحساب</label>
+                        <select name="" id="statement_type" class="form-control">
+                            <option value="normal">عادي</option>
+                            <option value="detailed">مفصل</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return 'mohamad';
     if (\Illuminate\Support\Facades\Auth::check()) {
         return redirect()->route('home');
     } else {

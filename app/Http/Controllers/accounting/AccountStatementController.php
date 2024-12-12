@@ -150,15 +150,16 @@ class AccountStatementController extends Controller
         if ($request->filled('from') && $request->filled('to')){
             $query->whereBetween('created_at',[Carbon::parse($request->from)->startOfDay(),Carbon::parse($request->to)->endOfDay()]);
         }
-        $data = $query->get();
+        $data = $query->with('invoice_items')->get();
 
         $sumQuery = DocAmountModel::select('type', DB::raw('COUNT(*) as type_count'))
             ->where('client_id',$request->user_id)
             ->groupBy('type')
             ->get();
+            return $data;
         return response()->json([
             'success' => 'true',
-            'view' => view('admin.accounting.account_statement.ajax.account_statement_details_table',['data' => $data,'sumQuery'=>$sumQuery])->render()
+            'view' => view('admin.accounting.account_statement.ajax.account_statement_details_table',['data' => $data,'sumQuery'=>$sumQuery , 'request'=>$request])->render()
         ]);
     }
 
