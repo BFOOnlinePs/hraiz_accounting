@@ -112,7 +112,7 @@
                     </td>
                 </tr>
 
-                @if ($key->type == 'sales')
+                {{-- @if ($key->type == 'sales')
                     @if (!empty($key->invoice_items))
                     <tr>
                         <td colspan="7">
@@ -131,7 +131,7 @@
                         </td>
                     </tr>
                     @endif
-                @endif
+                @endif --}}
             @endforeach
 
             <tr class="bg-dark">

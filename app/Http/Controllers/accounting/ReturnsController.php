@@ -76,9 +76,12 @@ class ReturnsController extends Controller
         $returns->notes = $request->notes;
         $returns->is_deleted = 'no';
         $returns->returns_type = $request->returns_type;
+
+
+
         $returns->save();
 
-        if ($request->returns_type_invoice == 'with_invoice'){
+                if ($request->returns_type_invoice == 'with_invoice'){
             foreach ($selectedProducts as $index => $productId){
                 $quantity = $quantities[$index];
                 $rate = $rates[$index];
