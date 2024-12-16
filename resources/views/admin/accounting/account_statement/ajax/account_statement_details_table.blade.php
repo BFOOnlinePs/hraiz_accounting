@@ -90,7 +90,7 @@
                             {{-- <a target="_blank"
                                 href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}"><span>سند
                                     قبض</span> --}}
-                                {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
+                            {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
                                 @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
                                     <span>( شيك )</span>
                                 @endif --}}
@@ -112,26 +112,21 @@
                     </td>
                 </tr>
 
-                {{-- @if ($key->type == 'sales')
+                @if ($key->type == 'sales')
                     @if (!empty($key->invoice_items))
-                    <tr>
-                        <td colspan="7">
                             @foreach ($key->invoice_items as $item)
-                                <tr>
-                                    <td>1</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td colspan="3">
-                                    </td>
-                                </tr>
+                            <tr class="bg-light">
+                                <td>{{ $item }}</td>
+                                <td>{{ $item }}</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
                             @endforeach
-                        </td>
-                    </tr>
                     @endif
-                @endif --}}
+                @endif
             @endforeach
 
             <tr class="bg-dark">

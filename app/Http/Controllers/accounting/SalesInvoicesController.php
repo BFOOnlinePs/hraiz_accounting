@@ -232,7 +232,6 @@ class SalesInvoicesController extends Controller
         $data->client_id = $request->supplier_user_id;
         $data->invoice_type = 'sales';
         $data->order_id = $request->order_id;
-        $data->invoice_type = $request->invoice_type;
         // $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
         if($data->save()){
             foreach($request->select_items as $key){
