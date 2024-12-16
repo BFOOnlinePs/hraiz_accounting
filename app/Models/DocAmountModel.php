@@ -19,7 +19,8 @@ class DocAmountModel extends Model
         return $this->belongsTo(CurrencyModel::class, 'currency', 'id');
     }
 
+
     public function invoice_items(){
-        return $this->belongsTo(InvoiceItemsModel::class, 'id', 'invoice_id');
+        return $this->hasMany(InvoiceItemsModel::class, 'invoice_id', 'id');
     }
 }

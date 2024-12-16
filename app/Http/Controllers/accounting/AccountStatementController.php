@@ -156,7 +156,7 @@ class AccountStatementController extends Controller
             ->where('client_id',$request->user_id)
             ->groupBy('type')
             ->get();
-            // return $data;
+            return $data;
         return response()->json([
             'success' => 'true',
             'view' => view('admin.accounting.account_statement.ajax.account_statement_details_table',['data' => $data,'sumQuery'=>$sumQuery , 'request'=>$request])->render()
