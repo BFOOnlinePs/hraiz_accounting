@@ -370,27 +370,27 @@
                                         <div class="form-group">
                                             <label for="">سعر المنتج</label>
                                             <input name="product_price" height="50" class="form-control"
-                                                type="number" placeholder="سعر المتنج">
+                                                type="text" placeholder="سعر المتنج">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">الوزن</label>
-                                            <input name="weight" height="50" class="form-control" type="number"
+                                            <input name="weight" height="50" class="form-control" type="text"
                                                 placeholder="الوزن">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">الطول</label>
-                                            <input name="height" height="50" class="form-control" type="number"
+                                            <input name="height" height="50" class="form-control" type="text"
                                                 placeholder="الطول">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="">سعر التكلفة</label>
-                                            <input name="cost_price" height="50" class="form-control" type="number"
+                                            <input name="cost_price" height="50" class="form-control" type="text"
                                                 placeholder="سعر التكلفة">
                                         </div>
                                     </div>
@@ -398,7 +398,7 @@
                                         <div class="form-group">
                                             <label for="">اقل سعر للبيع</label>
                                             <input name="min_sale_price" height="50" class="form-control"
-                                                type="number" placeholder="اقل سعر للبيع">
+                                                type="text" placeholder="اقل سعر للبيع">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
