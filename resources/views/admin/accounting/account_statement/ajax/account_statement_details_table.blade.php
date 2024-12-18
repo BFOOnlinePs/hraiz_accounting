@@ -89,6 +89,14 @@
                                 href="{{ route('accounting.sales_invoices.invoice_view', ['id' => $key->invoice_id]) }}">فاتورة
                                 مبيعات</a>
                         @elseif ($key->type == 'payment_bond')
+                        <a target="_blank" href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}">
+                            <span>سند قبض</span>
+                            {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
+                            @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
+                                <span>( شيك )</span>
+                            @endif --}}
+                        </a>
+
                             {{-- <a target="_blank"
                                 href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}"><span>سند
                                     قبض</span> --}}
