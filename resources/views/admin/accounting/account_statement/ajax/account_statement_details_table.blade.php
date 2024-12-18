@@ -40,7 +40,9 @@
                     $sumDebtor[$currencySymbol] = $sumDebtor[$currencySymbol] ?? 0;
                     $balances[$currencySymbol] = $balances[$currencySymbol] ?? 0;
                 @endphp
-                <tr>
+                <tr class="@if(!$key->invoice_items->isEmpty() && $request->account_statment_type == 'detailed')
+                    bg-dark
+                @endif">
                     <td>{{ $key->reference_number }}</td>
                     <td>{{ \Carbon\Carbon::parse($key->created_at)->format('Y-m-d') }}</td>
                     <td>
@@ -112,20 +114,12 @@
                     </td>
                 </tr>
 
-                @if ($key->type == 'sales')
+                @if ($key->type == 'sales' || $key->type == 'purchase')
                     @if ($request->account_statment_type == 'detailed')
                         @if (!empty($key->invoice_items))
                             <tr class="bg-light">
                                 <td colspan="7">
                                     <table class="table-sm w-100">
-                                        <thead>
-                                            <tr>
-                                                <th>الباركود</th>
-                                                <th>اسم المنتج</th>
-                                                <th>الكمية</th>
-                                                <th>السعر</th>
-                                            </tr>
-                                        </thead>
                                         <tbody>
                                             @foreach ($key->invoice_items as $item)
                                                 <tr>
