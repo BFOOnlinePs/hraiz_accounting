@@ -120,6 +120,7 @@
                                     <table class="table-sm w-100">
                                         <thead>
                                             <tr>
+                                                <th>الباركود</th>
                                                 <th>اسم المنتج</th>
                                                 <th>الكمية</th>
                                                 <th>السعر</th>
@@ -128,6 +129,7 @@
                                         <tbody>
                                             @foreach ($key->invoice_items as $item)
                                                 <tr>
+                                                    <td>{{ $item->product->product_barcode }}</td>
                                                     <td>{{ $item->product->product_name_ar }}</td>
                                                     <td>{{ $item->quantity }}</td>
                                                     <td>{{ $item->rate }}</td>
