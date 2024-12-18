@@ -105,6 +105,14 @@
                                     <span>( شيك )</span>
                                 @endif --}}
                             {{-- </a> --}}
+                        @elseif($key->type == 'return_sales')
+                            <a target="_blank" href="{{ route('accounting.returns.returns_details', ['id' => $key->invoice_id]) }}">
+                                <span>مردود مبيعات</span>
+                                {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
+                                @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
+                                    <span>( شيك )</span>
+                                @endif --}}
+                            </a>
                         @elseif ($key->type == 'performance_bond')
                             <a target="_blank" href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}">
                                 <span>سند صرف</span>
