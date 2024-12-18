@@ -19,7 +19,7 @@
             @foreach($data as $index => $key)
                 <tr>
                     <td>{{ $key->product->product_name_ar }}</td>
-                    <td>{{ $key->product->product_price }}</td>
+                    <td>{{ $key->product_price }}</td>
                     <td class="justify-content-center align-items-center">
                         @if($returns->invoice_id != -1)
                             <span><input @if($returns->status == 'stage') disabled @endif onchange="update_qty_from_return_items({{ $key->id }} , this.value , {{$key->invoice_qty}},this)" style="display: inline !important;width: 60px" type="text" class="" value="{{ $key->qty }}" tabindex="{{ $index + 1 }}"></span> | <span>{{ $key->invoice_qty }}</span>

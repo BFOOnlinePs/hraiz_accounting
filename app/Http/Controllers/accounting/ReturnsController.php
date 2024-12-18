@@ -143,16 +143,16 @@ class ReturnsController extends Controller
         $data = ReturnsModel::with('invoice.client' , 'invoice.invoiceItems')->where('id',$id)->first();
         $data->invoice = PurchaseInvoicesModel::where('id',$data->invoice_id)->first();
         $return_items = ReturnItemsModel::where('invoice_id',$id)->get();
-        return $data;
         return view('admin.accounting.returns.details',['return_items'=>$return_items,'data'=>$data]);
     }
 
     public function return_item_table(Request $request){
-        $returns = ReturnsModel::where('id',$request->return_id)->first();
+        $returns = ReturnsModel::with('invoice.client' , 'invoice.invoiceItems')->where('id',$request->return_id)->first();
         $data = ReturnItemsModel::where('invoice_id',$request->return_id)->get();
         foreach ($data as $key){
             $key->product = ProductModel::where('id',$key->product_id)->first();
             $key->invoice_qty = InvoiceItemsModel::where('invoice_id',$returns->invoice_id)->where('item_id',$key->product_id)->first()->quantity ?? 0;
+            $key->product_price = InvoiceItemsModel::where('invoice_id',$returns->invoice_id)->where('item_id',$key->product_id)->first()->rate ?? 0;
         }
         $wherehouses = WhereHouseModel::get();
         return response()->json([
