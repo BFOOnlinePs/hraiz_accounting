@@ -20,7 +20,8 @@ class DocAmountModel extends Model
     }
 
 
+
     public function invoice_items(){
-        return $this->hasMany(InvoiceItemsModel::class, 'invoice_id', 'id');
+        return $this->hasMany(InvoiceItemsModel::class, 'invoice_id', 'invoice_id');
     }
 }
