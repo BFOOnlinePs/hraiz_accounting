@@ -113,18 +113,33 @@
                 </tr>
 
                 @if ($key->type == 'sales')
-                    @if (!empty($key->invoice_items))
-                            @foreach ($key->invoice_items as $item)
+                    @if ($request->account_statment_type == 'detailed')
+                        @if (!empty($key->invoice_items))
                             <tr class="bg-light">
-                                <td>{{ $item }}</td>
-                                <td>{{ $item }}</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
+                                <td colspan="7">
+                                    <table class="table-sm w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>اسم المنتج</th>
+                                                <th>الكمية</th>
+                                                <th>السعر</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($key->invoice_items as $item)
+                                                <tr>
+                                                    <td>{{ $item->product->product_name_ar }}</td>
+                                                    <td>{{ $item->quantity }}</td>
+                                                    <td>{{ $item->rate }}</td>
+                                                </tr>
+                                            @endforeach
+
+                                        </tbody>
+
+                                    </table>
+                                </td>
                             </tr>
-                            @endforeach
+                        @endif
                     @endif
                 @endif
             @endforeach
