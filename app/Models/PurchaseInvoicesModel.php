@@ -37,4 +37,5 @@ class PurchaseInvoicesModel extends Model
     public function currency(){
         return $this->belongsTo(CurrencyModel::class,'currency_id');
     }
+
 }

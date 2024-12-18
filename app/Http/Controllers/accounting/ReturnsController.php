@@ -140,9 +140,10 @@ class ReturnsController extends Controller
     }
 
     public function returns_details($id){
-        $data = ReturnsModel::with('invoice.client')->where('id',$id)->first();
+        $data = ReturnsModel::with('invoice.client' , 'invoice.invoiceItems')->where('id',$id)->first();
         $data->invoice = PurchaseInvoicesModel::where('id',$data->invoice_id)->first();
         $return_items = ReturnItemsModel::where('invoice_id',$id)->get();
+        return $data;
         return view('admin.accounting.returns.details',['return_items'=>$return_items,'data'=>$data]);
     }
 

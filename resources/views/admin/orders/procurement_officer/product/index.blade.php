@@ -150,9 +150,14 @@
     @include('admin.orders.order_menu')
     <div class="card">
         <div class="card-header">
-            <h4 class="text-center">الاصناف <a target="_blank"
+            <h4 class="text-center">الاصناف
+                <button data-toggle="modal" data-target="#modal-lg-language" class="btn btn-dark" target="_blank"
+                    ><span
+                         class="fa fa-download"></span></button></h4>
+                {{-- <a target="_blank"
                     href="{{ route('procurement_officer.orders.product.product_list_pdf', ['order_id' => $order->id]) }}"><span
-                        style="float: left;font-size:20px" class="fa fa-download btn btn-dark"></span></a></h4>
+                        style="float: left;font-size:20px" class="fa fa-download btn btn-dark"></span></a> --}}
+            </h4>
         </div>
         <div class="card-body">
             <div class="row p-2">
@@ -280,6 +285,7 @@
             متابعتها بواسطة <span class="text-danger text-bold">{{ $order['to_user']->name ?? '' }}</span></p>
     </div>
 
+    @include('admin.orders.procurement_officer.product.modals.language_modal')
 @endsection
 
 @section('script')
