@@ -204,7 +204,7 @@ class ReturnsController extends Controller
         if ($data->returns_type == 'purchases'){
             $doc_amount->type = 'return_purchase';
         }
-        $doc_amount->invoice_id = $data->invoice_id;
+        $doc_amount->invoice_id = $data->id;
         $doc_amount->reference_number = $invoice->invoice_reference_number;
         $record = ReturnItemsModel::select(
             DB::raw('SUM(return_items.qty * bfo_invoice_items.rate) as total_return_price')
