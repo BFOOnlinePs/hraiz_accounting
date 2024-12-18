@@ -142,7 +142,7 @@ class AccountStatementController extends Controller
 
     public function account_statement_details_table_ajax(Request $request){
         $query = DocAmountModel::query();
-        $query->with('currency_info');
+        $query->with('currency_info','invoice_items.product');
         $query->where('client_id',$request->user_id);
         if ($request->filled('reference_number')){
             $query->where('reference_number','like','%'.$request->reference_number.'%');

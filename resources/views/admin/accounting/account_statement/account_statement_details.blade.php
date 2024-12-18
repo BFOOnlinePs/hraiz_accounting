@@ -87,7 +87,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="">نوع كشف الحساب</label>
-                        <select name="" id="statement_type" class="form-control">
+                        <select onchange="account_statement_details_table_ajax()" name="" id="statement_type" class="form-control">
                             <option value="normal">عادي</option>
                             <option value="detailed">مفصل</option>
                         </select>
@@ -129,6 +129,7 @@
                     'reference_number': $('#reference_number').val(),
                     'from': $('#from').val(),
                     'to': $('#to').val(),
+                    'account_statment_type': $('#statement_type').val(),
                 },
                 success: function(data) {
                     console.log(data);
