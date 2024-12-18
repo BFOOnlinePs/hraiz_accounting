@@ -70,14 +70,14 @@ class ProductController extends Controller
         }
     }
 
-    public function product_list_pdf($order_id){
-        $order = OrderModel::where('id',$order_id)->first();
-        $data = OrderItemsModel::where('order_id',$order_id)->get();
+    public function product_list_pdf(Request $request){
+        $order = OrderModel::where('id',$request->order_id)->first();
+        $data = OrderItemsModel::where('order_id',$request->order_id)->get();
         foreach($data as $key){
             $key->product = ProductModel::where('id',$key->product_id)->first();
             $key->unit = UnitsModel::where('id',$key->unit_id)->first();
         }
-        $pdf = PDF::loadView('admin.orders.procurement_officer.product.pdf.product_list', ['data' => $data,'order'=>$order]);
+        $pdf = PDF::loadView('admin.orders.procurement_officer.product.pdf.product_list', ['data' => $data,'order'=>$order , 'request'=>$request]);
         return $pdf->stream('products.pdf');
     }
 

@@ -1,4 +1,4 @@
-<html>
+<html @if ($request->language == 'ar' || $request->language == 'he') dir="rtl" @else dir="ltr" @endif>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -67,6 +67,11 @@
         td,
         th {
             border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th{
+            background-color: lightgray
         }
 
         table tr {
@@ -75,7 +80,6 @@
 
         .table {
             padding-top: 150px;
-            border-collapse: collapse;
             width: 100%;
             text-align: center;
         }
@@ -96,17 +100,59 @@
     <table style="width: 100%;border: none;text-align: center">
         <thead>
             <tr>
-                <th>Product ar</th>
-                <th>Product en</th>
-                <th>Qty</th>
-                <th>Unit</th>
+                <th>
+                    @if ($request->language == 'ar')
+                        باركود
+                    @elseif ($request->language == 'he')
+                    ברקוד
+                    @elseif ($request->language == 'en')
+                        Barcode
+                    @endif
+                </th>
+                <th>
+                    @if ($request->language == 'ar')
+                        اسم المنتج
+                    @elseif ($request->language == 'he')
+                        שם המוצר
+                    @elseif ($request->language == 'en')
+                        Product
+                    @endif
+                </th>
+                {{-- <th>Product en</th> --}}
+                <th>
+                    @if ($request->language == 'ar')
+                        الكمية
+                    @elseif ($request->language == 'he')
+                    כַּמוּת
+                    @elseif ($request->language == 'en')
+                        Qty
+                    @endif
+                </th>
+                <th>
+                    @if ($request->language == 'ar')
+                        الوحدة
+                    @elseif ($request->language == 'he')
+                    אַחְדוּת
+                    @elseif ($request->language == 'en')
+                        Unit
+                    @endif
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach ($data as $key)
                 <tr>
-                    <td>{{ $key['product']->product_name_ar }}</td>
-                    <td>{{ $key['product']->product_name_en }}</td>
+                    <td>{{ $key['product']->barcode }}</td>
+                    <td>
+                        @if ($request->language == 'ar')
+                            {{ $key['product']->product_name_ar }}
+                        @elseif ($request->language == 'he')
+                            {{ $key['product']->product_name_he }}
+                        @elseif ($request->language == 'en')
+                            {{ $key['product']->product_name_en }}
+                        @endif
+                    </td>
+                    {{-- <td>{{ $key['product']->product_name_en }}</td> --}}
                     <td>{{ $key->qty }}</td>
                     <td>{{ $key['unit']->unit_name }}</td>
                 </tr>

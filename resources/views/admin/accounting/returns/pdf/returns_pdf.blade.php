@@ -68,12 +68,16 @@
             @foreach($data as $key)
                 <tr>
                     <td>{{ $key->product->product_name_ar }}</td>
-                    <td>{{ $key->product->product_price }}</td>
+                    <td>{{ $key->price }}</td>
                     <td>{{ $key->qty }}</td>
                     <td>{{ $key->unit->unit_name ?? '' }}</td>
                     <td>{{ $key->notes }}</td>
                 </tr>
             @endforeach
+            <tr>
+                <td colspan="4" style="text-align: center">المجموع</td>
+                <td>{{ $return->total_sum }}</td>
+            </tr>
         </table>
     </div>
 </body>

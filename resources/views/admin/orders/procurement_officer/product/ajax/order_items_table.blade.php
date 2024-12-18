@@ -1,9 +1,10 @@
 <div class="table-responsive">
-    <table class="table table-hover border">
+    <table class="table table-sm table-hover border">
         <thead>
             <tr>
                 <th>الرقم</th>
                 <th>الصورة</th>
+                <th>باركود الصنف</th>
                 <th>اسم الصنف</th>
                 <th>اسم الصنف انجليزي</th>
                 <th>الكمية</th>
@@ -34,6 +35,7 @@
                                 </span>
                             </span>
                         </td>
+                        <td>{{ $key['product']->barcode }}</td>
                         <td>
                             @if (!empty($key['product']->product_name_ar))
                                 {{ $key['product']->product_name_ar }}
