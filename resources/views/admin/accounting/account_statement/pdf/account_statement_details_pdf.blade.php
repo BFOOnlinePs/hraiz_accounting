@@ -70,8 +70,19 @@
 
 <body>
 
+    <div>
+        <table style="width: 100%">
+            <tr>
+                <td>
+                    اسم العميل : {{ $user->name }}
+                </td>
+                <td style="text-align: left">
+                    تاريخ طباعة الكشف : {{ \Carbon\Carbon::now()->format('Y-m-d') }}
+                </td>
+        </table>
+    </div>
 
-    <table class="table table-bordered table-hover table-sm">
+    <table class="table table-bordered table-hover table-sm" style="margin-top:20px;">
         <thead class="bg-dark">
             <tr>
                 <th>المستند</th>
