@@ -163,16 +163,16 @@ class AccountStatementController extends Controller
         ]);
     }
 
-    public function print_account_statement_details_pdf($user_id){
-        $user = User::where('id',$user_id)->first();
+    public function print_account_statement_details_pdf(Request $request){
+        $user = User::where('id',$request->user_id)->first();
         $query = DocAmountModel::query();
-        $query->where('client_id',$user_id);
+        $query->where('client_id',$request->user_id);
         $data = $query->get();
         $sumQuery = DocAmountModel::select('type', DB::raw('COUNT(*) as type_count'))
-            ->where('client_id',$user_id)
+            ->where('client_id',$request->user_id)
             ->groupBy('type')
             ->get();
-        $pdf = PDF::loadView('admin.accounting.account_statement.pdf.account_statement_details_pdf', ['data' => $data , 'user' => $user]);
+        $pdf = PDF::loadView('admin.accounting.account_statement.pdf.account_statement_details_pdf', ['data' => $data , 'user' => $user , 'request'=>$request]);
         return $pdf->stream('account_statement.pdf');
     }
 }
