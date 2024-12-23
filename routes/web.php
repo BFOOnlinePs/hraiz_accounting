@@ -680,7 +680,7 @@ Route::group(['prefix'=>'accounting','middleware'=>'auth'],function(){
         Route::post('list_customers_table_ajax',[\App\Http\Controllers\accounting\AccountStatementController::class,'list_customers_table_ajax'])->name('accounting.account-statement.list_customers_table_ajax');
         Route::get('account_statement_details/{id}/{user_type}',[\App\Http\Controllers\accounting\AccountStatementController::class,'account_statement_details'])->name('accounting.account-statement.account_statement_details');
         Route::post('account_statement_details_table_ajax',[\App\Http\Controllers\accounting\AccountStatementController::class,'account_statement_details_table_ajax'])->name('accounting.account-statement.account_statement_details_table_ajax');
-        Route::get('print_account_statement_details_pdf/{user_id}',[\App\Http\Controllers\accounting\AccountStatementController::class,'print_account_statement_details_pdf'])->name('accounting.account-statement.print_account_statement_details_pdf');
+        Route::post('print_account_statement_details_pdf',[\App\Http\Controllers\accounting\AccountStatementController::class,'print_account_statement_details_pdf'])->name('accounting.account-statement.print_account_statement_details_pdf');
     });
     Route::group(['prefix'=>'returns'],function (){
         Route::get('index',[\App\Http\Controllers\accounting\ReturnsController::class,'index'])->name('accounting.returns.index');

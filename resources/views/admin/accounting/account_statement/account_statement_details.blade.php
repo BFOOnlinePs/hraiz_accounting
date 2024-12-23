@@ -31,9 +31,12 @@
                     @endif
                 </div>
                 <div class="col-md-2">
-                    <a target="_blank"
+                    <button data-toggle="modal" data-target="#open_print_modal"
+                    class="btn btn-dark float-right"><span class="fa fa-print"></span></button>
+
+                    {{-- <a target="_blank"
                         href="{{ route('accounting.account-statement.print_account_statement_details_pdf', ['user_id' => $user->id]) }}"
-                        class="btn btn-dark float-right"><span class="fa fa-print"></span></a>
+                        class="btn btn-dark float-right"><span class="fa fa-print"></span></a> --}}
                 </div>
             </div>
             <div class="row">
@@ -105,6 +108,7 @@
             </div>
         </div>
     </div>
+    @include('admin.accounting.account_statement.modals.language_print')
 @endsection
 
 @section('script')
@@ -112,6 +116,10 @@
     <script>
         $(document).ready(function() {
             account_statement_details_table_ajax();
+
+            $('#statement_type').on('change', function() {
+                $('#statement_type_print').val($(this).val());
+            });
         });
 
         function account_statement_details_table_ajax() {

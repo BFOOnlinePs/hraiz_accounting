@@ -139,10 +139,11 @@
                                         <tbody>
                                             @foreach ($key->invoice_items as $item)
                                                 <tr>
-                                                    <td>{{ $item->product->barcode }}</td>
+                                                    <td style="width: 15%">{{ $item->product->barcode }}</td>
                                                     <td>{{ $item->product->product_name_ar }}</td>
-                                                    <td>{{ $item->quantity }}</td>
-                                                    <td>{{ $item->rate }}</td>
+                                                    <td style="width: 10%">{{ $item->quantity }}</td>
+                                                    <td style="width: 10%">{{ $item->rate }}</td>
+                                                    <td class="bg-success" style="width: 10%">{{ $item->quantity * $item->rate }}</td>
                                                 </tr>
                                             @endforeach
 
