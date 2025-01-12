@@ -377,6 +377,7 @@ class SalesInvoicesController extends Controller
 
     // حفظ بيانات المبلغ
     $doc_amount->client_id = $data->client_id;
+    $doc_amount->currency = $data->currency_id;
     $doc_amount->save();
 
     // حفظ حالة الفاتورة

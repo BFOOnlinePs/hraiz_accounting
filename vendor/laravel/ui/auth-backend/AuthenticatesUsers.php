@@ -50,6 +50,10 @@ trait AuthenticatesUsers
                 $request->session()->put('auth.password_confirmed_at', time());
             }
 
+            // Save the custom login date from the input to the session
+            if ($request->filled('login_date')) {
+                $request->session()->put('login_date', $request->input('login_date'));
+            }
             return $this->sendLoginResponse($request);
         }
 
@@ -74,6 +78,7 @@ trait AuthenticatesUsers
         $request->validate([
             $this->username() => 'required|string',
             'password' => 'required|string',
+            'login_date' => 'required|numeric|digits:4|between:1900,' . date('Y'), // Valid year range (1900 to current year)
         ]);
     }
 

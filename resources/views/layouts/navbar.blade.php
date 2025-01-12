@@ -182,6 +182,7 @@
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false" class="nav-link text-white dropdown-toggle">الاعدادات</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                            <li><a href="{{ route('setting.first_term_balance.index') }}" class="dropdown-item">رصيد اول المدة</a></li>
                             <li><a href="{{ route('currency.index') }}" class="dropdown-item">العملات</a></li>
                             <li><a href="{{ route('bank.index') }}" class="dropdown-item">البنوك</a></li>
                             <li><a href="{{ route('shipping_methods.index') }}" class="dropdown-item">طرق الشحن</a>

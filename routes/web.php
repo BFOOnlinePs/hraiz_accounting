@@ -509,6 +509,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('edit/{id}',[App\Http\Controllers\UserCategoryController::class, 'edit'])->name('setting.user_category.edit');
             Route::post('update',[App\Http\Controllers\UserCategoryController::class, 'update'])->name('setting.user_category.update');
         });
+        Route::group(['prefix'=>'first_t\erm_balance'],function(){
+            Route::get('index',[App\Http\Controllers\FirstTermBalanceController::class, 'index'])->name('setting.first_term_balance.index');
+            Route::post('first_term_balance_table_ajax',[App\Http\Controllers\FirstTermBalanceController::class, 'first_term_balance_table_ajax'])->name('setting.first_term_balance.first_term_balance_table_ajax');
+            Route::post('update_first_term_balance_ajax',[App\Http\Controllers\FirstTermBalanceController::class, 'update_first_term_balance_ajax'])->name('setting.first_term_balance.update_first_term_balance_ajax');
+        });
         Route::group(['prefix'=>'machine'],function(){
             Route::get('index',[App\Http\Controllers\MachineController::class, 'setting_index'])->name('setting.machine.setting_index');
             Route::post('create',[App\Http\Controllers\MachineController::class, 'create'])->name('setting.machine.create');

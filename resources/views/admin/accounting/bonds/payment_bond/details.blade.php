@@ -1,15 +1,31 @@
 @extends('home')
 @section('title')
-    سند قبض
+    @if ($data->invoice_type == 'performance_bond')
+        تفاصيل سند صرف
+    @else
+        تفاصيل سند قبض
+    @endif
 @endsection
 @section('header_title')
-    سند قبض
+    @if ($data->invoice_type == 'performance_bond')
+        تفاصيل سند صرف
+    @else
+        تفاصيل سند قبض
+    @endif
 @endsection
 @section('header_link')
-    الرئيسية
+    @if ($data->invoice_type == 'performance_bond')
+        تفاصيل سند صرف
+    @else
+        تفاصيل سند قبض
+    @endif
 @endsection
 @section('header_title_link')
-    سند قبض
+    @if ($data->invoice_type == 'performance_bond')
+        تفاصيل سند صرف
+    @else
+        تفاصيل سند قبض
+    @endif
 @endsection
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
@@ -43,6 +59,14 @@
                                     </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
+                                        <label for="">اسم العميل</label>
+                                        <input readonly type="text" value="{{ $data->client->name ?? '' }}"
+                                            class="form-control" name="bond_number" id="bond_number"
+                                            placeholder="رقم السند">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
                                         <label for="">فاتورة رقم</label>
                                         <input readonly readonly type="text"
                                             value="@if ($data->invoice_id == -1) غير مرتبطة بفاتورة @else {{ $data->invoice_id ?? 'asdads' }} @endif"
@@ -56,7 +80,7 @@
                                             name="reference_number" class="form-control" placeholder="الرقم المرجعي">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">العملة</label>
                                         <select disabled class="form-control select2bs4" required name="currency_id"

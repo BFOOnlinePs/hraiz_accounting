@@ -55,6 +55,12 @@
                                         <input type="text" value="{{ $data->company_address_en ?? '' }}" class="form-control" name="company_address_en" placeholder="عنوان الشركة">
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">رصيد اول المدة</label>
+                                        <input type="text" value="{{ $data->first_term_balance ?? '' }}" class="form-control" name="first_term_balance" placeholder="رصيد اول المدة">
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">اسم الشركة عبري</label>

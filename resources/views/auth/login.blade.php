@@ -53,7 +53,6 @@
                             <span class="fas fa-envelope"></span>
                         </div>
                     </div>
-
                 </div>
                     @error('email')
                     <span class="text-danger">{{ $message }}</span>
@@ -67,6 +66,16 @@
                     </div>
                 </div>
                 @error('password')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" name="login_date" class="form-control" value="{{ date('Y') }}">
+                        </div>
+                    </div>
+                </div>
+                @error('login_date')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="div pt-2">
@@ -83,6 +92,7 @@
 {{--                        <button onclick="login('secretarial@mail.com','123456789')"  type="button" class="btn btn-dark btn-sm form-control">سكرتيريا</button>--}}
 {{--                    </div>--}}
                 </div>
+
                 <div class="row mt-3">
 {{--                    <div class="col-8">--}}
 {{--                        <div class="icheck-primary">--}}
@@ -96,7 +106,6 @@
                     <div class="col">
                         <button type="submit" class="btn btn-primary btn-block">تسجيل الدخول</button>
                     </div>
-
                 </div>
             </form>
 {{--            <div class="social-auth-links text-center mt-2 mb-3">--}}
