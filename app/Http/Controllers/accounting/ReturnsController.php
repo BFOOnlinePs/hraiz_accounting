@@ -96,7 +96,7 @@ class ReturnsController extends Controller
                 }
             }
         }
-        return redirect()->route('accounting.returns.index')->with(['success' => 'تم اضافة البيانات بنجاح']);
+        return redirect()->route('accounting.returns.returns_details',['id'=>$returns->id])->with(['success' => 'تم اضافة البيانات بنجاح']);
     }
 
     public function product_table(Request $request){
@@ -222,12 +222,13 @@ class ReturnsController extends Controller
         }
 
         $doc_amount->client_id = $invoice->client_id;
+        $doc_amount->currency = $invoice->currency_id;
         $doc_amount->save();
         if ($data->save()){
-            return redirect()->route('accounting.sales_invoices.invoice_view',['id'=>$id])->with(['success'=>'تم ترحيل الفاتورة بنجاح']);
+            return redirect()->route('accounting.returns.returns_details',['id'=>$id])->with(['success'=>'تم ترحيل الفاتورة بنجاح']);
         }
         else{
-            return redirect()->route('accounting.sales_invoices.invoice_view',['id'=>$id])->with(['fail'=>'هناك خلل ما لم يتم ترحيل الفاتورة']);
+            return redirect()->route('accounting.returns.returns_details',['id'=>$id])->with(['fail'=>'هناك خلل ما لم يتم ترحيل الفاتورة']);
         }
     }
 

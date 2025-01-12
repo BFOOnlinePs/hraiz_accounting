@@ -11,6 +11,8 @@ class DocAmountModel extends Model
 
     protected $table = 'doc_amount';
 
+    protected $guarded = [];
+
     public function invoice(){
         return $this->belongsTo(PurchaseInvoicesModel::class, 'invoice_id', 'id');
     }

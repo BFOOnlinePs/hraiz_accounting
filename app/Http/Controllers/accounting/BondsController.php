@@ -551,7 +551,7 @@ class BondsController extends Controller
     }
 
     public function details($id){
-        $data = BondsModel::where('id',$id)->first();
+        $data = BondsModel::with('client')->where('id',$id)->first();
         $currencies = Currency::get();
         return view('admin.accounting.bonds.payment_bond.details',['data'=>$data , 'currencies'=>$currencies]);
     }

@@ -7,7 +7,7 @@
             <th>مدين</th>
             <th>الرصيد</th>
             <th>الملاحظات</th>
-            <th>البيان</th>
+            <th style="width: 200px">البيان</th>
         </tr>
     </thead>
     <tbody>
@@ -41,30 +41,30 @@
                     $balances[$currencySymbol] = $balances[$currencySymbol] ?? 0;
                 @endphp
                 <tr class="@if(!$key->invoice_items->isEmpty() && $request->account_statment_type == 'detailed')
-                    bg-dark
+                    bg-secondary
                 @endif">
                     <td>{{ $key->reference_number }}</td>
                     <td>{{ \Carbon\Carbon::parse($key->created_at)->format('Y-m-d') }}</td>
                     <td>
                         @if (in_array($key->type, ['purchase', 'payment_bond', 'return_sales', 'registration_bond_credit']))
-                            {{ $key->amount }} {{ $currencySymbol }}
+                        {{ $currencySymbol }} {{ $key->amount }}
                             @php
                                 $sumCreditor[$currencySymbol] += $key->amount;
                                 $balances[$currencySymbol] -= $key->amount;
                             @endphp
                         @else
-                            0
+                        {{ $currencySymbol }} 0
                         @endif
                     </td>
                     <td>
                         @if (in_array($key->type, ['sales', 'performance_bond', 'return_purchase', 'registration_bond_debt']))
-                            {{ $key->amount }} {{ $currencySymbol }}
+                        {{ $currencySymbol }} {{ $key->amount }}
                             @php
                                 $sumDebtor[$currencySymbol] += $key->amount;
                                 $balances[$currencySymbol] += $key->amount;
                             @endphp
                         @else
-                            0
+                        {{ $currencySymbol }} 0
                         @endif
                     </td>
                     <td>
@@ -72,7 +72,7 @@
                             // Format balances for display with badge class
                             $balanceDisplay = collect($balances)
                                 ->map(function ($value, $currency) {
-                                    return '<span class="badge bg-warning">' .
+                                    return '<span class="">' .
                                         $currency .
                                         ' ' .
                                         number_format($value) .
@@ -85,11 +85,11 @@
                     <td>{{ $key->notes ?? '' }}</td>
                     <td>
                         @if ($key->type == 'sales')
-                            <a target="_blank"
+                            <div style="width:13px;height:13px" class="bg-success d-inline-block ml-2 rounded"></div><a class="text-dark" target="_blank"
                                 href="{{ route('accounting.sales_invoices.invoice_view', ['id' => $key->invoice_id]) }}">فاتورة
                                 مبيعات</a>
                         @elseif ($key->type == 'payment_bond')
-                        <a target="_blank" href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}">
+                        <div style="width:13px;height:13px" class="bg-secondary d-inline-block ml-2 rounded"></div><a class="text-dark" target="_blank" href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}">
                             <span>سند قبض</span>
                             {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
                             @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
@@ -106,15 +106,23 @@
                                 @endif --}}
                             {{-- </a> --}}
                         @elseif($key->type == 'return_sales')
-                            <a target="_blank" href="{{ route('accounting.returns.returns_details', ['id' => $key->invoice_id]) }}">
+                        <div style="width:13px;height:13px" class="bg-danger d-inline-block ml-2 rounded"></div><a class="text-dark" target="_blank" href="{{ route('accounting.returns.returns_details', ['id' => $key->invoice_id]) }}">
                                 <span>مردود مبيعات</span>
                                 {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
                                 @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
                                     <span>( شيك )</span>
                                 @endif --}}
                             </a>
+                        @elseif($key->type == 'return_purchase')
+                        <div style="width:13px;height:13px" class="bg-warning d-inline-block ml-2 rounded"></div><a class="text-dark" target="_blank" href="{{ route('accounting.returns.returns_details', ['id' => $key->invoice_id]) }}">
+                                <span>مردود مشتريات</span>
+                                {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
+                                @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
+                                    <span>( شيك )</span>
+                                @endif --}}
+                            </a>
                         @elseif ($key->type == 'performance_bond')
-                            <a target="_blank" href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}">
+                        <div style="width:13px;height:13px" class="bg-dark d-inline-block ml-2 rounded"></div><a class="text-dark" target="_blank" href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}">
                                 <span>سند صرف</span>
                                 {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
                                 @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
@@ -122,7 +130,7 @@
                                 @endif --}}
                             </a>
                         @elseif ($key->type == 'purchase')
-                            <a target="_blank"
+                        <div style="width:13px;height:13px" class="bg-info d-inline-block ml-2 rounded"></div><a class="text-dark" target="_blank"
                                 href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">فاتورة
                                 مشتريات</a>
                         @elseif ($key->type == 'performance_bond')
@@ -157,7 +165,7 @@
                 @endif
             @endforeach
 
-            <tr class="bg-dark">
+            <tr class="bg-success">
                 <td></td>
                 <td colspan="1" class="text-center">المجموع</td>
                 <td>

@@ -63,7 +63,7 @@
                                     <input required id="invoice_amount" type="text" name="amount"
                                         class="form-control text-center"
                                         style="background-color: palegoldenrod;font-size: 50px;height: 80px !important;vertical-align: middle;padding-top: 25px"
-                                        pattern="[0-9]+" title="يجب ادخال ارقام فقط" placeholder="قيمة سند الصرف">
+                                        pattern="[0-9]+" title="يجب ادخال ارقام فقط" placeholder="قيمة سند القبض">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -87,7 +87,7 @@
                                     </div>
                                 </div> --}}
                             <div class="col-md-12">
-                                <button class="btn btn-sm btn-success">اضافة سند الصرف</button>
+                                <button class="btn btn-sm btn-success">اضافة سند قبض</button>
                             </div>
 
                         </form>

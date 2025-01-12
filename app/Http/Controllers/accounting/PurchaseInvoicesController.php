@@ -193,7 +193,8 @@ class PurchaseInvoicesController extends Controller
         // $data->unit_type = $request->unit_type;
         // $data->rate = 200;
         $data->invoice_id = $request->invoice_id;
-        $data->wherehouse_id = PurchaseInvoicesModel::where('id',$request->invoice_id)->first()->wherehouse_id ?? 0;
+        $data->rate = 1;
+        // $data->wherehouse_id = PurchaseInvoicesModel::where('id',$request->invoice_id)->first()->wherehouse_id ?? 0;
 
         if($data->save()){
             return response()->json([
@@ -374,6 +375,7 @@ class PurchaseInvoicesController extends Controller
         $doc_amount->reference_number = $data->invoice_reference_number;
         $doc_amount->amount = InvoiceItemsModel::where('invoice_id',$id)->sum(DB::raw('rate * quantity'));
         $doc_amount->client_id = $data->client_id;
+        $doc_amount->currency = $data->currency_id;
         $doc_amount->save();
         if ($data->save()){
             return redirect()->route('accounting.purchase_invoices.invoice_view',['id'=>$id])->with(['success'=>'تم ترحيل الفاتورة بنجاح']);

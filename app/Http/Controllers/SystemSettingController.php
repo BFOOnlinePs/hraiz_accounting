@@ -33,6 +33,7 @@ class SystemSettingController extends Controller
         $data->company_address_en = $request->company_address_en;
         $data->company_name_he = $request->company_name_he;
         $data->company_address_he = $request->company_address_he;
+        $data->first_term_balance = $request->first_term_balance;
 
         if ($request->hasFile('company_logo')) {
             $file = $request->file('company_logo');
