@@ -13,7 +13,6 @@ use Mpdf\Tag\Tr;
 class FirstTermBalanceController extends Controller
 {
     public function index(){
-
         return view('admin.setting.first_term_balance.index');
     }
 

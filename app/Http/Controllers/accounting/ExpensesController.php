@@ -83,7 +83,7 @@ class ExpensesController extends Controller
         $data->repeat_every = $request->repeat_every;
         $data->repeat_type = $request->repeat_type;
         $data->no_of_cycles = $request->no_of_cycles;
-        $data->currency_id = $request->currency_id;
+        // $data->currency_id = $request->currency_id;
         if ($data->save()){
             return redirect()->route('accounting.expenses.index')->with(['success'=>'تم اضافة البيانات بنجاح']);
         }
