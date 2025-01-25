@@ -150,7 +150,10 @@ class AccountStatementController extends Controller
         if ($request->filled('from') && $request->filled('to')){
             $query->whereBetween('created_at',[Carbon::parse($request->from)->startOfDay(),Carbon::parse($request->to)->endOfDay()]);
         }
-        $data = $query->with('invoice_items')->get();
+        $year = session()->get('login_date');
+        $data = $query->with('invoice_items')->whereYear('created_at', session()->get('login_date'))->get();
+
+        $firstTermBalance = DocAmountModel::where('client_id',$request->user_id)->where('type','start_period_balance')->orderBy('id','desc')->first();
 
         $sumQuery = DocAmountModel::select('type', DB::raw('COUNT(*) as type_count'))
             ->where('client_id',$request->user_id)
@@ -159,7 +162,7 @@ class AccountStatementController extends Controller
             // return $data;
         return response()->json([
             'success' => 'true',
-            'view' => view('admin.accounting.account_statement.ajax.account_statement_details_table',['data' => $data,'sumQuery'=>$sumQuery , 'request'=>$request])->render()
+            'view' => view('admin.accounting.account_statement.ajax.account_statement_details_table',['data' => $data,'sumQuery'=>$sumQuery , 'request'=>$request , 'firstTermBalance'=>$firstTermBalance])->render()
         ]);
     }
 

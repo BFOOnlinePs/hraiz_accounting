@@ -12,12 +12,14 @@ use Mpdf\Tag\Tr;
 
 class FirstTermBalanceController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('admin.setting.first_term_balance.index');
     }
 
-    public function first_term_balance_table_ajax(Request $request){
-// $data = DocAmountModel::select(
+    public function first_term_balance_table_ajax(Request $request)
+    {
+        // $data = DocAmountModel::select(
         //     'users.name', // استخدام جدول users
         //     DB::raw('COALESCE(SUM(CASE WHEN doc_amount.type = "credit" THEN doc_amount.amount ELSE 0 END), 0) AS credit'),
         //     DB::raw('COALESCE(SUM(CASE WHEN doc_amount.type = "debit" THEN doc_amount.amount ELSE 0 END), 0) AS debt'),
@@ -35,40 +37,45 @@ class FirstTermBalanceController extends Controller
             DB::raw('
                 COALESCE(SUM(CASE WHEN doc_amount.type = "purchase" OR doc_amount.type = "return_sales" OR doc_amount.type = "payment_bond" THEN doc_amount.amount ELSE 0 END), 0) AS debit')
         )
-        ->groupBy('client_id')
-        ->whereYear('created_at', session()->get('login_date') - 1)
-        ->get()
-        ->map(function ($item) {
-            $credit = $item->credit;
-            $debit = $item->debit;
+            ->groupBy('client_id')
+            ->whereYear('created_at', session()->get('login_date') - 1)
+            ->get()
+            ->map(function ($item) {
+                $credit = $item->credit;
+                $debit = $item->debit;
 
-            return [
-                'client' => User::where('id', $item->client_id)->first(),
-                'credit' => $credit,
-                'debit' => $debit,
-                'balance' => round($credit - $debit, 0),
-            ];
-        });
+                return [
+                    'client' => User::where('id', $item->client_id)->first(),
+                    'credit' => $credit,
+                    'debit' => $debit,
+                    'balance' => round($credit - $debit, 0),
+                ];
+            });
         return response()->json([
             'success' => 'true',
-            'view' => view('admin.setting.first_term_balance.ajax.first_term_balance',['data'=>$data , 'currency'=>$currency])->render()
+            'view' => view('admin.setting.first_term_balance.ajax.first_term_balance', ['data' => $data, 'currency' => $currency])->render()
         ]);
     }
 
     // انشاء او تعديل رصيد اول المدة
-    public function update_first_term_balance_ajax(Request $request){
+    public function update_first_term_balance_ajax(Request $request)
+    {
         $year = session()->get('login_date');
-        $data = DocAmountModel::createOrFirst([
-            'created_at' => $year . '-01-01 00:00:00',
-            'type' => 'start_period_balance',
-            'client_id' => $request->client_id
-        ],[
-            'amount' => $request->value,
-            'currency' => $request->currency_id
-        ]);
-        $data->save();
+
+        $data = DocAmountModel::updateOrCreate(
+            [
+                'type' => 'start_period_balance',
+                'client_id' => $request->client_id,
+            ],
+            [
+                'created_at' => $year . '-01-01 00:00:00',
+                'amount' => $request->value,
+                'currency' => $request->currency_id
+            ]
+        );
+
         return response()->json([
-            'success' => 'true',
+            'success' => true,
             'message' => 'تم التحديث بنجاح'
         ]);
     }
