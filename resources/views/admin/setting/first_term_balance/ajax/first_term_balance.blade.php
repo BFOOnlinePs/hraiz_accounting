@@ -5,7 +5,7 @@
         <th>رصيد دائن</th>
         <th>رصيد مدين</th>
         <th>رصيد اخر المدة ( {{ session()->get('login_date') - 1 }} )</th>
-        <th>رصيد اول المدة ( {{ session()->get('login_date') }} )</th>
+        <th style="width: 30%">رصيد اول المدة ( {{ session()->get('login_date') }} )</th>
         <th>ملاحظات</th>
     </tr>
     </thead>
@@ -27,18 +27,30 @@
                         <span class="">{{ $item['balance'] }}</span>
                     @endif
                 </td>
-                <td class="d-flex">
-                    <form>
-                        <div class="form-group d-inline">
-                            <input type="text" onchange="updateFirstTermBalance(this.value , {{ $item['client']['id'] }} , currency_id.value)" name="amount_first_balance" class="form-control text-center w-100" value="">
+                <td>
+                    <form class="d-flex justify-content-center align-items-center">
+                        <div style="flex: 2" class="d-inline justify-content-center align-items-center">
+                            <input type="text" onchange="updateFirstTermBalance(this.value , {{ $item['client']['id'] }} , currency_id.value)" placeholder="رصيد اول المدة" name="amount_first_balance" class="form-control btn-xs text-center w-100" value="{{ \App\Models\DocAmountModel::where('type','start_period_balance')->whereYear('created_at',session()->get('login_date'))->where('client_id', $item['client']['id'])->orderBy('id','desc')->first()->amount ?? '' }}">
                         </div>
-                        <div class="form-group d-inline">
-                            <select name="currency_id" onchange="updateFirstTermBalance(amount_first_balance.value , {{ $item['client']['id'] }} , this.value)" class="form-control w-100" id="currency_id">
+                        <div style="flex: 1" class=" d-inline justify-content-center align-items-center">
+                            <select name="currency_id" onchange="updateFirstTermBalance(amount_first_balance.value , {{ $item['client']['id'] }} , this.value)" class="form-control btn-xs w-100" style="" id="currency_id">
                                 @foreach ($currency as $key)
-                                    <option value="{{ $key->id }}">{{ $key->currency_name }}</option>
+                                    <option @if ( \App\Models\DocAmountModel::where('type','start_period_balance')->whereYear('created_at',session()->get('login_date'))->where('client_id', $item['client']['id'])->orderBy('id','desc')->first()->currency ?? '')
+                                        selected
+                                    @endif value="{{ $key->id }}">{{ $key->currency_name }}</option>
                                 @endforeach
                             </select>
                         </div>
+                        {{-- <div style="flex: 1" class="justify-content-center align-items-center">
+                            <select class="form-control btn-xs" name="" id="">
+                                <option @if ($item['balance'] > 0)
+                                    selected
+                                @endif value="">مدين</option>
+                                <option @if ($item['balance'] < 0)
+                                    selected
+                                @endif  value="">دائن</option>
+                            </select>
+                        </div> --}}
                     </form>
                 </td>
                 <td></td>

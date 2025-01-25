@@ -142,6 +142,7 @@
     @yield('script')
 
     <script>
+
         function viewAttachment(url) {
             document.getElementById('view_attachment_result').src = url;
         }
