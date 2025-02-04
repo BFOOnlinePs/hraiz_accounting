@@ -106,15 +106,29 @@
                     <td colspan="7" class="text-center">لا توجد بيانات</td>
                 </tr>
             @else
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>رصيد اول المدة</td>
-                    <td></td>
-                </tr>
+            @if (!empty($firstTermBalance))
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    @if ($firstTermBalance['amount'] < 0)
+                        {{ $firstTermBalance['amount'] }}
+                    @else
+                    0
+                    @endif
+                </td>
+                <td>
+                    @if ($firstTermBalance['amount'] > 0)
+                        {{ $firstTermBalance['amount'] }}
+                    @else
+                    0
+                    @endif
+                </td>
+                <td>{{ $firstTermBalance['amount'] }}</td>
+                <td>رصيد اول المدة  </td>
+                <td></td>
+            </tr>
+        @endif
                 @foreach ($data as $key)
                     @php
                         $currencySymbol = $key->currency_info->currency_symbol ?? 'بدون عملة';
