@@ -171,11 +171,12 @@ class AccountStatementController extends Controller
         $query = DocAmountModel::query();
         $query->where('client_id',$request->user_id);
         $data = $query->get();
+        $firstTermBalance = DocAmountModel::where('client_id',$request->user_id)->where('type','start_period_balance')->orderBy('id','desc')->first();
         $sumQuery = DocAmountModel::select('type', DB::raw('COUNT(*) as type_count'))
             ->where('client_id',$request->user_id)
             ->groupBy('type')
             ->get();
-        $pdf = PDF::loadView('admin.accounting.account_statement.pdf.account_statement_details_pdf', ['data' => $data , 'user' => $user , 'request'=>$request]);
+        $pdf = PDF::loadView('admin.accounting.account_statement.pdf.account_statement_details_pdf', ['data' => $data , 'user' => $user , 'request'=>$request , 'firstTermBalance'=>$firstTermBalance]);
         return $pdf->stream('account_statement.pdf');
     }
 }
