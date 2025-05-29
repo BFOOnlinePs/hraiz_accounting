@@ -160,6 +160,7 @@
             document.getElementById('form_product').style.display = 'none';
             product_list_search(page);
             price_offer_sales_items_table_ajax(page);
+            $('#currency_id').val({{ $price_offer_sales->currency_id }});
         });
 
         function show_form_product() {
@@ -399,6 +400,7 @@
         }
 
         function update_currency_notes_customer_for_price_offer_sales_items_ajax(value, operation) {
+            document.getElementById('currency_id').value = value;
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
                 "X-CSRF-Token": csrfToken
@@ -473,14 +475,6 @@
             });
         }
 
-        var page = 1;
-        $(document).on('click', '.pagination a', function(e) {
-            e.preventDefault();
-            page = $(this).attr('href').split('page=')[1];
-            product_list_search(page);
-            price_offer_sales_items_table_ajax(page);
-        });
-
         $('#price_offer_found_form').submit(function(e) {
             e.preventDefault();
             let formData = new FormData(this);
@@ -503,6 +497,16 @@
                 }
             });
         })
+
+        var page = 1;
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            page = $(this).attr('href').split('page=')[1];
+            product_list_search(page);
+            price_offer_sales_items_table_ajax(page);
+        });
+
+        
     </script>
 
     <script>

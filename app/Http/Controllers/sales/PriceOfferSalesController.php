@@ -73,6 +73,7 @@ class PriceOfferSalesController extends Controller
         $price_offer_sales['currency'] = CurrencyModel::where('id',$price_offer_sales->currency_id)->first();
         $currency = CurrencyModel::get();
         $client = User::whereJsonContains('user_role',['10'])->orWhereJsonContains('user_role',['4'])->get();
+
         return view('admin.sales.price_offer_sales.price_offer_sales_items.index',['data'=>$data,'price_offer_sales'=>$price_offer_sales,'currency'=>$currency , 'client'=>$client]);
     }
 

@@ -1,5 +1,7 @@
 *.tmp
 .env
-!/public/storage
-storage/
-public/
+vendor/
+node_modules/
+# !/public/storage
+# storage/
+# public/

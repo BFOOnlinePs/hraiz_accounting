@@ -3,6 +3,7 @@
         <form action="{{ route('accounting.orders_sales.add_price_offer_sales_to_order_sales') }}"
             id="price_offer_found_form" method="post" enctype="multipart/form-data">
             @csrf
+            <input type="text" name="currency_id" id="currency_id">
             <input type="hidden" name="customer_id" value="{{ $price_offer_sales->customer_id }}">
             <input type="hidden" name="price_offer_sales_id" value="{{ $price_offer_sales->id }}">
             <div class="modal-content">
@@ -21,7 +22,6 @@
                     <button type="button" class="btn btn-danger" data-dismiss="modal">اغلاق</button>
                     <button type="submit" class="btn btn-dark">انشاء طلبية بيع</button>
                 </div>
-
             </div>
         </form>
     </div>
