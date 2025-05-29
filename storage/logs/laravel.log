@@ -1306,3 +1306,15 @@ Stack trace:
 [stacktrace]
 #0 {main}
 "} 
+[2025-05-29 11:26:48] local.ERROR: Cannot redeclare invoice_posting() (previously declared in C:\xampp2\htdocs\projects\hraiz_accounting\app\helpers.php:3) {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot redeclare invoice_posting() (previously declared in C:\\xampp2\\htdocs\\projects\\hraiz_accounting\\app\\helpers.php:3) at C:\\xampp2\\htdocs\\projects\\hraiz_accounting\\app\\helpers.php:3)
+[stacktrace]
+#0 {main}
+"} 
+[2025-05-29 11:27:48] local.ERROR: Cannot redeclare invoice_posting() (previously declared in C:\xampp2\htdocs\projects\hraiz_accounting\app\helpers.php:3) {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot redeclare invoice_posting() (previously declared in C:\\xampp2\\htdocs\\projects\\hraiz_accounting\\app\\helpers.php:3) at C:\\xampp2\\htdocs\\projects\\hraiz_accounting\\app\\helpers.php:3)
+[stacktrace]
+#0 {main}
+"} 
+[2025-05-29 11:28:48] local.ERROR: Cannot redeclare invoice_posting() (previously declared in C:\xampp2\htdocs\projects\hraiz_accounting\app\helpers.php:3) {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot redeclare invoice_posting() (previously declared in C:\\xampp2\\htdocs\\projects\\hraiz_accounting\\app\\helpers.php:3) at C:\\xampp2\\htdocs\\projects\\hraiz_accounting\\app\\helpers.php:3)
+[stacktrace]
+#0 {main}
+"} 
