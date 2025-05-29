@@ -223,6 +223,8 @@ class SalesInvoicesController extends Controller
 
     // انشاء فاتورة من عرض سعر
     public function create_purchase_invoices_from_order(Request $request){
+        // return $request;
+        $order = OrdersSalesModel::where('id',$request->order_id)->first();
         $data = new PurchaseInvoicesModel();
 //        $order = OrderModel::where('id',$request->order_id)->first();
         $data->invoice_reference_number = $request->order_id ?? $request->price_offer_sales_id;
@@ -232,6 +234,7 @@ class SalesInvoicesController extends Controller
         $data->client_id = $request->supplier_user_id;
         $data->invoice_type = 'sales';
         $data->order_id = $request->order_id;
+        $data->currency_id = $order->currency;
         // $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
         if($data->save()){
             foreach($request->select_items as $key){

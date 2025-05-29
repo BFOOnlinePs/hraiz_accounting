@@ -171,6 +171,7 @@ class OrdersSalesController extends Controller
         $data->order_status = 'invoice_has_not_been_posted';
         $data->price_offer_sales_id = $request->price_offer_sales_id;
         $data->reference_number = 'عرض سعر رقم ' . ($get_last_id + 1);
+        $data->currency = $request->currency_id;
         $data->inserted_at = Carbon::now();
         if ($data->save()){
             $get_price_offer_sales_items = PriceOfferSalesItemsModel::where('price_offer_sales_id',$request->price_offer_sales_id)->get();
