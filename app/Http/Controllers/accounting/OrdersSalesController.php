@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DocAmountModel;
 use App\Models\InvoiceItemsModel;
 use App\Models\OrdersSalesItemsModel;
+use App\Models\Currency;
 use App\Models\OrdersSalesModel;
 use App\Models\PreparationModel;
 use App\Models\PriceOfferSalesItemsModel;
@@ -72,7 +73,8 @@ class OrdersSalesController extends Controller
         $data = OrdersSalesModel::where('id',$order_id)->first();
         $clients = User::whereJsonContains('user_role','10')->orWhereJsonContains('user_role','4')->get();
         $employees = User::whereJsonContains('user_role','11')->get();
-        return view('admin.accounting.orders_sales.orders_sales_details',['data'=>$data , 'clients'=>$clients , 'employees'=>$employees]);
+        $currency = Currency::get();
+        return view('admin.accounting.orders_sales.orders_sales_details',['data'=>$data , 'clients'=>$clients , 'employees'=>$employees , 'currency' => $currency]);
     }
 
     public function orders_sales_items_list_ajax(Request $request)

@@ -12,7 +12,16 @@
                     method="post">
                     <input type="hidden" name="order_id" value="{{ $data->id ?? '' }}" id="order_input">
                     <input type="hidden" name="supplier_user_id" value="{{ $data->user_id ?? '' }}">
+
                     <div class="row">
+                        <div class="col-md-12">
+                            <label for="">اختر العملة</label>
+                            <select required name="currency_id" class="form-control" id="">
+                                @foreach($currency as $key)
+                                    <option value="{{ $key->id }}">{{ $key->currency_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="col-md-12">
                             {{-- <input type="text" onkeyup="product_list_ajax()" class="form-control" id="product_search"
                                 placeholder="بحث عن صنف"> --}}
