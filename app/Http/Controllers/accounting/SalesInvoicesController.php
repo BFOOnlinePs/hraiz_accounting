@@ -366,6 +366,8 @@ class SalesInvoicesController extends Controller
     $doc_amount = new DocAmountModel();
     $doc_amount->type = 'sales';
     $doc_amount->invoice_id = $id;
+    $doc_amount->reference_number = $data->invoice_reference_number;
+    $doc_amount->notes = $data->note;
 
     // حساب المبلغ مع الأخذ في الاعتبار الخصومات الفارغة
     $totalAmountWithDiscounts = InvoiceItemsModel::where('invoice_id', $id)
