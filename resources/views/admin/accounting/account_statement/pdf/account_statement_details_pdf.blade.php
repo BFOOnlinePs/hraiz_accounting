@@ -142,7 +142,7 @@
                         bg-dark
                     @endif">
                         <td>{{ $key->reference_number }}</td>
-                        <td>{{ \Carbon\Carbon::parse($key->created_at)->format('Y-m-d') }}</td>
+                        <td>{{ $key->invoice->due_date ?? ' - ' }}</td>
                         <td>
                             @if (in_array($key->type, ['purchase', 'payment_bond', 'return_sales', 'registration_bond_credit']))
                                 {{ $key->amount }} {{ $currencySymbol }}
@@ -180,49 +180,18 @@
                             @endphp
                             {!! $balanceDisplay !!}
                         </td>
-                        <td>{{ $key->notes ?? '' }}</td>
+                        <td>{{ $key->invoice->note ?? '' }}</td>
                         <td>
                             @if ($key->type == 'sales')
-                                <a target="_blank"
-                                    href="{{ route('accounting.sales_invoices.invoice_view', ['id' => $key->invoice_id]) }}">فاتورة
-                                    مبيعات</a>
+                                    <span>مبيعات</span>
                             @elseif ($key->type == 'payment_bond')
-                            <a target="_blank" href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}">
                                 <span>سند قبض</span>
-                                {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
-                                @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
-                                    <span>( شيك )</span>
-                                @endif --}}
-                            </a>
-
-                                {{-- <a target="_blank"
-                                    href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}"><span>سند
-                                        قبض</span> --}}
-                                {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
-                                    @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
-                                        <span>( شيك )</span>
-                                    @endif --}}
-                                {{-- </a> --}}
                             @elseif($key->type == 'return_sales')
-                                <a target="_blank" href="{{ route('accounting.returns.returns_details', ['id' => $key->invoice_id]) }}">
                                     <span>مردود مبيعات</span>
-                                    {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
-                                    @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
-                                        <span>( شيك )</span>
-                                    @endif --}}
-                                </a>
                             @elseif ($key->type == 'performance_bond')
-                                <a target="_blank" href="{{ route('accounting.bonds.details', ['id' => $key->invoice_id]) }}">
                                     <span>سند صرف</span>
-                                    {{-- <span>{{ App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type ?? '' }}</span>
-                                    @if (!empty(App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type) && App\Models\BondsModel::where('invoice_id', $key->invoice_id)->first()->payment_type == 'check')
-                                        <span>( شيك )</span>
-                                    @endif --}}
-                                </a>
                             @elseif ($key->type == 'purchase')
-                                <a target="_blank"
-                                    href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->invoice_id]) }}">فاتورة
-                                    مشتريات</a>
+                                    <span>مشتريات</span>
                             @elseif ($key->type == 'performance_bond')
                             @endif
                         </td>
@@ -282,7 +251,7 @@
                         @endphp
                         {!! $debtorDisplay !!}
                     </td>
-                    <td colspan="3">
+                    <td colspan="4">
                         @php
                             $balanceDisplay = collect($balances)
                                 ->map(function ($value, $currency) {

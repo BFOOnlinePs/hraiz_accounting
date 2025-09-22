@@ -57,7 +57,7 @@
 
                 <tr class="@if (!$key->invoice_items->isEmpty() && $request->account_statment_type == 'detailed') bg-secondary @endif">
                     <td>{{ $key->reference_number }}</td>
-                    <td>{{ \Carbon\Carbon::parse($key->created_at)->format('Y-m-d') }}</td>
+                    <td>{{ $key->invoice->due_date ?? ' - ' }}</td>
                     <td>
                         @if (in_array($key->type, ['purchase', 'payment_bond', 'return_sales', 'registration_bond_credit']))
                             {{ $currencySymbol }} {{ $key->amount }}
@@ -91,7 +91,7 @@
                         @endphp
                         {!! $balanceDisplay !!}
                     </td>
-                    <td>{{ $key->notes ?? '' }}</td>
+                    <td>{{ $key->invoice->note ?? '' }}</td>
                     <td>
                         @if ($key->type == 'sales')
                             <div style="width:13px;height:13px" class="bg-success d-inline-block ml-2 rounded"></div><a
