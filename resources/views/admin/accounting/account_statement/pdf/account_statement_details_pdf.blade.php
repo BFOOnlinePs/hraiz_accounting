@@ -250,7 +250,7 @@
                         @endphp
                         <span style="font-weight: bold">{!! $debtorDisplay !!}</span>
                     </td>
-                    <td colspan="3">
+                    <td >
                         @php
                             $balanceDisplay = collect($balances)
                                 ->map(function ($value, $currency) {
@@ -262,8 +262,7 @@
                         @endphp
                         <span style="font-weight: bold">{!! $balanceDisplay !!}</span>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="2"></td>
                 </tr>
 
                 {{-- <tr class="bg-dark">
