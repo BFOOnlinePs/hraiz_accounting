@@ -178,7 +178,7 @@
                                     })
                                     ->join(' , ');
                             @endphp
-                            {!! $balanceDisplay !!}
+                            <span style="font-weight: bold">{!! $balanceDisplay !!}</span>
                         </td>
                         <td>{{ $key->invoice->note ?? '' }}</td>
                         <td>
@@ -225,8 +225,7 @@
                 @endforeach
 
                 <tr class="bg-dark">
-                    <td></td>
-                    <td colspan="1" class="text-center">المجموع</td>
+                    <td colspan="2" class="text-center">المجموع</td>
                     <td>
                         @php
                             $creditorDisplay = collect($sumCreditor)
@@ -249,9 +248,9 @@
                                 })
                                 ->join('');
                         @endphp
-                        {!! $debtorDisplay !!}
+                        <span style="font-weight: bold">{!! $debtorDisplay !!}</span>
                     </td>
-                    <td colspan="4">
+                    <td colspan="3">
                         @php
                             $balanceDisplay = collect($balances)
                                 ->map(function ($value, $currency) {
@@ -261,8 +260,10 @@
                                 })
                                 ->join('');
                         @endphp
-                        {!! $balanceDisplay !!}
+                        <span style="font-weight: bold">{!! $balanceDisplay !!}</span>
                     </td>
+                    <td></td>
+                    <td></td>
                 </tr>
 
                 {{-- <tr class="bg-dark">

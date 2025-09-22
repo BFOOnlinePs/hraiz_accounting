@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/account_statement/ajax/account_statement_details_table.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/account_statement/ajax/account_statement_details_table.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/account_statement/pdf/account_statement_details_pdf.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/account_statement/pdf/account_statement_details_pdf.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -429,7 +427,7 @@
       <workItem from="1736102644424" duration="466000" />
       <workItem from="1736103945530" duration="2813000" />
       <workItem from="1758442091502" duration="1603000" />
-      <workItem from="1758541273095" duration="694000" />
+      <workItem from="1758541273095" duration="1070000" />
     </task>
     <task id="LOCAL-00001" summary="edit">
       <created>1692272515017</created>
