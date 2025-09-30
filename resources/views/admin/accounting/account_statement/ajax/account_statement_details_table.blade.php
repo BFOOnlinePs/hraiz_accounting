@@ -60,8 +60,10 @@
                     <td>
                         @if ($key->type == 'payment_bond' || $key->type == 'performance_bond')
                             {{ date('d-m-Y', strtotime($key->bond->created_at)) }}
-                        @else
-                           {{ $key->invoice->due_date ?? ' - ' }}
+                        @elseif ($key->type == 'purchase')
+                            {{ $key->invoice->due_date ?? ' - ' }}
+                        @elseif ($key->type == 'sales')
+                            {{ $key->invoice->bill_date ?? ' - ' }}
                         @endif
                     </td>
                     <td>
