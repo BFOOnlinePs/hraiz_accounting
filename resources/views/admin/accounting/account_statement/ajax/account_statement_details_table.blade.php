@@ -90,10 +90,9 @@
                     </td>
                     <td style="background-color: gainsboro;text-align: center">
                         @php
-                            // Format balances for display with badge class
                             $balanceDisplay = collect($balances)
                                 ->map(function ($value, $currency) {
-                                    return '<span class="" style="float: right">' . $currency . '</span>' . number_format($value) . ;
+                                    return number_format($value) . ' <span style="float: left; margin-left: 5px;">' . $currency . '</span>';
                                 })
                                 ->join(' , ');
                         @endphp
