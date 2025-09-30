@@ -92,7 +92,7 @@
                         @php
                             $balanceDisplay = collect($balances)
                                 ->map(function ($value, $currency) {
-                                    return number_format($value) . ' <span style="float: left; margin-left: 5px;">' . $currency . '</span>';
+                                    return number_format($value) . ' <span style="float: right; margin-left: 5px;">' . $currency . '</span>';
                                 })
                                 ->join(' , ');
                         @endphp
