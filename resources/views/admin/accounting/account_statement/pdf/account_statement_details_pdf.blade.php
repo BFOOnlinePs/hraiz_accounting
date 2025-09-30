@@ -180,7 +180,13 @@
                             @endphp
                             <span style="font-weight: bold">{!! $balanceDisplay !!}</span>
                         </td>
-                        <td>{{ $key->invoice->note ?? '' }}</td>
+                        <td>
+                            @if ($key->type == 'payment_bond' || $key->type == 'performance_bond')
+                                {{ $key->bond->notes }}
+                            @else
+                                {{ $key->invoice->note ?? '' }}
+                            @endif
+                        </td>
                         <td>
                             @if ($key->type == 'sales')
                                     <span>مبيعات</span>

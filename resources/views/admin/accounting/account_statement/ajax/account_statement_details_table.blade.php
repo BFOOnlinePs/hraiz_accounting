@@ -95,7 +95,7 @@
                                 })
                                 ->join(' , ');
                         @endphp
-                        {!! $balanceDisplay !!}
+                        <span style="font-weight: bold;">{!! $balanceDisplay !!}</span>
                     </td>
                     <td>
                         @if ($key->type == 'payment_bond' || $key->type == 'performance_bond')
