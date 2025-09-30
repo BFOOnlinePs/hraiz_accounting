@@ -57,7 +57,13 @@
 
                 <tr class="@if (!$key->invoice_items->isEmpty() && $request->account_statment_type == 'detailed') bg-secondary @endif">
                     <td>{{ $key->reference_number }}</td>
-                    <td>{{ $key->invoice->due_date ?? ' - ' }}</td>
+                    <td>
+                        @if ($key->type == 'payment_bond' || $key->type == 'performance_bond')
+                            {{ date('d-m-Y', strtotime($key->bond->created_at)) }}
+                        @else
+                           {{ $key->invoice->due_date ?? ' - ' }}
+                        @endif
+                    </td>
                     <td>
                         @if (in_array($key->type, ['purchase', 'payment_bond', 'return_sales', 'registration_bond_credit']))
                             {{ $currencySymbol }} {{ $key->amount }}
@@ -91,7 +97,13 @@
                         @endphp
                         {!! $balanceDisplay !!}
                     </td>
-                    <td>{{ $key->invoice->note ?? '' }}</td>
+                    <td>
+                        @if ($key->type == 'payment_bond' || $key->type == 'performance_bond')
+                            {{ $key->bond->notes }}
+                        @else
+                            {{ $key->invoice->note ?? '' }}
+                        @endif
+                    </td>
                     <td>
                         @if ($key->type == 'sales')
                             <div style="width:13px;height:13px" class="bg-success d-inline-block ml-2 rounded"></div><a

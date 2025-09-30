@@ -248,7 +248,7 @@
                                 })
                                 ->join('');
                         @endphp
-                        <span style="font-weight: bold">{!! $debtorDisplay !!}</span>
+                        <span>{!! $debtorDisplay !!}</span>
                     </td>
                     <td >
                         @php

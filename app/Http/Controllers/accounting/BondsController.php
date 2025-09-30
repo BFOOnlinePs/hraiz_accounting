@@ -65,6 +65,7 @@ class BondsController extends Controller
         $doc_amount->amount = $request->amount;
         $doc_amount->reference_number = $request->reference_number;
         $doc_amount->currency = $request->currency_id;
+        $doc_amount->notes = $request->notes;
         $doc_amount->save();
             return redirect()->route('accounting.bonds.payment_bond.index')->with(['success'=>'تم اضافة البيانات بنجاح']);
         }

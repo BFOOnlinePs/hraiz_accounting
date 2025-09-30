@@ -6,21 +6,21 @@
     <title>تفاصيل سند قبض</title>
     <style>
         @page {
-            @if(!empty($system_setting))
-                background-image: url("{{ asset('storage/setting/'.$system_setting->letter_head_image) }}");
+            @if(!empty(\App\Models\SystemSettingModel::first()->letter_head_image))
+                background-image: url("{{ asset('storage/setting/'.\App\Models\SystemSettingModel::first()->letter_head_image) }}");
             @endif
-            background-image-resize: 6;
-            margin-top: 220px;
+                        background-image-resize: 6;
+            margin-top: 150px;
             margin-bottom: 50px;
+            footer: page-footer;
         }
 
         @page :first {
-            @if(!empty($system_setting))
-                background-image: url("{{ asset('storage/setting/'.$system_setting->letter_head_image) }}");
+            @if(!empty(\App\Models\SystemSettingModel::first()->letter_head_image))
+                background-image: url("{{ asset('storage/setting/'.\App\Models\SystemSettingModel::first()->letter_head_image) }}");
             @endif
             background-image-resize: 6;
             margin-bottom: 50px;
-            margin-top: 220px;
         }
 
         table{
@@ -81,9 +81,9 @@
                                     <tr>
                                         <th>رقم الفاتورة</th>
                                         <th>اسم العميل</th>
-                                        <th>اسم العميل</th>
                                         <th>الرقم المرجعي</th>
                                         <th>العملة</th>
+                                        <th>المبلغ</th>
                                     </tr>
                                     <tr>
                                         <td>@if ($data->invoice_id == -1) غير مرتبطة بفاتورة @else {{ $data->invoice_id ?? 'asdads' }} @endif</td>

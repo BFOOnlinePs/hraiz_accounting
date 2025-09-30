@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DocAmountModel extends Model
 {
@@ -24,5 +25,10 @@ class DocAmountModel extends Model
 
     public function invoice_items(){
         return $this->hasMany(InvoiceItemsModel::class, 'invoice_id', 'invoice_id');
+    }
+
+    public function bond(): BelongsTo
+    {
+        return $this->belongsTo(BondsModel::class, 'invoice_id', 'id');
     }
 }
