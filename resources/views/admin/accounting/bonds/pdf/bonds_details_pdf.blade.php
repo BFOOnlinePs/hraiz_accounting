@@ -74,6 +74,10 @@
                                         <span class="fa fa-print"></span>
                                     </a>
                                 </div>
+                                <div>
+                                    <span>التاريخ : {{ date('d-m-Y', strtotime($data->created_at)) }}</span>
+                                    <span>رقم السند : {{ $data->id }}</span> - <span>{{ $data->reference_number }}</span>
+                                </div>
                                     <div class="col-md-12">
                                         <hr>
                                     </div>
@@ -81,14 +85,12 @@
                                     <tr>
                                         <th>رقم الفاتورة</th>
                                         <th>اسم العميل</th>
-                                        <th>الرقم المرجعي</th>
                                         <th>العملة</th>
                                         <th>المبلغ</th>
                                     </tr>
                                     <tr>
                                         <td>@if ($data->invoice_id == -1) غير مرتبطة بفاتورة @else {{ $data->invoice_id ?? 'asdads' }} @endif</td>
                                         <td>{{ $data->client->name }}</td>
-                                        <td>{{ $data->reference_number }}</td>
                                         <td>{{ $data->currency->currency_name}}</td>
                                         <td>{{ $data->amount }}</td>
                                     </tr>

@@ -6122,3 +6122,291 @@ Stack trace:
 #4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #5 {main}
 "} 
+[2025-09-30 07:26:36] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:26:36] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:27:20] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:27:20] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:28:14] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:28:36] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:28:46] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:28:46] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:28:47] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:29:56] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:29:56] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:29:57] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:29:57] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:30:04] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:30:04] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:30:06] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:31:31] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:31:32] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:31:34] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:31:34] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:32:03] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:32:06] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:32:06] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:32:08] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:32:08] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:32:16] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:32:17] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:33:09] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:33:18] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:33:18] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:33:27] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2025-09-30 07:33:27] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php:669)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(720): Symfony\\Component\\Console\\Application->findNamespace('ide-helper')
+#1 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find('ide-helper:gene...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /Applications/XAMPP/xamppfiles/htdocs/BFound/hraiz_accounting/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 

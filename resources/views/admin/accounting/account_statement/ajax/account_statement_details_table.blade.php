@@ -86,7 +86,7 @@
                             {{ $currencySymbol }} 0
                         @endif
                     </td>
-                    <td>
+                    <td style="background-color: gainsboro">
                         @php
                             // Format balances for display with badge class
                             $balanceDisplay = collect($balances)
@@ -230,6 +230,10 @@
                             ->map(function ($value, $currency) {
                                 if ($value != 0) {
                                     return $currency . ' ' . number_format($value) . '<br>';
+                                }
+                                else {
+                                    $value = 0;
+                                    return $value . '<br>';
                                 }
                             })
                             ->join('');
