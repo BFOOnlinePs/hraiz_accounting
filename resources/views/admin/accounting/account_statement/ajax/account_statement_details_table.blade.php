@@ -66,9 +66,9 @@
                             {{ $key->invoice->bill_date ?? ' - ' }}
                         @endif
                     </td>
-                    <td>
+                    <td style="text-align: center">
                         @if (in_array($key->type, ['purchase', 'payment_bond', 'return_sales', 'registration_bond_credit']))
-                            {{ $currencySymbol }} {{ $key->amount }}
+                            <span style="text-align: right">{{ $currencySymbol }}</span> <span>{{ $key->amount }}</span>
                             @php
                                 $sumCreditor[$currencySymbol] += $key->amount;
                                 $balances[$currencySymbol] -= $key->amount;
@@ -88,12 +88,12 @@
                             {{ $currencySymbol }} 0
                         @endif
                     </td>
-                    <td style="background-color: gainsboro">
+                    <td style="background-color: gainsboro;text-align: center">
                         @php
                             // Format balances for display with badge class
                             $balanceDisplay = collect($balances)
                                 ->map(function ($value, $currency) {
-                                    return '<span class="">' . $currency . ' ' . number_format($value) . '</span>';
+                                    return '<span class="" style="float: right">' . $currency . '</span>' . number_format($value) . ;
                                 })
                                 ->join(' , ');
                         @endphp
