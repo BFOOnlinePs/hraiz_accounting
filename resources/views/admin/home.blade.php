@@ -158,7 +158,6 @@
         }
 
         .card-header {
-            display: flex;
             align-items: center;
             justify-content: space-between;
             position: relative;
@@ -182,12 +181,14 @@
         .card-header h3 {
             font-size: 1.5rem;
             font-weight: 700;
-            margin: 0;
+            display: inline;
         }
 
         .card-header .icon {
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             opacity: 0.8;
+            float: left;
+            display: inline;
         }
 
         .card-body {
