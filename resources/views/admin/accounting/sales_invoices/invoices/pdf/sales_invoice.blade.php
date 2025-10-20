@@ -11,90 +11,90 @@
             line-height: 1.6;
             background-color: #f4f4f4;
         }
-    
+
         h2 {
             text-align: center;
             color: #333;
         }
-    
+
         .invoice-header {
             text-align: center;
             margin-bottom: 20px; /* تقليل المسافة السفلية */
         }
-    
+
         .invoice-header h3 {
             font-size: 1.2em;
         }
-    
+
         .invoice-details, .table_invoice, .totals {
             background-color: #fff;
             padding: 10px; /* تقليل الحشوة */
             margin-bottom: 15px; /* تقليل المسافة بين العناصر */
-            border: 1px solid #ddd; 
-            border-radius: 0; 
-            box-shadow: none; 
-            width: 100%; 
+            border: 1px solid #ddd;
+            border-radius: 0;
+            box-shadow: none;
+            width: 100%;
         }
-    
+
         .invoice-details table, .table_invoice table {
             width: 100%;
             border-collapse: collapse; /* دمج الحدود لتجنب المسافات */
             margin: 0; /* إزالة الهوامش */
         }
-    
+
         .invoice-details td, .table_invoice th, .table_invoice td, .totals td {
             padding: 5px; /* تقليل الحشوة داخل الخلايا */
             border-bottom: 1px solid #ddd;
             margin: 0; /* إزالة أي فراغ غير مرغوب فيه */
             text-align: center; /* توسيط المحتوى */
         }
-    
+
         .table_invoice th {
             background-color: #f9f9f9;
             color: #333;
             font-weight: bold;
         }
-    
+
         .table_invoice tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-    
+
         .totals {
             text-align: right;
             width: 100%;
-            margin: 0 auto; 
+            margin: 0 auto;
         }
-    
+
         .totals table {
             width: 100%;
-            border-collapse: collapse; 
-            margin: 0; 
+            border-collapse: collapse;
+            margin: 0;
         }
-    
+
         .totals td {
             padding: 5px; /* تقليل الحشوة داخل الخلايا */
             border-bottom: 1px solid #ddd;
         }
-    
+
         .totals td:last-child {
             font-weight: bold;
             color: #333;
         }
-    
+
         @media only screen and (max-width: 768px) {
             body {
                 margin: 10px;
             }
-    
+
             .invoice-details, .table_invoice, .totals {
                 padding: 10px; /* تقليل الحشوة في الشاشات الصغيرة */
             }
-    
+
             .table_invoice th, .table_invoice td {
                 padding: 5px; /* تقليل الحشوة في الشاشات الصغيرة */
             }
         }
-    
+
         @page :first {
             @if (!empty($system_setting))
             background-image: url("{{ asset('storage/setting/'.$system_setting->letter_head_image) }}");
@@ -164,6 +164,8 @@
 <div class="table_invoice">
     <table @if ($request->language == 'en') dir='ltr' @endif>
         <tr>
+            <th>#</th>
+            <th>@if ($request->language == 'ar') باركود @elseif ($request->language == 'en') Bardcode @elseif ($request->language == 'he') ברקוד @endif</th>
             <th>@if ($request->language == 'ar') الصنف @elseif ($request->language == 'en') Product @elseif ($request->language == 'he') מַחלָקָה @endif</th>
             <th>@if ($request->language == 'ar') الكمية @elseif ($request->language == 'en') Qty @elseif ($request->language == 'he') כַּמוּת @endif</th>
             <th>@if ($request->language == 'ar') السعر @elseif ($request->language == 'en') Price @elseif ($request->language == 'he') המחיר @endif</th>
@@ -173,6 +175,8 @@
         </tr>
         @foreach ($invoice as $key)
         <tr>
+            <td>{{ $loop->index + 1 }}</td>
+            <td>{{ $key['product']->barcode??'' }}</td>
             <td>{{ $key['product']->product_name_ar??'' }}</td>
             <td>{{ $key->quantity ?? 1 }}</td>
             <td>{{ $key->rate ?? 1 }}</td>

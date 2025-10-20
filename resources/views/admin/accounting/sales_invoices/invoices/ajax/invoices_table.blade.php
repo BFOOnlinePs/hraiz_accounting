@@ -3,7 +3,8 @@
         <thead class="bg-dark">
             <tr>
                 <td style="width: 100px"></td>
-                <th style="width: 50%">الصنف</th>
+                <th>باركود</th>
+                <th style="width: 40%">الصنف</th>
                 <th style="width: 110px">الكمية</th>
                 <th style="width: 110px">السعر</th>
                 <th style="width: 110px">خصم</th>
@@ -29,6 +30,7 @@
                                 <img width="50" src="{{ asset('img/no_img.jpeg') }}" alt="">
                             @endif
                         </td>
+                        <td>{{ $key['product']->barcode }}</td>
                         <td>{{ $key['product']->product_name_ar ?? '' }}</td>
                         <td>
                             <input style="margin: 0" class="input form-control text-center"

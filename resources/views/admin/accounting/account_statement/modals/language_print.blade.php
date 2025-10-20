@@ -1,7 +1,7 @@
 <div class="modal fade" id="open_print_modal">
     <div class="modal-dialog modal-xl">
         @csrf
-        <form class="modal-content"
+        <form class="modal-content" target="_blank"
             action="{{ route('accounting.account-statement.print_account_statement_details_pdf') }}" method="post">
             @csrf
             <div class="modal-header">

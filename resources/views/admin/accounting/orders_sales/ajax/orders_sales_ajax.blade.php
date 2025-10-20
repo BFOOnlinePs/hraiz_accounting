@@ -1,7 +1,8 @@
 <table class="w-100 text-center table-bordered table-hover table-striped">
     <thead class="bg-dark">
         <tr>
-            <td style="width: 50px">#</td>
+{{--            <td style="width: 50px">#</td>--}}
+            <td>رقم الطلبية</td>
             <th style="width: 17%">الرقم المرجعي</th>
             <th>الزبون</th>
             <th>الفواتير المرتبطة بالطلبية</th>
@@ -18,7 +19,8 @@
         @else
             @foreach ($data as $key)
                 <tr>
-                    <td>{{ ($data->currentPage()-1) * $data->perPage() + $loop->index + 1 }}</td>
+{{--                    <td>{{ ($data->currentPage()-1) * $data->perPage() + $loop->index + 1 }}</td>--}}
+                    <td>{{ $key->id }}</td>
                     <td>{{ $key->reference_number }}</td>
                     <td>{{ $key->client->name }}</td>
                     <td>

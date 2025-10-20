@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('accounting.orders_sales.order_sales_pdf', ['price_offer_id' => $data->id]) }}">
+                <form target="_blank" action="{{ route('accounting.orders_sales.order_sales_pdf', ['price_offer_id' => $data->id]) }}">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">

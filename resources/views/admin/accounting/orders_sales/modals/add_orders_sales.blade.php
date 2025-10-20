@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="">الرقم المرجعي</label>
-                            <input required type="text" class="form-control" name="reference_number"
+                            <input required type="text" value="SO-{{ session()->get('login_date') }}-{{ \App\Models\OrdersSalesModel::get()->last()->id + 1 ?? '' }}" class="form-control" name="reference_number"
                                 placeholder="الرقم المرجعي">
                         </div>
                     </div>

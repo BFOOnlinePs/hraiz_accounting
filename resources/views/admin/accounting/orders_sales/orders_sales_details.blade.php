@@ -46,6 +46,18 @@
         </div>
     </div>
     <div class="row mt-3">
+            <div class="col-lg-12 col-12">
+                <div class="small-box bg-light text-white border border-success">
+                    <div class="inner">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4 class="text-bold text-dark m-1">طلبية بيع رقم : {{ $data->id ?? '' }} </h4>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">

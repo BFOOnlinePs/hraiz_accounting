@@ -227,7 +227,8 @@ class SalesInvoicesController extends Controller
         $order = OrdersSalesModel::where('id',$request->order_id)->first();
         $data = new PurchaseInvoicesModel();
 //        $order = OrderModel::where('id',$request->order_id)->first();
-        $data->invoice_reference_number = $request->order_id ?? $request->price_offer_sales_id;
+//        $data->invoice_reference_number = $request->order_id ?? $request->price_offer_sales_id;
+        $data->invoice_reference_number = 'INV-S-' . session()->get('login_date') . '-' . (PurchaseInvoicesModel::get()->last()->id + 1);
         $data->price_offer_sales_id = $request->price_offer_sales_id;
         $data->bill_date = Carbon::now()->toDateString();
         $data->due_date = Carbon::now()->toDateString();

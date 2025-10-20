@@ -40,26 +40,25 @@
             <div class="small-box bg-light text-white border border-success">
                 <div class="inner">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-7">
                             <h4 class="text-bold text-dark m-1">فاتورة مبيعات # {{ $data->id }} - <span
                                     class="text-danger">{{ $data->invoice_reference_number }}</span></h4>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-5">
                             <div class="row ml-2">
                                 {{-- <a href="{{ route('accounting.purchase_invoices.purchase_invoice_pdf',['invoice_id'=>$purchase_invoice->id]) }}" class="btn btn-sm btn-warning col-md-2 col-12 m-1 p-2"><span class="fa fa-print"></span> &nbsp;&nbsp; <span>طباعة</span></a> --}}
-                                <button class="btn btn-sm btn-warning col-md-2 col-12 m-1 p-2" data-toggle="modal"
+                                <button class="btn btn-sm btn-warning col-md-6 col-12 m-1 p-2" data-toggle="modal"
                                     data-target="#add_print_language_modal"><span class="fa fa-print"></span> &nbsp;&nbsp;
                                     <span>طباعة</span></button>
                                 @if ($purchase_invoice->status != 'stage')
                                     <button @if ($purchase_invoice->status == 'stage') disabled @endif onclick="post_the_invoice()"
-                                        class="btn btn-sm btn-info col-md-2 col-12 m-1 p-2"><span
+                                        class="btn btn-sm btn-info col-md-5 col-12 m-1 p-2"><span
                                             class="fa fa-check"></span>&nbsp;&nbsp;<span>ترحيل الفاتورة</span></button>
                                 @endif
                                 @if ($purchase_invoice->status == 'stage')
-                                    <div class="btn btn-sm btn-success col-md-4 col-12 m-1 p-2">
+                                    <div class="btn btn-sm btn-success col-md-5 col-12 m-1 p-2">
                                         <span class="fa fa-check"></span>
-                                        &nbsp;
-                                        &nbsp;
+
                                         <span>تم ترحيل هذه الفاتورة</span>
                                     </div>
                                 @endif

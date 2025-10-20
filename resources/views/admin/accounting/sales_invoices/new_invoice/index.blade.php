@@ -47,7 +47,7 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="">الرقم المرجعي للفاتورة</label>
-                                    <input required value="INV_00{{ $get_invoice_order_number }}" name="invoice_reference_number" placeholder="ادخل الرقم المرجعي" type="text" class="form-control">
+                                    <input required value="INV-S-{{ session()->get('login_date') }}-{{ $get_invoice_order_number }}" name="invoice_reference_number" placeholder="ادخل الرقم المرجعي" type="text" class="form-control">
                                 </div>
                             </div>
 
