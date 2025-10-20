@@ -1,3 +1,6 @@
+@php
+    $settings = \App\Models\SystemSettingModel::first();
+@endphp
 @extends('home')
 
 @section('title', 'الرئيسية')
@@ -17,12 +20,14 @@
             --danger: #e63946;
             --light: #f8f9fa;
             --dark: #212529;
+            --company: #06d6a0;
             --gradient-primary: linear-gradient(135deg, #4361ee, #3a0ca3);
             --gradient-secondary: linear-gradient(135deg, #7209b7, #560bad);
             --gradient-success: linear-gradient(135deg, #4cc9f0, #4895ef);
             --gradient-warning: linear-gradient(135deg, #f72585, #b5179e);
             --gradient-danger: linear-gradient(135deg, #e63946, #d00000);
             --gradient-info: linear-gradient(135deg, #4895ef, #4361ee);
+            --gradient-company: linear-gradient(135deg, #06d6a0, #04a777);
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.15);
             --radius: 16px;
@@ -41,7 +46,6 @@
         .dashboard-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
         }
 
         .header {
@@ -63,6 +67,72 @@
         .header p {
             color: #6c757d;
             font-size: 1.1rem;
+        }
+
+        /* بطاقة معلومات الشركة */
+        .company-info-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-right: 5px solid var(--company);
+        }
+
+        .company-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .company-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-company);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 20px;
+            flex-shrink: 0;
+        }
+
+        .company-icon i {
+            font-size: 2.2rem;
+            color: white;
+        }
+
+        .company-details {
+            flex-grow: 1;
+        }
+
+        .company-details h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .company-details p {
+            display: inline;
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+        .year-badge {
+            background: var(--gradient-company);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .year-badge i {
+            margin-left: 8px;
         }
 
         .cards-grid {
@@ -88,7 +158,6 @@
         }
 
         .card-header {
-            padding: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -102,7 +171,6 @@
             top: 0;
             right: 0;
             width: 100%;
-            height: 100%;
             z-index: 1;
         }
 
@@ -277,6 +345,16 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .company-info-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .company-icon {
+                margin-left: 0;
+                margin-bottom: 15px;
+            }
+
             .cards-grid {
                 grid-template-columns: 1fr;
             }
@@ -298,18 +376,42 @@
             .header h1 {
                 font-size: 2rem;
             }
+
+            .company-details h3 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 
     @php
         $userRoles = json_decode(auth()->user()->user_role, true);
+        // الحصول على اسم الشركة والسنة من قاعدة البيانات أو الجلسة
+        $companyName = auth()->user()->company_name ?? 'شركتنا المتميزة';
+        $selectedYear = session('selected_year') ?? date('Y');
     @endphp
 
     @if (in_array('1', $userRoles))
         <div class="dashboard-container">
-            <div class="header">
-                <h1>لوحة التحكم الرئيسية</h1>
-                <p>مرحباً بك في نظام إدارة الشركة المتكامل</p>
+{{--            <div class="header">--}}
+{{--                <h1>لوحة التحكم الرئيسية</h1>--}}
+{{--                <p>مرحباً بك في نظام إدارة الشركة المتكامل</p>--}}
+{{--            </div>--}}
+
+            <!-- بطاقة معلومات الشركة -->
+            <div class="">
+
+                <div class="company-details">
+                    <h3>{{ $settings->company_name }}
+                        <p>
+                        <div class="year-badge">
+                            <i class="fas fa-calendar-alt"></i>
+                            السنة المالية: {{ session()->get('login_date') }}
+                        </div>
+                        </p>
+
+                    </h3>
+                    <br>
+                </div>
             </div>
 
             <div class="cards-grid">
@@ -396,30 +498,30 @@
                 </div>
 
                 <!-- Users Card -->
-                <div class="card users">
-                    <div class="card-header">
-                        <h3>المستخدمين</h3>
-                        <div class="icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="btn-grid">
-                            <a class="btn" href="{{ route('users.employees.index') }}">
-                                <i class="fas fa-user-tie"></i>
-                                موظفين
-                            </a>
-                            <a class="btn" href="{{ route('users.supplier.index') }}">
-                                <i class="fas fa-truck"></i>
-                                موردين
-                            </a>
-                            <a class="btn" href="{{ route('users.clients.index') }}">
-                                <i class="fas fa-user-friends"></i>
-                                زبائن
-                            </a>
-                        </div>
-                    </div>
-                </div>
+{{--                <div class="card users">--}}
+{{--                    <div class="card-header">--}}
+{{--                        <h3>المستخدمين</h3>--}}
+{{--                        <div class="icon">--}}
+{{--                            <i class="fas fa-users"></i>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="card-body">--}}
+{{--                        <div class="btn-grid">--}}
+{{--                            <a class="btn" href="{{ route('users.employees.index') }}">--}}
+{{--                                <i class="fas fa-user-tie"></i>--}}
+{{--                                موظفين--}}
+{{--                            </a>--}}
+{{--                            <a class="btn" href="{{ route('users.supplier.index') }}">--}}
+{{--                                <i class="fas fa-truck"></i>--}}
+{{--                                موردين--}}
+{{--                            </a>--}}
+{{--                            <a class="btn" href="{{ route('users.clients.index') }}">--}}
+{{--                                <i class="fas fa-user-friends"></i>--}}
+{{--                                زبائن--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
 
             <div class="quick-actions">
@@ -454,17 +556,13 @@
                     <p>إنشاء وإدارة سندات القبض</p>
                 </a>
             </div>
-
-            <div class="footer">
-                <p>جميع الحقوق محفوظة &copy; {{ date('Y') }} نظام إدارة الشركة</p>
-            </div>
         </div>
     @endif
 
     <script>
         // إضافة تأثيرات تفاعلية إضافية
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.card, .action-card');
+            const cards = document.querySelectorAll('.card, .action-card, .company-info-card');
 
             cards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
