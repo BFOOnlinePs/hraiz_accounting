@@ -79,7 +79,7 @@
                                     name="have_orders">
                                 <option value="">الجميع</option>
                                 <option value="yes">مفوتر</option>
-                                <option value="no">غير مفوتر</option>
+                                <option selected value="no">غير مفوتر</option>
                             </select>
                         </div>
                     </div>
