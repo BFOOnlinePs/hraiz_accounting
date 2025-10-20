@@ -3,5 +3,5 @@
 vendor/
 node_modules/
 # !/public/storage
-# storage/
-# public/
+ storage/
+ public/
