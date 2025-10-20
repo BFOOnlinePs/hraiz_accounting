@@ -29,6 +29,46 @@
             width: 90px;
             text-align: center
         }
+
+        .image-zoom {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .image-preview-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .image-preview-overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .image-preview-overlay img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease;
+            transform: scale(0.9);
+        }
+
+        .image-preview-overlay.show img {
+            transform: scale(1);
+        }
+
     </style>
 @endsection
 @section('content')
@@ -631,6 +671,32 @@
             //     alert('يجب ان تحدد المخزن')
             // }
         }
+
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('image-zoom')) {
+                // إنشاء العنصر الخلفي (الشفاف)
+                const overlay = document.createElement('div');
+                overlay.classList.add('image-preview-overlay');
+
+                // إنشاء الصورة المكبرة
+                const img = document.createElement('img');
+                img.src = e.target.src;
+
+                overlay.appendChild(img);
+                document.body.appendChild(overlay);
+
+                // عرض الصورة بالتأثير
+                setTimeout(() => overlay.classList.add('show'), 10);
+
+                // عند النقر خارج الصورة يتم الإغلاق
+                overlay.addEventListener('click', function (event) {
+                    if (event.target === overlay) {
+                        overlay.classList.remove('show');
+                        setTimeout(() => overlay.remove(), 300);
+                    }
+                });
+            }
+        });
     </script>
 
     <script>

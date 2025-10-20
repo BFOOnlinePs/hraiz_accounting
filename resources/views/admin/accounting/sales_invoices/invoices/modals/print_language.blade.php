@@ -1,6 +1,6 @@
 <div class="modal fade" id="add_print_language_modal">
     <div class="modal-dialog">
-        <form action="{{ route('accounting.sales_invoices.sales_invoice_pdf') }}" method="post" enctype="multipart/form-data">
+        <form target="_blank" action="{{ route('accounting.sales_invoices.sales_invoice_pdf') }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="invoice_id" value="{{ $purchase_invoice->id }}">
             <div class="modal-content">

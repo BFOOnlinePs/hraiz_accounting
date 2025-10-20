@@ -55,6 +55,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>الباركود</th>
                     <th>الصنف</th>
                     <th>الكمية</th>
@@ -68,6 +69,7 @@
             <tbody>
                 @foreach ($data->order_sales_items as $key)
                     <tr>
+                        <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $key->product->barcode }}</td>
                         <td>{{ $key->product->product_name_ar }}</td>
                         <td>{{ $key->qty ?? 0 }}</td>
@@ -93,6 +95,7 @@
         <table dir="ltr">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Barcode</th>
                     <th>Product</th>
                     <th>Qty</th>
@@ -103,6 +106,7 @@
             <tbody>
                 @foreach ($data->order_sales_items as $key)
                     <tr>
+                        <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $key->product->barcode }}</td>
                         <td>{{ $key->product->product_name_en }}</td>
                         <td>{{ $key->qty ?? 0 }}</td>
@@ -123,6 +127,7 @@
         <table dir="">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>ברקוד</th>
                     <th>מוּצָר</th>
                     <th>כַּמוּת</th>
@@ -133,6 +138,7 @@
             <tbody>
                 @foreach ($data->order_sales_items as $key)
                     <tr>
+                        <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $key->product->barcode }}</td>
                         <td>{{ $key->product->product_name_he }}</td>
                         <td>{{ $key->qty ?? 0 }}</td>

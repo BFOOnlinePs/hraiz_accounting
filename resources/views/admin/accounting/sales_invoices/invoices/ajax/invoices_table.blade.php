@@ -24,7 +24,7 @@
                         <td>
                             @if (!empty($key['product']->product_photo))
                                 <img width="50"
-                                    src="{{ asset('storage/product/' . $key['product']->product_photo ?? '') }}"
+                                    src="{{ asset('storage/product/' . $key['product']->product_photo ?? '') }}" class="image-zoom"
                                     alt="">
                             @else
                                 <img width="50" src="{{ asset('img/no_img.jpeg') }}" alt="">
