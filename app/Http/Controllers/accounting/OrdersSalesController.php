@@ -37,6 +37,15 @@ class OrdersSalesController extends Controller
         if($request->filled('user_id')){
             $data->where('user_id',$request->user_id);
         }
+
+        if ($request->have_orders == 'yes') {
+            // Use whereHas to get orders that HAVE a related invoice.
+            $data->whereHas('getInvoices');
+        } elseif ($request->have_orders == 'no') {
+            // Use whereDoesntHave to get orders that DO NOT HAVE any related invoices.
+            $data->whereDoesntHave('getInvoices');
+        }
+
         $data = $data->with('getInvoices')->where('delete_status',0)->orderBy('id','desc')->paginate(10);
 
         foreach ($data as $key){
@@ -106,6 +115,7 @@ class OrdersSalesController extends Controller
             $data = new OrdersSalesItemsModel();
             $data->order_id = $request->order_id;
             $data->product_id = $request->product_id;
+            $data->qty = $request->qty;
             $data->price = ProductModel::where('id',$request->product_id)->first()->price ?? 0;
             if ($data->save()){
                 return response()->json([

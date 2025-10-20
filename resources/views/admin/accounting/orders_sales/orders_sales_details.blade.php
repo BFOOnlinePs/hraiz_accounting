@@ -129,6 +129,13 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">ملاحظات</label>
+                                        <textarea name="notes" @if ($data->order_status == 'invoice_has_been_posted') disabled @endif
+                                                  onchange="update_orders_sales({{ $data->id }},'notes',this.value)" class="form-control" rows="2">{{ $data->notes }}</textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {{-- <div class="col-md-2">
@@ -168,6 +175,36 @@
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script>
+
+        $('#list_product_details').on('input', '.item-qty, .item-price', function() {
+            // Find the closest table row
+            var row = $(this).closest('tr');
+
+            // Get the quantity and price, defaulting to 0 if not a valid number
+            var qty = parseFloat(row.find('.item-qty').val()) || 0;
+            var price = parseFloat(row.find('.item-price').val()) || 0;
+
+            // Calculate the total for the row
+            var total = qty * price;
+
+            // Update the row total cell with the new value, formatted to 2 decimal places
+            row.find('.row-total').text(total.toFixed(2));
+
+            // Update the grand total for the whole table
+            updateGrandTotal();
+        });
+
+        function updateGrandTotal() {
+            var grandTotal = 0;
+            // Loop through each row total cell
+            $('.row-total').each(function() {
+                // Add its value to the grand total
+                grandTotal += parseFloat($(this).text()) || 0;
+            });
+            // Update the grand total cell in the footer
+            $('#grand_total').text(grandTotal.toFixed(2));
+        }
+
         $(document).ready(function() {
             orders_sales_items_list_ajax(1);
         });
@@ -221,7 +258,7 @@
             });
         }
 
-        function create_orders_sales_items(product_id) {
+        function create_orders_sales_items(product_id,qty) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var headers = {
                 "X-CSRF-Token": csrfToken
@@ -233,6 +270,7 @@
                 data: {
                     'order_id': {{ $data->id }},
                     'product_id': product_id,
+                    'qty': qty
                 },
                 success: function(data) {
                     orders_sales_items_list_ajax();
@@ -262,7 +300,7 @@
                     'value': value,
                 },
                 success: function(data) {
-
+                    product_list_ajax();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert('حدث خطا اثناء المعالجة');

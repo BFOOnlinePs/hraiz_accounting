@@ -3,7 +3,8 @@
         <tr>
             <th>الباركودس</th>
             <th>الصنف</th>
-            <th>لصنف</th>
+            <th>الكمية</th>
+            <th>العمليات</th>
         </tr>
     </thead>
     <tbody>
@@ -16,8 +17,11 @@
                 <tr>
                     <td>{{ $key->barcode }}</td>
                     <td>{{ $key->product_name_ar }}</td>
+                    <td style="width: 10%">
+                        <input name="qty" class="form-control" type="number" value="1" min="1">
+                    </td>
                     <td>
-                        <button class="btn btn-success btn-sm" onclick="create_orders_sales_items({{ $key->id }})"><span class="fa fa-plus"></span></button>
+                        <button class="btn btn-success btn-sm" onclick="create_orders_sales_items({{ $key->id }}, $(this).closest('tr').find('input[name=qty]').val())"><span class="fa fa-plus"></span></button>
                     </td>
                 </tr>
             @endforeach

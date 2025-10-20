@@ -58,12 +58,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="">الرقم المرجعي</label>
                             <input class="form-control" onkeyup="list_orders_sales_ajax()" id="reference_number"
                                 type="text">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="">الزبون</label>
                             <select onchange="list_orders_sales_ajax()" class="form-control select2bs4" id="client_id"
                                 name="">
@@ -71,6 +71,15 @@
                                 @foreach ($clients as $key)
                                     <option value="{{ $key->id }}">{{ $key->name }}</option>
                                 @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">مفوتر او غير مفوتر</label>
+                            <select onchange="list_orders_sales_ajax()" class="form-control select2bs4" id="have_orders"
+                                    name="have_orders">
+                                <option value="">الجميع</option>
+                                <option value="yes">مفوتر</option>
+                                <option value="no">غير مفوتر</option>
                             </select>
                         </div>
                     </div>
@@ -123,6 +132,7 @@
                 data: {
                     reference_name: $('#reference_number').val(),
                     user_id: $('#client_id').val(),
+                    'have_orders': $('#have_orders').val(),
                     page: page
                 },
                 success: function(data) {

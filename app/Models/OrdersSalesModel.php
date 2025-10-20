@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OrdersSalesModel extends Model
 {
@@ -26,7 +27,8 @@ class OrdersSalesModel extends Model
         });
     }
 
-    public function getInvoices(){
+    public function getInvoices(): HasMany
+    {
         return $this->hasMany(PurchaseInvoicesModel::class , 'order_id' , 'id');
     }
 }

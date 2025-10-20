@@ -223,32 +223,44 @@ class SalesInvoicesController extends Controller
 
     // انشاء فاتورة من عرض سعر
     public function create_purchase_invoices_from_order(Request $request){
+
         // return $request;
-        $order = OrdersSalesModel::where('id',$request->order_id)->first();
-        $data = new PurchaseInvoicesModel();
+        $order = OrdersSalesModel::findOrFail($request->order_id);
+
+        $invoices = $order->getInvoices;
+
+        if ($invoices->isEmpty() || $order->order_status == 'ready') {
+
+            $data = new PurchaseInvoicesModel();
 //        $order = OrderModel::where('id',$request->order_id)->first();
 //        $data->invoice_reference_number = $request->order_id ?? $request->price_offer_sales_id;
-        $data->invoice_reference_number = 'INV-S-' . session()->get('login_date') . '-' . (PurchaseInvoicesModel::get()->last()->id + 1);
-        $data->price_offer_sales_id = $request->price_offer_sales_id;
-        $data->bill_date = Carbon::now()->toDateString();
-        $data->due_date = Carbon::now()->toDateString();
-        $data->client_id = $request->supplier_user_id;
-        $data->invoice_type = 'sales';
-        $data->order_id = $request->order_id;
-        $data->currency_id = $request->currency_id;
-        // $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
-        if($data->save()){
-            foreach($request->select_items as $key){
-                $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->where('id',$key)->first();
-                $invoice_items = new InvoiceItemsModel();
-                $invoice_items->quantity = $order_itmes->qty ?? 0;
-                $invoice_items->rate = $order_itmes->price ?? 0;
-                $invoice_items->invoice_id = $data->id;
-                $invoice_items->item_id = $order_itmes->product_id;
-                $invoice_items->save();
+            $data->invoice_reference_number = 'INV-S-' . session()->get('login_date') . '-' . (PurchaseInvoicesModel::get()->last()->id + 1);
+            $data->price_offer_sales_id = $request->price_offer_sales_id;
+            $data->bill_date = Carbon::now()->toDateString();
+            $data->due_date = Carbon::now()->toDateString();
+            $data->client_id = $request->supplier_user_id;
+            $data->invoice_type = 'sales';
+            $data->order_id = $request->order_id;
+            $data->currency_id = $request->currency_id;
+            // $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
+            if($data->save()){
+                foreach($request->select_items as $key){
+                    $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->where('id',$key)->first();
+                    $invoice_items = new InvoiceItemsModel();
+                    $invoice_items->quantity = $order_itmes->qty ?? 0;
+                    $invoice_items->rate = $order_itmes->price ?? 0;
+                    $invoice_items->invoice_id = $data->id;
+                    $invoice_items->item_id = $order_itmes->product_id;
+                    $invoice_items->save();
+                }
+                return redirect()->route('accounting.sales_invoices.invoice_view',['id'=>$data->id])->with(['success'=>'تم انشاء الفاتورة بنجاح']);
             }
-            return redirect()->route('accounting.sales_invoices.invoice_view',['id'=>$data->id])->with(['success'=>'تم انشاء الفاتورة بنجاح']);
+
         }
+
+        return 'هذه الطلبية بها فواتير مسبقا';
+
+
     }
 
     public function update_purchase_invoices_from_ajax(Request $request){
