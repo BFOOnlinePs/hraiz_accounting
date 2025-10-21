@@ -18,7 +18,7 @@ class ProductController extends Controller
     public $progress_status = 1;
     public function index($order_id){
         $order = OrderModel::where('id',$order_id)->first();
-        $data = OrderItemsModel::where('order_id',$order_id)->get();
+        $data = OrderItemsModel::where('order_id',10)->get();
         $order->user = User::where('id',$order->user_id)->first();
         $order->to_user = User::where('id',$order->to_user)->first();
         foreach ($data as $key){
