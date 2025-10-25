@@ -128,40 +128,59 @@ class SalesInvoicesController extends Controller
         }
     }
 
-    public function invoice_view($id){
-        $purchase_invoice = PurchaseInvoicesModel::where('id',$id)->first();
-        if ($purchase_invoice != null) {
-            $purchase_invoice->tax = TaxesModel::where('id', $purchase_invoice->tax_id)->first();
-            $purchase_invoice->order = OrdersSalesModel::where('id',$purchase_invoice->order_id)->first();
-                // $purchase_invoice->order = OrderModel::where('id',$purchase_invoice->order_id)->first();
-            $data = PurchaseInvoicesModel::find($id);
-            $data->user = User::where('id', $data->client_id)->first();
-            $taxes = TaxesModel::get();
-            $data->tax = TaxesModel::where('id', $data->tax_id)->first();
-            $invoice = InvoiceItemsModel::where('invoice_id', $id)->get();
-            foreach ($invoice as $key) {
-                $key->product = ProductModel::where('id', $key->item_id)->first();
-            }
-            $users = User::get();
-            return view('admin.accounting.sales_invoices.invoices.view', ['data' => $data, 'invoice' => $invoice, 'taxes' => $taxes, 'purchase_invoice' => $purchase_invoice, 'users' => $users]);
+    public function invoice_view($id)
+    {
+        // 1. جلب الفاتورة الرئيسية مع العلاقات (user, tax, order)
+        // وتم تسميتها $data لتطابق ملف الـ Blade
+        $data = PurchaseInvoicesModel::with(['user', 'tax', 'order'])->find($id);
+
+        if (!$data) {
+            return redirect()->back()->with('error', 'الفاتورة غير موجودة');
         }
-        return redirect()->back();
+
+        // 2. جلب الأصناف المرتبطة بالفاتورة مع علاقة 'product'
+        // وتم تسميتها $invoice لتطابق ملف الـ Blade
+        $invoice = InvoiceItemsModel::where('invoice_id', $id)->with('product')->get();
+
+        // 3. جلب البيانات الإضافية
+        $taxes = TaxesModel::get();
+        $users = User::get();
+
+        // 4. تمرير المتغيرات بالأسماء الصحيحة
+        return view('admin.accounting.sales_invoices.invoices.view', [
+            'data' => $data,         // $data هو مودل الفاتورة الرئيسي
+            'invoice' => $invoice,     // $invoice هي مصفوفة الأصناف
+            'taxes' => $taxes,
+            'users' => $users,
+
+            // الكود في الـ Blade يستخدم $data فقط، لذا لا داعي لتمرير $purchase_invoice
+            // 'purchase_invoice' => $data
+        ]);
     }
 
     public function invoice_table(Request $request){
-        $invoice = PurchaseInvoicesModel::where('id',$request->invoice_id)->first();
-        $data = InvoiceItemsModel::where('invoice_id',$request->invoice_id)->get();
-        foreach($data as $key){
+        // 1. جلب مودل الفاتورة (كائن واحد)
+        $invoice_model = PurchaseInvoicesModel::where('id',$request->invoice_id)->first();
+
+        // 2. جلب مصفوفة الأصناف (مجموعة)
+        $items_collection = InvoiceItemsModel::where('invoice_id',$request->invoice_id)->get();
+
+        foreach($items_collection as $key){
             $key->product = ProductModel::where('id',$key->item_id)->first();
-//            return $key->invoice_id;
-//            $key->qty = PriceOfferSalesModel::where('id',PurchaseInvoicesModel::where('price_offer_sales_id',$key->invoice_id)->first()->value('price_offer_sales_id'))->where('product_id',$key->item_id)->first()->qty;
         }
 
-        // return OrderItemsModel::where('order_id',24)->where('product_id',2328)->first();
-        $invoice->tax = TaxesModel::where('id',$invoice->tax_id)->first();
+        $invoice_model->tax = TaxesModel::where('id',$invoice_model->tax_id)->first();
+
+        // ===================================================
+        // !! هذا هو السطر الذي تم تصحيحه !!
+        // قمنا بتبديل المتغيرات لتطابق ملف الـ Blade
+        // ===================================================
         return response()->json([
             'success'=>'true',
-            'view'=>view('admin.accounting.sales_invoices.invoices.ajax.invoices_table',['data'=>$data,'invoice'=>$invoice])->render(),
+            'view'=>view('admin.accounting.sales_invoices.invoices.ajax.invoices_table',[
+                'data'    => $invoice_model,     // $data هو مودل الفاتورة
+                'invoice' => $items_collection   // $invoice هي مصفوفة الأصناف
+            ])->render(),
         ]);
     }
 
@@ -350,19 +369,31 @@ class SalesInvoicesController extends Controller
         }
     }
 
-    public function update_tax_id_ratio(Request $request){
-        $data = PurchaseInvoicesModel::where('id',$request->id)->first();
-        $data->tax_id = $request->tax_id;
-        if ($data->save()){
+    public function update_tax_id_ratio(Request $request) {
+
+        // البحث عن الفاتورة
+        $data = PurchaseInvoicesModel::find($request->id);
+
+        if (!$data) {
             return response()->json([
-                'status'=>'true',
-                'message'=>'تم تعديل البيانات بنجاح'
-            ]);
+                'status' => 'false',
+                'message' => 'الفاتورة غير موجودة'
+            ], 404);
         }
-        else{
+
+        // تحديث البيانات
+        $data->tax_id = $request->tax_id;
+        $data->tax_type = $request->tax_type; // حفظ نوع الضريبة
+
+        if ($data->save()) {
             return response()->json([
-                'status'=>'false',
-                'message'=>'هناك خطا ما'
+                'status' => 'true',
+                'message' => 'تم تعديل بيانات الضريبة بنجاح'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'false',
+                'message' => 'هناك خطأ ما، لم يتم الحفظ'
             ]);
         }
     }

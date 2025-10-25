@@ -20,4 +20,8 @@ class InvoiceItemsModel extends Model
     {
         return $this->belongsTo(ProductModel::class, 'item_id', 'id');
     }
+
+    public function tax(){
+        return $this->belongsTo(TaxesModel::class,'tax_id');
+    }
 }

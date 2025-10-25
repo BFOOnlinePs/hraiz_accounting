@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <form target="_blank" action="{{ route('accounting.sales_invoices.sales_invoice_pdf') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="invoice_id" value="{{ $purchase_invoice->id }}">
+            <input type="hidden" name="invoice_id" value="{{ $data->id }}">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">اختيار لغة الطباعة</h4>

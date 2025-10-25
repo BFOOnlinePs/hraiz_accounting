@@ -541,17 +541,17 @@
                     <h5>كشف حساب</h5>
                     <p>كشف حساب العملاء والموردين</p>
                 </a>
-                <a class="action-card action-4" href="{{ route('accounting.sales_invoices.index') }}">
+                <a class="action-card action-4" href="{{ route('accounting.expenses.index') }}">
                     <i class="fas fa-ils"></i>
                     <h5>مصروفات</h5>
                     <p>إدارة مصروفات الشركة</p>
                 </a>
-                <a class="action-card action-5" href="{{ route('accounting.preparation.index') }}">
+                <a class="action-card action-5" href="{{ route('accounting.bonds.performance_bond.performance_bond_index') }}">
                     <i class="fas fa-file"></i>
                     <h5>سندات صرف</h5>
                     <p>إنشاء وإدارة سندات الصرف</p>
                 </a>
-                <a class="action-card action-6" href="{{ route('accounting.preparation.index') }}">
+                <a class="action-card action-6" href="{{ route('accounting.bonds.payment_bond.index') }}">
                     <i class="fas fa-file-text"></i>
                     <h5>سندات قبض</h5>
                     <p>إنشاء وإدارة سندات القبض</p>

@@ -1,15 +1,15 @@
 @extends('home')
 @section('title')
-    فواتير المبيعات
+    فاتورة مبيعات ({{ $data->invoice_reference_number }})
 @endsection
 @section('header_title')
-    فواتير المبيعات
+    فاتورة مبيعات
 @endsection
 @section('header_link')
     الرئيسية
 @endsection
 @section('header_title_link')
-    فواتير المبيعات
+    فاتورة مبيعات
 @endsection
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
@@ -86,16 +86,15 @@
                         </div>
                         <div class="col-md-5">
                             <div class="row ml-2">
-                                {{-- <a href="{{ route('accounting.purchase_invoices.purchase_invoice_pdf',['invoice_id'=>$purchase_invoice->id]) }}" class="btn btn-sm btn-warning col-md-2 col-12 m-1 p-2"><span class="fa fa-print"></span> &nbsp;&nbsp; <span>طباعة</span></a> --}}
                                 <button class="btn btn-sm btn-warning col-md-6 col-12 m-1 p-2" data-toggle="modal"
-                                    data-target="#add_print_language_modal"><span class="fa fa-print"></span> &nbsp;&nbsp;
+                                        data-target="#add_print_language_modal"><span class="fa fa-print"></span> &nbsp;&nbsp;
                                     <span>طباعة</span></button>
-                                @if ($purchase_invoice->status != 'stage')
-                                    <button @if ($purchase_invoice->status == 'stage') disabled @endif onclick="post_the_invoice()"
-                                        class="btn btn-sm btn-info col-md-5 col-12 m-1 p-2"><span
+                                @if ($data->status != 'stage')
+                                    <button @if ($data->status == 'stage') disabled @endif onclick="post_the_invoice()"
+                                            class="btn btn-sm btn-info col-md-5 col-12 m-1 p-2"><span
                                             class="fa fa-check"></span>&nbsp;&nbsp;<span>ترحيل الفاتورة</span></button>
                                 @endif
-                                @if ($purchase_invoice->status == 'stage')
+                                @if ($data->status == 'stage')
                                     <div class="btn btn-sm btn-success col-md-5 col-12 m-1 p-2">
                                         <span class="fa fa-check"></span>
 
@@ -105,7 +104,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <h3>{{ $order_count }}</h3> --}}
                 </div>
             </div>
         </div>
@@ -114,12 +112,12 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    @if ($purchase_invoice->order_id != null)
+                    @if ($data->order_id != null)
                         <div class="row text-center">
                             <div class="col-md-12 alert alert-info">
                                 تم انشاء هذه الفاتورة استناداً لطلبية رقم <a
-                                    href="{{ route('accounting.orders_sales.orders_sales_details', ['order_id' => $purchase_invoice->order_id]) }}"
-                                    class="btn btn-dark btn-sm">{{ $purchase_invoice->order->reference_number ?? '' }}</a> وتم
+                                    href="{{ route('accounting.orders_sales.orders_sales_details', ['order_id' => $data->order_id]) }}"
+                                    class="btn btn-dark btn-sm">{{ $data->order->reference_number ?? '' }}</a> وتم
                                 اضافة التاريخ بشكل تلقائي
                             </div>
                         </div>
@@ -130,10 +128,10 @@
                                 <div class="col-md">
                                     <div class="from-group">
                                         <label for="">الرقم المرجعي للفاتورة</label>
-                                        <input type="text" @if ($purchase_invoice->status == 'stage') readonly @endif
-                                            onchange="update_invoice_reference_number_ajax(this.value)"
-                                            class="form-control arabicNumbers"
-                                            value="{{ $purchase_invoice->invoice_reference_number }}">
+                                        <input type="text" @if ($data->status == 'stage') readonly @endif
+                                        onchange="update_invoice_reference_number_ajax(this.value)"
+                                               class="form-control arabicNumbers"
+                                               value="{{ $data->invoice_reference_number }}">
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -142,8 +140,8 @@
                                         <select disabled name="client_id" id="" class="form-control select2bs4">
                                             <option value="">اختر عميل ...</option>
                                             @foreach ($users as $key)
-                                                <option @if ($key->id == $purchase_invoice->client_id) selected @endif
-                                                    value="{{ $key->id }}">{{ $key->name }}</option>
+                                                <option @if ($key->id == $data->client_id) selected @endif
+                                                value="{{ $key->id }}">{{ $key->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -151,17 +149,17 @@
 
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <?php
-                                        $month = date('m');
-                                        $day = date('d');
-                                        $year = date('Y');
-                                        $today = $year . '-' . $month . '-' . $day;
-                                        ?>
+                                            <?php
+                                            $month = date('m');
+                                            $day = date('d');
+                                            $year = date('Y');
+                                            $today = $year . '-' . $month . '-' . $day;
+                                            ?>
                                         <label for="">تاريخ الفاتورة</label>
-                                        <input @if ($purchase_invoice->status == 'stage') readonly @endif
-                                            onchange="update_purchase_invoices_from_ajax('bill_date',this.value)"
-                                            type="date" name="bill_date" class="form-control text-center"
-                                            value="{{ $purchase_invoice->bill_date }}">
+                                        <input @if ($data->status == 'stage') readonly @endif
+                                        onchange="update_purchase_invoices_from_ajax('bill_date',this.value)"
+                                               type="date" name="bill_date" class="form-control text-center"
+                                               value="{{ $data->bill_date }}">
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -173,10 +171,10 @@
                                         $today = $year . '-' . $month . '-' . $day;
                                         ?>
                                         <label for="">تاريخ الاستحقاق</label>
-                                        <input @if ($purchase_invoice->status == 'stage') readonly @endif
-                                            onchange="update_purchase_invoices_from_ajax('due_date',this.value)"
-                                            type="date" name="due_date" class="form-control text-center"
-                                            value="{{ $purchase_invoice->due_date }}">
+                                        <input @if ($data->status == 'stage') readonly @endif
+                                        onchange="update_purchase_invoices_from_ajax('due_date',this.value)"
+                                               type="date" name="due_date" class="form-control text-center"
+                                               value="{{ $data->due_date }}">
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -193,36 +191,36 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">التكرار خلال</label>
-                                                <input @if ($purchase_invoice->status == 'stage') readonly @endif
-                                                    onchange="update_purchase_invoices_from_ajax('repeat_every',this.value)"
-                                                    value="{{ $purchase_invoice->repeat_every }}" type="text"
-                                                    name="repeat_every" class="form-control">
+                                                <input @if ($data->status == 'stage') readonly @endif
+                                                onchange="update_purchase_invoices_from_ajax('repeat_every',this.value)"
+                                                       value="{{ $data->repeat_every }}" type="text"
+                                                       name="repeat_every" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">خلال</label>
-                                                <select @if ($purchase_invoice->status == 'stage') disabled @endif
-                                                    onchange="update_purchase_invoices_from_ajax('repeat_type',this.value)"
-                                                    class="form-control" name="repeat_type" id="">
-                                                    <option @if ($purchase_invoice->repeat_type == 'days') selected @endif
-                                                        value="days">يوم</option>
-                                                    <option @if ($purchase_invoice->repeat_type == 'weeks') selected @endif
-                                                        value="weeks">اسبوع</option>
-                                                    <option @if ($purchase_invoice->repeat_type == 'months') selected @endif
-                                                        value="months">شهر</option>
-                                                    <option @if ($purchase_invoice->repeat_type == 'years') selected @endif
-                                                        value="years">سنة</option>
+                                                <select @if ($data->status == 'stage') disabled @endif
+                                                onchange="update_purchase_invoices_from_ajax('repeat_type',this.value)"
+                                                        class="form-control" name="repeat_type" id="">
+                                                    <option @if ($data->repeat_type == 'days') selected @endif
+                                                    value="days">يوم</option>
+                                                    <option @if ($data->repeat_type == 'weeks') selected @endif
+                                                    value="weeks">اسبوع</option>
+                                                    <option @if ($data->repeat_type == 'months') selected @endif
+                                                    value="months">شهر</option>
+                                                    <option @if ($data->repeat_type == 'years') selected @endif
+                                                    value="years">سنة</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">الدورة</label>
-                                                <input @if ($purchase_invoice->status == 'stage') readonly @endif
-                                                    value="{{ $purchase_invoice->no_of_cycles }}" type="text"
-                                                    onchange="update_purchase_invoices_from_ajax('no_of_cycles',this.value)"
-                                                    name="no_of_cycles" class="form-control" placeholder="الدورة">
+                                                <input @if ($data->status == 'stage') readonly @endif
+                                                value="{{ $data->no_of_cycles }}" type="text"
+                                                       onchange="update_purchase_invoices_from_ajax('no_of_cycles',this.value)"
+                                                       name="no_of_cycles" class="form-control" placeholder="الدورة">
                                             </div>
                                         </div>
                                     </div>
@@ -231,7 +229,7 @@
                         </div>
                     </div>
 
-                    @if ($purchase_invoice->status != 'stage')
+                    @if ($data->status != 'stage')
                         <button onclick="show_form_product()" type="button" id="add_product" class="btn btn-info mb-2">
                             اضافة صنف
                         </button>
@@ -239,24 +237,25 @@
 
                     <div class="row mt-3">
                         <div class="col-md-12">
+                            {{-- هذا الـ div سيتم ملؤه بواسطة دالة invoices_table() بالأجاكس --}}
                             <div id="invoices_table">
-
+                                <div class="col text-center p-5"><i class="fas fa-3x fa-sync-alt fa-spin"></i></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="">ملاحظات</label>
-                            <textarea style="background-color: #ffbc0773" @if ($purchase_invoice->status == 'stage') readonly @endif class="form-control"
-                                name="note" onchange="update_purchase_invoices_from_ajax('note',this.value)" id="" cols="30"
-                                rows="3">{{ $purchase_invoice->note }}</textarea>
+                            <textarea style="background-color: #ffbc0773" @if ($data->status == 'stage') readonly @endif class="form-control"
+                                      name="note" onchange="update_purchase_invoices_from_ajax('note',this.value)" id="" cols="30"
+                                      rows="3">{{ $data->note }}</textarea>
                         </div>
                     </div>
                     <div style="position: fixed; left: 20px; bottom: 20px;height:500px;" id="toastsContainerBottomLeft"
-                        class="toasts-bottom-left fixed">
+                         class="toasts-bottom-left fixed">
                         <div class="toast border border-success fade" style="background-color:rgba(255,255,255);"
-                            id="form_product" role="alert" aria-live="assertive" aria-atomic="true"
-                            style="width: 100%; height: 100%;">
+                             id="form_product" role="alert" aria-live="assertive" aria-atomic="true"
+                             style="width: 100%; height: 100%;">
                             <div class="toast-header">
                                 <strong class="mr-auto">قائمة الأصناف</strong>
                                 <button type="button" class="ml-2 mb-1 close" onclick="close_form_product()">
@@ -265,7 +264,7 @@
                             </div>
                             <div class="toast-body">
                                 <input type="text" id="search_product" onkeyup="search_product_ajax(this.value)"
-                                    class="form-control border border-success" placeholder="بحث عن عنصر">
+                                       class="form-control border border-success" placeholder="بحث عن عنصر">
                                 <div style="width: 300px;display:block" class="mt-2">
                                     <div id="search_product_table">
                                     </div>
@@ -297,8 +296,8 @@
                                     <select class="form-control" name="" id="tax_ratio">
                                         <option value="">لا يوجد ضريبة</option>
                                         @foreach ($taxes as $key)
-                                            <option @if ($key->id == $purchase_invoice->tax_id) selected @endif
-                                                value="{{ $key->id }}">{{ $key->tax_name }}</option>
+                                            <option @if ($key->id == $data->tax_id) selected @endif
+                                            value="{{ $key->id }}">{{ $key->tax_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -306,29 +305,12 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="">نوع الضريبة</label>
-                                    <select class="form-control" name="" id="tax_type">
-                                        <option value="before">الاسعار شامل الضريبة</option>
-                                        <option value="after">الضريبة تضاف على المجموع</option>
+                                    <select class="form-control" name="tax_type" id="tax_type">
+                                        <option value="after" @if( ($data->tax_type ?? 'after') == 'after') selected @endif>الضريبة تضاف على المجموع</option>
+                                        <option value="before" @if($data->tax_type == 'before') selected @endif>الاسعار شامل الضريبة</option>
                                     </select>
                                 </div>
                             </div>
-                            {{-- <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" value="{{ $data->tax->tax_ratio??'' }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <select class="form-control" name="" id="">
-                                                <option value="">مئوية (%)</option>
-                                                <option value="">ثابتة</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -346,6 +328,13 @@
 @section('script')
     <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+
+    <script>
+        // المتغيرات العامة تقرأ من الفاتورة $data
+        const TAX_RATIO = {{ $data->tax->tax_ratio ?? 0 }};
+        const TAX_TYPE = '{{ $data->tax_type ?? 'after' }}';
+    </script>
+
 
     <script>
         function validateForm() {
@@ -388,7 +377,7 @@
                 headers: headers,
                 data: {
                     'search_product': search_product,
-                    'invoice_id': {{ $purchase_invoice->id }},
+                    'invoice_id': {{ $data->id }},
                     'page': page
                 },
                 success: function(data) {
@@ -416,8 +405,9 @@
                     'invoice_id': {{ $data->id }},
                 },
                 success: function(data) {
-                    // console.log(data);
                     $('#invoices_table').html(data.view);
+                    // استدعاء دالة حساب المجموع *بعد* تحميل الجدول
+                    updateSubTotal();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert('error');
@@ -474,24 +464,99 @@
             }
         }
 
+        // ===================================================
+        // دالة updateTotal المصححة (تحل مشكلة اختفاء المجموع)
+        // ===================================================
+        function updateTotal(itemId) {
+            var qty = parseFloat(document.getElementById('qty_input_' + itemId).value) || 0;
+            var rate = parseFloat(document.getElementById('rate_input_' + itemId).value) || 0;
+            var discount = parseFloat(document.getElementById('discount_input_' + itemId).value) || 0;
+
+            var total = qty * rate;
+            var discountAmount = 0;
+            var originalPrice = total; // السعر الأصلي قبل الخصم
+
+            if (discount > 0) {
+                discountAmount = (total * (discount / 100)); // حساب مبلغ الخصم
+                total = total - discountAmount; // خصم المبلغ من الإجمالي
+            }
+
+            var htmlContent;
+            if (discount > 0) {
+                // في حال وجود خصم
+                htmlContent = `<div class="row">
+                                <div class="col-md-6">
+                                    <del>${originalPrice.toFixed(2)}</del>
+                                </div>
+                                <div>
+                                    ${total.toFixed(2)}
+                                </div>
+                            </div>`;
+            } else {
+                // في حال عدم وجود خصم
+                htmlContent = originalPrice.toFixed(2);
+            }
+
+            // عرض السعر
+            document.getElementById('total_td_' + itemId).innerHTML = htmlContent;
+
+            return {
+                total: total, // المجموع بعد الخصم
+                originalPrice: originalPrice, // المجموع قبل الخصم
+                discountAmount: discountAmount // مبلغ الخصم
+            };
+        }
+
+        // ===================================================
+        // دالة updateSubTotal الصحيحة
+        // ===================================================
+        function updateSubTotal() {
+            var totalNet = 0;
+            var totalGross = 0;
+            var totalDiscountAmount = 0;
+
+            // ($invoice هي مصفوفة الأصناف التي تم تمريرها من الكنترولر الرئيسي)
+            @foreach ($invoice as $key)
+            var itemData = updateTotal({{ $key->id }});
+            totalNet += itemData.total;
+            totalGross += itemData.originalPrice;
+            totalDiscountAmount += itemData.discountAmount;
+            @endforeach
+
+            var taxAmount = 0;
+            var subTotalForDisplay = 0;
+            var finalTotal = 0;
+
+            // حساب الضريبة بناءً على نوعها (before/after)
+            if (TAX_TYPE === 'before') {
+                subTotalForDisplay = totalNet / (1 + (TAX_RATIO / 100));
+                taxAmount = totalNet - subTotalForDisplay;
+                finalTotal = totalNet;
+            }
+            else {
+                subTotalForDisplay = totalNet;
+                taxAmount = (totalNet * (TAX_RATIO / 100));
+                finalTotal = totalNet + taxAmount;
+            }
+
+            // تحديث عناصر الـ DOM الموجودة في الملف الجزئي
+            document.getElementById('sub_total').innerText = subTotalForDisplay.toFixed(2);
+            document.getElementById('sub_discount').innerText = totalDiscountAmount.toFixed(2);
+            document.getElementById('tax_id').innerText = taxAmount.toFixed(2);
+            document.getElementById('sub_total_after_tax').innerText = finalTotal.toFixed(2);
+        }
+
+        // دالة تعديل المدخلات (صحيحة)
         function edit_inputs_from_invoice(id, value, operation) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            var headers = {
-                "X-CSRF-Token": csrfToken
-            };
-
+            var headers = { "X-CSRF-Token": csrfToken };
             $.ajax({
                 url: '{{ route('accounting.sales_invoices.edit_inputs_from_invoice') }}',
                 method: 'post',
                 headers: headers,
-                data: {
-                    'id': id,
-                    'operation': operation,
-                    'value': value
-                },
+                data: { 'id': id, 'operation': operation, 'value': value },
                 success: function(data) {
-                    updateTotal(id);
-                    updateSubTotal();
+                    updateSubTotal(); // إعادة حساب كل شيء
                     toastr.success('تم التعديل بنجاح');
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -500,18 +565,16 @@
             });
         }
 
+        // دوال الأجاكس لتحديث بيانات الفاتورة (صحيحة)
         function update_invoice_reference_number_ajax(value) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            var headers = {
-                "X-CSRF-Token": csrfToken
-            };
-
+            var headers = { "X-CSRF-Token": csrfToken };
             $.ajax({
                 url: '{{ route('accounting.sales_invoices.update_invoice_reference_number_ajax') }}',
                 method: 'post',
                 headers: headers,
                 data: {
-                    'id': {{ $purchase_invoice->id }},
+                    'id': {{ $data->id }},
                     'invoice_reference_number': value
                 },
                 success: function(data) {
@@ -527,15 +590,13 @@
 
         function update_purchase_invoices_from_ajax(operation, value) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            var headers = {
-                "X-CSRF-Token": csrfToken
-            };
+            var headers = { "X-CSRF-Token": csrfToken };
             $.ajax({
                 url: '{{ route('accounting.sales_invoices.update_purchase_invoices_from_ajax') }}',
                 method: 'post',
                 headers: headers,
                 data: {
-                    'id': {{ $purchase_invoice->id }},
+                    'id': {{ $data->id }},
                     'operation': operation,
                     'value': value
                 },
@@ -551,9 +612,7 @@
 
         function update_taxes_ajax(tax_id) {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            var headers = {
-                "X-CSRF-Token": csrfToken
-            };
+            var headers = { "X-CSRF-Token": csrfToken };
             $.ajax({
                 url: '{{ route('accounting.sales_invoices.update_purchase_invoices_from_ajax') }}',
                 method: 'post',
@@ -571,29 +630,39 @@
             });
         }
 
+        // دالة حفظ الضريبة (صحيحة ومعدلة لمنع الكاش)
         function update_tax_id_ratio() {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            var headers = {
-                "X-CSRF-Token": csrfToken
-            };
+            var headers = { "X-CSRF-Token": csrfToken };
+
+            var tax_id = $('#tax_ratio').val();
+            var tax_type = $('#tax_type').val();
+            var invoice_id = {{ $data->id }}; // $data هو الفاتورة
+
             $.ajax({
                 url: '{{ route('accounting.sales_invoices.update_tax_id_ratio') }}',
                 method: 'post',
                 headers: headers,
                 data: {
-                    'id': {{ $purchase_invoice->id }},
-                    'tax_id': document.getElementById('tax_ratio').value,
+                    'id': invoice_id,
+                    'tax_id': tax_id,
+                    'tax_type': tax_type
                 },
                 success: function(data) {
-                    console.log(data);
-                    toastr.success(data.message);
-                    invoices_table();
+                    if(data.status == 'true') {
+                        toastr.success(data.message);
+                        location.reload(true); // إعادة تحميل الصفحة مع منع الكاش
+                    } else {
+                        toastr.error(data.message);
+                    }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    alert('error');
+                    alert('خطأ في الاتصال');
                 }
             });
         }
+
+        var page = 1; // تعريف المتغير 'page' في النطاق العام
 
         $(document).ready(function() {
             document.getElementById('form_product').style.display = 'none';
@@ -603,7 +672,6 @@
 
 
 
-        var page = 1;
         $(document).on('click', '.pagination a', function(event) {
             event.preventDefault();
             page = $(this).attr('href').split('page=')[1];
@@ -621,7 +689,7 @@
             validate = validateForm();
             if (validate === true) {
                 window.location.href =
-                    '{{ route('accounting.sales_invoices.invoice_posting', ['id' => $purchase_invoice->id]) }}';
+                    '{{ route('accounting.sales_invoices.invoice_posting', ['id' => $data->id]) }}';
             }
         }
     </script>
@@ -630,20 +698,14 @@
         $(document).ready(function() {
             $('#tax_id1').on('change', function() {
                 var selectedValue = $(this).val();
-
-                // Clear the options in tax_id2
                 $('#tax_id2').empty();
-
-                // Add default option to tax_id2
                 $('#tax_id2').append('<option value="">اختر قيمة الضريبة ...</option>');
-
-                // Add formatted options to tax_id2 based on the selected value in tax_id
                 @foreach ($taxes as $key)
-                    if ('{{ $key->id }}' !== selectedValue) {
-                        $('#tax_id2').append(
-                            '<option value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>'
-                        );
-                    }
+                if ('{{ $key->id }}' !== selectedValue) {
+                    $('#tax_id2').append(
+                        '<option value="{{ $key->id }}">{{ $key->tax_name }} ({{ $key->tax_ratio }}%)</option>'
+                    );
+                }
                 @endforeach
             });
         });
@@ -664,31 +726,19 @@
         }
 
         function post_the_invoice() {
-            // if ($('#wherehouse_select').val()) {
             window.location.href =
-                '{{ route('accounting.sales_invoices.invoice_posting', ['id' => $purchase_invoice->id]) }}'
-            // } else {
-            //     alert('يجب ان تحدد المخزن')
-            // }
+                '{{ route('accounting.sales_invoices.invoice_posting', ['id' => $data->id]) }}'
         }
 
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('image-zoom')) {
-                // إنشاء العنصر الخلفي (الشفاف)
                 const overlay = document.createElement('div');
                 overlay.classList.add('image-preview-overlay');
-
-                // إنشاء الصورة المكبرة
                 const img = document.createElement('img');
                 img.src = e.target.src;
-
                 overlay.appendChild(img);
                 document.body.appendChild(overlay);
-
-                // عرض الصورة بالتأثير
                 setTimeout(() => overlay.classList.add('show'), 10);
-
-                // عند النقر خارج الصورة يتم الإغلاق
                 overlay.addEventListener('click', function (event) {
                     if (event.target === overlay) {
                         overlay.classList.remove('show');

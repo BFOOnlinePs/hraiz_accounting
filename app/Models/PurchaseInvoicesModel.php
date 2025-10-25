@@ -11,10 +11,17 @@ class PurchaseInvoicesModel extends Model
 
     protected $table = 'bfo_invoices';
 
+    protected $guarded = [];
+
     public function invoiceItems()
     {
         return $this->hasMany(InvoiceItemsModel::class, 'invoice_id', 'id'); // Adjust 'invoice_id' if the foreign key is different
     }
+
+    public function order(){
+        return $this->belongsTo(OrderModel::class,'order_id');
+    }
+
     public function totalAmount()
     {
         $total = 0;
@@ -26,6 +33,10 @@ class PurchaseInvoicesModel extends Model
         return $total;
     }
 
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+
     public function client(){
         return $this->belongsTo(User::class,'client_id');
     }
@@ -34,8 +45,16 @@ class PurchaseInvoicesModel extends Model
         return $this->belongsTo(UnitsModel::class,'unit_id');
     }
 
+    public function items()
+    {
+        return $this->hasMany(InvoiceItemsModel::class, 'invoice_id', 'id');
+    }
+
     public function currency(){
         return $this->belongsTo(CurrencyModel::class,'currency_id');
     }
 
+    public function tax(){
+        return $this->belongsTo(TaxesModel::class,'tax_id');
+    }
 }

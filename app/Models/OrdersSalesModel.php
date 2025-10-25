@@ -31,4 +31,8 @@ class OrdersSalesModel extends Model
     {
         return $this->hasMany(PurchaseInvoicesModel::class , 'order_id' , 'id');
     }
+
+    public function tax(){
+        return $this->belongsTo(TaxesModel::class,'tax_id');
+    }
 }
