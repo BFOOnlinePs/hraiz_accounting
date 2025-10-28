@@ -261,6 +261,7 @@ class SalesInvoicesController extends Controller
             $data->invoice_type = 'sales';
             $data->order_id = $request->order_id;
             $data->currency_id = $request->currency_id;
+            $data->note = OrdersSalesModel::where('id',$request->order_id)->first()->notes ?? '';
             // $order_itmes = OrdersSalesItemsModel::where('order_id',$request->order_id)->get();
             if($data->save()){
                 foreach($request->select_items as $key){
