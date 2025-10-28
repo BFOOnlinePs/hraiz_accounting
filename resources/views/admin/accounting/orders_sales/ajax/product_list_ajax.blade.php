@@ -1,9 +1,10 @@
 <table class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
-            <th>الباركودس</th>
+            <th>الباركود</th>
             <th>الصنف</th>
             <th>الكمية</th>
+            <th>السعر</th>
             <th>العمليات</th>
         </tr>
     </thead>

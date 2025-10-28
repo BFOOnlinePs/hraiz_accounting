@@ -24,10 +24,13 @@
                     <td><input name="select_items[]" value="{{ $key->id }}" checked type="checkbox"></td>
                     <td>{{ $key->product->barcode }}</td>
                     <td>{{ $key->product->product_name_ar }}</td>
-                    <td><input @if ($order_items->order_status == 'invoice_has_been_posted' || in_array('11', json_decode(auth()->user()->user_role))) disabled @endif type="number"
+{{--                    <td><input @if ($order_items->order_status == 'invoice_has_been_posted' || in_array('11', json_decode(auth()->user()->user_role))) disabled @endif type="number"--}}
+{{--                            onchange="update_orders_sales_items({{ $key->id }} ,'qty',this.value)"--}}
+{{--                            class="form-control" value="{{ $key->qty }}"></td>--}}
+                    <td><input @if ($order_items->order_status == 'invoice_has_been_posted') disabled @endif type="number"
                             onchange="update_orders_sales_items({{ $key->id }} ,'qty',this.value)"
                             class="form-control" value="{{ $key->qty }}"></td>
-                    <td><input @if ($order_items->order_status == 'invoice_has_been_posted' || in_array('11', json_decode(auth()->user()->user_role))) disabled @endif type="number"
+                    <td><input @if ($order_items->order_status == 'invoice_has_been_posted') disabled @endif type="number"
                             onchange="update_orders_sales_items({{ $key->id }},'price',this.value)"
                             class="form-control" value="{{ $key->price }}"></td>
                     @if (
