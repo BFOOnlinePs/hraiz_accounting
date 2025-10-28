@@ -274,10 +274,13 @@
                                                     </div>
                                             </div>
                                             <hr>
-                                            <div class="m-2">
-                                                {!! QrCode::size(200)->generate($data->barcode); !!}
-                                            </div>
-
+                                            @if(empty($data->barcode))
+                                                لا يوجد باركود للمنتج
+                                            @else
+                                                <div class="m-2">
+                                                    {!! QrCode::size(200)->generate($data->barcode); !!}
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
