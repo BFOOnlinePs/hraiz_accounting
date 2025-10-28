@@ -26,14 +26,14 @@
                 <td>
                     {{-- Added 'item-qty' class for easy selection with jQuery --}}
                     <input pattern="[0-9.]+" title="please enter number only" tabindex="{{ $loop->index + 1 }}"
-                           @if ($order_items->order_status == 'invoice_has_been_posted' || in_array('11', json_decode(auth()->user()->user_role))) disabled @endif type="text"
+                           @if ($order_items->order_status == 'invoice_has_been_posted') disabled @endif type="text"
                            onchange="update_orders_sales_items({{ $key->id }} ,'qty',this.value)"
                            class="form-control item-qty" value="{{ $key->qty }}">
                 </td>
                 <td>
                     {{-- Added 'item-price' class for easy selection with jQuery --}}
                     <input pattern="[0-9.]+" title="please enter number only"
-                           @if ($order_items->order_status == 'invoice_has_been_posted' || in_array('11', json_decode(auth()->user()->user_role))) disabled @endif type="text"
+                           @if ($order_items->order_status == 'invoice_has_been_posted') disabled @endif type="text"
                            onchange="update_orders_sales_items({{ $key->id }},'price',this.value)"
                            class="form-control item-price" value="{{ $key->price }}">
                 </td>
