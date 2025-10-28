@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit">
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/sales_price_select_items.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/accounting/orders_sales/ajax/sales_price_select_items.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -427,7 +425,7 @@
       <workItem from="1736103945530" duration="2813000" />
       <workItem from="1758442091502" duration="1603000" />
       <workItem from="1758541273095" duration="1455000" />
-      <workItem from="1760951687694" duration="7698000" />
+      <workItem from="1760951687694" duration="7737000" />
     </task>
     <task id="LOCAL-00001" summary="edit">
       <created>1692272515017</created>
