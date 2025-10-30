@@ -154,7 +154,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="">العملة</label>
-                                        <input type="text" class="form-control" readonly value="{{ $data->currency->currency_name }}">
+                                        <input type="text" class="form-control" readonly value="{{ $data->currency->currency_name ?? '' }}">
                                     </div>
                                 </div>
                             </div>

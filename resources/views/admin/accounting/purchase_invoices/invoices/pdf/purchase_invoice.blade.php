@@ -128,16 +128,16 @@
     </style>
 </head>
 <body>
-<div style="page-break-after: always">
-    <div style="padding-top: 50%;height: 100%">
-        <div>
-            <p style="font-weight: bold">מידע כללי</p>
-        </div>
-        <div>
-            אנו מתמחים בייצור, ושיווק פרזול לחלונות ודלתות אלומיניום
-        </div>
-    </div>
-</div>
+{{--<div style="page-break-after: always">--}}
+{{--    <div style="padding-top: 50%;height: 100%">--}}
+{{--        <div>--}}
+{{--            <p style="font-weight: bold">מידע כללי</p>--}}
+{{--        </div>--}}
+{{--        <div>--}}
+{{--            אנו מתמחים בייצור, ושיווק פרזול לחלונות ודלתות אלומיניום--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 <div style="width: 100%">
     <div class="invoice-details">
         <table width="100%" @if ($request->language == 'en') dir='ltr' @endif>
@@ -150,6 +150,15 @@
                 @elseif ($request->language == 'he')
                 <strong>מספר התייחסות:</strong> {{ $data->invoice_reference_number }}
                 @endif
+                </td>
+                <td colspan="">
+                    @if ($request->language == 'ar')
+                        <strong>اسم العميل:</strong> {{ $data->user->name }}
+                    @elseif ($request->language == 'en')
+                        <strong>Clinet Name:</strong> {{ $data->user->name }}
+                    @elseif ($request->language == 'he')
+                        <strong>שם הלקוח:</strong> {{ $data->user->name }}
+                    @endif
                 </td>
             </tr>
             <tr>
@@ -195,7 +204,7 @@
                     {{ $data->note }}
                 </td>
             </tr>
-        </table>    
+        </table>
     </div>
 </div>
 <div style="width: 100%">
@@ -210,7 +219,7 @@
                 <th>@if ($request->language == 'ar') المجموع @elseif ($request->language == 'en') Total @elseif ($request->language == 'he') סך הכל @endif</th>
             </tr>
             @foreach($invoice as $key)
-    
+
                 <tr>
                     <td>{{ $key['product']->product_name_ar??'' }}</td>
                     <td>
