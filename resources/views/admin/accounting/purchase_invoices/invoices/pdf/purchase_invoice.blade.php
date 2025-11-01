@@ -148,7 +148,7 @@
                 @elseif ($request->language == 'en')
                 <strong>Reference Number:</strong> {{ $data->invoice_reference_number }}
                 @elseif ($request->language == 'he')
-                <strong>מספר התייחסות:</strong> {{ $data->invoice_reference_number }}
+                <strong>رقم الفاتورة:</strong> {{ $data->invoice_reference_number }}
                 @endif
                 </td>
                 <td colspan="">
