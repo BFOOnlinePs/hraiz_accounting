@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="dc0963de-5d4a-497e-a864-4d74efffd831" name="Changes" comment="edit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/accounting/SalesInvoicesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/accounting/SalesInvoicesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/accounting/OrdersSalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/accounting/OrdersSalesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/hr/AttendanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/hr/AttendanceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +43,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/BFOOnlinePs/hraiz_accounting.git&quot;,
-    &quot;accountId&quot;: &quot;b5d94f18-873b-47f1-995b-a6ef3f6070d1&quot;
+    &quot;accountId&quot;: &quot;f8cda93b-1d90-4609-8ff6-b6246f84b66b&quot;
   }
 }</component>
   <component name="MarkdownSettingsMigration">
@@ -428,7 +430,9 @@
       <workItem from="1736103945530" duration="2813000" />
       <workItem from="1758442091502" duration="1603000" />
       <workItem from="1758541273095" duration="1455000" />
-      <workItem from="1760951687694" duration="8683000" />
+      <workItem from="1760951687694" duration="12359000" />
+      <workItem from="1763215131758" duration="586000" />
+      <workItem from="1763983962028" duration="140000" />
     </task>
     <task id="LOCAL-00001" summary="edit">
       <created>1692272515017</created>

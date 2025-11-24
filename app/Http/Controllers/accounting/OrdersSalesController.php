@@ -58,7 +58,7 @@ class OrdersSalesController extends Controller
     }
 
     public function product_list_ajax(Request $request){
-        $data = ProductModel::where('product_name_ar','like','%'.$request->search.'%')->paginate(8);
+        $data = ProductModel::where('product_name_ar','like','%'.$request->search.'%')->orWhere('barcode', 'like', '%'.$request->search.'%')->paginate(8);
         return response()->json([
             'success' => true,
             'view' => view('admin.accounting.orders_sales.ajax.product_list_ajax',['data'=>$data])->render()
