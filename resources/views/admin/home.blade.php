@@ -391,7 +391,7 @@
         $selectedYear = session('selected_year') ?? date('Y');
     @endphp
 
-    @if (in_array('1', $userRoles))
+    @if (in_array('1', $userRoles) || in_array('11', $userRoles))
         <div class="dashboard-container">
 {{--            <div class="header">--}}
 {{--                <h1>لوحة التحكم الرئيسية</h1>--}}
@@ -536,11 +536,13 @@
                     <h5>خطوط الانتاج</h5>
                     <p>مراقبة وإدارة خطوط الإنتاج</p>
                 </a>
-                <a class="action-card action-3" href="{{ route('accounting.customer_account_statement_index') }}">
-                    <i class="fas fa-table"></i>
-                    <h5>كشف حساب</h5>
-                    <p>كشف حساب العملاء والموردين</p>
-                </a>
+                @if(!in_array('11', $userRoles))
+                    <a class="action-card action-3" href="{{ route('accounting.customer_account_statement_index') }}">
+                        <i class="fas fa-table"></i>
+                        <h5>كشف حساب</h5>
+                        <p>كشف حساب العملاء والموردين</p>
+                    </a>
+                @endif
                 <a class="action-card action-4" href="{{ route('accounting.expenses.index') }}">
                     <i class="fas fa-ils"></i>
                     <h5>مصروفات</h5>

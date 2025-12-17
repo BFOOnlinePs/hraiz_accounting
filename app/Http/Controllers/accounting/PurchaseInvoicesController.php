@@ -28,7 +28,7 @@ class PurchaseInvoicesController extends Controller
     public function index(){
         $data = PurchaseInvoicesModel::get();
         $order = OrderModel::get();
-        $users = User::whereJsonContains('user_role',['4'])->orWhereJsonContains('user_role',['10'])->get();
+        $users = User::whereJsonContains('user_role',['4'])->orWhereJsonContains('user_role',['10'])->where('user_status', 1)->get();
         // $order = OrderModel::whereIn('id',function($query){
         //     $query->from('price_offers')->where('status', 1)->select('id')->get();
         // })->get();
@@ -69,7 +69,7 @@ class PurchaseInvoicesController extends Controller
     }
 
     public function new_invoices_index(){
-        $client = User::whereJsonContains('user_role',['4'])->orwhereJsonContains('user_role',['10'])->get();
+        $client = User::whereJsonContains('user_role',['4'])->orwhereJsonContains('user_role',['10'])->where('user_status', 1)->get();
         $taxes = TaxesModel::get();
         $currency = Currency::get();
         $wherehouses = WhereHouseModel::get();

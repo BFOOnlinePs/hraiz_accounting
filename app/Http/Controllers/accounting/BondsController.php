@@ -19,8 +19,8 @@ class BondsController extends Controller
         $data = BondsModel::orderBy('id','desc')->get();
         $invoices = PurchaseInvoicesModel::where('invoice_type','sales')->get();
         $currencies = Currency::get();
-        $users = User::whereJsonContains('user_role',['2'])->get();
-        $clients = User::whereJsonContains('user_role',['10'])->get();
+        $users = User::where('user_status', 1)->whereJsonContains('user_role',['2'])->get();
+        $clients = User::whereJsonContains('user_role',['10'])->where('user_status', 1)->get();
         $banks = BankModel::get();
         return view('admin.accounting.bonds.payment_bond.index',['data'=>$data,'invoices'=>$invoices,'currencies'=>$currencies,'users'=>$users,'clients'=>$clients , 'banks'=>$banks]);
     }
@@ -209,8 +209,8 @@ class BondsController extends Controller
         $data = BondsModel::with('bank')->where('invoice_type','performance_bond')->get();
         $invoices = PurchaseInvoicesModel::where('invoice_type','purchases')->get();
         $currencies = Currency::get();
-        $users = User::whereJsonContains('user_role',['2'])->get();
-        $clients = User::whereJsonContains('user_role',['4'])->orWhereJsonContains('user_role',['10'])->get();
+        $users = User::whereJsonContains('user_role',['2'])->where('user_status', 1)->get();
+        $clients = User::whereJsonContains('user_role',['4'])->orWhereJsonContains('user_role',['10'])->where('user_status', 1)->get();
         $banks = BankModel::get();
         return view('admin.accounting.bonds.performance_bond.index',['data'=>$data,'invoices'=>$invoices,'currencies'=>$currencies,'users'=>$users,'clients'=>$clients , 'banks'=>$banks]);
     }
@@ -488,7 +488,7 @@ class BondsController extends Controller
 
     public function registration_bonds_index()
     {
-        $client = User::whereJsonContains('user_role','4')->orWhereJsonContains('user_role','10')->get();
+        $client = User::whereJsonContains('user_role','4')->orWhereJsonContains('user_role','10')->where('user_status', 1)->get();
         $currency = Currency::get();
         return view('admin.accounting.bonds.registration_bonds.index',['client'=>$client,'currency'=>$currency]);
     }

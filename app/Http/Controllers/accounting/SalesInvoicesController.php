@@ -57,7 +57,7 @@ class SalesInvoicesController extends Controller
     }
 
     public function new_invoices_index(){
-        $client = User::whereJsonContains('user_role',['10'])->get();
+        $client = User::where('user_status', 1)->whereJsonContains('user_role',['10'])->get();
         $taxes = TaxesModel::get();
         $currency = CurrencyModel::get();
         $get_invoice_order_number = PurchaseInvoicesModel::latest('id')->first()->id + 1;

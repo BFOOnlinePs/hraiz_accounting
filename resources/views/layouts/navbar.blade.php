@@ -46,7 +46,7 @@
                 <li class="nav-item">
                     <a href="{{ route('home') }}" class="nav-link text-white">الرئيسية</a>
                 </li>
-                @if (in_array('1', json_decode(auth()->user()->user_role)))
+                @if (in_array('1', json_decode(auth()->user()->user_role)) || in_array('11', json_decode(auth()->user()->user_role)))
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false" class="nav-link text-white dropdown-toggle">الحسابات</a>
@@ -165,17 +165,21 @@
                             <li><a href="#" class="dropdown-item">تقرير أصناف شركة</a></li>
                             <li><a href="{{ route('reports.financial_report.financial_report_index') }}"
                                     class="dropdown-item">التقارير المالية</a></li>
-                            <li class="dropdown-submenu dropdown-hover">
-                                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false"
-                                    class="dropdown-item dropdown-toggle">كشف حساب</a>
-                                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                                    <li>
-                                        <a href="{{ route('accounting.customer_account_statement_index') }}"
-                                            class="dropdown-item">كشف حساب</a>
-                                    </li>
-                                </ul>
-                            </li>
+
+                            @if(!in_array('11', json_decode(auth()->user()->user_role)))
+                                <li class="dropdown-submenu dropdown-hover">
+                                    <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false"
+                                       class="dropdown-item dropdown-toggle">كشف حساب</a>
+                                    <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                                        <li>
+                                            <a href="{{ route('accounting.customer_account_statement_index') }}"
+                                               class="dropdown-item">كشف حساب</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endif
+
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -212,15 +216,15 @@
                             <li><a href="{{ route('wherehouse.index') }}" class="dropdown-item">المخازن</a></li>
                         </ul>
                     </li>
-                @elseif (in_array('11', json_decode(auth()->user()->user_role)))
-                    <li class="nav-item dropdown">
-                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="nav-link text-white dropdown-toggle">الطلبيات</a>
-                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                            <li><a href="{{ route('accounting.preparation.index') }}"
-                                    class="dropdown-item">التحضير</a></li>
-                        </ul>
-                    </li>
+{{--                @elseif (in_array('11', json_decode(auth()->user()->user_role)))--}}
+{{--                    <li class="nav-item dropdown">--}}
+{{--                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"--}}
+{{--                            aria-expanded="false" class="nav-link text-white dropdown-toggle">الطلبيات</a>--}}
+{{--                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">--}}
+{{--                            <li><a href="{{ route('accounting.preparation.index') }}"--}}
+{{--                                    class="dropdown-item">التحضير</a></li>--}}
+{{--                        </ul>--}}
+{{--                    </li>--}}
                 @endif
             </ul>
 

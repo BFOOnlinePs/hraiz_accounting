@@ -37,7 +37,7 @@
                         @if ($firstTermBalance['amount'] > 0)
                             {{ $firstTermBalance['amount'] }}
                         @else
-                        0
+                            0
                         @endif
                     </td>
                     <td>{{ $firstTermBalance['amount'] }}</td>
@@ -61,7 +61,7 @@
                         @if ($key->type == 'payment_bond' || $key->type == 'performance_bond')
                             {{ date('d-m-Y', strtotime($key->bond->created_at)) }}
                         @elseif ($key->type == 'purchase')
-                            {{ $key->invoice->due_date ?? ' - ' }}
+                            {{ $key->invoice->bill_date ?? ' - ' }}
                         @elseif ($key->type == 'sales')
                             {{ $key->invoice->bill_date ?? ' - ' }}
                         @endif

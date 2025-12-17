@@ -17,7 +17,14 @@
         @else
             @foreach($data as $key)
                 <tr>
-                    <td>{{ $key->invoice->invoice_reference_number ?? 'من غير فاتورة' }}</td>
+                    <td>
+                        @if(empty($key->invoice->invoice_reference_number))
+                            من غير فاتورة
+                        @else
+                            <a href="{{ route('accounting.returns.returns_details',['id'=>$key->id]) }}">{{ $key->invoice->invoice_reference_number }}</a>
+                        @endif
+{{--                        {{ $key->invoice->invoice_reference_number ?? 'من غير فاتورة' }}--}}
+                    </td>
                     <td>{{ $key->invoice->client->name ?? '' }}</td>
                     <td>
                         @if($key->returns_type == 'sales')

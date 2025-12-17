@@ -21,7 +21,9 @@
                 <tr>
 {{--                    <td>{{ ($data->currentPage()-1) * $data->perPage() + $loop->index + 1 }}</td>--}}
                     <td>{{ $key->id }}</td>
-                    <td>{{ $key->reference_number }}</td>
+                    <td>
+                        <a href="{{ route('accounting.orders_sales.orders_sales_details', ['order_id' => $key->id]) }}">{{ $key->reference_number }}</a>
+                    </td>
                     <td>{{ $key->client->name }}</td>
                     <td>
                         @if ($key->getInvoices != null)

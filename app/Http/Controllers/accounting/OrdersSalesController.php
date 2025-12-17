@@ -24,7 +24,7 @@ class OrdersSalesController extends Controller
 {
     public function index()
     {
-        $clients = User::whereJsonContains('user_role','10')->orWhereJsonContains('user_role','4')->get();
+        $clients = User::where('user_status', 1)->whereJsonContains('user_role','10')->orWhereJsonContains('user_role','4')->get();
         return view('admin.accounting.orders_sales.index',['clients'=>$clients]);
     }
 

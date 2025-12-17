@@ -22,7 +22,9 @@
             @foreach ($data as $key)
                 <tr>
                     {{-- <td>{{ ($data ->currentpage()-1) * $data ->perpage() + $loop->index + 1 }}</td> --}}
-                    <td class="text-left">{{ $key->invoice_reference_number }}</td>
+                    <td class="text-left">
+                        <a href="{{ route('accounting.purchase_invoices.invoice_view', ['id' => $key->id]) }}">{{ $key->invoice_reference_number }}</a>
+                    </td>
                     <td class="text-left">{{ App\Models\User::where('id', $key->client_id)->value('name') }}</td>
                     <td>{{ $key->bill_date }}</td>
                     <td>{{ $key->due_date }}</td>

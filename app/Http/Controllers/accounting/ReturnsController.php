@@ -20,7 +20,7 @@ use PDF;
 class ReturnsController extends Controller
 {
     public function index(){
-        $clients = User::whereJsonContains('user_role','10')->get();
+        $clients = User::where('user_status', 1)->whereJsonContains('user_role','10')->get();
         $data = ReturnsModel::get();
         foreach ($data as $key){
             $key->invoice = PurchaseInvoicesModel::where('id',$key->invoice_id)->first();
