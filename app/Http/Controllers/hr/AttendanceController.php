@@ -12,7 +12,6 @@ class AttendanceController extends Controller
 {
     public function create(Request $request)
     {
-        return $request;
         $bfo_attendance = new BfoAttendance();
         $bfo_attendance->status = "approved";
         $bfo_attendance->user_id = $request->employee_id;

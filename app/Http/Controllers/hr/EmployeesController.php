@@ -46,6 +46,7 @@ class EmployeesController extends Controller
         $bfo_attendances = BfoAttendance::where('user_id' , $id)
         ->where('deleted', 0)
         ->paginate(10);
+        dd($bfo_attendances);
         $currencies = Currency::get();
         $vacations_types = VacationType::get();
         $employees_bonuses = EmployeeBonus::where('employee_id' , $id)->get();
