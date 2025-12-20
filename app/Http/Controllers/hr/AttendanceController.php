@@ -12,26 +12,52 @@ class AttendanceController extends Controller
 {
     public function create(Request $request)
     {
+        // 1. التحقق إذا كان الموظف قد سجل حضوراً بالفعل في هذا التاريخ
+        $alreadyCheckedIn = BfoAttendance::where('user_id', $request->employee_id)
+            ->whereDate('in_time', $request->date)
+            ->where('deleted', 0)
+            ->exists();
+
+        if ($alreadyCheckedIn) {
+            return redirect()->route('users.employees.details', ['id' => $request->employee_id])
+                ->with([
+                    'fail' => 'خطأ: الموظف مسجل حضور بالفعل في هذا اليوم (' . $request->date . ')',
+                    'tab_id' => 2
+                ]);
+        }
+
+        // 2. إذا لم يوجد سجل، يتم إنشاء سجل جديد
         $bfo_attendance = new BfoAttendance();
         $bfo_attendance->status = "approved";
         $bfo_attendance->user_id = $request->employee_id;
+        // دمج التاريخ والوقت القادمين من الـ Request
         $bfo_attendance->in_time = $request->date . ' ' . $request->time;
         $bfo_attendance->note = $request->note;
         $bfo_attendance->deleted = 0;
         $bfo_attendance->checked_by = auth()->user()->id;
         $bfo_attendance->activity_type = $request->activity_type;
+
         if($bfo_attendance->save())
         {
-            return redirect()->route('users.employees.details' , ['id' => $request->employee_id])->with(['success'=>'تم تسجيل حضور الموظف بنجاح','tab_id'=>2]);
-
+            return redirect()->route('users.employees.details' , ['id' => $request->employee_id])
+                ->with(['success'=>'تم تسجيل حضور الموظف بنجاح','tab_id'=>2]);
         }
         else {
-            return redirect()->route('users.employees.details' , ['id' => $request->employee_id])->with(['fail'=>'لم يتم تسجيل حضور الموظف ، هناك خلل ما','tab_id'=>2]);
+            return redirect()->route('users.employees.details' , ['id' => $request->employee_id])
+                ->with(['fail'=>'لم يتم تسجيل حضور الموظف ، هناك خلل ما','tab_id'=>2]);
         }
     }
+
     public function editOutTime(Request $request)
     {
         $bfo_attendance = BfoAttendance::find($request->bfo_attendance_id);
+
+        if ($bfo_attendance->out_time != null) {
+            return redirect()->back()->with([
+                'fail' => 'هذا الموظف لديه تسجيل مغادرة مسبق لهذا الحضور',
+                'tab_id' => 2
+            ]);
+        }
         $bfo_attendance->out_time = $request->date . ' ' . $request->time;
         $bfo_attendance->note = $request->note;
         $bfo_attendance->checked_by = auth()->user()->id;

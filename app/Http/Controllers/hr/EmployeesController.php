@@ -46,7 +46,7 @@ class EmployeesController extends Controller
         $bfo_attendances = BfoAttendance::where('user_id' , $id)
         ->where('deleted', 0)
         ->paginate(10);
-        dd($bfo_attendances);
+
         $currencies = Currency::get();
         $vacations_types = VacationType::get();
         $employees_bonuses = EmployeeBonus::where('employee_id' , $id)->get();
@@ -67,4 +67,63 @@ class EmployeesController extends Controller
         $user_role = UserRole::get();
         return view('admin.hr.employees.edit' , ['data' => $data , 'user_role' => $user_role]);
     }
+
+    /**
+     * فلتر سجل الحضور حسب الشهر والسنة
+     */
+    public function filterAttendance(Request $request)
+    {
+        $employeeId = $request->get('employee_id');
+        $year = $request->get('year');
+        $month = $request->get('month');
+
+        // 1. فلتر الحضور
+        $attendanceQuery = BfoAttendance::where('user_id', $employeeId)->where('deleted', 0);
+        if ($year && $month) {
+            $attendanceQuery->whereYear('in_time', $year)->whereMonth('in_time', $month);
+        }
+        $attendances = $attendanceQuery->orderBy('in_time', 'asc')->get();
+
+        // حساب الساعات
+        $totalActualHours = 0;
+        foreach($attendances as $att) {
+            if($att->in_time && $att->out_time) {
+                $start = \Carbon\Carbon::parse($att->in_time);
+                $end = \Carbon\Carbon::parse($att->out_time);
+                $minutes = $start->diffInMinutes($end);
+                $totalActualHours += ($minutes / 60);
+            }
+        }
+
+        // 2. فلتر الرواتب (حسب الشهر والسنة المخزنة في الجدول)
+        $salariesQuery = SalariesModel::where('employee_id', $employeeId);
+        if ($year && $month) {
+            $salariesQuery->where('year', $year)->where('month', (int)$month); // تحويل الشهر لرقم لإزالة الصفر الزائد
+        }
+        $salaries = $salariesQuery->get();
+
+        // 3. فلتر العلاوات (حسب تاريخ الإنشاء)
+        $bonusesQuery = EmployeeBonus::where('employee_id', $employeeId);
+        if ($year && $month) {
+            $bonusesQuery->whereYear('created_at', $year)->whereMonth('created_at', $month);
+        }
+        $bonuses = $bonusesQuery->get();
+
+        // 4. فلتر التقييمات
+        $evaluationsQuery = EmployeeEvaluation::where('employee_id', $employeeId);
+        if ($year && $month) {
+            $evaluationsQuery->whereYear('created_at', $year)->whereMonth('created_at', $month);
+        }
+        $evaluations = $evaluationsQuery->get();
+
+        // إرجاع كل البيانات
+        return response()->json([
+            'html' => view('admin.hr.employees.ajax.attendance_table_ajax', ['bfo_attendances' => $attendances])->render(),
+            'total_actual_hours' => $totalActualHours,
+            'salaries' => $salaries,
+            'bonuses' => $bonuses,
+            'evaluations' => $evaluations
+        ]);
+    }
 }
+

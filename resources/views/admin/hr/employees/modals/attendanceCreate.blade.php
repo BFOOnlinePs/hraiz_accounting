@@ -16,9 +16,8 @@
                             <div class="form-group">
                                 <label for="">نوع الحركة</label>
                                 <select class="form-control select2bs4" name="activity_type">
-                                    <option value="دوام">دوام</option>
-                                    <option value="خاص">خاص</option>
-                                    <option value="ميداني">ميداني</option>
+                                    <option value="1">دوام</option>
+                                    <option value="2">مغادرة</option>
                                 </select>
                             </div>
                         </div>

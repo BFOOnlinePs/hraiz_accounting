@@ -7,6 +7,7 @@
             <th>السند</th>
             <th>اسم الزبون</th>
             {{-- <th style="width: 10%">قيمة الشيك</th> --}}
+            <th>تاريخ القبض</th>
             <th>تاريخ الاستحقاق</th>
             <th style="width:12%">حالة الشيك</th>
             {{--            <th>العمليات</th> --}}
@@ -51,6 +52,7 @@
                         <input type="text" onchange="update_check_amount_ajax({{ $key->id }} , this.value)"
                             class="form-control text-center" value="{{ $key->amount }}">
                     </td> --}}
+                    <td>{{ $key->created_at }}</td>
                     <td>{{ $key->due_date }}</td>
                     <td class="text-center">
                         <select id="check_status_{{ $key->id }}"

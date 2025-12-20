@@ -308,6 +308,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('employee_table',[App\Http\Controllers\hr\EmployeesController::class, 'employee_table'])->name('users.employees.employee_table');
             Route::get('details/{id}',[App\Http\Controllers\hr\EmployeesController::class, 'details'])->name('users.employees.details');
             Route::get('edit/{id}',[App\Http\Controllers\hr\EmployeesController::class, 'edit'])->name('users.employees.edit');
+            Route::get('attendance/filter',[App\Http\Controllers\hr\EmployeesController::class, 'filterAttendance'])->name('employees.attendance.filter');
             Route::group(['prefix'=>'rewards'],function(){
                 Route::post('create',[App\Http\Controllers\hr\DiscountRewardController::class, 'create_reward'])->name('users.employees.rewards.create');
                 Route::post('edit',[App\Http\Controllers\hr\DiscountRewardController::class, 'create_reward'])->name('users.employees.rewards.edit');
